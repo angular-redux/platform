@@ -1,8 +1,12 @@
 {
   "name": "ng2-redux-router",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Bindings from the router in Angular 2 to the redux state",
   "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "git+https://github.com/dagstuan/ng2-redux-router.git"
+  },
   "scripts": {
     "typings": "rimraf typings/ && typings install",
     "build": "npm-run-all build:cjs build:es6",
@@ -10,8 +14,7 @@
     "build:es6": "tsc -m es2015   --outDir ./release/es6 --target ES6 -d --diagnostics --pretty",
     "prepare": "npm-run-all prepare:*",
     "prepare:es6": "cp -R ./release/es6 ./release/npm",
-    "prepare:package": "cp ./{package.json,README.md} ./release/npm",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare:package": "cp ./{package.json,README.md} ./release/npm"
   },
   "peerDependencies": {
     "rxjs": "5.0.0-beta.6",
