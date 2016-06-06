@@ -7,14 +7,14 @@ import { NgRedux } from 'ng2-redux';
 import { UPDATE_LOCATION } from './actions';
 import {
   RouterAction,
-  DefaultRouterState,
-  getLocationFromState
+  DefaultRouterState
 } from './reducer';
 
 @Injectable()
 export class NgReduxRouter {
   private isTimeTravelling: boolean;
   private currentLocation: string;
+  private defaultSelectLocationState = (state) => state.router;
 
   constructor(
     private location: Location,
@@ -23,9 +23,9 @@ export class NgReduxRouter {
     private applicationRef: ApplicationRef
   ) {}
 
-  initialize() {
+  initialize(selectLocationFromState = this.defaultSelectLocationState) {
     this.listenToRouterChanges();
-    this.listenToReduxChanges();
+    this.listenToReduxChanges(selectLocationFromState);
   }
 
   listenToRouterChanges() {
@@ -49,7 +49,7 @@ export class NgReduxRouter {
       .subscribe(handleLocationChange);
   }
 
-  listenToReduxChanges() {
+  listenToReduxChanges(selectLocationFromState) {
     const handleLocationChange = (location: string) => {
       if (this.currentLocation === location) {
         return;
@@ -60,14 +60,14 @@ export class NgReduxRouter {
       this.router
         .navigateByUrl(location)
         .then(() => {
-          // Apparently navigating by url doesnt trigger angulars change detection,
+          // Apparently navigating by url doesn't trigger Angular's change detection,
           // Need to do this manually then via ApplicationRef.
           this.applicationRef.tick();
         });
     }
 
     this.ngRedux
-      .select(state => getLocationFromState(state))
+      .select(state => selectLocationFromState(state))
       .distinctUntilChanged()
       .subscribe(handleLocationChange);
   }

@@ -16,7 +16,3 @@ export function routerReducer(state: string = DefaultRouterState, action: Router
       return state;
   }
 }
-
-export function getLocationFromState(state) {
-  return state.router;
-}
