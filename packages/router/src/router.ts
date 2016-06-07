@@ -14,7 +14,8 @@ import {
 export class NgReduxRouter {
   private isTimeTravelling: boolean;
   private currentLocation: string;
-  private defaultSelectLocationState = (state) => state.router;
+  private initialLocation: string;
+  private selectLocationFromState = (state) => state.router;
 
   constructor(
     private location: Location,
@@ -23,9 +24,19 @@ export class NgReduxRouter {
     private applicationRef: ApplicationRef
   ) {}
 
-  initialize(selectLocationFromState = this.defaultSelectLocationState) {
+  initialize(selectLocationFromState = (state) => state.router) {
+    this.selectLocationFromState = selectLocationFromState
     this.listenToRouterChanges();
-    this.listenToReduxChanges(selectLocationFromState);
+    this.listenToReduxChanges();
+  }
+
+  getState() {
+    return this.ngRedux.getState();
+  }
+
+  getLocationFromStore(useInitial: boolean = false) {
+    return this.selectLocationFromState(this.getState()) ||
+      (useInitial ? this.initialLocation : '');
   }
 
   listenToRouterChanges() {
@@ -37,6 +48,16 @@ export class NgReduxRouter {
       }
 
       this.currentLocation = location;
+
+      if (this.initialLocation === undefined) {
+        this.initialLocation = location;
+
+        let locationFromStore = this.getLocationFromStore();
+        if(locationFromStore === this.currentLocation) {
+          return;
+        }
+      }
+
       this.ngRedux.dispatch(<RouterAction>{
         type: UPDATE_LOCATION,
         payload: location
@@ -49,9 +70,15 @@ export class NgReduxRouter {
       .subscribe(handleLocationChange);
   }
 
-  listenToReduxChanges(selectLocationFromState) {
+  listenToReduxChanges() {
     const handleLocationChange = (location: string) => {
-      if (this.currentLocation === location) {
+      if (this.initialLocation === undefined) {
+        // Wait for router to set initial location.
+        return;
+      }
+
+      let locationInStore = this.getLocationFromStore(true);
+      if (this.currentLocation === locationInStore) {
         return;
       }
 
@@ -67,7 +94,7 @@ export class NgReduxRouter {
     }
 
     this.ngRedux
-      .select(state => selectLocationFromState(state))
+      .select(state => this.selectLocationFromState(state))
       .distinctUntilChanged()
       .subscribe(handleLocationChange);
   }
