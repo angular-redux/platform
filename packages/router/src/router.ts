@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import { Injectable, ApplicationRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, DefaultUrlSerializer } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgRedux } from 'ng2-redux';
 import { UPDATE_LOCATION } from './actions';
@@ -64,8 +64,9 @@ export class NgReduxRouter {
       });
     }
 
-    this.router.changes
-      .map(() => this.location.path())
+    this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .map(event => new DefaultUrlSerializer().serialize(event.url))
       .distinctUntilChanged()
       .subscribe(handleLocationChange);
   }
