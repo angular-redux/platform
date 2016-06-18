@@ -2,8 +2,8 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import { Injectable, ApplicationRef } from '@angular/core';
 import { Router, NavigationEnd, DefaultUrlSerializer } from '@angular/router';
-import { Location } from '@angular/common';
 import { NgRedux } from 'ng2-redux';
+import { Observable } from 'rxjs/Observable';
 import { UPDATE_LOCATION } from './actions';
 import {
   RouterAction,
@@ -15,19 +15,33 @@ export class NgReduxRouter {
   private isTimeTravelling: boolean;
   private currentLocation: string;
   private initialLocation: string;
+
   private selectLocationFromState = (state) => state.router;
+  private urlState : Observable<string>;
 
   constructor(
-    private location: Location,
     private router: Router,
     private ngRedux: NgRedux<any>,
     private applicationRef: ApplicationRef
   ) {}
 
-  initialize(selectLocationFromState = (state) => state.router) {
+  initialize(
+    selectLocationFromState: (state: any) => string = (state) => state.router,
+    routerState$: Observable<string> = undefined
+  ) {
     this.selectLocationFromState = selectLocationFromState
+
+    this.urlState = routerState$ || this.getDefaultUrlStateObservable();
+
     this.listenToRouterChanges();
     this.listenToReduxChanges();
+  }
+
+  getDefaultUrlStateObservable() {
+    return this.router.events
+             .filter(event => event instanceof NavigationEnd)
+             .map(event => event.url)
+             .distinctUntilChanged()
   }
 
   getState() {
@@ -64,11 +78,7 @@ export class NgReduxRouter {
       });
     }
 
-    this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .map(event => new DefaultUrlSerializer().serialize(event.url))
-      .distinctUntilChanged()
-      .subscribe(handleLocationChange);
+    this.urlState.subscribe(handleLocationChange);
   }
 
   listenToReduxChanges() {
