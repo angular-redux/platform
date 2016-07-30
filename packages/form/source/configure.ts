@@ -2,6 +2,8 @@ import { provide } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { Store } from 'redux';
 
+import * as connectables from './connect';
+
 import { FormActions } from './form-actions';
 
 export const provideReduceForms = <T>(arg: Store<T> | NgRedux<T>) => {
@@ -9,15 +11,17 @@ export const provideReduceForms = <T>(arg: Store<T> | NgRedux<T>) => {
   if (typeof redux.select === 'function') {
     return [
       provide(FormActions, {
-        useFactory: (ngRedux: NgRedux<T>) => new FormActions(ngRedux.select(s => s))
+        useValue: new FormActions(redux.select(s => s))
       })
     ];
   }
   else {
     return [
       provide(FormActions, {
-        useFactory: () => new FormActions(arg as Store<T>)
-      })
+        useValue: new FormActions(arg as Store<T>)
+      }),
     ];
   }
 };
+
+export const REDUX_FORM_DIRECTIVES = Object.keys(connectables).map(k => connectables[k]);
