@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Form } from '@angular/forms';
-import { Store } from 'redux';
-import { Observable } from 'rxjs';
+
+import { Action, Store } from 'redux';
 
 @Injectable()
-export class FormActions<TReduce> {
+export class FormActions<RootState> {
   static FORM_VALUE_CHANGED = '@@redux-form/FORM_VALUE_CHANGED';
 
-  constructor(private store: Observable<TReduce> | Store<TReduce>) {}
+  constructor(private dispatch: (action: Action & {payload}) => void) {}
 
-  valueChanged<T>(form: Form, connectKey: string, value: T) {
-    debugger;
+  valueChanged<T>(connectKey: string, form: Form, value: T) {
+    this.dispatch({
+      type: FormActions.FORM_VALUE_CHANGED,
+      payload: {
+        connectKey,
+        form,
+        value
+      }
+    });
   }
 }
