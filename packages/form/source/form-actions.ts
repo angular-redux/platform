@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Form } from '@angular/forms';
 import { Store } from 'redux';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ export class FormActions<TReduce> {
 
   constructor(private store: Observable<TReduce> | Store<TReduce>) {}
 
-  valueChanged<T>(control: FormControl, value) {
+  valueChanged<T>(form: Form, connectKey: string, value: T) {
     debugger;
   }
 }

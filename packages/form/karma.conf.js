@@ -76,14 +76,13 @@ module.exports = (config) => {
       reports: {
         html: 'coverage',
       },
-      subdir: b => browser.toLowerCase().split(/[ /-]/)[0]
     },
 
     coverageReporter: {
       reporters: [
         { type: 'json' },
       ],
-      dir: './coverage/',
+      subdir: b => b.toLowerCase().split(/[ /-]/)[0],
     },
 
     logLevel: logLevel, 

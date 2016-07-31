@@ -2,8 +2,6 @@ import { provide } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { Store } from 'redux';
 
-import * as connectables from './connect';
-
 import { FormActions } from './form-actions';
 
 export const provideReduceForms = <T>(arg: Store<T> | NgRedux<T>) => {
@@ -23,5 +21,3 @@ export const provideReduceForms = <T>(arg: Store<T> | NgRedux<T>) => {
     ];
   }
 };
-
-export const REDUX_FORM_DIRECTIVES = Object.keys(connectables).map(k => connectables[k]);

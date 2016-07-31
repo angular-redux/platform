@@ -28,22 +28,18 @@ import {
   createStore,
 } from 'redux';
 
-import {
-  provideReduceForms,
-  REDUX_FORM_DIRECTIVES,
-} from './configure';
-
-import { ConnectForm } from './connect';
+import { provideReduceForms } from './configure';
+import { Connection } from './connection';
 
 import { logger } from './tests.utilities';
 
-const createExample = (key: string, template: string) => {
+const createControlFromTemplate = (key: string, template: string) => {
   const component = Component({
     selector: `test-form-${key}`,
     template,
     directives: [
       FORM_DIRECTIVES,
-      REDUX_FORM_DIRECTIVES,
+      Connection,
     ],
   });
 
@@ -108,7 +104,7 @@ describe('connect directive', () => {
   //       console.log('element', fixture.debugElement.nativeElement);
   //   }))));
 
-  const ConnectControlExample = createExample('controlExample', `
+  const ConnectControlExample = createControlFromTemplate('controlExample', `
     <form connect="fooState">
       <input type="text" ngControl="example" />
     </form>
