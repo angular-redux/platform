@@ -54,9 +54,9 @@ export class Connection<RootState> {
       this.form.updateModel(c, value);
     });
 
-    PromiseWrapper.scheduleMicrotask(() => {
+    // PromiseWrapper.scheduleMicrotask(() => {
       this.subscription = this.form.valueChanges.subscribe(values => this.publish(values));
-    });
+    // });
   }
 
   private get path() {
@@ -66,7 +66,7 @@ export class Connection<RootState> {
   }
 
   protected publish(values) {
-    this.actions.valueChanged(this.path, this.form, values);
+    this.actions.valueChanged(this.path.slice(1), this.form, values);
   }
 
   protected getState(): RootState {

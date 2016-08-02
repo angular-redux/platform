@@ -11,10 +11,8 @@ export const composeReducers =
   // for our composed reducer.
   let state: State;
 
-  if (Iterable) {
-    if (Iterable.isIterable(initialState)) {
-      state = composeImmutable(<any> initialState, reducers) as any;
-    }
+  if (Iterable.isIterable(initialState)) {
+    state = composeImmutable(<any> initialState, reducers) as any;
   }
 
   if (state == null) {
