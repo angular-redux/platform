@@ -36,28 +36,23 @@ import { Connection } from './connection';
 import { logger } from './tests.utilities';
 
 const createControlFromTemplate = (key: string, template: string) => {
-  @Component({
+  const component = Component({
     selector: `test-form-${key}`,
     template,
     directives: [
       FORM_DIRECTIVES,
       Connection,
     ]
-  })
-  class TestForm {
-    @Input() private element;
-  }
+  });
 
-  return TestForm;
-
-  // return eval(`
-  //   (function () {
-  //     var klass = class ${key} {
-  //       constructor() {}
-  //     };
-  //     return __decorate([component], klass);
-  //   })()
-  // `);
+  return eval(`
+    (function () {
+      var klass = class ${key} {
+        constructor() {}
+      };
+      return __decorate([component], klass);
+    })()
+  `);
 };
 
 interface AppState {
@@ -66,7 +61,9 @@ interface AppState {
   };
 }
 
-const fooReducer = (state = {example: 'Test!'}, action = {type: ''}) => {
+const initialState = {example: 'Test!', deepInside: {foo: 'Bar!'}};
+
+const fooReducer = (state = initialState, action = {type: ''}) => {
   return state;
 }
 
@@ -93,7 +90,7 @@ describe('connect directive', () => {
     (tcb: TestComponentBuilder) => builder = tcb));
 
   const ConnectControlExample = createControlFromTemplate('controlExample', `
-    <form ngForm connect="fooState">
+    <form connect="fooState">
       <input type="text" name="example" ngControl="example" ngModel />
     </form>
   `);
@@ -107,5 +104,22 @@ describe('connect directive', () => {
         const textbox = fixture.nativeElement.querySelector('input');
 
         expect(textbox.value).toEqual('Test!');
+    }))));
+
+  const DeepConnectExample = createControlFromTemplate('deepConnectExample', `
+    <form connect="fooState.deepInside">
+      <input type="text" name="foo" ngControl="foo" ngModel />
+    </form>
+  `);
+
+  it('should bind bind form control to element deep inside application state',
+    fakeAsync(inject([], () =>
+      builder.createAsync(DeepConnectExample).then((fixture: ComponentFixture<any>) => {
+        fixture.detectChanges();
+        flushMicrotasks();
+
+        const textbox = fixture.nativeElement.querySelector('input');
+
+        expect(textbox.value).toEqual('Bar!');
     }))));
 });
