@@ -91,7 +91,7 @@ describe('connect directive', () => {
 
   const ConnectControlExample = createControlFromTemplate('controlExample', `
     <form connect="fooState">
-      <input type="text" name="example" ngControl="example" ngModel />
+      <input type="text" name="example" ngControl ngModel />
     </form>
   `);
 
@@ -108,7 +108,7 @@ describe('connect directive', () => {
 
   const DeepConnectExample = createControlFromTemplate('deepConnectExample', `
     <form connect="fooState.deepInside">
-      <input type="text" name="foo" ngControl="foo" ngModel />
+      <input type="text" name="foo" ngControl ngModel />
     </form>
   `);
 
