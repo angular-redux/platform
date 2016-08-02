@@ -1,5 +1,6 @@
 import {
-  async,
+  fakeAsync,
+  flushMicrotasks,
   beforeEach,
   beforeEachProviders,
   describe,
@@ -14,6 +15,7 @@ import { Component, Input } from '@angular/core';
 
 import {
   FORM_DIRECTIVES,
+  disableDeprecatedForms,
   provideForms,
   FormControl,
   NgForm,
@@ -34,27 +36,28 @@ import { Connection } from './connection';
 import { logger } from './tests.utilities';
 
 const createControlFromTemplate = (key: string, template: string) => {
-  const component = Component({
+  @Component({
     selector: `test-form-${key}`,
     template,
     directives: [
       FORM_DIRECTIVES,
       Connection,
-    ],
-  });
+    ]
+  })
+  class TestForm {
+    @Input() private element;
+  }
 
-  const ctor = function() {
-    this.example = new FormControl('');
-  };
+  return TestForm;
 
-  return eval(`
-    var klass = class ${key} {
-      constructor() {
-        ctor.apply(this, arguments);
-      }
-    };
-    __decorate([component], klass);
-  `);
+  // return eval(`
+  //   (function () {
+  //     var klass = class ${key} {
+  //       constructor() {}
+  //     };
+  //     return __decorate([component], klass);
+  //   })()
+  // `);
 };
 
 interface AppState {
@@ -63,7 +66,7 @@ interface AppState {
   };
 }
 
-const fooReducer = (state = {example: ''}, action = {type: ''}) => {
+const fooReducer = (state = {example: 'Test!'}, action = {type: ''}) => {
   return state;
 }
 
@@ -81,42 +84,28 @@ describe('connect directive', () => {
   });
 
   beforeEachProviders(() => [
+    disableDeprecatedForms(),
     provideForms(),
-    provideReduceForms(store)
+    provideReduceForms(store),
   ]);
 
   beforeEach(inject([TestComponentBuilder],
     (tcb: TestComponentBuilder) => builder = tcb));
 
-  // const ConnectFormExample = createExample('formExample', `
-  //   <form #form="ngForm" connect="fooState">
-  //     <input type="text" ngControl="example" />
-  //   </form>
-  // `);
-
-  // it('should bind a form control to application state',
-  //   async(inject([], () =>
-  //     builder.createAsync(ConnectFormExample).then((fixture: ComponentFixture<any>) => {
-  //       fixture.detectChanges();
-
-  //       debugger;
-
-  //       console.log('element', fixture.debugElement.nativeElement);
-  //   }))));
-
   const ConnectControlExample = createControlFromTemplate('controlExample', `
-    <form connect="fooState">
-      <input type="text" ngControl="example" />
+    <form ngForm connect="fooState">
+      <input type="text" name="example" ngControl="example" ngModel />
     </form>
   `);
 
-  it('should bind an input control to application state',
-    async(inject([], () =>
+  it('should bind all form controls to application state',
+    fakeAsync(inject([], () =>
       builder.createAsync(ConnectControlExample).then((fixture: ComponentFixture<any>) => {
         fixture.detectChanges();
+        flushMicrotasks();
 
-        debugger;
+        const textbox = fixture.nativeElement.querySelector('input');
 
-        console.log('element connect', fixture.debugElement.nativeElement);
+        expect(textbox.value).toEqual('Test!');
     }))));
 });

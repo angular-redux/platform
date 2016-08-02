@@ -1,13 +1,18 @@
 import {
   Directive,
-  Inject,
+  Injectable,
   Input,
+  Query,
+  QueryList
 } from '@angular/core';
 import {
-  AbstractControl,
+  FormControl,
+  FormGroup,
   NgForm,
   NgControl
 } from '@angular/forms';
+
+import { PromiseWrapper } from '@angular/common/src/facade/promise';
 
 import {
   Iterable,
@@ -20,36 +25,20 @@ import { FormActions } from './form-actions';
 
 @Directive({
   selector: 'form[connect]',
+  host: {
+    '(valueChange)': 'publish($event.target.value)'
+  },
 })
 export class Connection<RootState> {
-    @Input('connect') private connectTo: string;
+  @Input('connect') public connectTo: string;
 
   private subscription: Subscription;
 
   constructor(
-    @Inject(FormActions) private actions: FormActions<RootState>,
-    @Inject(NgForm) private form: NgForm
-  ) {
-    this.subscription = this.form.valueChanges.subscribe(values => this.publish(values));
-  }
-
-  private ngOnChanges() {
-    const state = this.getState();
-
-    this.recursiveUpdate(state, this.form.controls);
-  }
-
-  private recursiveUpdate(state: RootState, controls: {[index: string]: AbstractControl}) {
-    // NOTE(cbond): Turn this into an iterative loop not a recursive one
-
-    // for (const key of Object.keys(this.form.controls)) {
-    //   const control = this.form.controls[key];
-    //   if (control) {
-    //     control.value = this.seek(state, key);
-    //     control.updateValueAndValidity({ onlySelf: false, emitEvent: true });
-    //   }
-    // }
-  }
+    @Query(NgControl) private children: QueryList<NgControl>,
+    private actions: FormActions<RootState>,
+    private form: NgForm
+  ) {}
 
   private ngOnDestroy () {
     if (this.subscription) {
@@ -58,18 +47,38 @@ export class Connection<RootState> {
     }
   }
 
+  private ngAfterViewInit() {
+    this.children.forEach(c => {
+      const value = this.seek(this.getState(), this.path.concat([c.name]));
+
+      this.form.updateModel(c, value);
+    });
+
+    PromiseWrapper.scheduleMicrotask(() => {
+      this.subscription = this.form.valueChanges.subscribe(values => this.publish(values));
+    });
+  }
+
+  private get path() {
+    return typeof this.connectTo === 'string'
+      ? this.connectTo.split(/\./)
+      : [].concat(this.connectTo);
+  }
+
   protected publish(values) {
+    debugger;
     this.actions.valueChanged(this.connectTo, this.form, values);
   }
 
   protected getState(): RootState {
-    return null;
+    return this.actions.getState();
   }
 
-  protected seek(state: RootState | Iterable<string, any> | Map<string, any>, key: string[]) {
-    let deepValue;
+  protected seek(state: RootState | Iterable<string, any> | Map<string, any>, key: string[]): any {
+    let deepValue = state;
+
     for (const k of key) {
-      if (Iterable.isIterable(state)) {
+      if (Iterable.isIterable(deepValue)) {
         const m = deepValue as ImmutableMap<string, any>;
         if (typeof m.get === 'function') {
            deepValue = m.get(k);
@@ -78,11 +87,11 @@ export class Connection<RootState> {
           throw new Error(`Cannot retrieve value immutable nonassociative container: ${k}`);
         }
       }
-      else if (state instanceof Map) {
-        deepValue = state.get(k);
+      else if (deepValue instanceof Map) {
+        deepValue = (<Map<string, any>> deepValue).get(k);
       }
       else {
-        deepValue = state[k];
+        deepValue = deepValue[k];
       }
 
       // If we were not able to find this state inside of our root state

@@ -90,7 +90,7 @@ module.exports = (config) => {
     autoWatch: config.singleRun === false,
 
     browsers: [
-      'Chrome',
+      'ChromeCanary',
     ],
   });
 };
