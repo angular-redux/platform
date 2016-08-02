@@ -5,7 +5,7 @@ import { NgRedux } from 'ng2-redux';
 
 import { Store } from 'redux';
 
-import { FormActions } from './form-actions';
+import { FormStore } from './form-store';
 
 export const provideReduceForms = <T>(arg: Store<T> | NgRedux<T>) => {
   const abstractStore = {
@@ -14,8 +14,8 @@ export const provideReduceForms = <T>(arg: Store<T> | NgRedux<T>) => {
   };
 
   return [
-    provide(FormActions, {
-      useValue: new FormActions(abstractStore)
+    provide(FormStore, {
+      useValue: new FormStore(abstractStore)
     })
   ];
 };

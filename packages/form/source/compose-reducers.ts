@@ -1,9 +1,6 @@
 import { Reducer, Action } from 'redux';
 
-let immutable; // optional dependency
-try {
-  immutable = require('immutable');
-} catch (err) {}
+import { Iterable } from 'immutable';
 
 export const composeReducers =
     <State>(initialState: State, ...reducers: Reducer<State>[]) => {
@@ -14,8 +11,8 @@ export const composeReducers =
   // for our composed reducer.
   let state: State;
 
-  if (immutable) {
-    if (immutable.Iterable.isIterable(initialState)) {
+  if (Iterable) {
+    if (Iterable.isIterable(initialState)) {
       state = composeImmutable(<any> initialState, reducers) as any;
     }
   }

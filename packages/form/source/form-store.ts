@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Form } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 import { Action, Store } from 'redux';
 
@@ -11,22 +11,22 @@ export interface AbstractStore<RootState> {
   getState(): RootState;
 }
 
-@Injectable()
-export class FormActions<RootState> {
-  static FORM_VALUE_CHANGED = '@@redux-form/FORM_VALUE_CHANGED';
+export const FORM_CHANGED = '@@redux-form/FORM_CHANGED';
 
+@Injectable()
+export class FormStore<RootState> {
   constructor(private store: AbstractStore<RootState>) {}
 
   getState() {
     return this.store.getState();
   }
 
-  valueChanged<T>(connectKey: string, form: Form, value: T) {
+  valueChanged<T>(path: string[], form: NgForm, value: T) {
     this.store.dispatch({
-      type: FormActions.FORM_VALUE_CHANGED,
+      type: FORM_CHANGED,
       payload: {
-        connectKey,
-        form,
+        path,
+        valid: form.valid === true,
         value
       }
     });

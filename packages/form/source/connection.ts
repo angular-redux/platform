@@ -21,7 +21,7 @@ import {
 
 import { Subscription } from 'rxjs';
 
-import { FormActions } from './form-actions';
+import { FormStore } from './form-store';
 
 @Directive({
   selector: 'form[connect]',
@@ -36,7 +36,7 @@ export class Connection<RootState> {
 
   constructor(
     @Query(NgControl) private children: QueryList<NgControl>,
-    private actions: FormActions<RootState>,
+    private actions: FormStore<RootState>,
     private form: NgForm
   ) {}
 
@@ -66,8 +66,7 @@ export class Connection<RootState> {
   }
 
   protected publish(values) {
-    debugger;
-    this.actions.valueChanged(this.connectTo, this.form, values);
+    this.actions.valueChanged(this.path, this.form, values);
   }
 
   protected getState(): RootState {

@@ -61,7 +61,13 @@ interface AppState {
   };
 }
 
-const initialState = {example: 'Test!', deepInside: {foo: 'Bar!'}};
+const initialState = {
+  example: 'Test!',
+  deepInside: {
+    foo: 'Bar!'
+  },
+  checkExample: true,
+};
 
 const fooReducer = (state = initialState, action = {type: ''}) => {
   return state;
@@ -102,7 +108,6 @@ describe('connect directive', () => {
         flushMicrotasks();
 
         const textbox = fixture.nativeElement.querySelector('input');
-
         expect(textbox.value).toEqual('Test!');
     }))));
 
@@ -112,14 +117,32 @@ describe('connect directive', () => {
     </form>
   `);
 
-  it('should bind bind form control to element deep inside application state',
+  it('should bind a form control to element deep inside application state',
     fakeAsync(inject([], () =>
       builder.createAsync(DeepConnectExample).then((fixture: ComponentFixture<any>) => {
         fixture.detectChanges();
         flushMicrotasks();
 
         const textbox = fixture.nativeElement.querySelector('input');
-
         expect(textbox.value).toEqual('Bar!');
     }))));
+
+  const CheckboxExample = createControlFromTemplate('checkboxExample', `
+    <form connect="fooState">
+      <input type="checkbox" name="checkExample" ngControl ngModel />
+    </form>
+  `);
+
+  it('should bind a checkbox to a boolean state',
+    fakeAsync(inject([], () =>
+      builder.createAsync(CheckboxExample).then((fixture: ComponentFixture<any>) => {
+        fixture.detectChanges();
+        flushMicrotasks();
+
+        const checkbox = fixture.nativeElement.querySelector('input[type="checkbox"]');
+        expect(checkbox.checked).toEqual(true);
+
+
+    }))));
+
 });
