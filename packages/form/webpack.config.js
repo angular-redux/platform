@@ -9,10 +9,11 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js',
+    filename: '[name].js',
     publicPath: '/',
-    sourceMapFilename: '[name].[hash].js.map',
+    sourceMapFilename: '[name].js.map',
     chunkFilename: '[id].chunk.js',
+    libraryTarget: 'umd',
   },
 
   devtool: process.env.NODE_ENV === 'production' ?
