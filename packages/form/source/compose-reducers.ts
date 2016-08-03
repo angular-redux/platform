@@ -12,11 +12,21 @@ export const composeReducers =
   let state: State = null;
 
   for (const reducer of reducers) {
+    const result = reducer.apply(null, [undefined, {type: ''}]);
+    if (result === undefined) {
+      continue;
+    }
+
     if (Iterable.isIterable(state)) {
-      state = (<any>state).concat(reducer(undefined, {type: ''}));
+      state = (<any>state).concat(result);
     }
     else {
-      Object.assign(state, reducer(undefined, {type: ''}));
+      if (state) {
+        Object.assign(state, result);
+      }
+      else {
+        state = result;
+      }
     }
   }
 

@@ -9,6 +9,7 @@ import {
   FormControl,
   FormGroup,
   NgForm,
+  NgModel,
   NgControl
 } from '@angular/forms';
 
@@ -32,30 +33,39 @@ import { FormStore } from './form-store';
 export class Connection<RootState> {
   @Input('connect') public connectTo: string;
 
-  private subscription: Subscription;
+  private stateSubscription: Redux.Unsubscribe;
+
+  private formSubscription: Subscription;
+
+  private wound: boolean = false;
 
   constructor(
     @Query(NgControl) private children: QueryList<NgControl>,
-    private actions: FormStore<RootState>,
+    private store: FormStore<RootState>,
     private form: NgForm
-  ) {}
+  ) {
+    this.stateSubscription = this.store.subscribe(state => {
+      if (this.wound) {
+        return;
+      }
+      this.wound = true;
+      this.resetState();
+      this.wound = false;
+    });
+  }
 
   private ngOnDestroy () {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
+    if (this.formSubscription) {
+      this.formSubscription.unsubscribe();
+      this.formSubscription = null;
     }
   }
 
   private ngAfterViewInit() {
-    this.children.forEach(c => {
-      const value = this.seek(this.getState(), this.path.concat([c.name]));
-
-      this.form.updateModel(c, value);
-    });
+    this.resetState();
 
     PromiseWrapper.scheduleMicrotask(() => {
-      this.subscription = this.form.valueChanges.subscribe(values => this.publish(values));
+      this.formSubscription = this.form.valueChanges.subscribe(values => this.publish(values));
     });
   }
 
@@ -65,12 +75,28 @@ export class Connection<RootState> {
       : [].concat(this.connectTo);
   }
 
+  protected resetState() {
+    this.children.forEach(c => {
+      const value = this.seek(this.getState(), this.path.concat([c.name]));
+
+      const control = this.form.getControl(c as NgModel);
+      if (control == null || control.value !== value) {
+        this.form.updateModel(c, value);
+      }
+    });
+  }
+
   protected publish(values) {
-    this.actions.valueChanged(this.path.slice(1), this.form, values);
+    if (this.wound) {
+      return;
+    }
+    this.wound = true;
+    this.store.valueChanged(this.path, this.form, values);
+    this.wound = false;
   }
 
   protected getState(): RootState {
-    return this.actions.getState();
+    return this.store.getState();
   }
 
   protected seek(state: RootState | Iterable<string, any> | Map<string, any>, key: string[]): any {

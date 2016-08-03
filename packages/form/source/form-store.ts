@@ -9,6 +9,9 @@ export interface AbstractStore<RootState> {
 
   /// Retrieve the current application state
   getState(): RootState;
+
+  /// Subscribe to changes in the store
+  subscribe(fn: (state: RootState) => void): Redux.Unsubscribe;
 }
 
 export const FORM_CHANGED = '@@redux-form/FORM_CHANGED';
@@ -19,6 +22,10 @@ export class FormStore<RootState> {
 
   getState() {
     return this.store.getState();
+  }
+
+  subscribe(fn: (state: RootState) => void): Redux.Unsubscribe {
+    return this.store.subscribe(fn);
   }
 
   valueChanged<T>(path: string[], form: NgForm, value: T) {
