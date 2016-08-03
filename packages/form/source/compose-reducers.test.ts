@@ -62,10 +62,4 @@ describe('composeReducers', () => {
     expect(plain).not.to.be.null;
     expect(plain).to.deep.equal(['a', 'b', 'c', 'd']);
   });
-
-  it('throws an exception when given a null initial state', () => {
-    expect(() => {
-      const state = compose(List.of(), List.of(), null);
-    }).to.throw();
-  });
 });

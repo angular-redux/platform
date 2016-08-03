@@ -89,9 +89,11 @@ const testReducer = (state = initialState, action = {type: ''}) => {
   return state;
 }
 
-const reducers = combineReducers({
-  fooState: composeReducers(testReducer, defaultFormReducer({}))
-});
+const reducers = composeReducers(
+  combineReducers({
+    fooState: testReducer
+  }),
+  defaultFormReducer());
 
 describe('connect directive', () => {
   let builder: TestComponentBuilder;

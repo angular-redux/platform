@@ -155,6 +155,7 @@ function todoReducer(state = todos, action: {type: string, payload?}) {
           name: ''
         });
       }
+      break;
     case 'REMOVE_TODO':
       return state.deleteIn(['list', action.payload.index]);
   }

@@ -37,20 +37,13 @@ export class Connection<RootState> {
 
   private formSubscription: Subscription;
 
-  private wound: boolean = false;
-
   constructor(
     @Query(NgControl) private children: QueryList<NgControl>,
     private store: FormStore<RootState>,
     private form: NgForm
   ) {
     this.stateSubscription = this.store.subscribe(state => {
-      if (this.wound) {
-        return;
-      }
-      this.wound = true;
       this.resetState();
-      this.wound = false;
     });
   }
 
@@ -87,12 +80,7 @@ export class Connection<RootState> {
   }
 
   protected publish(values) {
-    if (this.wound) {
-      return;
-    }
-    this.wound = true;
     this.store.valueChanged(this.path, this.form, values);
-    this.wound = false;
   }
 
   protected getState(): RootState {
