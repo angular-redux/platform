@@ -7,13 +7,14 @@ import {
   expect,
   it,
   inject,
-  tick,
   ComponentFixture,
   TestComponentBuilder,
 } from '@angular/core/testing';
-
-import { Component, Input } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  NgZone,
+} from '@angular/core';
 import {
   FORM_DIRECTIVES,
   disableDeprecatedForms,
@@ -32,13 +33,12 @@ import {
 } from 'redux';
 
 import { composeReducers } from './compose-reducers';
-import { formReducer } from './form-reducer';
+import { defaultFormReducer } from './form-reducer';
 
 import { provideReduceForms } from './configure';
 import { Connection } from './connection';
 
 import {
-  drainQueue,
   logger,
   simulateUserTyping,
 } from './tests.utilities';
@@ -86,12 +86,11 @@ const initialState: FooState = {
 };
 
 const testReducer = (state = initialState, action = {type: ''}) => {
-  console.log('Dispatch action: ', action);
   return state;
 }
 
 const reducers = combineReducers({
-  fooState: composeReducers({}, formReducer, testReducer)
+  fooState: composeReducers({}, defaultFormReducer, testReducer)
 });
 
 describe('connect directive', () => {
@@ -123,7 +122,7 @@ describe('connect directive', () => {
       builder.createAsync(ConnectComponent).then((fixture: ComponentFixture<any>) => {
         fixture.detectChanges();
 
-        drainQueue();
+        flushMicrotasks();
 
         const textbox = fixture.nativeElement.querySelector('input');
         expect(textbox.value).toEqual('Test!');
@@ -140,7 +139,7 @@ describe('connect directive', () => {
       builder.createAsync(DeepConnectComponent).then((fixture: ComponentFixture<any>) => {
         fixture.detectChanges();
 
-        drainQueue();
+        flushMicrotasks();
 
         const textbox = fixture.nativeElement.querySelector('input');
         expect(textbox.value).toEqual('Bar!');
@@ -157,7 +156,7 @@ describe('connect directive', () => {
       builder.createAsync(CheckboxForm).then((fixture: ComponentFixture<any>) => {
         fixture.detectChanges();
 
-        drainQueue();
+        flushMicrotasks();
 
         const checkbox = fixture.nativeElement.querySelector('input[type="checkbox"]');
         expect(checkbox.checked).toEqual(true);
@@ -178,7 +177,7 @@ describe('connect directive', () => {
       builder.createAsync(SelectForm).then((fixture: ComponentFixture<any>) => {
         fixture.detectChanges();
 
-        drainQueue();
+        flushMicrotasks();
 
         const select = fixture.nativeElement.querySelector('select');
         expect(select.value).toEqual('two');
@@ -200,7 +199,7 @@ describe('connect directive', () => {
       builder.createAsync(UpdateTextValueExample).then((fixture: ComponentFixture<any>) => {
         fixture.detectChanges();
 
-        drainQueue();
+        flushMicrotasks();
 
         // validate initial data before we do the UI tests
         let state = store.getState();
@@ -209,12 +208,12 @@ describe('connect directive', () => {
         const textbox = fixture.nativeElement.querySelector('input');
         expect(textbox.value).toEqual('two');
 
-        simulateUserTyping(textbox, 'abc');
-        drainQueue();
+        return simulateUserTyping(this.ngZone, textbox, 'abc')
+          .then(() => {
+            expect(textbox.value).toEqual('twoabc');
 
-        expect(textbox.value).toEqual('twoabc');
-
-        state = store.getState();
-        expect(state.fooState.bar).toEqual('twoabc');
+            state = store.getState();
+            expect(state.fooState.bar).toEqual('twoabc');
+          });
     }))));
 });

@@ -1,13 +1,9 @@
-import { tick, flushMicrotasks } from '@angular/core/testing';
+import { NgZone } from '@angular/core';
+import { flushMicrotasks } from '@angular/core/testing';
 
 import { Iterable } from 'immutable';
 
-const keysim = require('keysim');
-
 const createLogger = require('redux-logger');
-
-// Preferred keyboard layout when simulating typing into form fields
-const keyboard = keysim.Keyboard.US_ENGLISH;
 
 declare const __DEV__: boolean;
 
@@ -28,18 +24,57 @@ export const logger = createLogger({
   }
 });
 
-export const drainQueue = () => {
-  tick();
-
-  flushMicrotasks();
+export const simulateUserTyping = (ngZone: NgZone, control, text: string): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    try {
+      dispatchKeyEvents(control, text);
+      resolve();
+    } catch (error) {
+      console.error('Failed to dispatch typing events', error);
+      reject(error);
+    }
+    finally {
+      flushMicrotasks();
+    }
+  });
 };
 
-export const simulateUserTyping = (control: HTMLInputElement, text: string) => {
-  if (keyboard == null) {
-    throw new Error('No default keyboard layout has been configured for unit tests');
+export const dispatchKeyEvents = (control, text: string) => {
+  if (!text) {
+    return;
   }
 
-  keyboard.dispatchEventsForInput(text, control);
+  control.focus();
 
-  drainQueue();
+  for (const character of text) {
+    const c = character.charCodeAt(0);
+
+    const keyboardEventFactory = (eventType: string, value) => {
+      return new KeyboardEvent(eventType, {
+        altKey: false,
+        cancelable: false,
+        bubbles: true,
+        ctrlKey: false,
+        metaKey: false,
+        detail: value,
+        view: window,
+        shiftKey: false,
+        repeat: false,
+        key: value,
+      });
+    };
+
+    const eventFactory = (eventType: string) => {
+      return new Event('input', {
+        bubbles: true,
+        cancelable: false,
+      });
+    }
+
+    control.dispatchEvent(keyboardEventFactory('keydown', c));
+    control.dispatchEvent(keyboardEventFactory('keypress', c));
+    control.dispatchEvent(keyboardEventFactory('keyup', c));
+    control.value += character;
+    control.dispatchEvent(eventFactory('input'));
+  }
 };

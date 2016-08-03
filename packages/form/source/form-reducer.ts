@@ -18,17 +18,7 @@ interface Action extends ReduxAction {
   payload?;
 }
 
-interface FormValueChanged {
-  /// Path to the key being changed
-  path: string[];
-
-  /// Is the form in a valid state (all validators passing)?
-  valid: boolean;
-
-  value;
-}
-
-export const formReducer = <State>(state: State | Iterable.Keyed<string, any>, action: Action) => {
+export const defaultFormReducer = <State>(state: State | Iterable.Keyed<string, any>, action: Action) => {
   switch (action.type) {
     case FORM_CHANGED:
       const {path, value} = action.payload;
