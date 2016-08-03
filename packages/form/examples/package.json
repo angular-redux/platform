@@ -1,5 +1,8 @@
 {
   "name": "ng2-redux-form-examples",
+  "engines": {
+    "node": ">=6.0"
+  },
   "scripts": {
     "prebuild": "npm run clean",
     "dev": "cross-env NODE_ENV=development webpack-dev-server -d --inline --progress --no-info",

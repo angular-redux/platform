@@ -14,11 +14,13 @@ describe('composeReducers', () => {
   const compose = (s1, s2, s3) => {
     const r1 = (state = s1, action) => state;
     const r2 = (state = s2, action) => state;
+    const r3 = (state = s3, action) => state;
 
-    const reducer = composeReducers<any>(s3, r1, r2);
+    const reducer = composeReducers(r1, r2, r3);
 
     return reducer(undefined, {type: ''});
-  }
+  };
+
   it('can compose plain-object initial states', () => {
     const state = compose({a: 1}, {b: 1}, {c: 1});
     expect(state).not.to.be.undefined;

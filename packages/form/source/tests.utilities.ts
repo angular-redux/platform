@@ -3,14 +3,12 @@ import { flushMicrotasks } from '@angular/core/testing';
 
 import { Iterable } from 'immutable';
 
-const createLogger = require('redux-logger');
-
-declare const __DEV__: boolean;
+import * as createLogger from 'redux-logger';
 
 export const logger = createLogger({
   level: 'debug',
   collapsed: true,
-  predicate: (getState, action) => __DEV__ === true,
+  predicate: (getState, action) => true,
   stateTransformer: (state) => {
     let newState = {};
     for (let i of Object.keys(state)) {

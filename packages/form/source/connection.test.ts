@@ -90,7 +90,7 @@ const testReducer = (state = initialState, action = {type: ''}) => {
 }
 
 const reducers = combineReducers({
-  fooState: composeReducers({}, defaultFormReducer, testReducer)
+  fooState: composeReducers(testReducer, defaultFormReducer({}))
 });
 
 describe('connect directive', () => {
