@@ -4,12 +4,8 @@
     "node": ">=6.0"
   },
   "scripts": {
-    "prebuild": "npm run clean",
     "dev": "cross-env NODE_ENV=development webpack-dev-server -d --inline --progress --no-info",
-    "build": "cross-env NODE_ENV=production webpack",
-    "clean": "rimraf dist",
-    "postinstall": "npm run build",
-    "pretest": "rimraf coverage"
+    "preinstall": "./module-links.sh"
   },
   "devDependencies": {
     "@angular/router": "^3.0.0-beta.2",
