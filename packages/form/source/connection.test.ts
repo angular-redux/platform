@@ -210,7 +210,7 @@ describe('connect directive', () => {
         const textbox = fixture.nativeElement.querySelector('input');
         expect(textbox.value).toEqual('two');
 
-        return simulateUserTyping(this.ngZone, textbox, 'abc')
+        return simulateUserTyping(textbox, 'abc')
           .then(() => {
             expect(textbox.value).toEqual('twoabc');
 

@@ -1,4 +1,3 @@
-import { NgZone } from '@angular/core';
 import { flushMicrotasks } from '@angular/core/testing';
 
 import { Iterable } from 'immutable';
@@ -22,7 +21,7 @@ export const logger = createLogger({
   }
 });
 
-export const simulateUserTyping = (ngZone: NgZone, control, text: string): Promise<void> => {
+export const simulateUserTyping = (control, text: string): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     try {
       dispatchKeyEvents(control, text);

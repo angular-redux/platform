@@ -97,7 +97,7 @@ export class Connection<RootState> {
            deepValue = m.get(k);
         }
         else {
-          throw new Error(`Cannot retrieve value immutable nonassociative container: ${k}`);
+          throw new Error(`Cannot retrieve value from immutable nonassociative container: ${k}`);
         }
       }
       else if (deepValue instanceof Map) {
