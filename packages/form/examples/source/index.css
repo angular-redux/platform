@@ -1,0 +1,23 @@
+.form-values {
+  display: table;
+}
+
+.form-values strong {
+  display: table-cell;
+  padding: 10px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+}
+
+input[type="checkbox"] {
+  margin: 20px;
+}
+
+select {
+  width: 100px;
+}

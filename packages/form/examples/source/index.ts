@@ -9,7 +9,7 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { Component, provide } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 
-import { NgRedux } from 'ng2-redux';
+import { NgRedux, select } from 'ng2-redux';
 
 import { combineReducers } from 'redux';
 
@@ -25,6 +25,7 @@ import { logger } from '../../source/tests.utilities';
   selector: 'example',
   template: `
     <div>
+      <h3>Form</h3>
       <form connect="form1">
         <input ngControl ngModel name="textExample" type="text" />
         <input ngControl ngModel name="checkboxExample" type="checkbox" />
@@ -34,11 +35,30 @@ import { logger } from '../../source/tests.utilities';
           <option value="three">Three</option>
         </select>
       </form>
+      <div>
+        <h3>Redux state</h3>
+        <div class="form-values">
+          <strong>Text example:</strong>
+          <div>{{textExample | async}}</div>
+          <strong>Checkbox:</strong>
+          <div>{{checkboxExample | async}}</div>
+          <strong>Dropdown:</strong>
+          <div>{{dropdownExample | async}}</div>
+        </div>
+      </div>
     </div>
   `,
-  directives: [Connection]
+  directives: [Connection],
+  styles: [require('./index.css')]
 })
-export class Example {}
+export class Example {
+  // These are just for reproducing the values inside the 'Form values' panel
+  // and are not required to actually hook up the form. We are just pulling
+  // the values back out of Redux to show them changing as the form changes.
+  @select(s => s.form1.textExample) private textExample;
+  @select(s => s.form1.checkboxExample) private checkboxExample;
+  @select(s => s.form1.dropdownExample) private dropdownExample;
+}
 
 interface AppState {
   form1?: {
