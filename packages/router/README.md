@@ -1,7 +1,7 @@
 # ng2-redux-router
 ### Bindings to connect @angular/router to ng2-redux
 
-This package uses the new v3 alpha router for angular 2 `@angular/router@v3.0.0-alpha.7`.
+This package uses the new v3 alpha router for angular 2 `@angular/router@3.0.0-beta.2`.
 
 ### Setup
 
