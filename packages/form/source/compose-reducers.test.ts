@@ -27,6 +27,18 @@ describe('composeReducers', () => {
     expect(state).to.deep.equal({a: 1, b: 1, c: 1});
   });
 
+  it('can compose array states', () => {
+    const state = compose([1], [2], [3]);
+    expect(state).not.to.be.undefined;
+    expect(state).to.deep.equal([1, 2, 3]);
+  });
+
+  it('cannot compose an array with a non-array type', () => {
+    expect(() => {
+      const state = compose([1], {a: 2}, {b: 3});
+    }).to.throw();
+  });
+
   it('can compose Immutable::Map initial states', () => {
     const state = compose(fromJS({a: 1}), fromJS({b: 1}), fromJS({c: 1}));
     expect(Map.isMap(state)).to.be.true;

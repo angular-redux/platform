@@ -7,7 +7,7 @@ import { Store } from 'redux';
 
 import { AbstractStore, FormStore } from './form-store';
 
-export const provideReduceForms = <T>(arg: Store<T> | NgRedux<T>) => {
+export const provideFormConnect = <T>(arg: Store<T> | NgRedux<T>) => {
   const abstractStore: AbstractStore<T> = {
     dispatch: action => arg.dispatch(action),
     getState: () => arg.getState(),

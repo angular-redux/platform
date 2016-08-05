@@ -15,13 +15,10 @@ import { NgRedux, select } from 'ng2-redux';
 
 import { combineReducers } from 'redux';
 
-import {
-  composeReducers,
-  defaultFormReducer,
-  provideReduceForms,
-  Connection,
-} from '../../source';
-
+import { Connect } from '../../source/connect';
+import { composeReducers } from '../../source/compose-reducers';
+import { defaultFormReducer } from '../../source/form-reducer';
+import { provideFormConnect } from '../../source/configure';
 import { logger } from '../../source/tests.utilities';
 
 @Component({
@@ -41,17 +38,23 @@ import { logger } from '../../source/tests.utilities';
       <div>
         <h3>Redux state</h3>
         <div class="form-values">
-          <strong>Text example:</strong>
-          <div>{{textExample | async}}</div>
-          <strong>Checkbox:</strong>
-          <div>{{checkboxExample | async}}</div>
-          <strong>Dropdown:</strong>
-          <div>{{dropdownExample | async}}</div>
+          <div>
+            Text example
+            <span>{{textExample | async}}</span>
+          </div>
+          <div>
+            Checkbox
+            <span>{{checkboxExample | async}}</span>
+          </div>
+          <div>
+            Dropdown
+            <span>{{dropdownExample | async}}</span>
+          </div>
         </div>
       </div>
     </div>
   `,
-  directives: [Connection],
+  directives: [Connect],
   styles: [require('./index.css')]
 })
 export class FormExample {
@@ -78,7 +81,7 @@ export class FormExample {
       </li>
     </ul>
   `,
-  directives: [Connection]
+  directives: [Connect]
 })
 export class TodoExample {
   @select(s => s.todos.get('list')) private list;
@@ -100,12 +103,8 @@ export class TodoExample {
 @Component({
   selector: 'example',
   template: `
-    <div>
-      <form-example></form-example>
-    </div>
-    <div>
-      <todo-example></todo-example>
-    </div>
+    <form-example></form-example>
+    <todo-example></todo-example>
   `,
   directives: [FormExample, TodoExample]
 })
@@ -170,5 +169,5 @@ bootstrap(Example, [
   provide(NgRedux, {useValue: ngRedux}),
   provideForms(),
   disableDeprecatedForms(),
-  provideReduceForms(ngRedux)
+  provideFormConnect(ngRedux)
 ]);

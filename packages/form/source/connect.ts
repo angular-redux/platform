@@ -22,7 +22,9 @@ import {
 
 import { Subscription } from 'rxjs';
 
+import { FormException } from './form-exception';
 import { FormStore } from './form-store';
+import { State } from './state';
 
 @Directive({
   selector: 'form[connect]',
@@ -30,8 +32,8 @@ import { FormStore } from './form-store';
     '(valueChange)': 'publish($event.target.value)'
   },
 })
-export class Connection<RootState> {
-  @Input('connect') public connectTo: string;
+export class Connect<RootState> {
+  @Input('connect') public statePath: string[] | string;
 
   private stateSubscription: Redux.Unsubscribe;
 
@@ -62,17 +64,28 @@ export class Connection<RootState> {
     });
   }
 
-  private get path() {
-    return typeof this.connectTo === 'string'
-      ? this.connectTo.split(/\./)
-      : [].concat(this.connectTo);
+  private get path(): string[] {
+    switch (typeof this.statePath) {
+      case 'string':
+        return (<string> this.statePath).split(/\./g);
+      case 'object':
+        if (State.empty(this.statePath)) {
+          return [];
+        }
+        if (typeof this.statePath.length === 'number') {
+          return <string[]> this.statePath;
+        }
+      default: // fallthrough above (no break)
+        throw new Error(`Cannot determine path to object: ${JSON.stringify(this.statePath)}`);
+    }
   }
 
   protected resetState() {
     this.children.forEach(c => {
-      const value = this.seek(this.getState(), this.path.concat([c.name]));
+      const value = State.get(this.getState(), this.path.concat([c.name]));
 
       const control = this.form.getControl(c as NgModel);
+
       if (control == null || control.value !== value) {
         this.form.updateModel(c, value);
       }
@@ -85,37 +98,5 @@ export class Connection<RootState> {
 
   protected getState(): RootState {
     return this.store.getState();
-  }
-
-  protected seek(state: RootState | Iterable<string, any> | Map<string, any>, key: string[]): any {
-    let deepValue = state;
-
-    for (const k of key) {
-      if (Iterable.isIterable(deepValue)) {
-        const m = deepValue as ImmutableMap<string, any>;
-        if (typeof m.get === 'function') {
-           deepValue = m.get(k);
-        }
-        else {
-          throw new Error(`Cannot retrieve value from immutable nonassociative container: ${k}`);
-        }
-      }
-      else if (deepValue instanceof Map) {
-        deepValue = (<Map<string, any>> deepValue).get(k);
-      }
-      else {
-        deepValue = deepValue[k];
-      }
-
-      // If we were not able to find this state inside of our root state
-      // structure, then we return undefined -- not null -- to indicate that
-      // state. But this could be a perfectly normal use-case so we don't
-      // want to throw an exception or anything along those lines.
-      if (deepValue === undefined) {
-        return undefined;
-      }
-    }
-
-    return deepValue;
   }
 }

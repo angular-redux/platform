@@ -9,10 +9,14 @@ import {
   Reducer
 } from 'redux';
 
+import { FormException } from './form-exception';
+
 import {
   FORM_CHANGED,
   FormStore,
 } from './form-store';
+
+import { State as StateObject } from './state';
 
 interface Action extends ReduxAction {
   payload?;
@@ -23,7 +27,7 @@ const mutateState = (state, path: string[], value) => {
     const immutableState: Map<string, any> = <any>state; // any associative immutablejs container will do
 
     if (typeof immutableState.setIn !== 'function') {
-      throw new Error(`Do not know how to update Immutable state: ${path.join('.')}`);
+      throw new FormException(`Do not know how to update Immutable state: ${path.join('.')}`);
     }
 
     if (path.length > 0) {
@@ -33,22 +37,14 @@ const mutateState = (state, path: string[], value) => {
     }
   }
   else {
-    // NOTE(cbond): The performance of this is not optimal, but the terse syntax
-    // is wonderful. We essentially need a setIn() implementation for plain JS
-    // objects but, absent that, ImmutableJS works well. This also works with Map,
-    // Set, and Array types. Our own implementation that allows for all these
-    // variations is not likely to be as robust as this. So the performance trade-
-    // off is worth it. Even for large state objects, I don't think this will
-    // introduce much latency.
-    let structure = fromJS(state);
-
-    if (path.length > 0) {
-      structure = structure.setIn(path, value);
-    } else {
-      structure = structure.merge(value);
-    }
-
-    return structure.toJS();
+    // NOTE(cbond): In the event this proves to be as flimsy and unreliable as a Donald Trump policy proposal,
+    // you may have more success with the following piece of code:
+    //
+    // const structure = fromJS(state);
+    // return (path.length > 0
+    //   ? structure.setIn(path, value)
+    //   : structure.merge(value)).toJS();
+    return StateObject.assign(state, path, value);
   }
 };
 

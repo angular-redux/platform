@@ -35,8 +35,8 @@ import {
 import { composeReducers } from './compose-reducers';
 import { defaultFormReducer } from './form-reducer';
 
-import { provideReduceForms } from './configure';
-import { Connection } from './connection';
+import { provideFormConnect } from './configure';
+import { Connect } from './connect';
 
 import {
   logger,
@@ -49,7 +49,7 @@ const createControlFromTemplate = (key: string, template: string) => {
     template,
     directives: [
       FORM_DIRECTIVES,
-      Connection,
+      Connect,
     ]
   });
 
@@ -107,7 +107,7 @@ describe('connect directive', () => {
   beforeEachProviders(() => [
     disableDeprecatedForms(),
     provideForms(),
-    provideReduceForms(store),
+    provideFormConnect(store),
   ]);
 
   beforeEach(inject([TestComponentBuilder],

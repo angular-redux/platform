@@ -14,7 +14,7 @@ export interface AbstractStore<RootState> {
   subscribe(fn: (state: RootState) => void): Redux.Unsubscribe;
 }
 
-export const FORM_CHANGED = '@@redux-form/FORM_CHANGED';
+export const FORM_CHANGED = '@@ng2-redux-form/FORM_CHANGED';
 
 @Injectable()
 export class FormStore<RootState> {
