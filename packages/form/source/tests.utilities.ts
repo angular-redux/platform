@@ -8,18 +8,19 @@ export const logger = createLogger({
   level: 'debug',
   collapsed: true,
   predicate: (getState, action) => true,
-  stateTransformer: (state) => {
-    let newState = {};
-    for (let i of Object.keys(state)) {
-      if (Iterable.isIterable(state[i])) {
-        newState[i] = state[i].toJS();
-      } else {
-        newState[i] = state[i];
-      }
-    };
-    return newState;
-  }
-});
+  stateTransformer:
+    state => {
+      const newState = new Object();
+
+      for (const i of Object.keys(state)) {
+        newState[i] = Iterable.isIterable(state[i])
+          ? state[i].toJS()
+          : state[i];
+      };
+
+      return newState;
+    }
+  });
 
 export const simulateUserTyping = (control, text: string): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
@@ -62,7 +63,7 @@ export const dispatchKeyEvents = (control, text: string) => {
     };
 
     const eventFactory = (eventType: string) => {
-      return new Event('input', {
+      return new Event(eventType, {
         bubbles: true,
         cancelable: false,
       });
