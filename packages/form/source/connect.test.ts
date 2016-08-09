@@ -1,11 +1,7 @@
 import {
+  addProviders,
   fakeAsync,
   flushMicrotasks,
-  beforeEach,
-  beforeEachProviders,
-  describe,
-  expect,
-  it,
   inject,
   ComponentFixture,
   TestComponentBuilder,
@@ -104,11 +100,12 @@ describe('connect directive', () => {
     store = create(reducers, <AppState> {});
   });
 
-  beforeEachProviders(() => [
-    disableDeprecatedForms(),
-    provideForms(),
-    provideFormConnect(store),
-  ]);
+  beforeEach(() =>
+    addProviders([
+      disableDeprecatedForms(),
+      provideForms(),
+      provideFormConnect(store)
+    ]));
 
   beforeEach(inject([TestComponentBuilder],
     (tcb: TestComponentBuilder) => builder = tcb));
