@@ -13,7 +13,7 @@ import {
   NgControl
 } from '@angular/forms';
 
-import { PromiseWrapper } from '@angular/common/src/facade/promise';
+import { PromiseWrapper } from '@angular/forms/src/facade/promise';
 
 import {
   Iterable,
