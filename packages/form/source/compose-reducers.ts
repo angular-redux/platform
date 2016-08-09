@@ -3,6 +3,7 @@ import { Reducer, Action } from 'redux';
 import { Iterable } from 'immutable';
 
 import { FormException } from './form-exception';
+import { State } from './state';
 
 export const composeReducers =
     <State>(...reducers: Reducer<State>[]): Reducer<State> => {
@@ -19,33 +20,11 @@ export const composeReducers =
       continue;
     }
 
-    if (Iterable.isIterable(state)) {
-      state = (<any>state).concat(result);
+    if (state == null) {
+      state = result;
     }
     else {
-      if (result instanceof Array) {
-        if (state instanceof Array) {
-          state = (<any>state).concat(result);
-        } else if (state == null) {
-          state = result;
-        } else {
-          throw new FormException('Cannot combine an array with a non-array');
-        }
-      }
-      else if (state instanceof Map) {
-        const m: Map<string, any> = state as any;
-        for (const e of m.entries()) {
-          m.set(e[0], e[1]);
-        }
-      } else if (state) {
-        if (state instanceof Array) {
-          throw new Error('Cannot combine array with non-array');
-        }
-        Object.assign(state, result);
-      }
-      else {
-        state = result;
-      }
+      state = State.inspect(state).update(null, result);
     }
   }
 
