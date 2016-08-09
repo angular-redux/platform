@@ -16,6 +16,33 @@ would look something like this:
   </form>
 ```
 
+The important bit to note here is the `[connect]` directive. This is the only thing
+you should have to add to your form template in order to bind it to your Redux state.
+The argument provided to `connect` is basically a path to form state inside of your
+overall app state. So for example if my Redux app state looks like this:
+
+```json
+{
+  "foo": "bar",
+  "myForm": {
+    "address": "1 Foo St."
+  }
+}
+```
+
+Then I would supply `myForm` as the argument to `[connect]`. If myForm were nested
+deeper inside of the app state, you could do something like this:
+
+```html
+<form [connect]="['personalInfo', 'myForm']">
+  ...
+</form>
+```
+
+Note that ImmutableJS integration is provided seamlessly. If `personalInfo` is an
+immutable Map structure, the library will automatically use `get()` or `getIn()` to
+find the appropriate bits of state.
+
 Then, in your application bootstrap code, you need to add a provider for
 the class that is responsible for connecting your forms to your Redux state.
 There are two ways of doing this: either using an `Redux.Store<T>` object or
