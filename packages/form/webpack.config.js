@@ -38,7 +38,11 @@ module.exports = {
       loaders.ts,
       loaders.html,
     ],
-    noParse: [ /zone\.js\/dist\/.+/, /angular2\/bundles\/.+/ ],
+    noParse: [
+      /zone\.js\/dist\/.+/,
+      /angular2\/bundles\/.+/,
+      /reflect-metadata/,
+    ],
   },
 
   // We should never include these dependencies in our bundle as the host project
@@ -51,6 +55,7 @@ module.exports = {
     '@angular/forms': true,
     'immutable': true,
     'redux': true,
+    'reflect-metadata': true,
     'rxjs': true,
     'zone.js': true
   }],

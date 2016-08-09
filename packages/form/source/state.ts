@@ -2,7 +2,7 @@ import { Iterable, Map as ImmutableMap } from 'immutable';
 
 import { FormException } from './form-exception';
 
-interface Operations<T> {
+export interface Operations<T> {
   /// Shallow clone the object
   clone(): T;
 
@@ -10,7 +10,7 @@ interface Operations<T> {
   update(key: number | string, value: T);
 }
 
-interface TraverseCallback {
+export interface TraverseCallback {
   (parent, key: number | string, remainingPath: string[], value?);
 }
 

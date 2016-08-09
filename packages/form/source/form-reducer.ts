@@ -18,12 +18,8 @@ import {
 
 import { State } from './state';
 
-interface Action extends ReduxAction {
-  payload?;
-}
-
 export const defaultFormReducer = <RootState>(initialState?: RootState | Iterable.Keyed<string, any>) => {
-  const reducer = (state: RootState | Iterable.Keyed<string, any> = initialState, action: Action) => {
+  const reducer = (state: RootState | Iterable.Keyed<string, any> = initialState, action: Redux.Action & {payload?}) => {
     switch (action.type) {
       case FORM_CHANGED:
         return State.assign(
