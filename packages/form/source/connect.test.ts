@@ -5,11 +5,12 @@ import {
   inject,
   ComponentFixture,
   TestComponentBuilder,
+  ComponentFixtureNoNgZone,
 } from '@angular/core/testing';
 import {
+  provide,
   Component,
   Input,
-  NgZone,
 } from '@angular/core';
 import {
   FORM_DIRECTIVES,
@@ -40,23 +41,17 @@ import {
 } from './tests.utilities';
 
 const createControlFromTemplate = (key: string, template: string) => {
-  const component = Component({
+  @Component({
     selector: `test-form-${key}`,
     template,
     directives: [
       FORM_DIRECTIVES,
       Connect,
     ]
-  });
+  })
+  class TestComponent {}
 
-  return eval(`
-    (function () {
-      var klass = class ${key} {
-        constructor() {}
-      };
-      return __decorate([component], klass);
-    })()
-  `);
+  return TestComponent;
 };
 
 interface AppState {
@@ -102,13 +97,16 @@ describe('connect directive', () => {
 
   beforeEach(() =>
     addProviders([
+      provide(ComponentFixtureNoNgZone, {useValue: true}),
       disableDeprecatedForms(),
       provideForms(),
       provideFormConnect(store)
     ]));
 
   beforeEach(inject([TestComponentBuilder],
-    (tcb: TestComponentBuilder) => builder = tcb));
+    (tcb: TestComponentBuilder) => {
+      builder = tcb;
+    }));
 
   const ConnectComponent = createControlFromTemplate('controlExample', `
     <form connect="fooState">
@@ -117,15 +115,15 @@ describe('connect directive', () => {
   `);
 
   it('should bind all form controls to application state',
-    fakeAsync(inject([], () =>
-      builder.createAsync(ConnectComponent).then((fixture: ComponentFixture<any>) => {
-        fixture.detectChanges();
+    fakeAsync(inject([], () => {
+      const fixture = builder.createFakeAsync(ConnectComponent);
+      fixture.detectChanges();
 
-        flushMicrotasks();
+      flushMicrotasks();
 
-        const textbox = fixture.nativeElement.querySelector('input');
-        expect(textbox.value).toEqual('Test!');
-    }))));
+      const textbox = fixture.nativeElement.querySelector('input');
+      expect(textbox.value).toEqual('Test!');
+  })));
 
   const DeepConnectComponent = createControlFromTemplate('deepConnectExample', `
     <form connect="fooState.deepInside">
@@ -134,15 +132,15 @@ describe('connect directive', () => {
   `);
 
   it('should bind a form control to element deep inside application state',
-    fakeAsync(inject([], () =>
-      builder.createAsync(DeepConnectComponent).then((fixture: ComponentFixture<any>) => {
-        fixture.detectChanges();
+    fakeAsync(inject([], () => {
+      const fixture = builder.createFakeAsync(DeepConnectComponent);
+      fixture.detectChanges();
 
-        flushMicrotasks();
+      flushMicrotasks();
 
-        const textbox = fixture.nativeElement.querySelector('input');
-        expect(textbox.value).toEqual('Bar!');
-    }))));
+      const textbox = fixture.nativeElement.querySelector('input');
+      expect(textbox.value).toEqual('Bar!');
+    })));
 
   const CheckboxForm = createControlFromTemplate('checkboxExample', `
     <form connect="fooState">
@@ -151,15 +149,15 @@ describe('connect directive', () => {
   `);
 
   it('should bind a checkbox to a boolean state',
-    fakeAsync(inject([], () =>
-      builder.createAsync(CheckboxForm).then((fixture: ComponentFixture<any>) => {
-        fixture.detectChanges();
+    fakeAsync(inject([], () => {
+      const fixture = builder.createFakeAsync(CheckboxForm);
+      fixture.detectChanges();
 
-        flushMicrotasks();
+      flushMicrotasks();
 
-        const checkbox = fixture.nativeElement.querySelector('input[type="checkbox"]');
-        expect(checkbox.checked).toEqual(true);
-    }))));
+      const checkbox = fixture.nativeElement.querySelector('input[type="checkbox"]');
+      expect(checkbox.checked).toEqual(true);
+    })));
 
   const SelectForm = createControlFromTemplate('selectExample', `
     <form connect="fooState">
@@ -172,20 +170,20 @@ describe('connect directive', () => {
   `);
 
   it('should bind a select dropdown to application state',
-    fakeAsync(inject([], () =>
-      builder.createAsync(SelectForm).then((fixture: ComponentFixture<any>) => {
-        fixture.detectChanges();
+    fakeAsync(inject([], () => {
+      const fixture = builder.createFakeAsync(SelectForm);
+      fixture.detectChanges();
 
-        flushMicrotasks();
+      flushMicrotasks();
 
-        const select = fixture.nativeElement.querySelector('select');
-        expect(select.value).toEqual('two');
+      const select = fixture.nativeElement.querySelector('select');
+      expect(select.value).toEqual('two');
 
-        // TODO(cbond): How to simulate a click-select sequence on this control?
-        // Just updating `value' does not appear to invoke all of the Angular
-        // change routines and therefore does not update Redux. But manually clicking
-        // and selecting does. Need to find a way to simulate that sequence.
-    }))));
+      // TODO(cbond): How to simulate a click-select sequence on this control?
+      // Just updating `value' does not appear to invoke all of the Angular
+      // change routines and therefore does not update Redux. But manually clicking
+      // and selecting does. Need to find a way to simulate that sequence.
+    })));
 
   const UpdateTextValueExample = createControlFromTemplate('updateTextValue', `
     <form connect="fooState">
@@ -194,25 +192,25 @@ describe('connect directive', () => {
   `);
 
   it('should update Redux state when the user changes the value of a control',
-    fakeAsync(inject([], () =>
-      builder.createAsync(UpdateTextValueExample).then((fixture: ComponentFixture<any>) => {
-        fixture.detectChanges();
+    fakeAsync(inject([], () => {
+      const fixture = builder.createFakeAsync(UpdateTextValueExample);
+      fixture.detectChanges();
 
-        flushMicrotasks();
+      flushMicrotasks();
 
-        // validate initial data before we do the UI tests
-        let state = store.getState();
-        expect(state.fooState.bar).toEqual('two');
+      // validate initial data before we do the UI tests
+      let state = store.getState();
+      expect(state.fooState.bar).toEqual('two');
 
-        const textbox = fixture.nativeElement.querySelector('input');
-        expect(textbox.value).toEqual('two');
+      const textbox = fixture.nativeElement.querySelector('input');
+      expect(textbox.value).toEqual('two');
 
-        return simulateUserTyping(textbox, 'abc')
-          .then(() => {
-            expect(textbox.value).toEqual('twoabc');
+      return simulateUserTyping(textbox, 'abc')
+        .then(() => {
+          expect(textbox.value).toEqual('twoabc');
 
-            state = store.getState();
-            expect(state.fooState.bar).toEqual('twoabc');
-          });
-    }))));
+          state = store.getState();
+          expect(state.fooState.bar).toEqual('twoabc');
+        });
+    })));
 });
