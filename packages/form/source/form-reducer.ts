@@ -4,10 +4,7 @@ import {
   fromJS
 } from 'immutable';
 
-import {
-  Action as ReduxAction,
-  Reducer
-} from 'redux';
+import { Reducer } from 'redux';
 
 import { FormException } from './form-exception';
 
@@ -32,22 +29,4 @@ export const defaultFormReducer = <RootState>(initialState?: RootState | Iterabl
   }
 
   return reducer;
-};
-
-const immutableToString = collection => {
-  if (Iterable.isAssociative(collection)) {
-    return 'associative container';
-  }
-  else if (Iterable.isIndexed(collection)) {
-    return 'indexed collection';
-  }
-  else if (Iterable.isKeyed(collection)) {
-    return 'keyed collection';
-  }
-  else if (Iterable.isOrdered(collection)) {
-    return 'ordered set';
-  }
-  else {
-    return '<unknown type>';
-  }
 };
