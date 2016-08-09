@@ -8,7 +8,9 @@
     "sourceMap": false,
     "inlineSourceMap": true,
     "noEmitHelpers": true,
-    "declaration": true
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": "source"
   },
   "awesomeTypescriptLoaderOptions": {
     "emitRequireType": false,

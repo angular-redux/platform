@@ -62,5 +62,6 @@
     "test:watch": "cross-env NODE_ENV=development karma start --singleRun false",
     "typings": "rimraf typings && typings install"
   },
-  "main": "dist/main.js"
+  "main": "dist/main.js",
+  "typings": "dist/source/index.d.ts"
 }
