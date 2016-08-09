@@ -27,5 +27,8 @@ cd node_modules;
 
 for i in $pkgs;
 do
-  ln -s ../../node_modules/$i $i;
+  if test ! -h $i;
+  then
+    ln -s ../../node_modules/$i ./$i;
+  fi;
 done;

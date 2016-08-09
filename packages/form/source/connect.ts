@@ -13,7 +13,7 @@ import {
   NgControl
 } from '@angular/forms';
 
-import { PromiseWrapper } from '@angular/forms/src/facade/promise';
+import { scheduleMicroTask } from '@angular/forms/src/facade/lang';
 
 import {
   Iterable,
@@ -59,7 +59,7 @@ export class Connect<RootState> {
   private ngAfterViewInit() {
     this.resetState();
 
-    PromiseWrapper.scheduleMicrotask(() => {
+    scheduleMicroTask(() => {
       this.formSubscription = this.form.valueChanges.subscribe(values => this.publish(values));
     });
   }

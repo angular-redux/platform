@@ -4,8 +4,7 @@ import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';
 import 'ts-helpers';
 
-import { provideRouter } from '@angular/router';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
+import { provideForms } from '@angular/forms';
 import { Component, provide } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 
@@ -168,6 +167,5 @@ ngRedux.configureStore(reducer, {form1, todos}, [logger], []);
 bootstrap(Example, [
   provide(NgRedux, {useValue: ngRedux}),
   provideForms(),
-  disableDeprecatedForms(),
   provideFormConnect(ngRedux)
 ]);

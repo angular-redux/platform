@@ -14,7 +14,6 @@ import {
 } from '@angular/core';
 import {
   FORM_DIRECTIVES,
-  disableDeprecatedForms,
   provideForms,
   FormControl,
   NgForm,
@@ -98,7 +97,6 @@ describe('connect directive', () => {
   beforeEach(() =>
     addProviders([
       provide(ComponentFixtureNoNgZone, {useValue: true}),
-      disableDeprecatedForms(),
       provideForms(),
       provideFormConnect(store)
     ]));
