@@ -1,4 +1,4 @@
-== ng2-redux-form
+## ng2-redux-form
 
 This library is a thin layer of connective tissue between Angular 2 forms and
 Redux. It provides unidirectional data binding between your Redux state and
@@ -82,7 +82,7 @@ Both `NgRedux<T>` and `Redux.Store<T>` conform to this shape. If you have someth
 complicated use-case that is not covered here, you could even create your own store
 shim as long as it conforms to the shape of `AbstractStore<RootState>`.
 
-=== Reducers
+### Reducers
 
 The library will automatically bind your state to value of your form inputs. This is
 the easy part and is unlikely to cause any problems for you. Slightly more difficult
@@ -160,7 +160,7 @@ But if you are having trouble with the default reducer, or if you find the fact 
 you have to use `composeReducers` distasteful, then this is another route available
 to you.
 
-== Examples
+## Examples
 
 The `examples` directory contains some examples of how to use ng2-redux-form and
 how to connect it to your application. You may also find it useful to debug and
