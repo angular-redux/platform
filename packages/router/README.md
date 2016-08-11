@@ -1,7 +1,7 @@
-# ng2-redux-router
+# ng2-redux-router 1.0.3
 ### Bindings to connect @angular/router to ng2-redux
 
-This package uses the new v3 alpha router for angular 2 `@angular/router@3.0.0-beta.2`.
+This package uses the new v3 router for angular 2 `@angular/router@3.0.0-rc.1`.
 
 ### Setup
 
@@ -21,18 +21,35 @@ This package uses the new v3 alpha router for angular 2 `@angular/router@3.0.0-b
   });
   ```
 
-3. Bootstrap the bindings in your root component.
+3. Add the bindings to your root module.
   ```ts
+  import { NgModule } from '@angular/core';
+  import { AppComponent } from './app.component';
   import { NgRedux } from 'ng2-redux';
-  import { ROUTER_PROVIDERS } from '@angular/router';
   import { NgReduxRouter } from 'ng2-redux-router';
+  import { RouterModule } from '@angular/router';
+  import { routes } from './routes';
 
-  bootstrap(App, [
-    ROUTER_PROVIDERS,
-    NgRedux,
-    NgReduxRouter
-  ]);
-  ```
+  @NgModule({
+    imports: [
+      RouterModule.forRoot(routes),
+      // ...your imports
+    ],
+    declarations: [
+      AppComponent,
+      // ...your declarations
+    ],
+    providers: [
+      NgRedux,
+      NgReduxRouter,
+      // ...your providers
+    ],
+    bootstrap: [
+      AppComponent
+    ]
+  })
+  export class AppModule {}
+```
 
 4. Initialize the bindings from your app component
   ```ts
