@@ -1,6 +1,6 @@
 {
   "name": "ng2-redux-router",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Bindings from the router in Angular 2 to the redux state",
   "main": "index.js",
   "repository": {
