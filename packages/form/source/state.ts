@@ -40,9 +40,9 @@ export abstract class State {
       if (typeof fn === 'function') {
         const transformed = fn(parent, k, path.slice(path.indexOf(k) + 1), deepValue);
 
-        if (transformed !== undefined) {
-          parent[k] = deepValue = transformed[k];
-        }
+        deepValue = transformed[k];
+
+        Object.assign(parent, transformed);
       }
 
       // If we were not able to find this state inside of our root state
@@ -57,7 +57,7 @@ export abstract class State {
     return deepValue;
   }
 
-  static get<State>(state: State, path: string[]) {
+  static get<State>(state: State, path: string[]): any {
     return State.traverse(state, path);
   }
 
@@ -70,7 +70,13 @@ export abstract class State {
       };
     };
 
-    const root = State.inspect(state).clone();
+    const operations = State.inspect(state);
+
+    if (path.length === 0) {
+      return operations.update(null, value);
+    }
+
+    const root = operations.clone();
 
     // We want to shallow clone the object, and then trace a path to the place
     // we want to update, cloning each object we traversed on our way and then
@@ -82,12 +88,32 @@ export abstract class State {
       (parent, key: number | string, remainingPath: string[], innerValue?) => {
         const parentOperations = State.inspect(parent);
 
-        const childOperations = State.inspect(innerValue);
+        if (innerValue) {
+          return parentOperations.update(key,
+            remainingPath.length > 0
+              ? State.inspect(innerValue).clone()
+              : value);
+        }
+        else {
+          const getProbableType = (key: string | number) => {
+            // NOTE(cbond): If your code gets here, you might not be using the library
+            /// correctly. If you are assigning into a path in your state, try to
+            /// ensure that there is a path to traverse, even if everything is just
+            /// empty objects and arrays. If we have to guess the type of the containers
+            /// and then create them ourselves, we may not get the types right. Use
+            /// the Redux `initial state' construct to resolve this issue if you like.
+            return typeof key === 'number'
+              ? new Array()
+              : Array.isArray(key)
+                ? ImmutableMap()
+                : new Object();
+          };
 
-        return parentOperations.update(key,
-          remainingPath.length > 0
-            ? childOperations.clone()
-            : childOperations.update(null, value));
+          return parentOperations.update(key,
+            remainingPath.length > 0
+              ? getProbableType(remainingPath[0])
+              : value);
+        }
       });
 
     return root;
@@ -122,18 +148,16 @@ export abstract class State {
           }
         });
     }
-    else if (object instanceof Array) {
+    else if (Array.isArray(object)) {
       return metaOperations(
-        // Splice array
-        (parent, key: number | string, value: K) => {
+        // Replace array contents
+        (parent, key: number, value: K) => {
           if (key != null) {
-            return parent.splice(key, 1, [value]);
+            parent[key] = value;
           }
           else {
-            for (const v of (<any>value)) {
-              parent.push(v);
-            }
-            return parent;
+            parent.splice(0, parent.length,
+              Array.isArray(value) ? value : [value]);
           }
         },
 
@@ -150,8 +174,8 @@ export abstract class State {
           }
           else {
             const m = new Map(<any> value);
+            parent.clear();
             m.forEach((value, index) => parent.set(index, value));
-            m.clear();
             return parent;
           }
         },

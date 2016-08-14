@@ -19,6 +19,15 @@
   color: #006699;
 }
 
+.form-values .arrays {
+  display: block;
+  clear: both;
+}
+
+.form-values .arrays div {
+  display: inline-block;
+}
+
 input[type="text"] {
   padding: 10px;
   border-radius: 6px;

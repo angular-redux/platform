@@ -4,7 +4,12 @@ import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';
 import 'ts-helpers';
 
-import { provideForms } from '@angular/forms';
+import {
+  provideForms,
+  REACTIVE_FORM_DIRECTIVES,
+  disableDeprecatedForms,
+  FormGroup,
+} from '@angular/forms';
 import { Component, provide } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 
@@ -15,6 +20,7 @@ import { NgRedux, select } from 'ng2-redux';
 import { combineReducers } from 'redux';
 
 import { Connect } from '../../source/connect';
+import { ConnectArray } from '../../source/connect-array';
 import { composeReducers } from '../../source/compose-reducers';
 import { defaultFormReducer } from '../../source/form-reducer';
 import { provideFormConnect } from '../../source/configure';
@@ -28,11 +34,17 @@ import { logger } from '../../source/tests.utilities';
       <form connect="form1">
         <input ngControl ngModel name="textExample" type="text" />
         <input ngControl ngModel name="checkboxExample" type="checkbox" />
-        <select ngControl ngModel name="dropdownExample">
-          <option value="one">One</option>
-          <option value="two">Two</option>
-          <option value="three">Three</option>
-        </select>
+        <template connectArray let-index connectArrayOf="arrayExample">
+          <div [ngModelGroup]="index">
+            <input ngControl ngModel name="numberExample" type="number" />
+            <select ngControl ngModel name="dropdownExample">
+              <option value="one">One</option>
+              <option value="two">Two</option>
+              <option value="three">Three</option>
+            </select>
+          </div>
+        </template>
+        <button (click)="addRow()">Add</button>
       </form>
       <div>
         <h3>Redux state</h3>
@@ -45,15 +57,28 @@ import { logger } from '../../source/tests.utilities';
             Checkbox
             <span>{{checkboxExample | async}}</span>
           </div>
-          <div>
-            Dropdown
-            <span>{{dropdownExample | async}}</span>
+          <div class="arrays">
+            Array
+            <div *ngFor="let item of (arrayExample | async)">
+              <div>
+                Number
+                <span>{{item.numberExample}}</span>
+              </div>
+              <div>
+                Dropdown
+                <span>{{item.dropdownExample}}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   `,
-  directives: [Connect],
+  directives: [
+    Connect,
+    ConnectArray,
+    REACTIVE_FORM_DIRECTIVES,
+  ],
   styles: [require('./index.css')]
 })
 export class FormExample {
@@ -62,7 +87,19 @@ export class FormExample {
   // the values back out of Redux to show them changing as the form changes.
   @select(s => s.form1.textExample) private textExample;
   @select(s => s.form1.checkboxExample) private checkboxExample;
-  @select(s => s.form1.dropdownExample) private dropdownExample;
+  @select(s => s.form1.arrayExample) private arrayExample;
+
+  constructor(private ngRedux: NgRedux<AppState>) {}
+
+  addRow() {
+    this.ngRedux.dispatch({
+      type: 'ADD_FORM_ENTRY'
+    });
+  }
+
+  stringify(obj) {
+    return JSON.stringify(obj);
+  }
 }
 
 @Component({
@@ -80,7 +117,7 @@ export class FormExample {
       </li>
     </ul>
   `,
-  directives: [Connect]
+  directives: [Connect, REACTIVE_FORM_DIRECTIVES]
 })
 export class TodoExample {
   @select(s => s.todos.get('list')) private list;
@@ -113,7 +150,10 @@ interface AppState {
   form1?: {
     textExample?: string;
     checkboxExample?: boolean;
-    dropdownExample?: string;
+    arrayExample?: {
+      numberExample?: number,
+      dropdownExample?: string;
+    }[]
   };
   todos?: Map<string, any>;
 }
@@ -121,7 +161,16 @@ interface AppState {
 const form1 = {
   textExample: 'Text example',
   checkboxExample: true,
-  dropdownExample: 'two'
+  arrayExample: [
+    {
+      numberExample: 1,
+      dropdownExample: 'one'
+    },
+    {
+      numberExample: 2,
+      dropdownExample: 'two'
+    }
+  ]
 };
 
 const todos = fromJS({ // immutablejs structure
@@ -140,6 +189,12 @@ const reducer = composeReducers(
   defaultFormReducer());
 
 function formReducer(state = form1, action: {type: string, payload?}) {
+  if (action.type === 'ADD_FORM_ENTRY') {
+    state.arrayExample.push({
+      numberExample: null,
+      dropdownExample: null
+    });
+  }
   return state;
 }
 
@@ -166,6 +221,7 @@ ngRedux.configureStore(reducer, {form1, todos}, [logger], []);
 
 bootstrap(Example, [
   provide(NgRedux, {useValue: ngRedux}),
+  disableDeprecatedForms(),
   provideForms(),
-  provideFormConnect(ngRedux)
+  provideFormConnect(ngRedux),
 ]);
