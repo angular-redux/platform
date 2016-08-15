@@ -109,6 +109,34 @@ Both `NgRedux<T>` and `Redux.Store<T>` conform to this shape. If you have someth
 complicated use-case that is not covered here, you could even create your own store
 shim as long as it conforms to the shape of `AbstractStore<RootState>`.
 
+### How the bindings work
+
+The bindings work by inspecting the shape of your form and then binding to a Redux
+state object that has the same shape. The important element is `NgControl::path`.
+Each control in an Angular 2 form has a computed property called `path` which uses
+a very basic algorithm, ascending the tree from the leaf (control) to the root
+(the `<form>` element) and returning an array containing the name of each group or
+array in the path. So for example, let us take a look at this form that lets the
+user provide their full name and the names and types of their children:
+
+```html
+<form connect="form1">
+  <input ngControl ngModel name="fullname" type="text" />
+  <template connectArray let-index connectArrayOf="dependents">
+    <div [ngModelGroup]="index">
+      <input ngControl ngModel name="fullname" type="text" />
+      <select ngControl ngModel name="type">
+        <option value="one">Adopted</option>
+        <option value="two">Biological child</option>
+      </select>
+    </div>
+  </template>
+</form>
+```
+
+Our root `<form>` element has a `connect` directive that points to the state element
+`form1`. Then we have a child input which is bound to a property called `fullname`.
+
 ### Reducers
 
 The library will automatically bind your state to value of your form inputs. This is
@@ -139,6 +167,7 @@ The call to `composeReducers` essentially takes your existing reducer configurat
 chains them together with `defaultFormReducer`. The default form reducer only handles one
 action, `{FORM_CHANGED}`. You can think of it like so:
 
+```typescript
 function defaultFormReducer(state, action: Redux.Action & {payload?}) {
   switch (action.type) {
     case FORM_CHANGED:
@@ -148,6 +177,7 @@ function defaultFormReducer(state, action: Redux.Action & {payload?}) {
   }
   return state;
 }
+```
 
 If you have a more complex use-case that the default form reducer is incompatible with,
 then you can very easily just handle the FORM_CHANGED actions in your existing reducers

@@ -1,41 +1,17 @@
 import {
-  forwardRef,
   Directive,
-  Injectable,
   Input,
   Query,
   QueryList,
-  Optional,
-  Self,
-  Inject,
-  ViewChildren,
-  ContentChildren,
 } from '@angular/core';
 import {
-  AbstractFormGroupDirective,
-  ControlContainer,
-  FormControl,
-  FormGroup,
-  FormGroupName,
   NgForm,
   NgModel,
-  NgModelGroup,
-  NgControl
+  NgControl,
 } from '@angular/forms';
-
 import {
-  composeAsyncValidators,
-  composeValidators,
-  controlPath,
-  setUpFormContainer
-} from '@angular/forms/src/directives/shared';
-
-import {
-  NG_ASYNC_VALIDATORS,
-  NG_VALIDATORS,
-} from '@angular/forms/src/validators';
-
-import { scheduleMicroTask } from '@angular/forms/src/facade/lang';
+  scheduleMicroTask,
+} from '@angular/forms/src/facade/lang';
 
 import { Subscription } from 'rxjs';
 
@@ -45,12 +21,6 @@ import { State } from './state';
 
 @Directive({
   selector: 'form[connect]',
-  // providers: [
-  //   {
-  //     provide: ControlContainer,
-  //     useExisting: forwardRef(() => Connect)
-  //   }
-  // ]
 })
 export class Connect<RootState> {
   @Input('connect') connect: () => (string | string[]) | string | string[];
@@ -61,35 +31,12 @@ export class Connect<RootState> {
 
   constructor(
     @Query(NgControl, {descendants: true}) private children: QueryList<NgControl>,
-    // @Optional() @Self() @Inject(NG_VALIDATORS) private validators: any[],
-    // @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) private asyncValidators: any[],
     private store: FormStore<RootState>,
     private form: NgForm
   ) {
-    // super(form, validators, asyncValidators);
-    // super(form, [], []);
-
     this.stateSubscription = this.store.subscribe(state => {
       this.resetState();
     });
-
-    // Object.defineProperty(form, 'path', {
-    //     get: () => this.path,
-    //     enumerable: true,
-    //     configurable: true
-    // });
-
-    // const existingGet = (<any>form).get;
-
-    // (<any>form).get = function (path: string[]) {
-    //   return existingGet.call(this, path.slice(1));
-    // };
-
-    // const existingFind = (<any>form).find;
-
-    // (<any>form).find = function (path: string[]) {
-    //   return existingFind.call(this, path.slice(1));
-    // };
   }
 
   get _parent() {
@@ -121,8 +68,6 @@ export class Connect<RootState> {
       this.formSubscription.unsubscribe();
       this.formSubscription = null;
     }
-
-    // super.ngOnDestroy();
   }
 
   private ngAfterViewInit() {
@@ -131,9 +76,6 @@ export class Connect<RootState> {
     scheduleMicroTask(() => {
       this.formSubscription = this.form.valueChanges.subscribe(values => this.publish(values));
     });
-  }
-
-  private ngAfterContentInit() {
   }
 
   protected resetState() {
