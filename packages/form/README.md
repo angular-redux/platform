@@ -126,8 +126,8 @@ user provide their full name and the names and types of their children:
     <div [ngModelGroup]="index">
       <input ngControl ngModel name="fullname" type="text" />
       <select ngControl ngModel name="type">
-        <option value="one">Adopted</option>
-        <option value="two">Biological child</option>
+        <option value="adopted">Adopted</option>
+        <option value="biological">Biological child</option>
       </select>
     </div>
   </template>
@@ -135,7 +135,72 @@ user provide their full name and the names and types of their children:
 ```
 
 Our root `<form>` element has a `connect` directive that points to the state element
-`form1`. Then we have a child input which is bound to a property called `fullname`.
+`form1`. This means that the children within your form will all be bound to some
+bit of state inside of the `form1` object in your Redux state. Then we have a child
+input which is bound to a property called `fullname`. This is a basic text box. If
+you were to inspect it in the debugger, it would have a `path` value like this:
+
+```
+['form1', 'fullname']
+```
+
+And therefore it would bind to this piece of Redux state:
+
+```json
+{
+  "form1": {
+    "fullname": "Chris Bond"
+  }
+}
+```
+
+So far so good. But look at the array element inside our form, in the `<template>`
+element. It is bound to an array property called `dependents`. The elements inside
+of the `<template>` tag contain the template that will be instantiated for each
+element inside of the `dependents` array. The `ngModelGroup` specifies that we should
+create a `FormGroup` element for each item in the array and the name of that group
+should be the value of `index` (the zero-based index of the element that is being
+rendered). This is important because it allows us to create a form structure that
+matches our Redux state. Let's say our state looks like this:
+
+```json
+{
+  "form1": {
+    "fullname": "Chris Bond",
+    "dependents": [
+      "fullname": "Christopher Bond Jr.",
+      "type": "biological"
+    ]
+  }
+}
+```
+
+If you think about the 'path' to the first element of the dependents array, it would
+be this:
+
+```
+['form1', 'dependents', 0]
+```
+
+The last element, `0`, is the index into the `dependents` array. This is our
+`ngModelGroup` element. This allows us to create a form structure that has the
+same structure as our Redux state. Therefore if we pause the debugger and look at
+the `path` property on our first `<select>` element, it would look like this:
+
+```
+['form1', 'dependents', 0, 'type']
+```
+
+From there, `ng2-redux-form` is able to take that path and extract the value for
+that element from the Redux state.
+
+#### Troubleshooting
+
+If you are having trouble getting data-binding to work for an element of your form,
+it is almost certainly because the `path` property on your control does not match
+the structure of your Redux state. Try pausing the debugger in `Connect::resetState`
+and check the value of `path` on the control that has failed to bind. Then make sure
+it is a valid path to the state in question.
 
 ### Reducers
 

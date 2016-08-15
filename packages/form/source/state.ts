@@ -92,10 +92,12 @@ export abstract class State {
         const parentOperations = State.inspect(parent);
 
         if (innerValue) {
+          const innerOperations = State.inspect(innerValue);
+
           return parentOperations.update(key,
             remainingPath.length > 0
-              ? State.inspect(innerValue).clone()
-              : value);
+              ? innerOperations.clone()
+              : innerOperations.merge(null, value));
         }
         else {
           const getProbableType = (key: string | number) => {
@@ -155,8 +157,13 @@ export abstract class State {
           }
         },
         // Merge
-        (parent, key: number | string, value: K, setter: (v: K) => K) => {
-          return setter(parent.concat(value));
+        (parent, key: number | string | string[], value: K, setter: (v: K) => K) => {
+          if (key) {
+            return parent.mergeDeepIn(Array.isArray(key) ? key : [key], value);
+          }
+          else {
+            return parent.mergeDeep(value);
+          }
         });
     }
     else if (Array.isArray(object)) {

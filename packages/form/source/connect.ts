@@ -14,6 +14,7 @@ import {
 } from '@angular/forms/src/facade/lang';
 
 import { Subscription } from 'rxjs';
+import 'rxjs/add/operator/debounceTime';
 
 import { FormException } from './form-exception';
 import { FormStore } from './form-store';
@@ -74,7 +75,7 @@ export class Connect<RootState> {
     this.resetState();
 
     scheduleMicroTask(() => {
-      this.formSubscription = this.form.valueChanges.subscribe(values => this.publish(values));
+      this.formSubscription = this.form.valueChanges.debounceTime(0).subscribe(values => this.publish(values));
     });
   }
 
