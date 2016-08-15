@@ -168,8 +168,10 @@ matches our Redux state. Let's say our state looks like this:
   "form1": {
     "fullname": "Chris Bond",
     "dependents": [
-      "fullname": "Christopher Bond Jr.",
-      "type": "biological"
+      {
+        "fullname": "Christopher Bond Jr.",
+        "type": "biological"
+      }
     ]
   }
 }
