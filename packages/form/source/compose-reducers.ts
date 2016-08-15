@@ -24,7 +24,7 @@ export const composeReducers =
       state = result;
     }
     else {
-      state = State.inspect(state).update(null, result);
+      state = State.inspect(state).merge(null, result);
     }
   }
 

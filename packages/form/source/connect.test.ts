@@ -13,6 +13,7 @@ import {
   Input,
 } from '@angular/core';
 import {
+  FORM_DIRECTIVES,
   REACTIVE_FORM_DIRECTIVES,
   provideForms,
   FormControl,
@@ -44,6 +45,7 @@ const createControlFromTemplate = (key: string, template: string) => {
     selector: `test-form-${key}`,
     template,
     directives: [
+      FORM_DIRECTIVES,
       REACTIVE_FORM_DIRECTIVES,
       Connect,
     ]

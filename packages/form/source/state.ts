@@ -6,6 +6,9 @@ export interface Operations<T> {
   /// Shallow clone the object
   clone(): T;
 
+  /// Clone and merge
+  merge(key: number | string, value: T);
+
   /// Clone the object and update a specific key inside of it
   update(key: number | string, value: T);
 }
@@ -120,32 +123,40 @@ export abstract class State {
   }
 
   static inspect<K>(object: K): Operations<K> {
-    const metaOperations = (update, clone?) => {
-      const wrappedClone = typeof clone === 'function'
-        ? () => clone(<any> object) as any
-        : () => object;
-
-      const wrappedUpdate =
-        (key: string, value: K) => update(wrappedClone(), key, value);
-
-      return {
+    const metaOperations = (update, merge, clone?) => {
+      const operations = {
         /// Clone the object (shallow)
-        clone: wrappedClone,
+        clone: typeof clone === 'function'
+          ? () => clone(<any> object) as any
+          : () => object,
 
         /// Update a specific key inside of the container object
-        update: wrappedUpdate
+        update: (key: string, value: K) => update(operations.clone(), key, value),
+
+        /// Merge existing values with new values
+        merge: (key: string, value: K) => {
+          const cloned = operations.clone();
+          return merge(cloned, key, value, v => update(cloned, key, v));
+        }
       };
+
+      return operations;
     };
 
     if (Iterable.isIterable(object)) {
       return metaOperations(
+        // Replace
         (parent, key: number | string, value: K) => {
           if (key != null) {
             return parent.set(key, value);
           }
           else {
-            return parent.concat(value);
+            return value;
           }
+        },
+        // Merge
+        (parent, key: number | string, value: K, setter: (v: K) => K) => {
+          return setter(parent.concat(value));
         });
     }
     else if (Array.isArray(object)) {
@@ -156,9 +167,15 @@ export abstract class State {
             parent[key] = value;
           }
           else {
-            parent.splice(0, parent.length,
-              Array.isArray(value) ? value : [value]);
+            parent.splice.apply(parent, [0, parent.length]
+              .concat(Array.isArray(value) ? value : [value]));
           }
+        },
+
+        // Merge
+        (parent, key: number | string, value: K, setter: (v: K) => K) => {
+          setter(parent.concat(value));
+          return parent;
         },
 
         // Clone
@@ -180,6 +197,13 @@ export abstract class State {
           }
         },
 
+        // Merge
+        (parent: Map<string, any>, key: number | string, value: K, setter: (v: K) => K) => {
+          const m = new Map<string, any>(<any> value);
+          m.forEach((value, key) => parent.set(key, value));
+          return parent;
+        },
+
         // Clone
         () => object instanceof WeakMap
           ? new WeakMap<string, any>(<any> object)
@@ -199,6 +223,14 @@ export abstract class State {
             s.clear();
             return parent;
           }
+        },
+
+        // Merge
+        (parent: Set<any>, key: number | string, value, setter: (v: K) => K) => {
+          for (const element of value) {
+            parent.add(element);
+          }
+          return parent;
         },
 
         // Clone
@@ -229,6 +261,12 @@ export abstract class State {
                  return Object.assign(parent, {[key]: value});
                }
                 return Object.assign(parent, value);
+             },
+             (parent, key: number | string, value: K, setter: (v: K) => K) => {
+               for (const k of Object.keys(value)) {
+                 parent[k] = value[k];
+               }
+               return parent;
              },
              () => Object.assign({}, object)
            )
