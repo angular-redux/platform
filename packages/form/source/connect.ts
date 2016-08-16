@@ -40,10 +40,6 @@ export class Connect<RootState> {
     });
   }
 
-  get _parent() {
-    return this.form;
-  }
-
   public get path(): string[] {
     const path = typeof this.connect === 'function'
       ? this.connect()

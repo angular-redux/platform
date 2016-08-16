@@ -63,5 +63,5 @@
     "typings": "rimraf typings && typings install"
   },
   "main": "dist/main.js",
-  "typings": "dist/source/index.d.ts"
+  "typings": "index.d.ts"
 }
