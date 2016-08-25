@@ -1,4 +1,4 @@
-# ng2-redux-router 1.0.3
+# ng2-redux-router 1.1.0
 ### Bindings to connect @angular/router to ng2-redux
 
 This package uses the new v3 router for angular 2 `@angular/router@3.0.0-rc.1`.
