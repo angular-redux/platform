@@ -3,9 +3,9 @@
 This library is a thin layer of connective tissue between Angular 2 forms and
 Redux. It provides unidirectional data binding between your Redux state and
 your forms elements. It builds on existing Angular functionality like
-[NgControl](https://angular.io/docs/js/latest/api/common/index/NgControl-class.html)
+[NgModel](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html)
 and
-[NgModel](https://angular.io/docs/ts/latest/api/common/index/NgModel-directive.html)
+[NgControl](https://angular.io/docs/ts/latest/api/forms/index/NgControl-class.html)
 
 For the simplest use-cases, the API is very straightforward. Your template
 would look something like this:
