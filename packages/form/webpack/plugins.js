@@ -9,6 +9,8 @@ const base = [
     __TEST__: JSON.stringify(process.env.TEST || false),
   }),
   new webpack.NoErrorsPlugin(),
+  new webpack.IgnorePlugin(/angular/),
+  new webpack.IgnorePlugin(/rxjs/),
 ];
 
 const development = [

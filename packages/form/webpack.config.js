@@ -50,6 +50,8 @@ module.exports = {
   // will supply its own copies of these packages. The only case where we want to
   // include these dependencies in our bundle is when we are running unit tests.
   externals: [{
+    '@angular/platform-browser': true,
+    '@angular/platform-browser-dynamic': true,
     '@angular/common': true,
     '@angular/compiler': true,
     '@angular/core': true,
