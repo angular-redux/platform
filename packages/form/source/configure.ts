@@ -1,24 +1,34 @@
+import {FormControl} from '@angular/forms';
+import {NgRedux} from 'ng2-redux';
+
 import {
-  Provider,
-  provide,
-} from '@angular/core';
+  Action,
+  Store,
+} from 'redux';
 
-import { FormControl } from '@angular/forms';
-import { NgRedux } from 'ng2-redux';
-import { Store } from 'redux';
+import {
+  AbstractStore,
+  FormStore,
+} from './form-store';
 
-import { AbstractStore, FormStore } from './form-store';
-
-export const provideFormConnect = <T>(arg: Store<T> | NgRedux<T>) => {
-  const abstractStore: AbstractStore<T> = {
-    dispatch: action => arg.dispatch(action),
-    getState: () => arg.getState(),
-    subscribe: fn => arg.subscribe(() => fn(arg.getState()))
-  };
+/// Use this function in your providers list if you are not using ng2-redux.
+/// This will allow you to provide a preexisting store that you have already
+/// configured, rather than letting ng2-redux creating one for you.
+export const provideReduxForms = <T>(store: Store<T> | NgRedux<T>) => {
+  const abstractStore = wrap(store);
 
   return [
-    provide(FormStore, {
-      useValue: new FormStore(abstractStore)
-    })
+    {provide: FormStore, useValue: new FormStore(<any> abstractStore)}
   ];
+};
+
+const wrap = <T>(store: Store<T> | NgRedux<T>): AbstractStore<T> => {
+  const dispatch = (action: Action) => store.dispatch(action);
+
+  const getState = () => <T> store.getState();
+
+  const subscribe =
+    (fn: (state: T) => void) => store.subscribe(() => fn(store.getState()));
+
+  return {dispatch, getState, subscribe};
 };

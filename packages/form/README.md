@@ -52,34 +52,44 @@ approaches, but if you are already using
 it into your project, then you would do something like this:
 
 ```typescript
-import { provideFormConnect } from 'ng2-redux-form';
-
-const ngRedux = new NgRedux<AppState>();
-
-ngRedux.configureStore(reducer, myInitialState, [], []);
-
-bootstrap(MyApplication, [
-  provide(NgRedux, {useValue: ngRedux}),
-  provideForms(),
-  disableDeprecatedForms(),
-  provideFormConnect(ngRedux)
-]);
+@NgModule({
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgReduxForms,
+  ],
+  providers: [
+    NgRedux,
+  ],
+  bootstrap: [MyApplicationComponent]
+})
+export class ExampleModule {}
 ```
 
 Or if you are using Redux without ng2-redux, then your bootstrap call would look
 more like this (substitute your own store creation code):
 
 ```typescript
-import { provideFormConnect } from 'ng2-redux-form';
+import {provideFormConnect} from 'ng2-redux-form';
 
 const storeCreator = compose(applyMiddleware(logger))(createStore);
 const store = create(reducers, <MyApplicationState> {});
 
-bootstrap(MyApplication, [
-  disableDeprecatedForms(),
-  provideForms(),
-  provideFormConnect(store),
-]);
+@NgModule({
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgReduxForms,
+  ],
+  providers: [
+    NgRedux,
+    provideFormConnect(store),
+  ],
+  bootstrap: [MyApplicationComponent]
+})
+export class ExampleModule {}
 ```
 
 (Note that in these examples, we are explicitly disabling the old Angular 2 forms
@@ -218,7 +228,7 @@ your data when the user updates form inputs, then you should use this default re
 To use it, you need to combine it with your existing reducers like so:
 
 ```typescript
-import { composeReducers, defaultFormReducer } from 'ng2-redux-form';
+import {composeReducers, defaultFormReducer} from 'ng2-redux-form';
 
 const reducer = composeReducers(
   defaultFormReducer(),

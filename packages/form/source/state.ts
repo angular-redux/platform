@@ -1,6 +1,6 @@
-import { Iterable, Map as ImmutableMap } from 'immutable';
+import {Iterable, Map as ImmutableMap} from 'immutable';
 
-import { FormException } from './form-exception';
+import {FormException} from './form-exception';
 
 export interface Operations<T> {
   /// Shallow clone the object

@@ -8,9 +8,10 @@
     "preinstall": "./module-links.sh"
   },
   "devDependencies": {
+    "@angular/upgrade": "^2.0.0-rc.6",
+    "cross-env": "^2.0.0",
     "html-webpack-plugin": "^2.22.0",
     "raw-loader": "^0.5.1",
-    "cross-env": "^2.0.0",
     "webpack-dev-server": "^1.14.1"
   }
 }

@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {Injectable} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
-import { Action, Store } from 'redux';
+import {NgRedux} from 'ng2-redux';
+
+import {Action, Store} from 'redux';
 
 export interface AbstractStore<RootState> {
   /// Dispatch an action
@@ -18,14 +20,21 @@ export const FORM_CHANGED = '@@ng2-redux-form/FORM_CHANGED';
 
 @Injectable()
 export class FormStore<RootState> {
-  constructor(private store: AbstractStore<RootState>) {}
+  /// NOTE(cbond): The declaration of store is misleading. This class is
+  /// actually capable of taking a plain Redux store or an NgRedux instance.
+  /// But in order to make the ng dependency injector work properly, we
+  /// declare it as an NgRedux type, since the non-ng2-redux use case involves
+  /// calling the constructor of this class manually (from configure.ts),
+  /// where a plain store can be cast to an NgRedux. (For our purposes, they
+  /// have almost identical shapes.)
+  constructor(private store: NgRedux<RootState>) {}
 
   getState() {
     return this.store.getState();
   }
 
   subscribe(fn: (state: RootState) => void): Redux.Unsubscribe {
-    return this.store.subscribe(fn);
+    return this.store.subscribe(() => fn(this.getState()));
   }
 
   valueChanged<T>(path: string[], form: NgForm, value: T) {

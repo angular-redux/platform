@@ -29,11 +29,11 @@ import {
   createStore,
 } from 'redux';
 
-import { composeReducers } from './compose-reducers';
-import { defaultFormReducer } from './form-reducer';
+import {composeReducers} from './compose-reducers';
+import {defaultFormReducer} from './form-reducer';
 
-import { provideFormConnect } from './configure';
-import { Connect } from './connect';
+import {provideFormConnect} from './configure';
+import {Connect} from './connect';
 
 import {
   logger,

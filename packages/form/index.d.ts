@@ -1,10 +1,10 @@
 declare namespace 'ng2-redux-form' {
-  import { Provider } from '@angular/core';
-  import { QueryList } from '@angular/core';
-  import { NgForm, NgControl } from '@angular/forms';
-  import { Action, Store } from 'redux';
-  import { NgRedux } from 'ng2-redux';
-  import { Iterable } from 'immutable';
+  import {Provider} from '@angular/core';
+  import {QueryList} from '@angular/core';
+  import {NgForm, NgControl} from '@angular/forms';
+  import {Action, Store} from 'redux';
+  import {NgRedux} from 'ng2-redux';
+  import {Iterable} from 'immutable';
 
   export const provideFormConnect: <T>(arg: Store<T> | NgRedux<T>) => Provider[];
 

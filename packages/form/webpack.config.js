@@ -35,6 +35,7 @@ module.exports = {
   module: {
     loaders: [
       loaders.css,
+      loaders.js,
       loaders.ts,
       loaders.html,
     ],

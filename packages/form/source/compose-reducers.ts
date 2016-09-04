@@ -1,9 +1,9 @@
-import { Reducer, Action } from 'redux';
+import {Reducer, Action} from 'redux';
 
-import { Iterable } from 'immutable';
+import {Iterable} from 'immutable';
 
-import { FormException } from './form-exception';
-import { State } from './state';
+import {FormException} from './form-exception';
+import {State} from './state';
 
 export const composeReducers =
     <State>(...reducers: Reducer<State>[]): Reducer<State> => {

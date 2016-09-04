@@ -8,7 +8,9 @@ fi;
 pkgs=`cat <<EOF
 @angular
 awesome-typescript-loader
+babel
 babel-core
+babel-loader
 babel-polyfill
 immutable
 jasmine-core

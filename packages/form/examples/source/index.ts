@@ -4,27 +4,27 @@ import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';
 import 'ts-helpers';
 
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BrowserModule} from '@angular/platform-browser';
+import {Component, NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import {Map, fromJS} from 'immutable';
+
+import {NgRedux, select} from 'ng2-redux';
+
+import {combineReducers} from 'redux';
+
 import {
-  provideForms,
-  REACTIVE_FORM_DIRECTIVES,
-  disableDeprecatedForms,
-  FormGroup,
-} from '@angular/forms';
-import { Component, provide } from '@angular/core';
-import { bootstrap } from '@angular/platform-browser-dynamic';
+  Connect,
+  ConnectArray,
+  FormStore,
+  NgReduxForms,
+  composeReducers,
+  defaultFormReducer,
+} from '../../source';
 
-import { Map, fromJS } from 'immutable';
-
-import { NgRedux, select } from 'ng2-redux';
-
-import { combineReducers } from 'redux';
-
-import { Connect } from '../../source/connect';
-import { ConnectArray } from '../../source/connect-array';
-import { composeReducers } from '../../source/compose-reducers';
-import { defaultFormReducer } from '../../source/form-reducer';
-import { provideFormConnect } from '../../source/configure';
-import { logger } from '../../source/tests.utilities';
+import {logger} from '../../source/tests.utilities';
 
 @Component({
   selector: 'form-example',
@@ -74,11 +74,6 @@ import { logger } from '../../source/tests.utilities';
       </div>
     </div>
   `,
-  directives: [
-    Connect,
-    ConnectArray,
-    REACTIVE_FORM_DIRECTIVES,
-  ],
   styles: [require('./index.css')]
 })
 export class FormExample {
@@ -95,10 +90,6 @@ export class FormExample {
     this.ngRedux.dispatch({
       type: 'ADD_FORM_ENTRY'
     });
-  }
-
-  stringify(obj) {
-    return JSON.stringify(obj);
   }
 }
 
@@ -117,7 +108,6 @@ export class FormExample {
       </li>
     </ul>
   `,
-  directives: [Connect, REACTIVE_FORM_DIRECTIVES]
 })
 export class TodoExample {
   @select(s => s.todos.get('list')) private list;
@@ -142,9 +132,12 @@ export class TodoExample {
     <form-example></form-example>
     <todo-example></todo-example>
   `,
-  directives: [FormExample, TodoExample]
 })
-export class Example {}
+export class Example {
+  constructor(private ngRedux: NgRedux<AppState>) {
+    ngRedux.configureStore(reducer, {form1, todos}, [logger], []);
+  }
+}
 
 interface AppState {
   form1?: {
@@ -215,13 +208,23 @@ function todoReducer(state = todos, action: {type: string, payload?}) {
   return state;
 }
 
-const ngRedux = new NgRedux<AppState>();
+@NgModule({
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgReduxForms,
+  ],
+  declarations: [
+    FormExample,
+    TodoExample,
+    Example,
+  ],
+  providers: [
+    NgRedux,
+  ],
+  bootstrap: [Example]
+})
+export class ExampleModule {}
 
-ngRedux.configureStore(reducer, {form1, todos}, [logger], []);
-
-bootstrap(Example, [
-  provide(NgRedux, {useValue: ngRedux}),
-  disableDeprecatedForms(),
-  provideForms(),
-  provideFormConnect(ngRedux),
-]);
+platformBrowserDynamic().bootstrapModule(ExampleModule);

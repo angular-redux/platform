@@ -36,11 +36,11 @@ import {
   NG_VALIDATORS
 } from '@angular/forms/src/validators';
 
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
 
-import { Connect } from './connect';
-import { FormStore } from './form-store';
-import { State } from './state';
+import {Connect} from './connect';
+import {FormStore} from './form-store';
+import {State} from './state';
 
 export class ConnectArrayTemplate {
   constructor(
@@ -87,7 +87,11 @@ export class ConnectArray<RootState> extends ControlContainer {
   ngOnInit() {
     this.formDirective.form.addControl(this.key, this.array);
 
-    const ctrl = this.formDirective.form.find(this.path);
+    const ctrl = this.formDirective.form.get(this.path);
+    if (ctrl == null) {
+      throw new Error(`No control found for ${this.path}`);
+    }
+
     setUpFormContainer(<any> ctrl, this.formArray);
 
     ctrl.updateValueAndValidity({

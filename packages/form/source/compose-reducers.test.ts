@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 
 import {
   fromJS,
@@ -8,7 +8,7 @@ import {
   Set
 } from 'immutable';
 
-import { composeReducers } from './compose-reducers';
+import {composeReducers} from './compose-reducers';
 
 describe('composeReducers', () => {
   const compose = (s1, s2, s3) => {
