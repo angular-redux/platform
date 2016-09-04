@@ -1,6 +1,6 @@
 {
   "name": "ng2-redux-router",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Bindings from the router in Angular 2 to the redux state",
   "main": "index.js",
   "repository": {
@@ -8,33 +8,28 @@
     "url": "git+https://github.com/dagstuan/ng2-redux-router.git"
   },
   "scripts": {
-    "typings": "rimraf typings/ && typings install",
-    "build": "npm-run-all build:cjs build:es6",
-    "build:cjs": "tsc --p tsconfig.es5.json --diagnostics --pretty",
-    "build:es6": "tsc -m es2015   --outDir ./release/es6 --target ES6 -d --diagnostics --pretty",
-    "prepare": "npm-run-all prepare:*",
-    "prepare:es6": "cp -R ./release/es6 ./release/npm",
-    "prepare:package": "cp ./{package.json,README.md} ./release/npm"
+    "build": "rimraf ./release; tsc --diagnostics --pretty",
+    "prepare": "cp ./{package.json,README.md} ./release"
   },
   "peerDependencies": {
     "@angular/core": "2.0.0-rc.4 || 2.0.0-rc.5 || 2.0.0-rc.6",
     "@angular/router": "3.0.0-beta.2 || 3.0.0-rc.1 || 3.0.0-rc.2"
   },
   "devDependencies": {
-    "@angular/core": "2.0.0-rc.6",
-    "@angular/router": "3.0.0-rc.2",
     "@angular/common": "2.0.0-rc.6",
-    "@angular/platform-browser": "2.0.0-rc.6",
     "@angular/compiler": "2.0.0-rc.6",
+    "@angular/core": "2.0.0-rc.6",
+    "@angular/platform-browser": "2.0.0-rc.6",
     "@angular/platform-browser-dynamic": "2.0.0-rc.6",
+    "@angular/router": "3.0.0-rc.2",
+    "@types/core-js": "^0.9.32",
+    "@types/jasmine": "^2.2.33",
     "ng2-redux": "^3.3.9",
-    "npm-run-all": "^2.1.1",
     "redux": "^3.5.2",
-    "rimraf": "^2.5.2",
+    "rimraf": "^2.5.4",
     "rxjs": "5.0.0-beta.11",
-    "typescript": "^1.8.10",
-    "typings": "^1.0.4",
-    "zone.js": "^0.6.8"
+    "typescript": "^2.0.2",
+    "zone.js": "^0.6.17"
   },
   "author": "Dag Stuan",
   "license": "MIT"

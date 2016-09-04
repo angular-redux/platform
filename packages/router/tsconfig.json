@@ -1,9 +1,10 @@
 {
-  "version": "1.8.0",
   "compileOnSave": false,
+  "buildOnSave": false,
   "compilerOptions": {
-    "outDir": "./release/es6",
-    "target": "es6",
+    "outDir": "./release",
+    "target": "es5",
+    "module": "commonjs",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -14,7 +15,6 @@
   "exclude": [
     "node_modules",
     "spec",
-    "typings",
     "release"
   ]
 }
