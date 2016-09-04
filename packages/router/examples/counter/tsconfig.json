@@ -2,20 +2,20 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "compilerOptions": {
-    "outDir": "./release",
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noImplicitAny": false,
     "removeComments": false,
-    "declaration": true
+    "sourceMap": true,
+    "types": [
+      "core-js",
+      "node"
+    ]
   },
   "exclude": [
-    "node_modules",
-    "spec",
-    "release",
-    "examples"
+    "node_modules"
   ]
 }

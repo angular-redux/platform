@@ -89,3 +89,7 @@ through the router. This can be achieved by initializing the bindings with a sec
 The `urlState$` argument lets you give `NgReduxRouter` an `Observable<string>` of the current URL of the page.
 If this argument is not given to the bindings, it defaults to subscribing to the `@angular/router`'s events, and
 getting the URL from there.
+
+#### Examples
+
+* [Counter: basic setup of ng2-redux-router](examples/counter)

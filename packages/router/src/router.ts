@@ -71,7 +71,7 @@ export class NgReduxRouter {
     if (this.initialized) {
       throw new Error('ng2-redux-router already initialized! If you meant to re-initialize, call destroy first.');
     }
-
+    
     this.selectLocationFromState = selectLocationFromState
 
     this.urlState = urlState$ || this.getDefaultUrlStateObservable();
