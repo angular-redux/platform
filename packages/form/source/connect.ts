@@ -9,7 +9,6 @@ import {
   FormGroup,
   FormArray,
   NgForm,
-  NgModel,
   NgControl,
 } from '@angular/forms';
 
@@ -84,7 +83,7 @@ export class Connect<RootState> {
     });
   }
 
-  protected descendants(path: string[], formElement): Array<ControlPair> {
+  private descendants(path: string[], formElement): Array<ControlPair> {
     const pairs = new Array<ControlPair>();
 
     if (formElement instanceof FormArray) {
@@ -111,7 +110,7 @@ export class Connect<RootState> {
     return pairs;
   }
 
-  protected resetState() {
+  private resetState() {
     const children = this.descendants([], this.form.control);
 
     children.forEach(c => {
@@ -127,11 +126,11 @@ export class Connect<RootState> {
     });
   }
 
-  protected publish(value) {
+  private publish(value) {
     this.store.valueChanged(this.path, this.form, value);
   }
 
-  protected getState(): RootState {
+  private getState(): RootState {
     return this.store.getState();
   }
 }

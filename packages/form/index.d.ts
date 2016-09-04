@@ -19,7 +19,7 @@ declare namespace 'ng2-redux-form' {
     /// The control path of this directive (up to the root form)
     path: string[];
 
-    constructor(children: QueryList<NgControl>, store: FormStore<RootState>, form: NgForm);
+    constructor(store: FormStore<RootState>, form: NgForm);
 
     /// Update the form models with the latest state from the {@link AbstractStore}
     protected resetState(): void;
@@ -52,6 +52,12 @@ declare namespace 'ng2-redux-form' {
 
   /// This is the action dispatched when form values change.
   export const FORM_CHANGED: string;
+
+
+  // The following APIs are included just because you may find them useful in your 
+  // project if you need to read and write state in the same way that ng2-redux-form
+  // does. It is basically just an abstraction that allows you to read and write
+  // state from plain objects or from ImmutableJS structures, or a mix of both;
 
   export interface Operations<T> {
     /// Clone this object
