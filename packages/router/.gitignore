@@ -1,6 +1,6 @@
 node_modules/
 typings/
-release/
+lib/
 examples/counter/node_modules/
 examples/counter/dist/*
 npm-debug.log

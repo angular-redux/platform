@@ -1,15 +1,18 @@
 {
   "name": "ng2-redux-router",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Bindings from the router in Angular 2 to the redux state",
-  "main": "index.js",
+  "main": "lib/es5/index.js",
+  "module": "lib/esm/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dagstuan/ng2-redux-router.git"
   },
   "scripts": {
-    "build": "rimraf ./release; tsc --diagnostics --pretty",
-    "prepare": "cp ./{package.json,README.md} ./release"
+    "build": "rimraf ./release && npm run build:es6 && npm run build:es5 && npm run build:esm",
+    "build:es6": "tsc --p tsconfig.es6.json --diagnostics --pretty",
+    "build:esm": "tsc --p tsconfig.esm.json --diagnostics --pretty",
+    "build:es5": "tsc --p tsconfig.json --diagnostics --pretty"
   },
   "peerDependencies": {
     "@angular/core": "2.0.0-rc.4 || 2.0.0-rc.5 || 2.0.0-rc.6",
