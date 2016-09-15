@@ -15,11 +15,10 @@ import {
 @Injectable()
 export class NgReduxRouter {
   private initialized = false;
-  private isTimeTravelling: boolean;
   private currentLocation: string;
   private initialLocation: string;
 
-  private selectLocationFromState = (state) => state.router;
+  private selectLocationFromState: (state) => string = (state) => state.router;
   private urlState: Observable<string>;
 
   private urlStateSubscription: ISubscription;
@@ -71,7 +70,7 @@ export class NgReduxRouter {
     if (this.initialized) {
       throw new Error('ng2-redux-router already initialized! If you meant to re-initialize, call destroy first.');
     }
-    
+
     this.selectLocationFromState = selectLocationFromState
 
     this.urlState = urlState$ || this.getDefaultUrlStateObservable();
@@ -95,17 +94,18 @@ export class NgReduxRouter {
 
   private listenToRouterChanges() {
     const handleLocationChange = (location: string) => {
-      if(this.isTimeTravelling) {
-        // The promise of the router returns before the emit of changes...
-        this.isTimeTravelling = false;
+      if(this.currentLocation === location) {
+        // Dont dispatch changes if we haven't changed location.
         return;
       }
 
       this.currentLocation = location;
-
       if (this.initialLocation === undefined) {
         this.initialLocation = location;
 
+        // Fetch initial location from store and make sure
+        // we dont dispath an event if the current url equals
+        // the initial url.
         let locationFromStore = this.getLocationFromStore();
         if(locationFromStore === this.currentLocation) {
           return;
@@ -130,18 +130,12 @@ export class NgReduxRouter {
 
       let locationInStore = this.getLocationFromStore(true);
       if (this.currentLocation === locationInStore) {
+        // Dont change router location if its equal to the one in the store.
         return;
       }
 
-      this.isTimeTravelling = true;
       this.currentLocation = location
-      this.router
-        .navigateByUrl(location)
-        .then(() => {
-          // Apparently navigating by url doesn't trigger Angular's change detection,
-          // Need to do this manually then via ApplicationRef.
-          this.applicationRef.tick();
-        });
+      this.router.navigateByUrl(location);
     }
 
     this.reduxSubscription = this.ngRedux
