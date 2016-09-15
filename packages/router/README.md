@@ -1,7 +1,9 @@
-# ng2-redux-router 1.2.0
+# ng2-redux-router 1.3.1
 ### Bindings to connect @angular/router to ng2-redux
 
-This package uses the new v3 router for angular 2 `@angular/router@3.0.0-rc.2`.
+Updated for Angular 2 final release.
+
+This package uses the new v3 router for angular 2 `@angular/router@^3.0.0`.
 
 ### Setup
 
@@ -73,7 +75,7 @@ This package uses the new v3 router for angular 2 `@angular/router@3.0.0-rc.2`.
   }
   ```
 
-#### What if I use Immutable.js with my Redux store?
+### What if I use Immutable.js with my Redux store?
 
 When using a wrapper for your store's state, such as Immutable.js, you will need to change two things from the standard setup:
 
@@ -82,7 +84,7 @@ When using a wrapper for your store's state, such as Immutable.js, you will need
 
 These two hooks will allow you to store the state that this library uses in whatever format or wrapper you would like.
 
-#### What if I have a different way of supplying the current URL of the page?
+### What if I have a different way of supplying the current URL of the page?
 
 Depending on your app's needs. It may need to supply the current URL of the page differently than directly
 through the router. This can be achieved by initializing the bindings with a second argument: `urlState$`.
@@ -90,6 +92,6 @@ The `urlState$` argument lets you give `NgReduxRouter` an `Observable<string>` o
 If this argument is not given to the bindings, it defaults to subscribing to the `@angular/router`'s events, and
 getting the URL from there.
 
-#### Examples
+### Examples
 
 * [Counter: basic setup of ng2-redux-router](examples/counter)
