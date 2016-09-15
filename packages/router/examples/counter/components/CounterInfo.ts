@@ -3,6 +3,14 @@ import { Observable } from 'rxjs/Observable';
 import { select } from 'ng2-redux';
 import 'rxjs/add/operator/combineLatest';
 
+export function counter(state) {
+  return state.counter;
+}
+
+export function counterX2(state) {
+  return state.counter * 2;
+}
+
 @Component({
   selector: 'counter-info',
   template: `
@@ -16,9 +24,9 @@ import 'rxjs/add/operator/combineLatest';
 })
 export class CounterInfo {
 
-    @select(state => state.counter) funcCounter$;
+    @select(counter) funcCounter$;
     @select('counter') stringKey$;
-    @select(state => state.counter * 2) counterX2$: Observable<any>;
+    @select(counterX2) counterX2$: Observable<any>;
     foo: any;
 
     ngOnInit() {

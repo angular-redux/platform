@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing, AuthGuard } from '../routes';
-import { NgRedux } from 'ng2-redux';
+import { NgReduxModule } from 'ng2-redux';
 import { NgReduxRouter } from 'ng2-redux-router';
 import { Counter } from '../components/Counter';
 import { CounterInfo } from '../components/CounterInfo';
@@ -11,7 +11,8 @@ import { AppComponent, FirstComponent, SecondComponent, ThirdComponent } from '.
 @NgModule({
   imports: [
     BrowserModule,
-    routing
+    routing,
+    NgReduxModule
   ],
   declarations: [
     AppComponent,
@@ -22,7 +23,6 @@ import { AppComponent, FirstComponent, SecondComponent, ThirdComponent } from '.
     CounterInfo
   ],
   providers: [
-    NgRedux,
     NgReduxRouter,
     AuthGuard
   ],

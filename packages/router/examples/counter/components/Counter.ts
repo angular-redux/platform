@@ -20,5 +20,5 @@ import { RandomNumberService } from '../services/random-number';
 export class Counter {
   @select('counter') counter$: any;
 
-  constructor(private actions: CounterActions) {}
+  constructor(public actions: CounterActions) {}
 }

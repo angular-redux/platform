@@ -20,7 +20,7 @@ module.exports = {
       'node_modules'
     ],
     alias: {
-      'ng2-redux-router$':__dirname + '/../../release'
+      'ng2-redux-router$':__dirname + '/../..'
     }
   },
   plugins: [
