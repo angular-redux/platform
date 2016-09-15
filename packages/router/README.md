@@ -1,4 +1,4 @@
-# ng2-redux-router 1.3.1
+# ng2-redux-router 1.3.3
 ### Bindings to connect @angular/router to ng2-redux
 
 Updated for Angular 2 final release.
