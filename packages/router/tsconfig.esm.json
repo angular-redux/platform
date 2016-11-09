@@ -11,9 +11,12 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "declaration": true,
-    "types": ["core-js"]
+    "types": [
+      "core-js"
+    ]
   },
   "exclude": [
+    "lib",
     "node_modules",
     "spec",
     "release",

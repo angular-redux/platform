@@ -10,32 +10,33 @@
     "url": "git+https://github.com/dagstuan/ng2-redux-router.git"
   },
   "scripts": {
-    "build": "rimraf ./lib && npm run build:es6 && npm run build:es5 && npm run build:esm",
-    "build:es6": "ngc --p tsconfig.es6.json --diagnostics --pretty",
-    "build:esm": "ngc --p tsconfig.esm.json --diagnostics --pretty",
-    "build:es5": "ngc --p tsconfig.json --diagnostics --pretty"
+    "build": "rimraf ./lib && npm run build:es5 && npm run build:esm && npm run build:es6",
+    "postbuild": "rimraf \"src/**/*.ngfactory.ts\"",
+    "build:es6": "ngc -p tsconfig.es6.json && npm run postbuild",
+    "build:esm": "ngc -p tsconfig.esm.json  && npm run postbuild",
+    "build:es5": "ngc -p tsconfig.json && npm run postbuild"
   },
   "peerDependencies": {
-    "@angular/core": "^2.0.0",
+    "@angular/core": "^2.1.2",
     "@angular/router": "^3.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/compiler": "^2.0.0",
-    "@angular/compiler-cli": "^0.6.2",
-    "@angular/core": "^2.0.0",
-    "@angular/platform-browser": "^2.0.0",
-    "@angular/platform-browser-dynamic": "^2.0.0",
-    "@angular/platform-server": "^2.0.0",
-    "@angular/router": "^3.0.0",
-    "@types/core-js": "^0.9.32",
-    "@types/jasmine": "^2.2.33",
-    "ng2-redux": "^4.0.0-beta.1",
+    "@angular/common": "^2.1.2",
+    "@angular/compiler": "^2.1.2",
+    "@angular/compiler-cli": "^2.1.2",
+    "@angular/core": "^2.1.2",
+    "@angular/platform-browser": "^2.1.2",
+    "@angular/platform-browser-dynamic": "^2.1.2",
+    "@angular/platform-server": "^2.1.2",
+    "@angular/router": "^3.1.2",
+    "@types/core-js": "^0.9.34",
+    "@types/jasmine": "^2.5.37",
+    "ng2-redux": "^4.1.0",
     "redux": "^3.6.0",
     "rimraf": "^2.5.4",
     "rxjs": "5.0.0-beta.12",
-    "typescript": "^2.0.2",
-    "zone.js": "^0.6.23"
+    "typescript": "^2.0.8",
+    "zone.js": "^0.6.26"
   },
   "author": "Dag Stuan",
   "license": "MIT"

@@ -1,9 +1,9 @@
-# ng2-redux-router 1.3.3
+# ng2-redux-router 2.0.0
 ### Bindings to connect @angular/router to ng2-redux
 
 Updated for Angular 2 final release.
 
-This package uses the new v3 router for angular 2 `@angular/router@^3.0.0`.
+This package uses the new v3 router for angular 2 `@angular/router@^3.1.2`.
 
 ### Setup
 
@@ -26,54 +26,30 @@ This package uses the new v3 router for angular 2 `@angular/router@^3.0.0`.
 3. Add the bindings to your root module.
   ```ts
   import { NgModule } from '@angular/core';
-  import { AppComponent } from './app.component';
-  import { NgRedux } from 'ng2-redux';
-  import { NgReduxRouter } from 'ng2-redux-router';
+  import { NgReduxModule, NgRedux } from 'ng2-redux';
+  import { NgReduxRouterModule, NgReduxRouter } from 'ng2-redux-router';
   import { RouterModule } from '@angular/router';
   import { routes } from './routes';
 
   @NgModule({
     imports: [
       RouterModule.forRoot(routes),
+      NgReduxModule.forRoot(),
+      NgReduxRouterModule
       // ...your imports
     ],
-    declarations: [
-      AppComponent,
-      // ...your declarations
-    ],
-    providers: [
-      NgRedux,
-      NgReduxRouter,
-      // ...your providers
-    ],
-    bootstrap: [
-      AppComponent
-    ]
+    // Other stuff..
   })
-  export class AppModule {}
-```
-
-4. Initialize the bindings from your app component
-  ```ts
-  import { NgRedux } from 'ng2-redux';
-  import { NgReduxRouter } from 'ng2-redux-router';
-
-  @Component({
-    // ...
-  })
-  @Routes([
-    // ...
-  ])
-  export class App {
+  export class AppModule {
     constructor(
-      private ngRedux: NgRedux<IAppState>,
-      private ngReduxRouter: NgReduxRouter
+      ngRedux: NgRedux<IAppState>,
+      ngReduxRouter: NgReduxRouter
     ) {
       ngRedux.configureStore(/* args */);
       ngReduxRouter.initialize(/* args */);
     }
   }
-  ```
+```
 
 ### What if I use Immutable.js with my Redux store?
 

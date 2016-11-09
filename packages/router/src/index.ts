@@ -6,10 +6,9 @@ import { UPDATE_LOCATION } from './actions';
 @NgModule({
   providers: [ NgReduxRouter ]
 })
-class NgReduxRouterModule { }
+export class NgReduxRouterModule { }
 
 export {
-  NgReduxRouterModule,
   NgReduxRouter,
   RouterAction,
   routerReducer,

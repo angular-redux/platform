@@ -14,6 +14,7 @@
     "types": []
   },
   "exclude": [
+    "lib",
     "node_modules",
     "spec",
     "release",
