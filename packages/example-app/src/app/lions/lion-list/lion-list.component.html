@@ -1,0 +1,6 @@
+<h2>We have Lions!</h2>
+<ul>
+  <li *ngFor="let item of lions$ | async; trackBy:getItemName">
+    {{ item.name }}
+  </li>
+</ul>
