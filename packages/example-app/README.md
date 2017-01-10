@@ -1,4 +1,4 @@
-# Zoo
+# Example App: Zoo Animals
 
 This is a sample project showing how the following packages work together to make a simple
 application.
