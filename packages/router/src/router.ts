@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { Injectable, ApplicationRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd, NavigationCancel, DefaultUrlSerializer } from '@angular/router';
-import { NgRedux } from 'ng2-redux';
+import { NgRedux } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription'
 import { UPDATE_LOCATION } from './actions';
@@ -32,8 +32,8 @@ export class NgReduxRouter {
   ) {}
 
   /**
-   * Destroys the bindings between ng2-redux and @angular/router.
-   * This method unsubscribes from both ng2-redux and @angular router, in case
+   * Destroys the bindings between @angular-redux/router and @angular/router.
+   * This method unsubscribes from both @angular-redux/router and @angular router, in case
    * your app needs to tear down the bindings without destroying Angular or Redux
    * at the same time.
    */
@@ -50,7 +50,7 @@ export class NgReduxRouter {
   }
 
   /**
-   * Initialize the bindings between ng2-redux and @angular/router
+   * Initialize the bindings between @angular-redux/router and @angular/router
    *
    * This should only be called once for the lifetime of your app, for
    * example in the constructor of your root component.
@@ -68,7 +68,7 @@ export class NgReduxRouter {
     urlState$: Observable<string> = undefined
   ) {
     if (this.initialized) {
-      throw new Error('ng2-redux-router already initialized! If you meant to re-initialize, call destroy first.');
+      throw new Error('@angular-redux/router already initialized! If you meant to re-initialize, call destroy first.');
     }
 
     this.selectLocationFromState = selectLocationFromState

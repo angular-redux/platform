@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgRedux } from 'ng2-redux';
+import { NgRedux } from '@angular-redux/core';
 import * as Redux from 'redux';
 import { RootState } from '../store';
 import { RandomNumberService } from '../services/random-number';

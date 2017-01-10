@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { select } from 'ng2-redux';
+import { select } from '@angular-redux/core';
 import 'rxjs/add/operator/combineLatest';
 
 export function counter(state) {

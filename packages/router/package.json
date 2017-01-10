@@ -1,15 +1,16 @@
 {
-  "name": "ng2-redux-router",
-  "version": "2.0.0",
-  "description": "Bindings from the router in Angular 2 to the redux state",
+  "name": "@angular-redux/router",
+  "version": "2.0.0-alpha.3",
+  "description": "Keep your Angular 2+ router state in Redux.",
   "main": "./lib/es5/index.js",
   "module": "./lib/esm/index.js",
   "typings": "./lib/es5/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dagstuan/ng2-redux-router.git"
+    "url": "git+https://github.com/angular-redux/router.git"
   },
   "scripts": {
+    "prepublish": "npm run build",
     "build": "rimraf ./lib && npm run build:es5 && npm run build:esm && npm run build:es6",
     "postbuild": "rimraf \"src/**/*.ngfactory.ts\"",
     "build:es6": "ngc -p tsconfig.es6.json && npm run postbuild",
@@ -21,22 +22,22 @@
     "@angular/router": "^3.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^2.1.2",
-    "@angular/compiler": "^2.1.2",
-    "@angular/compiler-cli": "^2.1.2",
-    "@angular/core": "^2.1.2",
-    "@angular/platform-browser": "^2.1.2",
-    "@angular/platform-browser-dynamic": "^2.1.2",
-    "@angular/platform-server": "^2.1.2",
-    "@angular/router": "^3.1.2",
+    "@angular/common": "^2.4.1",
+    "@angular/compiler": "^2.4.1",
+    "@angular/compiler-cli": "^2.4.1",
+    "@angular/core": "^2.4.1",
+    "@angular/platform-browser": "^2.4.1",
+    "@angular/platform-browser-dynamic": "^2.4.1",
+    "@angular/platform-server": "^2.4.1",
+    "@angular/router": "^3.4.1",
     "@types/core-js": "^0.9.34",
     "@types/jasmine": "^2.5.37",
-    "ng2-redux": "^4.1.0",
+    "@angular-redux/store": "^5.1.0",
     "redux": "^3.6.0",
     "rimraf": "^2.5.4",
-    "rxjs": "5.0.0-beta.12",
-    "typescript": "^2.0.8",
-    "zone.js": "^0.6.26"
+    "rxjs": "^5.0.1",
+    "typescript": "2.0.10",
+    "zone.js": "^0.7.2"
   },
   "author": "Dag Stuan",
   "license": "MIT"

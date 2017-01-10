@@ -1,21 +1,21 @@
-# ng2-redux-router 2.0.0
-### Bindings to connect @angular/router to ng2-redux
+# @angular-redux/router 2.0.0
+### Bindings to connect @angular/router to @angular-redux/core
 
 Updated for Angular 2 final release.
 
-This package uses the new v3 router for angular 2 `@angular/router@^3.1.2`.
+This package uses the new v3 router for angular 2 `@angular/router@^3.4.2`.
 
 ### Setup
 
 1. Use npm to install the bindings:
   ```
-  npm install ng2-redux-router --save
+  npm install @angular-redux/router --save
   ```
 
 2. Use the `routerReducer` when providing `Store`:
   ```ts
   import { combineReducers } from 'redux';
-  import { routerReducer } from 'ng2-redux-router';
+  import { routerReducer } from '@angular-redux/router';
 
   export default combineReducers<IAppState>({
     // your reducers..
@@ -26,15 +26,15 @@ This package uses the new v3 router for angular 2 `@angular/router@^3.1.2`.
 3. Add the bindings to your root module.
   ```ts
   import { NgModule } from '@angular/core';
-  import { NgReduxModule, NgRedux } from 'ng2-redux';
-  import { NgReduxRouterModule, NgReduxRouter } from 'ng2-redux-router';
+  import { NgReduxModule, NgRedux } from '@angular-redux/core';
+  import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
   import { RouterModule } from '@angular/router';
   import { routes } from './routes';
 
   @NgModule({
     imports: [
       RouterModule.forRoot(routes),
-      NgReduxModule.forRoot(),
+      NgReduxModule,
       NgReduxRouterModule
       // ...your imports
     ],
@@ -70,4 +70,4 @@ getting the URL from there.
 
 ### Examples
 
-* [Counter: basic setup of ng2-redux-router](examples/counter)
+* [Counter: basic setup of @angular-redux/router](examples/counter)
