@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { select } from 'ng2-redux';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'app-elephant-list',

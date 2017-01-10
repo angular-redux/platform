@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NgRedux, DevToolsExtension } from 'ng2-redux';
+import { NgRedux, DevToolsExtension } from '@angular-redux/store';
+import { NgReduxRouter, routerReducer } from '@angular-redux/router';
 import { Action, combineReducers } from 'redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 
@@ -22,12 +23,14 @@ export class AppComponent {
     private ngRedux: NgRedux<any>,
     private actions: AppActions,
     devTools: DevToolsExtension,
+    ngReduxRouter: NgReduxRouter,
     elephantsEpics: ElephantsEpics,
     lionsEpics: LionsEpics
   ) {
     const rootReducer = combineReducers({
       elephants: elephantsReducer,
       lions: lionsReducer,
+      router: routerReducer,
     });
 
     ngRedux.configureStore(
@@ -38,13 +41,10 @@ export class AppComponent {
         createEpicMiddleware(combineEpics(...lionsEpics.epics)),
       ],
       devTools.isEnabled() ? [ devTools.enhancer() ] : null);
+    ngReduxRouter.initialize(/* args */);
   }
 
   ngOnInit() {
-    this.reload();
-  }
-
-  reload() {
     this.ngRedux.dispatch(this.actions.loadData());
   }
 }
