@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {NgRedux} from 'ng2-redux';
+import {NgRedux} from '@angular-redux/store';
 
 import {Connect} from './connect';
 import {ConnectArray} from './connect-array';

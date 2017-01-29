@@ -1,5 +1,5 @@
 {
-  "name": "ng2-redux-form-examples",
+  "name": "@angular-redux/form-examples",
   "engines": {
     "node": ">=6.0"
   },
@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server -d --devtool=inline-source-map --inline --progress --no-info"
   },
   "devDependencies": {
+    "@angular-redux/store": "^5.1.0",
     "@angular/common": "^2.4.2",
     "@angular/compiler": "^2.4.2",
     "@angular/core": "^2.4.2",
@@ -16,7 +17,6 @@
     "babel-polyfill": "^6.20.0",
     "chai": "^3.5.0",
     "immutable": "^3.8.1",
-    "ng2-redux": "^5.1.0",
     "redux": "^3.0",
     "redux-logger": "^2.6.1",
     "reflect-metadata": "^0.1.9",

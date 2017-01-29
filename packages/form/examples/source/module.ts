@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {Map, fromJS} from 'immutable';
 
-import {NgRedux, select} from 'ng2-redux';
+import {NgRedux, select} from '@angular-redux/store';
 
 import {combineReducers} from 'redux';
 

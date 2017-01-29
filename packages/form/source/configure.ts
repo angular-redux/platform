@@ -10,9 +10,9 @@ import {
   FormStore,
 } from './form-store';
 
-/// Use this function in your providers list if you are not using ng2-redux.
+/// Use this function in your providers list if you are not using @angular-redux/core.
 /// This will allow you to provide a preexisting store that you have already
-/// configured, rather than letting ng2-redux creating one for you.
+/// configured, rather than letting @angular-redux/core create one for you.
 export const provideReduxForms = <T>(store: Store<T> | any) => {
   const abstractStore = wrap(store);
 
