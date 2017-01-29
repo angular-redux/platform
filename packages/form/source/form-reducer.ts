@@ -4,7 +4,7 @@ import {
   fromJS
 } from 'immutable';
 
-import {Reducer} from 'redux';
+import {Action, Reducer} from 'redux';
 
 import {FormException} from './form-exception';
 
@@ -16,7 +16,7 @@ import {
 import {State} from './state';
 
 export const defaultFormReducer = <RootState>(initialState?: RootState | Iterable.Keyed<string, any>) => {
-  const reducer = (state: RootState | Iterable.Keyed<string, any> = initialState, action: Redux.Action & {payload?}) => {
+  const reducer = (state: RootState | Iterable.Keyed<string, any> = initialState, action: Action & {payload?}) => {
     switch (action.type) {
       case FORM_CHANGED:
         return State.assign(

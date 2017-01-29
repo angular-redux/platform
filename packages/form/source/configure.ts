@@ -1,5 +1,4 @@
 import {FormControl} from '@angular/forms';
-import {NgRedux} from 'ng2-redux';
 
 import {
   Action,
@@ -14,7 +13,7 @@ import {
 /// Use this function in your providers list if you are not using ng2-redux.
 /// This will allow you to provide a preexisting store that you have already
 /// configured, rather than letting ng2-redux creating one for you.
-export const provideReduxForms = <T>(store: Store<T> | NgRedux<T>) => {
+export const provideReduxForms = <T>(store: Store<T> | any) => {
   const abstractStore = wrap(store);
 
   return [
@@ -22,7 +21,7 @@ export const provideReduxForms = <T>(store: Store<T> | NgRedux<T>) => {
   ];
 };
 
-const wrap = <T>(store: Store<T> | NgRedux<T>): AbstractStore<T> => {
+const wrap = <T>(store: Store<T> | any): AbstractStore<T> => {
   const dispatch = (action: Action) => store.dispatch(action);
 
   const getState = () => <T> store.getState();

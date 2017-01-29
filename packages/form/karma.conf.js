@@ -25,6 +25,7 @@ module.exports = (config) => {
       'karma-remap-istanbul',
       'karma-spec-reporter',
       'karma-chrome-launcher',
+      'karma-transform-path-preprocessor',
     ],
 
     files: [
@@ -38,31 +39,31 @@ module.exports = (config) => {
     ],
 
     preprocessors: {
-      './source/tests.entry.ts': [
+      '**/*.ts': [
         'webpack',
         'sourcemap',
+        'transformPath',
       ],
-      './source/**/!(*.test|tests.*).(ts|js)': [
+      '**/!(*.test|tests.*).(ts|js)': [
         'sourcemap',
       ],
     },
 
+    transformPathPreprocessor: {
+      transformer: path => path.replace(/\.ts$/, '.js'),
+    },
+
     webpack: {
       plugins,
-      entry: './source/tests.entry.ts',
+      entry: './source/tests.entry',
       devtool: 'inline-source-map',
-      verbose: false,
       resolve: {
-        extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
+        extensions: ['.webpack.js', '.web.js', '.js', '.ts'],
       },
       module: {
-        loaders: combinedLoaders(),
-        postLoaders: config.singleRun
-          ? [ loaders.istanbulInstrumenter ]
-          : [ ],
+        rules: combinedLoaders().concat(config.singleRun ? [loaders.istanbulInstrumenter] : [])
       },
       stats: { colors: true, reasons: true },
-      debug: false,
     },
 
     webpackServer: { noInfo: true },
@@ -90,7 +91,7 @@ module.exports = (config) => {
     autoWatch: config.singleRun === false,
 
     browsers: [
-      'ChromeCanary',
+      'Chrome',
     ],
   });
 };
@@ -103,7 +104,7 @@ function combinedLoaders() {
     case 'ts':
       return aggregate.concat([ // force inline source maps
         Object.assign(loaders[k],
-          { query: { babelOptions: { sourceMaps: 'both' } } })]);
+          { query: { babelOptions: { sourceMaps: 'both' }, skipDeclarationFilesCheck: true } })]);
     default:
       return aggregate.concat([loaders[k]]);
     }

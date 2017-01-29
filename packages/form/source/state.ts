@@ -162,7 +162,12 @@ export abstract class State {
             return parent.mergeDeepIn(Array.isArray(key) ? key : [key], value);
           }
           else {
-            return parent.mergeDeep(value);
+            if (ImmutableMap.isMap(value)) {
+              return parent.mergeDeep(value);
+            }
+            else {
+              return parent.concat(value);
+            }
           }
         });
     }

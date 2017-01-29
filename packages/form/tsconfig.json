@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "types": ["node", "chai", "jasmine"],
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": false,
     "inlineSourceMap": true,
-    "noEmitHelpers": true,
     "declaration": true,
     "outDir": "dist",
     "rootDir": ""
@@ -17,10 +18,12 @@
     "useBabel": true,
     "useCache": false
   },
+  "angularCompilerOptions": {},
   "exclude": [
     "node_modules",
     "dist",
     "examples",
-    "index.d.ts"
+    "index.d.ts",
+    "**/*test*.ts"
   ]
 }

@@ -1,5 +1,8 @@
 ## ng2-redux-form
 
+[![npm version](https://img.shields.io/npm/v/ng2-redux-form.svg)](https://www.npmjs.com/package/ng2-redux-form)
+[![npm downloads](https://img.shields.io/npm/dt/ng2-redux-form.svg)](https://www.npmjs.com/package/ng2-redux-form)
+
 This library is a thin layer of connective tissue between Angular 2 forms and
 Redux. It provides unidirectional data binding between your Redux state and
 your forms elements. It builds on existing Angular functionality like
@@ -71,7 +74,7 @@ Or if you are using Redux without ng2-redux, then your bootstrap call would look
 more like this (substitute your own store creation code):
 
 ```typescript
-import {provideFormConnect} from 'ng2-redux-form';
+import {provideReduxForms} from 'ng2-redux-form';
 
 const storeCreator = compose(applyMiddleware(logger))(createStore);
 const store = create(reducers, <MyApplicationState> {});
@@ -84,22 +87,16 @@ const store = create(reducers, <MyApplicationState> {});
     NgReduxForms,
   ],
   providers: [
-    NgRedux,
-    provideFormConnect(store),
+    provideReduxForms(store),
   ],
   bootstrap: [MyApplicationComponent]
 })
 export class ExampleModule {}
 ```
 
-(Note that in these examples, we are explicitly disabling the old Angular 2 forms
-API. You should too. The deprecated forms API will be removed at some point in the
-near future so you should build your application using the new one from
-`provideForms`.)
-
-The essential bit of code in the above samples is the call to `provideFormConnect(...)`.
+The essential bit of code in the above samples is the call to `provideReduxForms(...)`.
 This configures ng2-form-redux and provides access to your Redux store or NgRedux
-instance. The shape of the object that `provideFormConnect` expects is very
+instance. The shape of the object that `provideReduxForms` expects is very
 basic:
 
 ```typescript
@@ -115,7 +112,7 @@ export interface AbstractStore<RootState> {
 }
 ```
 
-Both `NgRedux<T>` and `Redux.Store<T>` conform to this shape. If you have something
+Both `NgRedux<T>` and `Redux.Store<T>` conform to this shape. If you have a more
 complicated use-case that is not covered here, you could even create your own store
 shim as long as it conforms to the shape of `AbstractStore<RootState>`.
 

@@ -16,6 +16,8 @@ import {scheduleMicroTask} from '@angular/forms/src/facade/lang';
 
 import {Subscription} from 'rxjs';
 
+import {Unsubscribe} from 'redux';
+
 import 'rxjs/add/operator/debounceTime';
 
 import {FormException} from './form-exception';
@@ -23,26 +25,26 @@ import {FormStore} from './form-store';
 import {State} from './state';
 
 export interface ControlPair {
-  path: string[];
+  path: Array<string>;
   control: AbstractControl;
 }
 
 @Directive({
   selector: 'form[connect]',
 })
-export class Connect<RootState> {
-  @Input('connect') connect: () => (string | string[]) | string | string[];
+export class Connect {
+  @Input('connect') connect: () => (string | number) | Array<string | number>;
 
-  private stateSubscription: Redux.Unsubscribe;
+  private stateSubscription: Unsubscribe;
 
   private formSubscription: Subscription;
 
   constructor(
-    private store: FormStore<RootState>,
+    private store: FormStore,
     private form: NgForm
   ) {}
 
-  public get path(): string[] {
+  public get path(): Array<string> {
     const path = typeof this.connect === 'function'
       ? this.connect()
       : this.connect;
@@ -52,8 +54,8 @@ export class Connect<RootState> {
         if (State.empty(path)) {
           return [];
         }
-        if (typeof path.length === 'number') {
-          return <string[]> path;
+        if (Array.isArray(path)) {
+          return <Array<string>> path;
         }
       case 'string':
         return (<string> path).split(/\./g);
@@ -65,11 +67,14 @@ export class Connect<RootState> {
   ngOnDestroy () {
     if (this.formSubscription) {
       this.formSubscription.unsubscribe();
-      this.formSubscription = null;
+    }
+
+    if (typeof this.stateSubscription === 'function') {
+      this.stateSubscription(); // unsubscribe
     }
   }
 
-  private ngAfterViewInit() {
+  private ngAfterContentInit() {
     scheduleMicroTask(() => {
       this.resetState();
 
@@ -77,37 +82,35 @@ export class Connect<RootState> {
         this.resetState();
       });
 
-      setImmediate(() => {
-        this.formSubscription = this.form.valueChanges.debounceTime(0).subscribe(values => this.publish(values));
+      scheduleMicroTask(() => {
+        this.formSubscription = (<any>this.form.valueChanges).debounceTime(0).subscribe(values => this.publish(values));
       });
     });
   }
 
-  private descendants(path: string[], formElement): Array<ControlPair> {
+  private descendants(path: Array<string>, formElement): Array<ControlPair> {
     const pairs = new Array<ControlPair>();
 
     if (formElement instanceof FormArray) {
       formElement.controls.forEach((c, index) => {
-        for (const d of this.descendants(path.concat([index]), c)) {
+        for (const d of this.descendants((<any>path).concat([index]), c)) {
           pairs.push(d);
         }
       })
     }
     else if (formElement instanceof FormGroup) {
       for (const k of Object.keys(formElement.controls)) {
-        for (const d of this.descendants(path.concat([k]), formElement.controls[k])) {
-          pairs.push(d);
-        }
+        pairs.push({path:path.concat([k]), control: formElement.controls[k]});
       }
     }
     else if (formElement instanceof NgControl || formElement instanceof FormControl) {
-      return [{path: path, control: formElement}];
+      return [{path: path, control: <any> formElement}];
     }
     else {
       throw new Error(`Unknown type of form element: ${formElement.constructor.name}`);
     }
 
-    return pairs;
+    return pairs.filter(p => (<any>p.control)._parent === this.form.control);
   }
 
   private resetState() {
@@ -130,7 +133,7 @@ export class Connect<RootState> {
     this.store.valueChanged(this.path, this.form, value);
   }
 
-  private getState(): RootState {
+  private getState() {
     return this.store.getState();
   }
 }

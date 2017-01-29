@@ -2,28 +2,32 @@
 
 exports.css = {
   test: /\.css$/,
-  loader: 'raw',
-};
-
-exports.js = {
-  test: /\.js$/,
-  loader: 'babel',
-  query: {
-    compact: false,
-  },
+  loader: 'raw-loader',
 };
 
 exports.ts = {
   test: /\.ts$/,
-  loader: 'awesome-typescript-loader',
+  loader: '@ngtools/webpack',
+  exclude: /node_modules/,
+};
+
+exports.js = {
+  test: /\.js$/,
+  loader: 'babel-loader',
+  query: {
+    compact: false,
+  },
+  include: /(angular|rxjs)/,
 };
 
 exports.istanbulInstrumenter = {
+  enforce: 'post',
   test: /^(.(?!\.test))*\.ts$/,
   loader: 'istanbul-instrumenter-loader',
 };
 
 exports.html = {
   test: /\.html$/,
-  loader: 'raw',
+  loader: 'raw-loader',
 };
+

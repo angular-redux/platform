@@ -10,9 +10,12 @@ import {
   Directive,
   Optional,
   EmbeddedViewRef,
+  OnInit,
 } from '@angular/core';
 import {
+  NG_VALUE_ACCESSOR,
   AbstractControl,
+  DefaultValueAccessor,
   FormArray,
   FormArrayName,
   FormControl,
@@ -20,12 +23,14 @@ import {
   FormGroupDirective,
   NgModelGroup,
   ControlContainer,
+  ControlValueAccessor,
 } from '@angular/forms';
 import {
   composeAsyncValidators,
   composeValidators,
   controlPath,
-  setUpFormContainer
+  setUpFormContainer,
+  selectValueAccessor,
 } from '@angular/forms/src/directives/shared';
 import {
   AsyncValidatorFn,
@@ -35,6 +40,8 @@ import {
   NG_ASYNC_VALIDATORS,
   NG_VALIDATORS
 } from '@angular/forms/src/validators';
+
+import {Unsubscribe} from 'redux';
 
 import {Subscription} from 'rxjs';
 
@@ -57,76 +64,34 @@ export class ConnectArrayTemplate {
     useExisting: forwardRef(() => ConnectArray)
   }]
 })
-export class ConnectArray<RootState> extends ControlContainer {
-  private stateSubscription: Redux.Unsubscribe;
+export class ConnectArray extends ControlContainer implements OnInit {
+  private stateSubscription: Unsubscribe;
 
   private formSubscription: Subscription;
 
   private array = new FormArray([]);
 
+  private valueAccessor: ControlValueAccessor;
+
   private key: string;
 
   constructor(
     @Optional() @Host() @SkipSelf() private parent: ControlContainer,
-    @Optional() @Self() @Inject(NG_VALIDATORS) private validators: any[],
-    @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) private asyncValidators: any[],
-    private connection: Connect<RootState>,
+    @Optional() @Self() @Inject(NG_VALIDATORS) private rawValidators: any[],
+    @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) private rawAsyncValidators: any[],
+    @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: any[],
+    private connection: Connect,
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef,
-    private store: FormStore<RootState>
+    private store: FormStore,
   ) {
     super();
 
     this.stateSubscription = this.store.subscribe(state => this.resetState(state));
 
-    (<any>this).array.registerControl = () => {}
-  }
+    this.valueAccessor = selectValueAccessor(<any> this, valueAccessors) || this.simpleAccessor();
 
-  updateValueAndValidity() {}
-
-  ngOnInit() {
-    this.formDirective.form.addControl(this.key, this.array);
-
-    const ctrl = this.formDirective.form.get(this.path);
-    if (ctrl == null) {
-      throw new Error(`No control found for ${this.path}`);
-    }
-
-    setUpFormContainer(<any> ctrl, this.formArray);
-
-    ctrl.updateValueAndValidity({
-      emitEvent: false
-    });
-  }
-
-  private get formArray(): FormArrayName {
-    return <any> this;
-  }
-
-  ngOnDestroy() {
-    this.viewContainerRef.clear();
-
-    this.formDirective.form.removeControl(this.key);
-  }
-
-  get control(): FormArray {
-    return this.formDirective.getFormArray(this.formArray);
-  }
-
-  get formDirective(): FormGroupDirective {
-    return <FormGroupDirective>this.parent.formDirective;
-  }
-
-  get path(): string[] {
-    return controlPath(this.key, this.parent);
-  }
-
-  get validator(): ValidatorFn {
-    return composeValidators(this.validators);
-  }
-
-  get asyncValidator(): AsyncValidatorFn {
-    return composeAsyncValidators(this.asyncValidators);
+    this.registerInternals(this.array);
   }
 
   @Input()
@@ -136,16 +101,56 @@ export class ConnectArray<RootState> extends ControlContainer {
     this.resetState(this.store.getState());
   }
 
+  ngOnInit() {
+    this.formDirective.addControl(<any> this);
+  }
 
-  private resetState(state: RootState) {
+  get name(): string {
+    return this.key;
+  }
+
+  get control(): FormArray {
+    return this.array;
+  }
+
+  get formDirective(): FormGroupDirective {
+    return <FormGroupDirective>this.parent.formDirective;
+  }
+
+  get path(): Array<string> {
+    return controlPath(this.key, this.parent);
+  }
+
+  get validator(): ValidatorFn {
+    return composeValidators(this.rawValidators);
+  }
+
+  get asyncValidator(): AsyncValidatorFn {
+    return composeAsyncValidators(this.rawAsyncValidators);
+  }
+
+  private get formArray(): FormArrayName {
+    return <any> this;
+  }
+
+  updateValueAndValidity() {}
+
+  ngOnDestroy() {
+    this.viewContainerRef.clear();
+
+    this.formDirective.form.removeControl(this.key);
+  }
+
+  private resetState(state) {
     if (this.key == null || this.key.length === 0) {
       return; // no state to retreive if no key is set
     }
 
-    const iterable: Iterable<any> = State.get(state, this.connection.path.concat(this.path));
+    const iterable = State.get(state, this.connection.path.concat(this.path));
 
     let index = 0;
-    for (const iterableValue of iterable) {
+
+    for (const value of iterable) {
       var viewRef = this.viewContainerRef.length > index
         ? <EmbeddedViewRef<ConnectArrayTemplate>>this.viewContainerRef.get(index)
         : null;
@@ -156,7 +161,7 @@ export class ConnectArray<RootState> extends ControlContainer {
             new ConnectArrayTemplate(
               index,
               index,
-              iterableValue),
+              value),
             index);
 
         this.patchDescendantControls(viewRef);
@@ -168,15 +173,29 @@ export class ConnectArray<RootState> extends ControlContainer {
           new ConnectArrayTemplate(
             index,
             index,
-            iterableValue));
+            value));
       }
 
       ++index;
-    }
+    };
 
     while (this.viewContainerRef.length > index) {
       this.viewContainerRef.remove(this.viewContainerRef.length - 1);
     }
+  }
+
+  private registerInternals(array) {
+    array.registerControl = c => {};
+    array.registerOnChange = fn => {};
+
+    Object.defineProperties(this, {
+      _rawValidators: {
+        value: this.rawValidators || [],
+      },
+      _rawAsyncValidators: {
+        value: this.rawAsyncValidators || [],
+      },
+    });
   }
 
   private patchDescendantControls(viewRef) {
@@ -184,15 +203,27 @@ export class ConnectArray<RootState> extends ControlContainer {
       .map(k => viewRef._view[k])
       .filter(c => c instanceof NgModelGroup);
 
-    groups.forEach((c: any) => {
-      c._parent = this;
-      c._checkParentType = function () {};
+    groups.forEach(c => {
+      Object.defineProperties(c, {
+        _parent: {
+          value: this,
+        },
+        _checkParentType: {
+          value: () => {},
+        },
+      });
     });
   }
 
   private transform(parent: FormGroup | FormArray, reference): AbstractControl {
+    const emptyControl = () => {
+      const control = new FormControl(null);
+      control.setParent(parent);
+      return control;
+    };
+
     if (reference == null) {
-      return null;
+      return emptyControl();
     }
 
     if (typeof reference.toJS === 'function') {
@@ -203,15 +234,13 @@ export class ConnectArray<RootState> extends ControlContainer {
       case 'string':
       case 'number':
       case 'boolean':
-        const control = new FormControl(null);
-        control.setParent(parent);
-        return control;
+        return emptyControl();
     }
 
-    const iterate = <T>(iterable: Iterable<T>): FormArray => {
+    const iterate = (iterable): FormArray => {
       const array = new FormArray([]);
 
-      array.setParent(parent);
+      this.registerInternals(array);
 
       for (let i = array.length; i > 0; i--) {
         array.removeAt(i);
@@ -257,5 +286,13 @@ export class ConnectArray<RootState> extends ControlContainer {
       throw new Error(
         `Cannot convert object of type ${typeof reference} / ${reference.toString()} to form element`);
     }
+  }
+
+  private simpleAccessor() {
+    return {
+      writeValue: value => this.control.setValue(value),
+      registerOnChange(fn) {},
+      registerOnTouched(fn) {}
+    };
   }
 }

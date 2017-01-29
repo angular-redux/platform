@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
+    "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": false,
     "inlineSourceMap": true,
-    "noEmitHelpers": true
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": ""
   },
-  "awesomeTypescriptLoaderOptions": {
-    "emitRequireType": false,
-    "useBabel": true,
-    "useCache": false
-  },
+  "angularCompilerOptions": {},
   "exclude": [
     "node_modules",
     "dist"

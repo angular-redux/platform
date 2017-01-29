@@ -45,3 +45,6 @@ jspm_packages
 # Build output
 .awcache
 dist
+
+source/*ngfactory.ts
+source/*ngsummary.json
