@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-redux/form": "^5.1.0-beta.0",
+    "@angular-redux/form": "^5.1.0-beta.1",
     "@angular-redux/router": "2.0.0-alpha.3",
     "@angular-redux/store": "^5.1.0",
     "@angular/common": "^2.3.1",

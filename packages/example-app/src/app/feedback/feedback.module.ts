@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgReduxForms } from '@angular-redux/form';
+import { NgReduxFormModule } from '@angular-redux/form';
 import { FeedbackFormComponent } from './feedback-form/feedback-form.component';
 
 @NgModule({
@@ -9,9 +9,9 @@ import { FeedbackFormComponent } from './feedback-form/feedback-form.component';
   providers: [ ],
   imports: [
     CommonModule,
-    NgReduxForms,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgReduxFormModule,
   ],
   exports: [ FeedbackFormComponent ],
 })

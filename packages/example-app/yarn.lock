@@ -15,9 +15,9 @@
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/@angular-cli/base-href-webpack/-/base-href-webpack-1.0.15.tgz#a260c386392ed5fca179ac5aa7f3838893f3cb09"
 
-"@angular-redux/form@beta":
-  version "5.1.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@angular-redux/form/-/form-5.1.0-beta.0.tgz#a8390b59222f988ec8644997d57dcbe6c987f8e9"
+"@angular-redux/form@^5.1.0-beta.1":
+  version "5.1.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@angular-redux/form/-/form-5.1.0-beta.1.tgz#bcccf1f23a7807fa70d33e18960f14f81acb1b11"
   dependencies:
     "@angular-redux/store" "^5.1.0"
     "@angular/compiler" "^2.4.2"
