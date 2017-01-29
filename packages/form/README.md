@@ -54,15 +54,16 @@ approaches, but if you are already using
 it into your project, then you would do something like this:
 
 ```typescript
+import { NgReduxModule } from '@angular-redux/store';
+import { NgReduxFormModule } from '@angular-redux/form';
+
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    NgReduxForms,
-  ],
-  providers: [
-    NgRedux,
+    NgReduxFormModule,
+    NgReduxModule,
   ],
   bootstrap: [MyApplicationComponent]
 })
@@ -83,7 +84,7 @@ const store = create(reducers, <MyApplicationState> {});
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    NgReduxForms,
+    NgReduxFormModule,
   ],
   providers: [
     provideReduxForms(store),

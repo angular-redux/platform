@@ -13,7 +13,7 @@ import {
   Connect,
   ConnectArray,
   FormStore,
-  NgReduxForms,
+  NgReduxFormModule,
   composeReducers,
   defaultFormReducer,
 } from '../../source';
@@ -226,7 +226,7 @@ function todoReducer(state = todos, action: {type: string, payload?}) {
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgReduxForms,
+    NgReduxFormModule,
   ],
   declarations: [
     FormExample,

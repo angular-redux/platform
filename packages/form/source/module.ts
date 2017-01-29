@@ -32,4 +32,4 @@ export function formStoreFactory(ngRedux: NgRedux<any>) {
     },
   ]
 })
-export class NgReduxForms {}
+export class NgReduxFormModule {}

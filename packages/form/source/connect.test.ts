@@ -29,7 +29,7 @@ import {
 import {composeReducers} from './compose-reducers';
 import {defaultFormReducer} from './form-reducer';
 import {provideReduxForms} from './configure';
-import {NgReduxForms} from './module';
+import {NgReduxFormModule} from './module';
 
 import {
   logger,
@@ -140,7 +140,7 @@ describe('connect directive', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgReduxForms,
+        NgReduxFormModule,
       ],
       declarations: [
         BasicUsageComponent,
