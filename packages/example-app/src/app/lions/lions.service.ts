@@ -3,19 +3,19 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 // A fake API on the internets.
-const BASE_URL = 'http://jsonplaceholder.typicode.com';
+const LIONS_URL = 'http://www.mocky.io/v2/588d702d100000d50f2d2980';
 
 @Injectable()
 export class LionsService {
   constructor(private http: Http) {}
 
   getAll() {
-    return this.http.get(BASE_URL + '/users')
+    return this.http.get(LIONS_URL)
       .map(resp => resp.json())
       .map(records => records.map(
         record => ({
-          animalType: 'Lion',
-          name: record.name.split(' ')[0],
+          animalType: record.type,
+          name: record.name,
         })));
   }
 }

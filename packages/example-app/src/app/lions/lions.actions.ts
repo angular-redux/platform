@@ -3,8 +3,8 @@ import { Action } from 'redux';
 
 @Injectable()
 export class LionsActions {
-  static LOAD_SUCCEEDED = 'LOAD_SUCCEEDED(LIONS)';
-  static LOAD_FAILED = 'LOAD_SUCCEEDED(LIONS)';
+  static readonly LOAD_SUCCEEDED = 'LOAD_SUCCEEDED(LIONS)';
+  static readonly LOAD_FAILED = 'LOAD_FAILED(LIONS)';
 
   loadSucceeded(payload) {
     return {

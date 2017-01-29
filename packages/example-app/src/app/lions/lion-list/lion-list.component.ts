@@ -9,7 +9,7 @@ import { select } from '@angular-redux/store';
 export class LionListComponent {
   // Shorthand for
   // constructor(ngRedux: NgRedux { this.lions$ = ngRedux.select('lions'); })
-  @select() lions$
+  @select() readonly lions$
 
   // Since we're observing an array of items, we need to set up a 'trackBy'
   // parameter so Angular doesn't tear down and rebuild the list's DOM every

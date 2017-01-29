@@ -1,0 +1,42 @@
+<form connect="feedback">
+  <h2>Feedback Form</h2>
+
+  <p>
+    Did you enjoy your time at the zoo? Let us know using
+    the form below.
+  <p>
+
+  <label for="firstName">
+    First Name:
+    <input
+      name="firstName"
+      type="text"
+      maxLength="25"
+      ngControl
+      ngModel />
+  </label>
+
+  <label for="lastName">Last Name:
+    <input
+      name="lastName"
+      type="text"
+      maxLength="25"
+      ngControl
+      ngModel />
+  </label>
+  
+  <label for="comments">Comments:
+    <textarea
+      name="comments"
+      [maxLength]="MAX_COMMENT_CHARS"
+      ngControl
+      ngModel></textarea>
+    <p>{{ charsLeft$ | async }} characters remaining.
+  </label>
+
+  <button>Send!</button>
+
+  <p class="footnote">
+    (<sup>*</sup>doesn't really send anything - this is just a demo after all.)
+  </p>
+</form>
