@@ -1,4 +1,4 @@
-# @angular-redux/router 2.0.0
+# @angular-redux/router 6.0.0
 ### Bindings to connect @angular/router to @angular-redux/core
 
 Updated for Angular 2 final release.
