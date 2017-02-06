@@ -1,3 +1,7 @@
+# 6.0.1
+
+* Include the `src`-folder in the release so webpack can build source maps.
+
 # 6.0.0 - The big-rename.
 
 Due to the impending release of Angular4, the name 'ng2-redux' no longer makes
