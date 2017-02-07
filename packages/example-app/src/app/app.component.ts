@@ -4,6 +4,7 @@ import { NgReduxRouter, routerReducer } from '@angular-redux/router';
 import { provideReduxForms, composeReducers, defaultFormReducer } from '@angular-redux/form';
 import { Action, combineReducers } from 'redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
+import * as createLogger from 'redux-logger';
 
 import { AppActions } from './app.actions';
 import { ElephantsEpics } from './elephants/elephants.epics';
@@ -40,6 +41,7 @@ export class AppComponent {
       rootReducer,
       {},
       [
+        createLogger(),
         createEpicMiddleware(combineEpics(...elephantsEpics.epics)),
         createEpicMiddleware(combineEpics(...lionsEpics.epics)),
       ],
