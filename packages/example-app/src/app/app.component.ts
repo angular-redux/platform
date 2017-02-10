@@ -45,7 +45,7 @@ export class AppComponent {
         createEpicMiddleware(combineEpics(...elephantsEpics.epics)),
         createEpicMiddleware(combineEpics(...lionsEpics.epics)),
       ],
-      devTools.isEnabled() ? [ devTools.enhancer() ] : null);
+      devTools.isEnabled() ? [ devTools.enhancer() ] : []);
     ngReduxRouter.initialize();
     provideReduxForms(ngRedux);
   }
