@@ -5,6 +5,7 @@ import { ElephantListComponent } from './elephant-list/elephant-list.component';
 import { ElephantsEpics } from './elephants.epics';
 import { ElephantsService } from './elephants.service';
 import { ElephantsActions } from './elephants.actions';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [ ElephantListComponent ],
@@ -13,7 +14,10 @@ import { ElephantsActions } from './elephants.actions';
     ElephantsService,
     ElephantsActions,
   ],
-  imports: [ CommonModule ],
+  imports: [
+    CommonModule,
+    CoreModule,
+  ],
   exports: [ ElephantListComponent ],
 })
 export class ElephantsModule {}

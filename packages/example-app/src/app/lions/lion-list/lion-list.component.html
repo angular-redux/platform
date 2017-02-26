@@ -1,6 +1,13 @@
 <h2>We have Lions!</h2>
+
+<zoo-spinner *ngIf="loading$ | async">
+</zoo-spinner>
+
 <ul>
   <li *ngFor="let item of lions$ | async; trackBy:getItemName">
     {{ item.name }}
   </li>
 </ul>
+
+<zoo-error-well *ngIf="error$ | async">
+</zoo-error-well>

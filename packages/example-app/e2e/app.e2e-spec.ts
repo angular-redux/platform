@@ -1,14 +1,14 @@
-import { ZooPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('zoo App', function() {
-  let page: ZooPage;
+describe('Zoo Animals App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new ZooPage();
+    page = new AppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display message saying "Welcome to the Zoo"', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to the Zoo');
   });
 });

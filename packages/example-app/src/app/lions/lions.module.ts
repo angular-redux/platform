@@ -5,6 +5,7 @@ import { LionListComponent } from './lion-list/lion-list.component';
 import { LionsEpics } from './lions.epics';
 import { LionsService } from './lions.service';
 import { LionsActions } from './lions.actions';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [ LionListComponent ],
@@ -13,7 +14,7 @@ import { LionsActions } from './lions.actions';
     LionsService,
     LionsActions,
   ],
-  imports: [ CommonModule ],
+  imports: [ CommonModule, CoreModule ],
   exports: [ LionListComponent ],
 })
 export class LionsModule {}

@@ -1,0 +1,9 @@
+:host {
+  background: #FDD;
+  border: solid maroon 1px;
+  border-radius: 3px;
+  color: maroon;
+  display: block;
+  padding: 3px;
+  width: 100%;
+}

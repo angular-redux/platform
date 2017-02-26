@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class ZooPage {
+export class AppPage {
   navigateTo() {
     return browser.get('/');
   }

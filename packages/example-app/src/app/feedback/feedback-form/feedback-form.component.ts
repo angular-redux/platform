@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 
 @Component({
-  selector: 'feedback-form',
+  selector: 'zoo-feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: [ './feedback-form.component.css' ],
 })
