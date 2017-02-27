@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ElephantListComponent } from './elephant-list/elephant-list.component';

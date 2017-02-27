@@ -12,7 +12,7 @@ export class ElephantListComponent {
   // constructor(ngRedux: NgRedux {
   //  this.elephants$ = ngRedux.select(['elephants', 'items']);
   // })
-  @select(['elephants', 'items']) readonly elephants$: Observable<any[]>
+  @select(['elephants', 'items']) readonly elephants$: Observable<any[]>;
   @select(['elephants', 'loading']) readonly loading$: Observable<boolean>;
   @select(['elephants', 'error']) readonly error$: Observable<any>;
 

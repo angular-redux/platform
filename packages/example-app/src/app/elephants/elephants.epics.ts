@@ -26,6 +26,6 @@ export class ElephantsEpics {
     .switchMap(a => this.service.getAll()
       .map(data => this.actions.loadSucceeded(data))
       .catch(response => of(this.actions.loadFailed({
-        status: ''+response.status,
-      }))));
+        status: '' + response.status,
+      }))))
 }

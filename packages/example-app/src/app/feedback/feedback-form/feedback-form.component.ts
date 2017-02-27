@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Connect, FormStore } from '@angular-redux/form';
 import { NgRedux } from '@angular-redux/store';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 @Component({

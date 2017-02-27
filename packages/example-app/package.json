@@ -10,6 +10,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "engines": {
+    "node": ">=6.9.5"
+  },
   "private": true,
   "dependencies": {
     "@angular-redux/form": "^6.0.1",

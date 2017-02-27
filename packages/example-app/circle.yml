@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 6.9.5
+
+test:
+  override:
+    - ng lint
+    - ng test --single-run
+    - ng e2e

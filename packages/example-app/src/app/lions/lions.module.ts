@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LionListComponent } from './lion-list/lion-list.component';

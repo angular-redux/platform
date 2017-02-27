@@ -4,19 +4,14 @@ import { NgRedux } from '@angular-redux/store';
 import { AppActions } from './app.actions';
 
 @Component({
-  selector: 'app-root',
+  selector: 'zoo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'Welcome to the Zoo';
 
-  constructor(
-    private ngRedux: NgRedux<any>,
-    private actions: AppActions,
-  ) { }
-
-  ngOnInit() {
-    this.ngRedux.dispatch(this.actions.loadData());
+  constructor(ngRedux: NgRedux<any>, actions: AppActions) {
+    ngRedux.dispatch(actions.loadData());
   }
 }
