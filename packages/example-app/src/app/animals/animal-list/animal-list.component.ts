@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'zoo-animal-list',
   templateUrl: './animal-list.component.html',
-  styleUrls: ['./animal-list.component.css']
+  styleUrls: ['./animal-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimalListComponent {
   @Input() animalsName: string;
