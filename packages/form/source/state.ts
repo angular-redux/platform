@@ -194,7 +194,7 @@ export abstract class State {
         () => Array.prototype.slice.call(object, 0)
       );
     }
-    else if (object instanceof WeakMap || object instanceof Map) {
+    else if (object instanceof Map) {
       return metaOperations(
         // Update map key
         (parent, key: number | string, value: K) => {
@@ -217,9 +217,7 @@ export abstract class State {
         },
 
         // Clone
-        () => object instanceof WeakMap
-          ? new WeakMap<string, any>(<any> object)
-          : new Map<string, any>(<any> object)
+        () => new Map<string, any>(<any> object)
       );
     }
     else if (object instanceof WeakSet || object instanceof Set) {
