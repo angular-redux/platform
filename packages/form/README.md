@@ -291,12 +291,5 @@ But if you are having trouble with the default reducer, or if you find the fact 
 you have to use `composeReducers` distasteful, then this is another route available
 to you.
 
-## Examples
-
-The `examples` directory contains some examples of how to use `@angular-redux/form` and
-how to connect it to your application. You may also find it useful to debug and
-step through the examples and the unit tests to get a better understanding of how
-the library works.
-
 The unit tests in `*.test.ts` files also contain useful examples of how to build
 forms using `@angular-redux/form`.
