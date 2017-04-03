@@ -1,3 +1,12 @@
+# 6.1.0 - Angular 4 Support, Toolchain Fixes
+
+We now support versions 2 and 4 of Angular. However Angular 2 support is
+deprecated and will be removed in a future major version.
+
+Also updated the `npm` toolchain to build outputs on `npm publish` instead of
+on `npm install`. This fixes a number of toolchain/installation bugs people
+have reported.
+
 # 6.0.0 - The big-rename.
 
 Due to the impending release of Angular4, the name 'ng2-redux' no longer makes

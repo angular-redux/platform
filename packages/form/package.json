@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/form",
-  "version": "6.1.0-alpha.6",
+  "version": "6.1.0",
   "description": "Build Angular 2+ forms with Redux",
   "dependencies": {
     "immutable": "^3.8.1"
