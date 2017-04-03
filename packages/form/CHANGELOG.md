@@ -1,3 +1,5 @@
+# 6.1.1 - Correct Peer Dependency
+
 # 6.1.0 - Angular 4 Support, Toolchain Fixes
 
 We now support versions 2 and 4 of Angular. However Angular 2 support is

@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/form",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Build Angular 2+ forms with Redux",
   "dependencies": {
     "immutable": "^3.8.1"
@@ -32,7 +32,7 @@
     "karma-spec-reporter": "0.0.26",
     "karma-transform-path-preprocessor": "0.0.3",
     "karma-webpack": "^1.7.0",
-    "@angular-redux/store": "^6.1.0-alpha.1",
+    "@angular-redux/store": "^6.1.0",
     "@ngtools/webpack": "^1.2.1",
     "@types/jasmine": "^2.5.35",
     "@types/node": "^6.0.45",
@@ -51,7 +51,7 @@
     "@angular/compiler": "^2.4.0 || ^4.0.0",
     "@angular/core": "^2.4.0 || ^4.0.0",
     "@angular/forms": "^2.4.0 || ^4.0.0",
-    "@angular-redux/store": "^6.1.0-alpha.0",
+    "@angular-redux/store": "^6.1.0",
     "redux": "^3.0"
   },
   "engines": {
