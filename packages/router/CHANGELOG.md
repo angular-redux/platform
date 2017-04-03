@@ -1,3 +1,8 @@
+# 6.1.0 - Angular 4 Support
+
+We now support versions 2 and 4 of Angular. Version 2 support is deprecated and
+support will be removed in the next major version.
+
 # 6.0.1
 
 * Include the `src`-folder in the release so webpack can build source maps.
