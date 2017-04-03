@@ -16,7 +16,8 @@ import {
   NgReduxFormModule,
   composeReducers,
   defaultFormReducer,
-} from '../../source';
+} from '@angular-redux/form';
+// from '../../source';
 
 import {logger} from '../../source/tests.utilities';
 

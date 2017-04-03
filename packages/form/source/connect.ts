@@ -12,8 +12,6 @@ import {
   NgControl,
 } from '@angular/forms';
 
-import {scheduleMicroTask} from '@angular/forms/src/facade/lang';
-
 import {Subscription} from 'rxjs';
 
 import {Unsubscribe} from 'redux';
@@ -75,14 +73,14 @@ export class Connect {
   }
 
   private ngAfterContentInit() {
-    scheduleMicroTask(() => {
+    Promise.resolve().then(() => {
       this.resetState();
 
       this.stateSubscription = this.store.subscribe(state => {
         this.resetState();
       });
 
-      scheduleMicroTask(() => {
+      Promise.resolve().then(() => {
         this.formSubscription = (<any>this.form.valueChanges).debounceTime(0).subscribe(values => this.publish(values));
       });
     });

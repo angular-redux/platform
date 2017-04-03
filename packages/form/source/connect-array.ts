@@ -25,22 +25,16 @@ import {
   ControlContainer,
   ControlValueAccessor,
 } from '@angular/forms';
-import {
-  composeAsyncValidators,
-  composeValidators,
-  controlPath,
-  setUpFormContainer,
-  selectValueAccessor,
-} from '@angular/forms/src/directives/shared';
+
 import {
   AsyncValidatorFn,
-  ValidatorFn
-} from '@angular/forms/src/directives/validators';
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import {
   NG_ASYNC_VALIDATORS,
   NG_VALIDATORS
-} from '@angular/forms/src/validators';
-
+} from '@angular/forms';
 import {Unsubscribe} from 'redux';
 
 import {Subscription} from 'rxjs';
@@ -48,6 +42,7 @@ import {Subscription} from 'rxjs';
 import {Connect} from './connect';
 import {FormStore} from './form-store';
 import {State} from './state';
+import {controlPath, selectValueAccessor} from './shims';
 
 export class ConnectArrayTemplate {
   constructor(
@@ -122,11 +117,11 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   get validator(): ValidatorFn {
-    return composeValidators(this.rawValidators);
+    return Validators.compose(this.rawValidators);
   }
 
   get asyncValidator(): AsyncValidatorFn {
-    return composeAsyncValidators(this.rawAsyncValidators);
+    return Validators.composeAsync(this.rawAsyncValidators);
   }
 
   private get formArray(): FormArrayName {

@@ -217,7 +217,9 @@ export abstract class State {
         },
 
         // Clone
-        () => new Map<string, any>(<any> object)
+        () => object instanceof WeakMap
+          ? new WeakMap<Object, any>(<any> object)
+          : new Map<string, any>(<any> object)
       );
     }
     else if (object instanceof WeakSet || object instanceof Set) {
