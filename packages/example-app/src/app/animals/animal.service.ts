@@ -6,8 +6,8 @@ import { ANIMAL_TYPES, AnimalType } from '../animals/animal.types';
 
 // A fake API on the internets.
 const URLS = {
-  [ANIMAL_TYPES.LION]: '/api/animals/lions', // 'http://www.mocky.io/v2/588d70ad100000e50f2d2983',
-  [ANIMAL_TYPES.ELEPHANT]: '/api/animals/elephants', // 'http://www.mocky.io/v2/588d702d100000d50f2d2980',
+  [ANIMAL_TYPES.LION]: 'http://www.mocky.io/v2/588d70ad100000e50f2d2983',
+  [ANIMAL_TYPES.ELEPHANT]: 'http://www.mocky.io/v2/588d702d100000d50f2d2980',
 };
 
 @Injectable()

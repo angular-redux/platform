@@ -9,7 +9,7 @@ import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
 import { provideReduxForms } from '@angular-redux/form';
 
 // Redux ecosystem stuff.
-import * as createLogger from 'redux-logger';
+import createLogger from 'redux-logger';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 
 // The top-level reducers and epics that make up our app's logic.
