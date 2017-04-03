@@ -11,9 +11,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "declaration": true,
-    "types": [
-      "core-js"
-    ]
+    "lib" : ["es2015", "es2015.iterable", "dom"]
   },
   "exclude": [
     "lib",

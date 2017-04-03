@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/router",
-  "version": "6.0.1",
+  "version": "6.1.0-alpha.0",
   "description": "Keep your Angular 2+ router state in Redux.",
   "main": "./lib/es5/index.js",
   "module": "./lib/esm/index.js",
@@ -18,26 +18,25 @@
     "build:es5": "ngc -p tsconfig.json && npm run postbuild"
   },
   "peerDependencies": {
-    "@angular/core": "^2.1.2",
-    "@angular/router": "^3.0.0"
+    "@angular/core": "^2.1.2 || ^4.0.0",
+    "@angular/router": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^2.4.1",
-    "@angular/compiler": "^2.4.1",
-    "@angular/compiler-cli": "^2.4.1",
-    "@angular/core": "^2.4.1",
-    "@angular/platform-browser": "^2.4.1",
-    "@angular/platform-browser-dynamic": "^2.4.1",
-    "@angular/platform-server": "^2.4.1",
-    "@angular/router": "^3.4.1",
-    "@types/core-js": "^0.9.34",
+    "@angular-redux/store": "^6.1.0-alpha.1",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "@types/core-js": "^0.9.39",
     "@types/jasmine": "^2.5.37",
-    "@angular-redux/store": "^5.1.0",
     "redux": "^3.6.0",
     "rimraf": "^2.5.4",
     "rxjs": "^5.0.1",
-    "typescript": "2.0.10",
-    "zone.js": "^0.7.2"
+    "typescript": "^2.1.0",
+    "zone.js": "^0.8.4"
   },
   "author": "Dag Stuan",
   "license": "MIT"

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing, AuthGuard } from '../routes';
-import { NgReduxModule, NgRedux } from '@angular-redux/core';
+import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
 import { Counter } from '../components/Counter';
 import { CounterInfo } from '../components/CounterInfo';

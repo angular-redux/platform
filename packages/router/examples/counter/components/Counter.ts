@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgRedux, select } from '@angular-redux/core';
+import { NgRedux, select } from '@angular-redux/store';
 import { CounterActions } from '../actions/counter-actions';
 import { RandomNumberService } from '../services/random-number';
 

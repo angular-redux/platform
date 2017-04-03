@@ -10,6 +10,7 @@
     "noImplicitAny": false,
     "removeComments": false,
     "sourceMap": true,
+    "lib" : ["es2015", "es2015.iterable", "dom"],
     "types": [
       "core-js",
       "node"
