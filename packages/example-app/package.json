@@ -15,9 +15,9 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-redux/form": "^6.1.1",
-    "@angular-redux/router": "^6.1.0",
-    "@angular-redux/store": "^6.1.0",
+    "@angular-redux/form": "^6.2.0",
+    "@angular-redux/router": "^6.2.0",
+    "@angular-redux/store": "^6.2.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
