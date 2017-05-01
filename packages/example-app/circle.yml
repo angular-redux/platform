@@ -9,4 +9,4 @@ machine:
 
 test:
   override:
-    - ng lint && ng test --single-run && ng e2e
+    - ng lint --type-check && ng test --single-run && ng e2e
