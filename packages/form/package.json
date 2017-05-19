@@ -1,12 +1,12 @@
 {
   "name": "@angular-redux/form",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "description": "Build Angular 2+ forms with Redux",
   "dependencies": {
     "immutable": "^3.8.1"
   },
   "devDependencies": {
-    "@angular-redux/store": "^6.2.0",
+    "@angular-redux/store": "^6.3.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
@@ -47,7 +47,7 @@
     "zone.js": "^0.8.4"
   },
   "peerDependencies": {
-    "@angular-redux/store": "^6.2.0",
+    "@angular-redux/store": "^6.3.0",
     "@angular/common": "^2.4.0 || ^4.0.0",
     "@angular/compiler": "^2.4.0 || ^4.0.0",
     "@angular/core": "^2.4.0 || ^4.0.0",
