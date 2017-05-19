@@ -1,3 +1,11 @@
+# 6.3.0 - Version bump to match Store@6.3.0
+
+https://github.com/angular-redux/store/blob/master/CHANGELOG.md
+
+# 6.2.0 - Version bump to match Store@6.2.0
+
+https://github.com/angular-redux/store/blob/master/CHANGELOG.md
+
 # 6.1.0 - Angular 4 Support
 
 We now support versions 2 and 4 of Angular. Version 2 support is deprecated and

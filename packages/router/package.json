@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/router",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "description": "Keep your Angular 2+ router state in Redux.",
   "main": "./lib/es5/index.js",
   "module": "./lib/esm/index.js",
@@ -22,7 +22,7 @@
     "@angular/router": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@angular-redux/store": "^6.2.0",
+    "@angular-redux/store": "^6.3.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
