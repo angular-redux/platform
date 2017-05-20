@@ -31,9 +31,7 @@ export class LionPageComponent {
   @select(['lions', 'loading']) readonly loading$: Observable<boolean>;
   @select(['lions', 'error']) readonly error$: Observable<any>;
 
-  constructor(
-    store: NgRedux<IAppState>,
-    actions: AnimalActions) {
-    store.dispatch(actions.loadAnimals(ANIMAL_TYPES.LION));
+  constructor(actions: AnimalActions) {
+    actions.loadAnimals(ANIMAL_TYPES.LION);
   }
 }

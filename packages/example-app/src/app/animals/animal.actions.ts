@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { dispatch } from '@angular-redux/store';
 import { Action } from 'redux';
 
 @Injectable()
@@ -7,6 +8,7 @@ export class AnimalActions {
   static readonly LOAD_SUCCEEDED = 'LOAD_SUCCEEDED';
   static readonly LOAD_FAILED = 'LOAD_FAILED';
 
+  @dispatch()
   loadAnimals(animalType) {
     return {
       type: AnimalActions.LOAD_STARTED,

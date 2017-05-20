@@ -31,9 +31,7 @@ export class ElephantPageComponent {
   @select(['elephants', 'loading']) readonly loading$: Observable<boolean>;
   @select(['elephants', 'error']) readonly error$: Observable<any>;
 
-  constructor(
-    ngRedux: NgRedux<IAppState>,
-    actions: AnimalActions) {
-    ngRedux.dispatch(actions.loadAnimals(ANIMAL_TYPES.ELEPHANT));
+  constructor(actions: AnimalActions) {
+    actions.loadAnimals(ANIMAL_TYPES.ELEPHANT);
   }
 }

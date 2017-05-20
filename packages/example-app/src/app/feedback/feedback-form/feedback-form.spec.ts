@@ -24,11 +24,11 @@ describe('Feedback Form Component', () => {
     const form = fixture.debugElement.componentInstance;
 
     const expectedCharsLeftSequence = [
-      form.MAX_COMMENT_CHARS - 1,
-      form.MAX_COMMENT_CHARS - 2,
-      form.MAX_COMMENT_CHARS - 3,
-      form.MAX_COMMENT_CHARS - 4,
-      form.MAX_COMMENT_CHARS - 5,
+      form.getMaxCommentChars() - 1,
+      form.getMaxCommentChars() - 2,
+      form.getMaxCommentChars() - 3,
+      form.getMaxCommentChars() - 4,
+      form.getMaxCommentChars() - 5,
     ];
 
     const feedbackCommentsStub = MockNgRedux.getSelectorStub(['feedback', 'comments']);
