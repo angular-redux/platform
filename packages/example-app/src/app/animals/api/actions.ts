@@ -16,12 +16,6 @@ export class AnimalAPIActions {
   static readonly LOAD_FAILED = 'LOAD_FAILED';
 
   @dispatch()
-  addTicket = (key: string) => ({ type: 'ADD_TICKET', key })
-
-  @dispatch()
-  removeTicket = (key: string) => ({ type: 'REMOVE_TICKET', key })
-
-  @dispatch()
   loadAnimals = (animalType: AnimalType): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_ANIMALS,
     meta: { animalType },
