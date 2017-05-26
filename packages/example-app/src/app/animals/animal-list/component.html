@@ -1,0 +1,19 @@
+<h2>We have {{ animalsName }}!</h2>
+
+<zoo-spinner *ngIf="loading | async">
+</zoo-spinner>
+
+<section class="header">
+  <div class="header-cell">Name</div>
+  <div class="header-cell">Ticket Price</div>
+  <div class="header-cell">Tickets</div>
+  <div class="header-cell">Subtotal</div>
+</section>
+<zoo-animal
+  *ngFor="let animal of animals | async; trackBy:getKey"
+  [animalType]=animalType
+  [key]=getKey(null,animal)>
+</zoo-animal>
+
+<zoo-error-well *ngIf="error | async">
+</zoo-error-well>

@@ -1,0 +1,10 @@
+<div>{{ name$ | async }}</div>
+<div>{{ ticketPrice$ | async }}</div>
+<div>
+  <zoo-counter
+    [count]="numTickets$ | async"
+    (increment)=addTicket()
+    (decrement)=removeTicket()>
+  </zoo-counter>
+</div>
+<div>${{ subTotal$ | async }}

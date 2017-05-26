@@ -6,9 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint --type-check",
-    "e2e": "ng e2e"
+    "test": "ng lint --type-check && ng test --single-run"
   },
   "engines": {
     "node": ">=6.9.5"
@@ -17,7 +15,7 @@
   "dependencies": {
     "@angular-redux/form": "^6.3.0",
     "@angular-redux/router": "^6.3.0",
-    "@angular-redux/store": "^6.3.0",
+    "@angular-redux/store": "^6.4.0",
     "@angular/common": "^4.1.0",
     "@angular/compiler": "^4.1.0",
     "@angular/core": "^4.1.0",
@@ -27,6 +25,8 @@
     "@angular/platform-browser-dynamic": "^4.1.0",
     "@angular/router": "^4.1.0",
     "core-js": "^2.4.1",
+    "flux-standard-action": "^1.2.0",
+    "ramda": "^0.23.0",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-observable": "^0.14.1",

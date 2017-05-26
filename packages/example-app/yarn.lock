@@ -12,9 +12,9 @@
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/@angular-redux/router/-/router-6.3.0.tgz#0ece17ad5a4eb8a40f54d7e3a67e67598f03d2cd"
 
-"@angular-redux/store@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-6.3.0.tgz#1c5cb08073fc04645dda6291e7410a981cd1fb37"
+"@angular-redux/store@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-6.4.0.tgz#0659c07ff9026f3a570ab283e857bfcf399dd99c"
 
 "@angular/cli@1.0.1":
   version "1.0.1"
@@ -1698,6 +1698,12 @@ findup-sync@~0.3.0:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
+
+flux-standard-action@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/flux-standard-action/-/flux-standard-action-1.2.0.tgz#d2d41612dde4cebddd11a76cfead8e84fc69ebdc"
+  dependencies:
+    lodash "^4.0.0"
 
 for-in@^0.1.3, for-in@^0.1.5:
   version "0.1.6"
@@ -3788,6 +3794,10 @@ querystring@0.2.0:
 querystringify@0.0.x:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-0.0.4.tgz#0cf7f84f9463ff0ae51c4c4b142d95be37724d9c"
+
+ramda@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.23.0.tgz#ccd13fff73497a93974e3e86327bfd87bd6e8e2b"
 
 randomatic@^1.1.3:
   version "1.1.6"
