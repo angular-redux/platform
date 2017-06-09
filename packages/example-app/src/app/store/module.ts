@@ -38,7 +38,9 @@ export class StoreModule {
       devTools.isEnabled() ? [ devTools.enhancer() ] : []);
 
     // Enable syncing of Angular router state with our Redux store.
-    ngReduxRouter.initialize();
+    if (ngReduxRouter) {
+      ngReduxRouter.initialize();
+    }
 
     // Enable syncing of Angular form state with our Redux store.
     provideReduxForms(store);
