@@ -11,6 +11,7 @@ export interface IAnimal {
   animalType: AnimalType;
   name: string;
   ticketPrice: number;
+  tickets: number;
 }
 
 export interface IAnimalList {
@@ -23,5 +24,6 @@ export const fromServer = (record: any): IAnimal => ({
   id: record.name.toLowerCase(),
   animalType: record.animalType,
   name: record.name,
-  ticketPrice: record.ticketPrice,
+  ticketPrice: record.ticketPrice || 0,
+  tickets: record.tickets || 0,
 });
