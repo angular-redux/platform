@@ -39,7 +39,7 @@ import {Unsubscribe} from 'redux';
 
 import {Subscription} from 'rxjs';
 
-import {Connect} from './connect';
+import {ConnectBase} from './connect-base';
 import {FormStore} from './form-store';
 import {State} from './state';
 import {controlPath, selectValueAccessor} from './shims';
@@ -75,7 +75,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
     @Optional() @Self() @Inject(NG_VALIDATORS) private rawValidators: any[],
     @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) private rawAsyncValidators: any[],
     @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: any[],
-    private connection: Connect,
+    private connection: ConnectBase,
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef,
     private store: FormStore,

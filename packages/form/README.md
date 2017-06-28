@@ -9,6 +9,10 @@ your forms elements. It builds on existing Angular functionality like
 and
 [NgControl](https://angular.io/docs/ts/latest/api/forms/index/NgControl-class.html)
 
+This supports both [Tempalte driven forms](https://angular.io/guide/forms) and [Reactive driven forms](https://angular.io/guide/reactive-forms). 
+
+#### Template Driven
+
 For the simplest use-cases, the API is very straightforward. Your template
 would look something like this:
 
@@ -202,6 +206,15 @@ the `path` property on our first `<select>` element, it would look like this:
 
 From there, `@angular-redux/form` is able to take that path and extract the value for
 that element from the Redux state.
+
+#### Reactive Forms
+The value in "connect" attribute is the value that will show up in the Redux store. The formGroup value is the name of the object in your code that represents the form group.
+
+```html
+  <form connect="myForm" [formGroup]="loginForm">
+    <input type="text" name="address" formControlName="firstName" />
+  </form>
+```
 
 #### Troubleshooting
 
