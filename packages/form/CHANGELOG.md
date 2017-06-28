@@ -1,3 +1,5 @@
+# 6.5.0 - Added support for non-template forms.
+
 # 6.3.0 - Version bump to match Store@6.3.0
 
 https://github.com/angular-redux/store/blob/master/CHANGELOG.md

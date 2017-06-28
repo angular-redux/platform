@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@angular-redux/store@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-6.2.0.tgz#e0289d6fc9134523468c27c62e88576fc1ccd725"
+"@angular-redux/store@^6.3.0":
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-6.5.4.tgz#23bd4a3171e9afa4ea237c6d7214fd5e94272ba4"
 
 "@angular/common@^4.0.0":
   version "4.0.3"
