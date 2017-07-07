@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 
 import {NgRedux} from '@angular-redux/store';
 
-import {Action, Store, Unsubscribe} from 'redux';
+import {Action, Unsubscribe} from 'redux';
 
 export interface AbstractStore<RootState> {
   /// Dispatch an action

@@ -11,7 +11,9 @@
     "inlineSourceMap": true,
     "declaration": true,
     "outDir": "dist",
-    "rootDir": ""
+    "rootDir": "",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "awesomeTypescriptLoaderOptions": {
     "emitRequireType": false,

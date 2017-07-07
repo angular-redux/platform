@@ -1,17 +1,8 @@
-import {
-  Iterable,
-  Map,
-  fromJS
-} from 'immutable';
+import {Iterable} from 'immutable';
 
-import {Action, Reducer} from 'redux';
+import {Action} from 'redux';
 
-import {FormException} from './form-exception';
-
-import {
-  FORM_CHANGED,
-  FormStore,
-} from './form-store';
+import {FORM_CHANGED} from './form-store';
 
 import {State} from './state';
 

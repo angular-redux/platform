@@ -1,5 +1,3 @@
-import {FormControl} from '@angular/forms';
-
 import {
   Action,
   Store,

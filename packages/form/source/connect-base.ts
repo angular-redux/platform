@@ -1,14 +1,10 @@
-import {
-  Directive,
-  Input,
-} from '@angular/core';
+import { Input } from '@angular/core';
 
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   FormArray,
-  NgForm,
   NgControl,
 } from '@angular/forms';
 
@@ -18,7 +14,6 @@ import { Unsubscribe } from 'redux';
 
 import 'rxjs/add/operator/debounceTime';
 
-import { FormException } from './form-exception';
 import { FormStore } from './form-store';
 import { State } from './state';
 
@@ -66,13 +61,11 @@ export class ConnectBase {
     }
   }
 
-  private ngAfterContentInit() {
+  ngAfterContentInit() {
     Promise.resolve().then(() => {
       this.resetState();
 
-      this.stateSubscription = this.store.subscribe(state => {
-        this.resetState();
-      });
+      this.stateSubscription = this.store.subscribe(() => this.resetState());
 
       Promise.resolve().then(() => {
         this.formSubscription = (<any>this.form.valueChanges).debounceTime(0).subscribe(values => this.publish(values));

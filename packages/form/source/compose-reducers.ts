@@ -1,8 +1,5 @@
 import {Reducer, Action} from 'redux';
 
-import {Iterable} from 'immutable';
-
-import {FormException} from './form-exception';
 import {State} from './state';
 
 export const composeReducers =

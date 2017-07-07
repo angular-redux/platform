@@ -15,7 +15,6 @@ import {
 import {
   NG_VALUE_ACCESSOR,
   AbstractControl,
-  DefaultValueAccessor,
   FormArray,
   FormArrayName,
   FormControl,
@@ -36,8 +35,6 @@ import {
   NG_VALIDATORS
 } from '@angular/forms';
 import {Unsubscribe} from 'redux';
-
-import {Subscription} from 'rxjs';
 
 import {ConnectBase} from './connect-base';
 import {FormStore} from './form-store';
@@ -61,8 +58,6 @@ export class ConnectArrayTemplate {
 })
 export class ConnectArray extends ControlContainer implements OnInit {
   private stateSubscription: Unsubscribe;
-
-  private formSubscription: Subscription;
 
   private array = new FormArray([]);
 
@@ -180,8 +175,8 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   private registerInternals(array) {
-    array.registerControl = c => {};
-    array.registerOnChange = fn => {};
+    array.registerControl = () => {};
+    array.registerOnChange = () => {};
 
     Object.defineProperties(this, {
       _rawValidators: {
@@ -251,7 +246,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
       return array;
     }
 
-    const associate = <T>(value): FormGroup => {
+    const associate = (value): FormGroup => {
       const group = new FormGroup({});
       group.setParent(parent);
 
@@ -286,8 +281,8 @@ export class ConnectArray extends ControlContainer implements OnInit {
   private simpleAccessor() {
     return {
       writeValue: value => this.control.setValue(value),
-      registerOnChange(fn) {},
-      registerOnTouched(fn) {}
+      registerOnChange() {},
+      registerOnTouched() {}
     };
   }
 }

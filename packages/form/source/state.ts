@@ -65,14 +65,6 @@ export abstract class State {
   }
 
   static assign<State>(state: State, path: string[], value?) {
-    interface Modifiable {
-      key: string;
-      operations: {
-        clone<T>(): T;
-        update<T, V>(key: number | string, value: V): T;
-      };
-    };
-
     const operations = State.inspect(state);
 
     if (path.length === 0) {
@@ -157,7 +149,7 @@ export abstract class State {
           }
         },
         // Merge
-        (parent, key: number | string | string[], value: K, setter: (v: K) => K) => {
+        (parent, key: number | string | string[], value: K) => {
           if (key) {
             return parent.mergeDeepIn(Array.isArray(key) ? key : [key], value);
           }
@@ -185,7 +177,7 @@ export abstract class State {
         },
 
         // Merge
-        (parent, key: number | string, value: K, setter: (v: K) => K) => {
+        (parent, _, value: K, setter: (v: K) => K) => {
           setter(parent.concat(value));
           return parent;
         },
@@ -210,7 +202,7 @@ export abstract class State {
         },
 
         // Merge
-        (parent: Map<string, any>, key: number | string, value: K, setter: (v: K) => K) => {
+        (parent: Map<string, any>, _, value: K) => {
           const m = new Map<string, any>(<any> value);
           m.forEach((value, key) => parent.set(key, value));
           return parent;
@@ -238,7 +230,7 @@ export abstract class State {
         },
 
         // Merge
-        (parent: Set<any>, key: number | string, value, setter: (v: K) => K) => {
+        (parent: Set<any>, _, value) => {
           for (const element of value) {
             parent.add(element);
           }
@@ -274,7 +266,7 @@ export abstract class State {
                }
                 return Object.assign(parent, value);
              },
-             (parent, key: number | string, value: K, setter: (v: K) => K) => {
+             (parent, _, value: K) => {
                for (const k of Object.keys(value)) {
                  parent[k] = value[k];
                }

@@ -1,15 +1,8 @@
-import {
-  Directive,
-  Input,
-} from '@angular/core';
+import { Directive } from '@angular/core';
 
-import {
-  NgForm
-} from '@angular/forms';
-
+import { NgForm } from '@angular/forms';
 
 import {FormStore} from './form-store';
-import {State} from './state';
 import {ConnectBase} from './connect-base';
 
 
