@@ -1,3 +1,10 @@
+# 6.3.1 - Toolchain Update
+
+* Typescript 2.4.1
+* Compile with `strict: true` in tsconfig.json
+* Fix for issue #17.
+* Add package-lock.json for contributors using npm 5+.
+
 # 6.3.0 - Version bump to match Store@6.3.0
 
 https://github.com/angular-redux/store/blob/master/CHANGELOG.md

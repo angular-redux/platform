@@ -18,7 +18,7 @@ export class NgReduxRouter {
   private currentLocation: string;
   private initialLocation: string;
 
-  private selectLocationFromState: (state) => string = (state) => state.router;
+  private selectLocationFromState: (state: any) => string = (state) => state.router;
   private urlState: Observable<string>;
 
   private urlStateSubscription: ISubscription;
@@ -65,7 +65,7 @@ export class NgReduxRouter {
    */
   initialize(
     selectLocationFromState: (state: any) => string = (state) => state.router,
-    urlState$: Observable<string> = undefined
+    urlState$: Observable<string> | undefined = undefined
   ) {
     if (this.initialized) {
       throw new Error('@angular-redux/router already initialized! If you meant to re-initialize, call destroy first.');

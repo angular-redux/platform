@@ -1,9 +1,10 @@
-# @angular-redux/router 6.0.1
-### Bindings to connect @angular/router to @angular-redux/core
+# @angular-redux/router
 
-Updated for Angular 2 final release.
+[![Join the chat at https://gitter.im/angular-redux/ng2-redux](https://badges.gitter.im/angular-redux/ng2-redux.svg)](https://gitter.im/angular-redux/ng2-redux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![npm version](https://img.shields.io/npm/v/@angular-redux/router.svg)](https://www.npmjs.com/package/@angular-redux/router)
+[![downloads per month](https://img.shields.io/npm/dm/@angular-redux/router.svg)](https://www.npmjs.com/package/@angular-redux/router)
 
-This package uses the new v3 router for angular 2 `@angular/router@^3.4.2`.
+Bindings to connect @angular/router to @angular-redux/core
 
 ### Setup
 

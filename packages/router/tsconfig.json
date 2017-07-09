@@ -11,7 +11,9 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "declaration": true,
-    "lib" : ["es2015", "es2015.iterable", "dom"]
+    "lib" : ["es2015", "es2015.iterable", "dom"],
+    "strict": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "lib",

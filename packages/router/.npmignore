@@ -2,3 +2,4 @@ node_modules/
 typings/
 examples/
 npm-debug.log
+*.tgz

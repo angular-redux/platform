@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/router",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "description": "Keep your Angular 2+ router state in Redux.",
   "main": "./lib/es5/index.js",
   "module": "./lib/esm/index.js",
@@ -35,7 +35,7 @@
     "redux": "^3.6.0",
     "rimraf": "^2.5.4",
     "rxjs": "^5.0.1",
-    "typescript": "^2.1.0",
+    "typescript": "^2.4.1",
     "zone.js": "^0.8.4"
   },
   "author": "Dag Stuan",
