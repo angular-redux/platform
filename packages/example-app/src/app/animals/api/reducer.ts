@@ -1,6 +1,7 @@
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
 import { IAnimalList, IAnimal, AnimalType } from '../model';
 import { indexBy, prop } from 'ramda';
+import { Action } from 'redux';
 
 const INITIAL_STATE: IAnimalList = {
   items: {},
@@ -12,7 +13,9 @@ const INITIAL_STATE: IAnimalList = {
 // that only responds to actions for that particular animal type.
 export function createAnimalAPIReducer(animalType: AnimalType) {
   return function animalReducer(state: IAnimalList = INITIAL_STATE,
-    action: AnimalAPIAction): IAnimalList {
+    a: Action): IAnimalList {
+
+    const action = a as AnimalAPIAction;
     if (!action.meta || action.meta.animalType !== animalType) {
       return state;
     }

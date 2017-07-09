@@ -15,7 +15,8 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "strict": true
   },
   "files": [
     "test.ts"
