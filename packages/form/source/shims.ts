@@ -14,12 +14,12 @@ export function controlPath(name: string, parent: ControlContainer): string[] {
 }
 
 export function selectValueAccessor(
-    dir: NgControl, valueAccessors: ControlValueAccessor[]): ControlValueAccessor {
+    dir: NgControl, valueAccessors: ControlValueAccessor[]): ControlValueAccessor | null {
   if (!valueAccessors) return null;
 
-  let defaultAccessor: ControlValueAccessor;
-  let builtinAccessor: ControlValueAccessor;
-  let customAccessor: ControlValueAccessor;
+  let defaultAccessor: ControlValueAccessor | null = null;
+  let builtinAccessor: ControlValueAccessor | null = null;
+  let customAccessor: ControlValueAccessor | null = null;
   valueAccessors.forEach((v: ControlValueAccessor) => {
     if (v.constructor === DefaultValueAccessor) {
       defaultAccessor = v;

@@ -7,14 +7,14 @@ export interface Operations<T> {
   clone(): T;
 
   /// Clone and merge
-  merge(key: number | string, value: T);
+  merge(key: number | string | null, value: T): any;
 
   /// Clone the object and update a specific key inside of it
-  update(key: number | string, value: T);
+  update(key: number | string | null, value: T): any;
 }
 
 export interface TraverseCallback {
-  (parent, key: number | string, remainingPath: string[], value?);
+  (parent: any, key: number | string, remainingPath: string[], value?: any): any;
 }
 
 export abstract class State {
@@ -37,7 +37,7 @@ export abstract class State {
         deepValue = (<Map<string, any>> <any> deepValue).get(k);
       }
       else {
-        deepValue = deepValue[k];
+        deepValue = (deepValue as any)[k];
       }
 
       if (typeof fn === 'function') {
@@ -64,7 +64,7 @@ export abstract class State {
     return State.traverse(state, path);
   }
 
-  static assign<State>(state: State, path: string[], value?) {
+  static assign<State>(state: State, path: string[], value?: any) {
     const operations = State.inspect(state);
 
     if (path.length === 0) {
@@ -117,7 +117,7 @@ export abstract class State {
   }
 
   static inspect<K>(object: K): Operations<K> {
-    const metaOperations = (update, merge, clone?) => {
+    const metaOperations = (update: Function, merge: Function, clone?: Function) => {
       const operations = {
         /// Clone the object (shallow)
         clone: typeof clone === 'function'
@@ -130,7 +130,7 @@ export abstract class State {
         /// Merge existing values with new values
         merge: (key: string, value: K) => {
           const cloned = operations.clone();
-          return merge(cloned, key, value, v => update(cloned, key, v));
+          return merge(cloned, key, value, (v: any) => update(cloned, key, v));
         }
       };
 
@@ -140,7 +140,7 @@ export abstract class State {
     if (Iterable.isIterable(object)) {
       return metaOperations(
         // Replace
-        (parent, key: number | string, value: K) => {
+        (parent: any, key: number | string, value: K) => {
           if (key != null) {
             return parent.set(key, value);
           }
@@ -149,7 +149,7 @@ export abstract class State {
           }
         },
         // Merge
-        (parent, key: number | string | string[], value: K) => {
+        (parent: any, key: number | string | string[], value: K) => {
           if (key) {
             return parent.mergeDeepIn(Array.isArray(key) ? key : [key], value);
           }
@@ -166,7 +166,7 @@ export abstract class State {
     else if (Array.isArray(object)) {
       return metaOperations(
         // Replace array contents
-        (parent, key: number, value: K) => {
+        (parent: any, key: number, value: K) => {
           if (key != null) {
             parent[key] = value;
           }
@@ -177,7 +177,7 @@ export abstract class State {
         },
 
         // Merge
-        (parent, _, value: K, setter: (v: K) => K) => {
+        (parent: any, _: any, value: K, setter: (v: K) => K) => {
           setter(parent.concat(value));
           return parent;
         },
@@ -189,7 +189,7 @@ export abstract class State {
     else if (object instanceof Map) {
       return metaOperations(
         // Update map key
-        (parent, key: number | string, value: K) => {
+        (parent: any, key: number | string, value: K) => {
           if (key != null) {
             return parent.set(key, value);
           }
@@ -202,7 +202,7 @@ export abstract class State {
         },
 
         // Merge
-        (parent: Map<string, any>, _, value: K) => {
+        (parent: Map<string, any>, _: any, value: K) => {
           const m = new Map<string, any>(<any> value);
           m.forEach((value, key) => parent.set(key, value));
           return parent;
@@ -217,7 +217,7 @@ export abstract class State {
     else if (object instanceof WeakSet || object instanceof Set) {
       return metaOperations(
         // Update element at index in set
-        (parent, key: number, value: K) => {
+        (parent: any, key: number, value: K) => {
           if (key != null) {
             return parent.set(key, value);
           }
@@ -230,7 +230,7 @@ export abstract class State {
         },
 
         // Merge
-        (parent: Set<any>, _, value) => {
+        (parent: Set<any>, _: any, value: any) => {
           for (const element of value) {
             parent.add(element);
           }
@@ -260,15 +260,15 @@ export abstract class State {
              break;
            }
            return metaOperations(
-             (parent, key, value: K) => {
+             (parent: any, key: any, value: K) => {
                if (key != null) {
                  return Object.assign(parent, {[key]: value});
                }
                 return Object.assign(parent, value);
              },
-             (parent, _, value: K) => {
+             (parent: any, _: any, value: K) => {
                for (const k of Object.keys(value)) {
-                 parent[k] = value[k];
+                 parent[k] = (value as any)[k];
                }
                return parent;
              },
@@ -284,7 +284,7 @@ export abstract class State {
        'in the mutation path should be an array, an associative container, or a set');
   }
 
-  static empty(value): boolean {
+  static empty(value: any): boolean {
     return value == null
       || (value.length === 0
       || (typeof value.length === 'undefined' && Object.keys(value).length === 0));

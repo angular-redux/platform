@@ -8,7 +8,7 @@ import {Action, Unsubscribe} from 'redux';
 
 export interface AbstractStore<RootState> {
   /// Dispatch an action
-  dispatch(action: Action & {payload}): void;
+  dispatch(action: Action & {payload: any}): void;
 
   /// Retrieve the current application state
   getState(): RootState;
@@ -34,7 +34,7 @@ export class FormStore {
     return this.store.getState();
   }
 
-  subscribe(fn: (state) => void): Unsubscribe {
+  subscribe(fn: (state: any) => void): Unsubscribe {
     return this.store.subscribe(() => fn(this.getState()));
   }
 

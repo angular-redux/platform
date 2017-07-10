@@ -12,8 +12,14 @@
     "declaration": true,
     "outDir": "dist",
     "rootDir": "",
+    "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true,
+
+    // Work around an issue in Angular itself with TS 2.4.1.
+    "skipLibCheck": true
   },
   "awesomeTypescriptLoaderOptions": {
     "emitRequireType": false,

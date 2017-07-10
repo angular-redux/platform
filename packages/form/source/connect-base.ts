@@ -29,7 +29,7 @@ export class ConnectBase {
 
   private formSubscription: Subscription;
   protected store: FormStore;
-  protected form;
+  protected form: any;
 
   public get path(): Array<string> {
     const path = typeof this.connect === 'function'
@@ -68,12 +68,14 @@ export class ConnectBase {
       this.stateSubscription = this.store.subscribe(() => this.resetState());
 
       Promise.resolve().then(() => {
-        this.formSubscription = (<any>this.form.valueChanges).debounceTime(0).subscribe(values => this.publish(values));
+        this.formSubscription = (<any>this.form.valueChanges)
+          .debounceTime(0)
+          .subscribe((values: any) => this.publish(values));
       });
     });
   }
 
-  private descendants(path: Array<string>, formElement): Array<ControlPair> {
+  private descendants(path: Array<string>, formElement: any): Array<ControlPair> {
     const pairs = new Array<ControlPair>();
 
     if (formElement instanceof FormArray) {
@@ -122,7 +124,7 @@ export class ConnectBase {
     });
   }
 
-  private publish(value) {
+  private publish(value: any) {
     this.store.valueChanged(this.path, this.form, value);
   }
 

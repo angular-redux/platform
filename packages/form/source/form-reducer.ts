@@ -7,7 +7,7 @@ import {FORM_CHANGED} from './form-store';
 import {State} from './state';
 
 export const defaultFormReducer = <RootState>(initialState?: RootState | Iterable.Keyed<string, any>) => {
-  const reducer = (state: RootState | Iterable.Keyed<string, any> = initialState, action: Action & {payload?}) => {
+  const reducer = (state: RootState | Iterable.Keyed<string, any> | undefined = initialState, action: Action & {payload?: any}) => {
     switch (action.type) {
       case FORM_CHANGED:
         return State.assign(

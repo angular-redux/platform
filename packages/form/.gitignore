@@ -48,3 +48,5 @@ dist
 
 source/*ngfactory.ts
 source/*ngsummary.json
+
+*.tgz

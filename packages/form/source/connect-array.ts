@@ -43,9 +43,9 @@ import {controlPath, selectValueAccessor} from './shims';
 
 export class ConnectArrayTemplate {
   constructor(
-    public $implicit,
+    public $implicit: any,
     public index: number,
-    public item
+    public item: any
   ) {}
 }
 
@@ -85,7 +85,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   @Input()
-  set connectArrayOf(collection) {
+  set connectArrayOf(collection: any) {
     this.key = collection;
 
     this.resetState(this.store.getState());
@@ -131,7 +131,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
     this.formDirective.form.removeControl(this.key);
   }
 
-  private resetState(state) {
+  private resetState(state: any) {
     if (this.key == null || this.key.length === 0) {
       return; // no state to retreive if no key is set
     }
@@ -174,7 +174,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
     }
   }
 
-  private registerInternals(array) {
+  private registerInternals(array: any) {
     array.registerControl = () => {};
     array.registerOnChange = () => {};
 
@@ -188,7 +188,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
     });
   }
 
-  private patchDescendantControls(viewRef) {
+  private patchDescendantControls(viewRef: any) {
     const groups = Object.keys(viewRef._view)
       .map(k => viewRef._view[k])
       .filter(c => c instanceof NgModelGroup);
@@ -205,7 +205,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
     });
   }
 
-  private transform(parent: FormGroup | FormArray, reference): AbstractControl {
+  private transform(parent: FormGroup | FormArray, reference: any): AbstractControl {
     const emptyControl = () => {
       const control = new FormControl(null);
       control.setParent(parent);
@@ -227,7 +227,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
         return emptyControl();
     }
 
-    const iterate = (iterable): FormArray => {
+    const iterate = (iterable: any): FormArray => {
       const array = new FormArray([]);
 
       this.registerInternals(array);
@@ -246,7 +246,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
       return array;
     }
 
-    const associate = (value): FormGroup => {
+    const associate = (value: any): FormGroup => {
       const group = new FormGroup({});
       group.setParent(parent);
 
@@ -280,7 +280,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
 
   private simpleAccessor() {
     return {
-      writeValue: value => this.control.setValue(value),
+      writeValue: (value: any) => this.control.setValue(value),
       registerOnChange() {},
       registerOnTouched() {}
     };

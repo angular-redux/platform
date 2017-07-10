@@ -8,3 +8,4 @@ coverage/
 .vscode/
 docs/
 webpack/
+*.tgz
