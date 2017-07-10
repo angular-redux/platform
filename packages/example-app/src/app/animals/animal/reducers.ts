@@ -1,4 +1,4 @@
-import { Reducer, Action, combineReducers } from 'redux';
+import { Reducer, Action } from 'redux';
 import { AnimalComponent } from './component';
 
 export const ticketsReducer: Reducer<number> = (state = 0, action: Action): number => {

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { combineEpics } from 'redux-observable';
 
 import { ANIMAL_TYPES } from '../animals/model';
 import { AnimalAPIEpics } from '../animals/api/epics';

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { AnimalAPIActions } from '../animals/api/actions';
 import { ANIMAL_TYPES, IAnimal } from '../animals/model';
-import { IAppState } from '../store/model';
 
 export const sortAnimals = (animalDictionary$: Observable<{}>) =>
   animalDictionary$.map(

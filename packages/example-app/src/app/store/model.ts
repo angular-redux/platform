@@ -1,8 +1,7 @@
 import { IAnimalList } from '../animals/model';
 
 export interface IAppState {
-  elephants?: IAnimalList;
-  lions?: IAnimalList;
+  [animalType: string]: IAnimalList;
   routes?: any;
   feedback?: any;
 }

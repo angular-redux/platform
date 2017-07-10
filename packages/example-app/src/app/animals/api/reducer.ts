@@ -1,5 +1,5 @@
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
-import { IAnimalList, IAnimal, AnimalType } from '../model';
+import { IAnimalList, AnimalType } from '../model';
 import { indexBy, prop } from 'ramda';
 import { Action } from 'redux';
 

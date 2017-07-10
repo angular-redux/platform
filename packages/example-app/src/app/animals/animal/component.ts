@@ -1,8 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { NgRedux, dispatch, select, select$, WithSubStore } from '@angular-redux/store';
+import { dispatch, select, select$, WithSubStore } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 
-import { IAppState } from '../../store/model';
 import { animalComponentReducer } from './reducers';
 import { IAnimal } from '../model';
 

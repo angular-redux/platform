@@ -13,7 +13,14 @@
     "target": "es5",
     "module": "es2015",
     "baseUrl": "",
-    "types": []
+    "types": [],
+
+    // Causes problems for @Outputs. See https://github.com/angular/angular/issues/17131.
+    // "noUnusedParameters": true,
+    // "noUnusedLocals": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true
   },
   "exclude": [
     "test.ts",

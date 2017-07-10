@@ -7,11 +7,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/startWith';
 
 import { IAppState } from '../../store/model';
-import { AnimalType, ANIMAL_TYPES } from '../model';
+import { AnimalType } from '../model';
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
 import { AnimalAPIService } from './service';
-
-type Predicate = (any) => boolean;
 
 const animalsNotAlreadyFetched = (
   animalType: AnimalType,
@@ -35,12 +33,12 @@ export class AnimalAPIEpics {
     return createEpicMiddleware(this.createLoadAnimalEpic(animalType));
   }
 
-  private createLoadAnimalEpic(animalType): Epic<AnimalAPIAction, IAppState> {
+  private createLoadAnimalEpic(animalType: AnimalType): Epic<AnimalAPIAction, IAppState> {
     return (action$, store) => action$
       .ofType(AnimalAPIActions.LOAD_ANIMALS)
       .filter(action => actionIsForCorrectAnimalType(animalType)(action))
       .filter(() => animalsNotAlreadyFetched(animalType, store.getState()))
-      .switchMap(a => this.service.getAll(animalType)
+      .switchMap(() => this.service.getAll(animalType)
         .map(data => this.actions.loadSucceeded(animalType, data))
         .catch(response => of(this.actions.loadFailed(animalType, {
           status: '' + response.status,

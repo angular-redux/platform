@@ -10,7 +10,6 @@ import { provideReduxForms } from '@angular-redux/form';
 
 // Redux ecosystem stuff.
 import { createLogger } from 'redux-logger';
-import { combineEpics, createEpicMiddleware } from 'redux-observable';
 
 // The top-level reducers and epics that make up our app's logic.
 import { IAppState } from './model';

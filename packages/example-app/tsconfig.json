@@ -9,6 +9,14 @@
     "experimentalDecorators": true,
     "lib": [
       "es2016"
-    ]
+    ],
+
+    // Causes problems for @Outputs with AoT.
+    // See https://github.com/angular/angular/issues/17131.
+    // "noUnusedParameters": true,
+    // "noUnusedLocals": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true
   }
 }
