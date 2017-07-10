@@ -1,3 +1,8 @@
+# 6.5.1 - Support typescript unused checks
+
+* https://github.com/angular-redux/form/pull/32
+* Minor README updates.
+
 # 6.5.0 - Added support for non-template forms.
 
 # 6.3.0 - Version bump to match Store@6.3.0

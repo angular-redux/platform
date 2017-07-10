@@ -1,6 +1,8 @@
 ## @angular-redux/form
 
+[![Join the chat at https://gitter.im/angular-redux/ng2-redux](https://badges.gitter.im/angular-redux/ng2-redux.svg)](https://gitter.im/angular-redux/ng2-redux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![npm version](https://img.shields.io/npm/v/@angular-redux/form.svg)](https://www.npmjs.com/package/@angular-redux/form)
+[![downloads per month](https://img.shields.io/npm/dm/@angular-redux/form.svg)](https://www.npmjs.com/package/@angular-redux/form)
 
 This library is a thin layer of connective tissue between Angular 2+ forms and
 Redux. It provides unidirectional data binding between your Redux state and
@@ -9,7 +11,7 @@ your forms elements. It builds on existing Angular functionality like
 and
 [NgControl](https://angular.io/docs/ts/latest/api/forms/index/NgControl-class.html)
 
-This supports both [Tempalte driven forms](https://angular.io/guide/forms) and [Reactive driven forms](https://angular.io/guide/reactive-forms). 
+This supports both [Template driven forms](https://angular.io/guide/forms) and [Reactive driven forms](https://angular.io/guide/reactive-forms). 
 
 #### Template Driven
 
