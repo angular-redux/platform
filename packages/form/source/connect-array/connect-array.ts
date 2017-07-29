@@ -36,10 +36,10 @@ import {
 } from '@angular/forms';
 import {Unsubscribe} from 'redux';
 
-import {ConnectBase} from './connect-base';
-import {FormStore} from './form-store';
-import {State} from './state';
-import {controlPath, selectValueAccessor} from './shims';
+import {ConnectBase} from '../connect';
+import {FormStore} from '../form-store';
+import {State} from '../state';
+import {controlPath, selectValueAccessor} from '../shims';
 
 export class ConnectArrayTemplate {
   constructor(

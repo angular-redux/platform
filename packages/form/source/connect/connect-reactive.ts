@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import {FormStore} from './form-store';
+import {FormStore} from '../form-store';
 
 import {ConnectBase} from './connect-base';
 

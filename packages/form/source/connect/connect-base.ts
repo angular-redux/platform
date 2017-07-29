@@ -14,8 +14,8 @@ import { Unsubscribe } from 'redux';
 
 import 'rxjs/add/operator/debounceTime';
 
-import { FormStore } from './form-store';
-import { State } from './state';
+import { FormStore } from '../form-store';
+import { State } from '../state';
 
 export interface ControlPair {
   path: Array<string>;

@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
-import {FormStore} from './form-store';
+import {FormStore} from '../form-store';
 import {ConnectBase} from './connect-base';
 
 
