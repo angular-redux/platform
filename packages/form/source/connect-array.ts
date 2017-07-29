@@ -111,11 +111,11 @@ export class ConnectArray extends ControlContainer implements OnInit {
     return controlPath(this.key, this.parent);
   }
 
-  get validator(): ValidatorFn {
+  get validator(): ValidatorFn | null {
     return Validators.compose(this.rawValidators);
   }
 
-  get asyncValidator(): AsyncValidatorFn {
+  get asyncValidator(): AsyncValidatorFn | null {
     return Validators.composeAsync(this.rawAsyncValidators);
   }
 

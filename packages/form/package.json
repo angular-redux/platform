@@ -69,6 +69,7 @@
     "prepublish": "npm run build"
   },
   "main": "dist/source/index.js",
+  "typings": "dist/source/index.d.ts",
   "repository": "https://github.com/angular-redux/form",
   "license": "MIT"
 }
