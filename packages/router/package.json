@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/router",
-  "version": "6.3.1",
+  "version": "6.4.0",
   "description": "Keep your Angular 2+ router state in Redux.",
   "main": "./lib/es5/index.js",
   "module": "./lib/esm/index.js",
@@ -18,18 +18,18 @@
     "build:es5": "ngc -p tsconfig.json && npm run postbuild"
   },
   "peerDependencies": {
-    "@angular/core": "^2.1.2 || ^4.0.0",
-    "@angular/router": "^3.0.0 || ^4.0.0"
+    "@angular/core": "^2.1.2 || ^5.0.0",
+    "@angular/router": "^3.0.0 || ^5.0.0"
   },
   "devDependencies": {
-    "@angular-redux/store": "^6.3.0",
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
-    "@angular/router": "^4.0.0",
+    "@angular-redux/store": "^7.0.0",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/compiler-cli": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/platform-browser": "^5.0.0",
+    "@angular/platform-browser-dynamic": "^5.0.0",
+    "@angular/router": "^5.0.0",
     "@types/core-js": "^0.9.39",
     "@types/jasmine": "^2.5.37",
     "redux": "^3.6.0",

@@ -1,3 +1,7 @@
+# 6.4.0 - Angular 5 Support
+
+Added support for Angular 5.
+
 # 6.3.1 - Toolchain Update
 
 * Typescript 2.4.1
