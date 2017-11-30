@@ -1,6 +1,6 @@
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { map } from 'rxjs/operators/map';
+import { filter } from 'rxjs/operators/filter';
+import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { Injectable, ApplicationRef } from '@angular/core';
 import { Location } from '@angular/common';
 import {
@@ -87,10 +87,11 @@ export class NgReduxRouter {
   }
 
   private getDefaultUrlStateObservable() {
-    return this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .map(event => this.location.path())
-      .distinctUntilChanged();
+    return this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => this.location.path()),
+      distinctUntilChanged()
+    );
   }
 
   private getLocationFromStore(useInitial: boolean = false) {
@@ -148,7 +149,7 @@ export class NgReduxRouter {
 
     this.reduxSubscription = this.ngRedux
       .select(state => this.selectLocationFromState(state))
-      .distinctUntilChanged()
+      .pipe(distinctUntilChanged())
       .subscribe(handleLocationChange);
   }
 }

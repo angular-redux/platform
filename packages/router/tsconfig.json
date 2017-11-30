@@ -11,15 +11,15 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "declaration": true,
-    "lib" : ["es2015", "es2015.iterable", "dom"],
+    "lib": ["es2015", "es2015.iterable", "dom"],
     "strict": true,
     "skipLibCheck": true
   },
-  "exclude": [
-    "lib",
-    "node_modules",
-    "spec",
-    "release",
-    "examples"
-  ]
+  "exclude": ["lib", "node_modules", "spec", "release", "examples"],
+  "angularCompilerOptions": {
+    "generateCodeForLibraries": true,
+    "strictMetadataEmit": true,
+    "genDir": ".compiled",
+    "annotationsAs": "decorators"
+  }
 }
