@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/router",
-  "version": "7.0.0-2",
+  "version": "7.0.0",
   "description": "Keep your Angular 2+ router state in Redux.",
   "main": "./lib/es5/src/index.js",
   "module": "./lib/esm/src/index.js",
