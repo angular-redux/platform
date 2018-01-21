@@ -13,7 +13,6 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  NG_VALUE_ACCESSOR,
   AbstractControl,
   FormArray,
   FormArrayName,
@@ -22,7 +21,6 @@ import {
   FormGroupDirective,
   NgModelGroup,
   ControlContainer,
-  ControlValueAccessor,
 } from '@angular/forms';
 
 import {
@@ -39,7 +37,7 @@ import {Unsubscribe} from 'redux';
 import {ConnectBase} from '../connect';
 import {FormStore} from '../form-store';
 import {State} from '../state';
-import {controlPath, selectValueAccessor} from '../shims';
+import {controlPath} from '../shims';
 
 export class ConnectArrayTemplate {
   constructor(
@@ -61,15 +59,12 @@ export class ConnectArray extends ControlContainer implements OnInit {
 
   private array = new FormArray([]);
 
-  private valueAccessor: ControlValueAccessor;
-
   private key: string;
 
   constructor(
     @Optional() @Host() @SkipSelf() private parent: ControlContainer,
     @Optional() @Self() @Inject(NG_VALIDATORS) private rawValidators: any[],
     @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) private rawAsyncValidators: any[],
-    @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: any[],
     private connection: ConnectBase,
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef,
@@ -78,8 +73,6 @@ export class ConnectArray extends ControlContainer implements OnInit {
     super();
 
     this.stateSubscription = this.store.subscribe(state => this.resetState(state));
-
-    this.valueAccessor = selectValueAccessor(<any> this, valueAccessors) || this.simpleAccessor();
 
     this.registerInternals(this.array);
   }
@@ -129,6 +122,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
     this.viewContainerRef.clear();
 
     this.formDirective.form.removeControl(this.key);
+    this.stateSubscription()
   }
 
   private resetState(state: any) {
@@ -276,13 +270,5 @@ export class ConnectArray extends ControlContainer implements OnInit {
       throw new Error(
         `Cannot convert object of type ${typeof reference} / ${reference.toString()} to form element`);
     }
-  }
-
-  private simpleAccessor() {
-    return {
-      writeValue: (value: any) => this.control.setValue(value),
-      registerOnChange() {},
-      registerOnTouched() {}
-    };
   }
 }

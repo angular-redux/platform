@@ -1,3 +1,5 @@
+# NOTE: For changelog information for v6.5.3 and above, please see the GitHub release notes.
+
 # 6.5.1 - Support typescript unused checks
 
 * https://github.com/angular-redux/form/pull/32
