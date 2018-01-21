@@ -97,7 +97,10 @@ export class ConnectBase {
       throw new Error(`Unknown type of form element: ${formElement.constructor.name}`);
     }
 
-    return pairs.filter(p => (<any>p.control)._parent === this.form.control);
+    return pairs.filter(p => {
+        const parent = (p.control as any)._parent;
+        return parent === this.form.control || parent === this.form;
+    });
   }
 
   private resetState() {
@@ -114,12 +117,10 @@ export class ConnectBase {
     children.forEach(c => {
       const { path, control } = c;
 
-      const value = State.get(this.getState(), this.path.concat(c.path));
+      const value = State.get(this.getState(), this.path.concat(path));
 
       if (control.value !== value) {
-        const phonyControl = <any>{ path: path };
-
-        this.form.updateModel(phonyControl, value);
+        control.setValue(value);
       }
     });
   }
