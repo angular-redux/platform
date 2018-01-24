@@ -36,7 +36,7 @@ Bindings to connect @angular/router to @angular-redux/core
     imports: [
       RouterModule.forRoot(routes),
       NgReduxModule,
-      NgReduxRouterModule
+      NgReduxRouterModule.forRoot()
       // ...your imports
     ],
     // Other stuff..
