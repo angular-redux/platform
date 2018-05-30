@@ -11,7 +11,7 @@ your forms elements. It builds on existing Angular functionality like
 and
 [NgControl](https://angular.io/docs/ts/latest/api/forms/index/NgControl-class.html)
 
-This supports both [Template driven forms](https://angular.io/guide/forms) and [Reactive driven forms](https://angular.io/guide/reactive-forms). 
+This supports both [Template driven forms](https://angular.io/guide/forms) and [Reactive driven forms](https://angular.io/guide/reactive-forms).
 
 #### Template Driven
 

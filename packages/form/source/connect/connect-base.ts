@@ -24,11 +24,11 @@ export interface ControlPair {
 
 export class ConnectBase {
 
-  @Input('connect') connect: () => (string | number) | Array<string | number>;
-  private stateSubscription: Unsubscribe;
+  @Input('connect') connect?: () => (string | number) | Array<string | number>;
+  private stateSubscription?: Unsubscribe;
 
-  private formSubscription: Subscription;
-  protected store: FormStore;
+  private formSubscription?: Subscription;
+  protected store?: FormStore;
   protected form: any;
 
   public get path(): Array<string> {
@@ -65,7 +65,9 @@ export class ConnectBase {
     Promise.resolve().then(() => {
       this.resetState();
 
-      this.stateSubscription = this.store.subscribe(() => this.resetState());
+      if (this.store) {
+        this.stateSubscription = this.store.subscribe(() => this.resetState());
+      }
 
       Promise.resolve().then(() => {
         this.formSubscription = (<any>this.form.valueChanges)
@@ -126,10 +128,14 @@ export class ConnectBase {
   }
 
   private publish(value: any) {
-    this.store.valueChanged(this.path, this.form, value);
+    if (this.store) {
+      this.store.valueChanged(this.path, this.form, value);
+    }
   }
 
   private getState() {
-    return this.store.getState();
+    if (this.store) {
+      return this.store.getState();
+    }
   }
 }

@@ -15,7 +15,6 @@ import {
 import {
   AbstractControl,
   FormArray,
-  FormArrayName,
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -59,7 +58,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
 
   private array = new FormArray([]);
 
-  private key: string;
+  private key?: string;
 
   constructor(
     @Optional() @Host() @SkipSelf() private parent: ControlContainer,
@@ -89,7 +88,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   get name(): string {
-    return this.key;
+    return this.key || '';
   }
 
   get control(): FormArray {
@@ -101,7 +100,9 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   get path(): Array<string> {
-    return controlPath(this.key, this.parent);
+    return this.key ?
+      controlPath(this.key, this.parent) :
+      [];
   }
 
   get validator(): ValidatorFn | null {
@@ -112,16 +113,15 @@ export class ConnectArray extends ControlContainer implements OnInit {
     return Validators.composeAsync(this.rawAsyncValidators);
   }
 
-  private get formArray(): FormArrayName {
-    return <any> this;
-  }
-
   updateValueAndValidity() {}
 
   ngOnDestroy() {
     this.viewContainerRef.clear();
 
-    this.formDirective.form.removeControl(this.key);
+    if (this.key){
+      this.formDirective.form.removeControl(this.key);
+    }
+
     this.stateSubscription()
   }
 
