@@ -6,6 +6,14 @@
 
 Bindings to connect @angular/router to @angular-redux/core
 
+## Which version should I use?
+
+For use with Angular 6: Use v9.
+
+For use with Angular 5: Use v7.
+
+For use with Angular 2-4: Use v6.
+
 ### Setup
 
 1. Use npm to install the bindings:

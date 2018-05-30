@@ -1,3 +1,7 @@
+# 9.0.0 - Angular 6, RxJS 6 Support
+
+Adapts to breaking changes in Angular 6 and RxJS 6. Also updates to Typescript 2.7.2.
+
 # 7.0.0 - Angular 5+ only support
 
 * Update to Angular 5 compiler

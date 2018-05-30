@@ -1,6 +1,4 @@
-import { map } from 'rxjs/operators/map';
-import { filter } from 'rxjs/operators/filter';
-import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
+import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { Injectable, ApplicationRef } from '@angular/core';
 import { Location } from '@angular/common';
 import {
@@ -10,23 +8,22 @@ import {
   DefaultUrlSerializer
 } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
-import { Observable } from 'rxjs/Observable';
-import { ISubscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
 import { UPDATE_LOCATION } from './actions';
 import { RouterAction, DefaultRouterState } from './reducer';
 
 @Injectable()
 export class NgReduxRouter {
   private initialized = false;
-  private currentLocation: string;
-  private initialLocation: string;
+  private currentLocation?: string;
+  private initialLocation?: string;
 
   private selectLocationFromState: (state: any) => string = state =>
     state.router;
-  private urlState: Observable<string>;
+  private urlState?: Observable<string>;
 
-  private urlStateSubscription: ISubscription;
-  private reduxSubscription: ISubscription;
+  private urlStateSubscription?: Subscription;
+  private reduxSubscription?: Subscription;
 
   constructor(
     private router: Router,
@@ -127,7 +124,9 @@ export class NgReduxRouter {
       });
     };
 
-    this.urlStateSubscription = this.urlState.subscribe(handleLocationChange);
+    if (this.urlState) {
+      this.urlStateSubscription = this.urlState.subscribe(handleLocationChange);
+    }
   }
 
   private listenToReduxChanges() {
