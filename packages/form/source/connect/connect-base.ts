@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 
 import { Unsubscribe } from 'redux';
 
-import 'rxjs/add/operator/debounceTime';
+import { debounceTime } 'rxjs/operators';
 
 import { FormStore } from '../form-store';
 import { State } from '../state';
@@ -71,7 +71,7 @@ export class ConnectBase {
 
       Promise.resolve().then(() => {
         this.formSubscription = (<any>this.form.valueChanges)
-          .debounceTime(0)
+          .pipe(debounceTime(0))
           .subscribe((values: any) => this.publish(values));
       });
     });
