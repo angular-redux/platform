@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 
 import { Unsubscribe } from 'redux';
 
-import { debounceTime } 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 import { FormStore } from '../form-store';
 import { State } from '../state';
