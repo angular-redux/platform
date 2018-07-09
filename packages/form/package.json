@@ -2,6 +2,9 @@
   "name": "@angular-redux/form",
   "version": "9.0.1",
   "description": "Build Angular 2+ forms with Redux",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "immutable": "^3.8.1"
   },

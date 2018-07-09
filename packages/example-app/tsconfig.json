@@ -7,9 +7,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": [
-      "es2016"
-    ],
+    "lib": ["es2016"],
+    "paths": {
+      "@angular/*": ["../node_modules/@angular/*"]
+    },
 
     // Causes problems for @Outputs with AoT.
     // See https://github.com/angular/angular/issues/17131.

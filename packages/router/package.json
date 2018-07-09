@@ -9,6 +9,9 @@
     "type": "git",
     "url": "git+https://github.com/angular-redux/router.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepublish": "npm run build",
     "build": "rimraf ./lib && npm run build:es5 && npm run build:esm && npm run build:es6",

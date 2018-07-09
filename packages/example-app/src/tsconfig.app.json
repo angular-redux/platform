@@ -5,15 +5,15 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": [
-      "es2016",
-      "dom"
-    ],
+    "lib": ["es2016", "dom"],
     "outDir": "../out-tsc/app",
     "target": "es5",
     "module": "es2015",
-    "baseUrl": "",
+    "baseUrl": ".",
     "types": [],
+    "paths": {
+      "@angular/*": ["../node_modules/@angular/*"]
+    },
 
     // Causes problems for @Outputs. See https://github.com/angular/angular/issues/17131.
     // "noUnusedParameters": true,
@@ -22,8 +22,5 @@
     "forceConsistentCasingInFileNames": true,
     "pretty": true
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ]
+  "exclude": ["test.ts", "**/*.spec.ts"]
 }

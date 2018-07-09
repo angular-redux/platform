@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "./lib/es5",
     "target": "es5",
     "module": "commonjs",
@@ -13,7 +14,10 @@
     "declaration": true,
     "lib": ["es2015", "es2015.iterable", "dom"],
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"]
+    }
   },
   "exclude": ["lib", "node_modules", "spec", "release", "examples"],
   "angularCompilerOptions": {
