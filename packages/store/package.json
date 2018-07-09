@@ -2,33 +2,21 @@
   "name": "@angular-redux/store",
   "version": "9.0.0",
   "description": "Angular bindings for Redux",
+  "license": "MIT",
+  "keywords": ["redux", "ng2", "angular2", "angular"],
+  "bugs": {
+    "url": "https://github.com/angular-redux/store/issues"
+  },
+  "homepage": "https://github.com/angular-redux/store#readme",
   "main": "./lib/src/index.js",
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "precommit": "lint-staged",
-    "prebuild": "rimraf ./lib",
-    "build": "npm run build:src && npm run build:testing",
-    "build:src": "ngc -p tsconfig.build.json",
-    "build:testing": "ngc -p tsconfig.testing.json",
-    "lint": "tslint 'src/**/*.ts'",
-    "prettier":
-      "prettier --parser typescript --single-quote --trailing-comma es5 --write \"**/*.ts\"",
-    "prepublish": "npm run lint && npm run build && npm test",
-    "test": "nyc node tests.js",
-    "test:watch": "nodemon tests.js -w src -w testing -e ts",
-    "ci": "npm run lint && npm run build && npm test",
-    "predoc": "rimraf docs",
-    "doc":
-      "typedoc --out docs --excludeExternals --excludePrivate --excludeNotExported -theme minimal --sourcefile-url-prefix \"https://github.com/angular-redux/store/blob/master/src/\" --name @angular-redux/store --mode file --module commonjs --tsconfig tsconfig.docs.json src"
   },
   "typings": "./lib/src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/angular-redux/store.git"
   },
-  "keywords": ["redux", "ng2", "angular2", "angular"],
   "author":
     "William Buchwalter <wbuchwalter@gmail.com> (http://github.com/wbuchwalter)",
   "contributors": [
@@ -54,46 +42,58 @@
       "url": "https://github.com/actra-development-oss"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/angular-redux/store/issues"
-  },
-  "homepage": "https://github.com/angular-redux/store#readme",
-  "devDependencies": {
-    "@angular/animations": "^6.0.1",
-    "@angular/common": "^6.0.1",
-    "@angular/compiler": "^6.0.1",
-    "@angular/compiler-cli": "^6.0.1",
-    "@angular/core": "^6.0.1",
-    "@angular/http": "^6.0.1",
-    "@angular/platform-browser": "^6.0.1",
-    "@angular/platform-browser-dynamic": "^6.0.1",
-    "@angular/platform-server": "^6.0.1",
-    "@types/jasmine": "2.5.38",
-    "@types/node": "^10.0.3",
-    "core-js": "^2.5.6",
-    "husky": "^0.14.3",
-    "jasmine": "^2.5.3",
-    "lint-staged": "^7.1.2",
-    "nodemon": "^1.10.0",
-    "nyc": "^10.2.0",
-    "prettier": "1.9.2",
-    "redux": "^4.0.0",
-    "reflect-metadata": "0.1.12",
-    "rimraf": "^2.6.2",
-    "rxjs": "^6.1.0",
-    "symbol-observable": "^1.2.0",
-    "ts-node": "^6.0.3",
-    "tsconfig-paths": "^3.3.2",
-    "tslint": "^5.10.0",
-    "typedoc": "^0.11.1",
-    "typedoc-plugin-sourcefile-url": "^1.0.3",
-    "typescript": "2.7.2",
-    "zone.js": "^0.8.26"
+  "scripts": {
+    "precommit": "lint-staged",
+    "prebuild": "rimraf ./lib",
+    "build": "npm run build:src && npm run build:testing",
+    "build:src": "ngc -p tsconfig.build.json",
+    "build:testing": "ngc -p tsconfig.testing.json",
+    "lint": "tslint 'src/**/*.ts'",
+    "prettier":
+      "prettier --parser typescript --single-quote --trailing-comma es5 --write \"**/*.ts\"",
+    "prepublish": "npm run lint && npm run build && npm test",
+    "test": "nyc node tests.js",
+    "test:watch": "nodemon tests.js -w src -w testing -e ts",
+    "ci": "npm run lint && npm run build && npm test",
+    "predoc": "rimraf docs",
+    "doc":
+      "typedoc --out docs --excludeExternals --excludePrivate --excludeNotExported -theme minimal --sourcefile-url-prefix \"https://github.com/angular-redux/store/blob/master/src/\" --name @angular-redux/store --mode file --module commonjs --tsconfig tsconfig.docs.json src"
   },
   "peerDependencies": {
-    "@angular/core": "^6.0.1",
+    "@angular/core": "^6.0.0",
     "redux": "^4.0.0"
+  },
+  "devDependencies": {
+    "@angular/animations": "6.0.7",
+    "@angular/common": "6.0.7",
+    "@angular/compiler": "6.0.7",
+    "@angular/compiler-cli": "6.0.7",
+    "@angular/core": "6.0.7",
+    "@angular/http": "6.0.7",
+    "@angular/platform-browser": "6.0.7",
+    "@angular/platform-browser-dynamic": "6.0.7",
+    "@angular/platform-server": "6.0.7",
+    "@types/jasmine": "2.5.38",
+    "@types/node": "10.5.2",
+    "core-js": "2.5.7",
+    "husky": "0.14.3",
+    "jasmine": "2.99.0",
+    "lint-staged": "7.2.0",
+    "nodemon": "1.17.5",
+    "nyc": "10.3.2",
+    "prettier": "1.9.2",
+    "redux": "4.0.0",
+    "reflect-metadata": "0.1.12",
+    "rimraf": "2.6.2",
+    "rxjs": "6.2.1",
+    "symbol-observable": "1.2.0",
+    "ts-node": "6.2.0",
+    "tsconfig-paths": "3.4.2",
+    "tslint": "5.10.0",
+    "typedoc": "0.11.1",
+    "typedoc-plugin-sourcefile-url": "1.0.3",
+    "typescript": "2.7.2",
+    "zone.js": "0.8.26"
   },
   "nyc": {
     "extension": [".ts"],
