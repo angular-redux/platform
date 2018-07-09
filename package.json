@@ -4,7 +4,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --ignore example-app"
+		"build": "lerna run build",
+		"lint": "lerna run lint"
   },
   "devDependencies": {
     "lerna": "2.11.0"
