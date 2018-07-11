@@ -7,13 +7,23 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "commit": "commit",
-    "commitmsg": "commitlint -E GIT_PARAMS"
+    "prettier": "prettier --write \"**/*.*(ts|js|css|scss|json|md)\"",
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E GIT_PARAMS"
+  },
+  "lint-staged": {
+    "*.{ts,js,css,scss,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.0.0",
-    "@commitlint/config-conventional": "^7.0.1",
-    "@commitlint/prompt-cli": "^7.0.0",
-    "husky": "^0.14.3",
-    "lerna": "2.11.0"
+    "@commitlint/cli": "7.0.0",
+    "@commitlint/config-conventional": "7.0.1",
+    "@commitlint/prompt-cli": "7.0.0",
+    "husky": "0.14.3",
+    "lerna": "2.11.0",
+    "lint-staged": "7.2.0",
+    "prettier": "1.13.7"
   }
 }
