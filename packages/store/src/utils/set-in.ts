@@ -13,12 +13,12 @@ export const setIn = (
   'function' === typeof (obj[firstElem] || {}).setIn
     ? {
         ...obj,
-        [firstElem]: obj[firstElem].setIn(restElems, value),
+        [firstElem]: obj[firstElem].setIn(restElems, value)
       }
     : {
         ...obj,
         [firstElem]:
           restElems.length === 0
             ? value
-            : setIn(obj[firstElem] || {}, restElems, value),
+            : setIn(obj[firstElem] || {}, restElems, value)
       };

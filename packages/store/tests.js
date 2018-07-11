@@ -21,17 +21,20 @@ require('zone.js/dist/jasmine-patch.js');
 const tsconfigPaths = require('tsconfig-paths');
 tsconfigPaths.register({
   baseUrl: '.',
-  paths: { '@angular-redux/store': [''] },
+  paths: { '@angular-redux/store': [''] }
 });
 
 const { getTestBed } = require('@angular/core/testing');
-const { ServerTestingModule, platformServerTesting } = require('@angular/platform-server/testing');
+const {
+  ServerTestingModule,
+  platformServerTesting
+} = require('@angular/platform-server/testing');
 
 getTestBed().initTestEnvironment(ServerTestingModule, platformServerTesting());
 
 runner.loadConfig({
   spec_dir: '.',
-  spec_files: [ '**/*.spec.ts' ]
+  spec_files: ['**/*.spec.ts']
 });
 
 runner.execute();

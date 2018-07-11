@@ -42,7 +42,7 @@ export const resolver = <RootState, S>(selector?: Selector<RootState, S>) => ({
     state ? state[selector as PropertySelector] : undefined,
   path: (state: RootState) => getIn(state, selector as PathSelector),
   function: selector as FunctionSelector<RootState, S>,
-  nil: (state: RootState) => state,
+  nil: (state: RootState) => state
 });
 
 /** @hidden */

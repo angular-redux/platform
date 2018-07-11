@@ -5,15 +5,12 @@ process.env.TEST = true;
 const loaders = require('./webpack/loaders');
 const plugins = require('./webpack/plugins');
 
-module.exports = (config) => {
+module.exports = config => {
   const coverage = config.singleRun ? ['coverage'] : [];
   const logLevel = config.singleRun ? config.LOG_INFO : config.LOG_DEBUG;
 
   config.set({
-    frameworks: [
-      'jasmine',
-      'chai',
-    ],
+    frameworks: ['jasmine', 'chai'],
 
     plugins: [
       'karma-jasmine',
@@ -39,14 +36,8 @@ module.exports = (config) => {
     ],
 
     preprocessors: {
-      '**/*.ts': [
-        'webpack',
-        'sourcemap',
-        'transformPath',
-      ],
-      '**/!(*.test|tests.*).(ts|js)': [
-        'sourcemap',
-      ],
+      '**/*.ts': ['webpack', 'sourcemap', 'transformPath'],
+      '**/!(*.test|tests.*).(ts|js)': ['sourcemap'],
     },
 
     transformPathPreprocessor: {
@@ -61,7 +52,9 @@ module.exports = (config) => {
         extensions: ['.webpack.js', '.web.js', '.js', '.ts'],
       },
       module: {
-        rules: combinedLoaders().concat(config.singleRun ? [loaders.istanbulInstrumenter] : [])
+        rules: combinedLoaders().concat(
+          config.singleRun ? [loaders.istanbulInstrumenter] : [],
+        ),
       },
       stats: { colors: true, reasons: true },
     },
@@ -80,35 +73,35 @@ module.exports = (config) => {
     },
 
     coverageReporter: {
-      reporters: [
-        { type: 'json' },
-      ],
+      reporters: [{ type: 'json' }],
       subdir: b => b.toLowerCase().split(/[ /-]/)[0],
     },
 
-    logLevel: logLevel, 
+    logLevel: logLevel,
 
     autoWatch: config.singleRun === false,
 
-    browsers: [
-      'Chrome',
-    ],
+    browsers: ['Chrome'],
   });
 };
 
 function combinedLoaders() {
   return Object.keys(loaders).reduce(function reduce(aggregate, k) {
     switch (k) {
-    case 'istanbulInstrumenter':
-      return aggregate;
-    case 'ts':
-      return aggregate.concat([ // force inline source maps
-        Object.assign(loaders[k],
-          { query: { babelOptions: { sourceMaps: 'both' }, skipDeclarationFilesCheck: true } })]);
-    default:
-      return aggregate.concat([loaders[k]]);
+      case 'istanbulInstrumenter':
+        return aggregate;
+      case 'ts':
+        return aggregate.concat([
+          // force inline source maps
+          Object.assign(loaders[k], {
+            query: {
+              babelOptions: { sourceMaps: 'both' },
+              skipDeclarationFilesCheck: true,
+            },
+          }),
+        ]);
+      default:
+        return aggregate.concat([loaders[k]]);
     }
-  },
-  []);
+  }, []);
 }
-

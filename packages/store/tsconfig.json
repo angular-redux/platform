@@ -10,11 +10,7 @@
     "removeComments": false,
     "outDir": "lib/src/",
     "declaration": true,
-    "lib": [
-      "es2015",
-      "es2015.iterable",
-      "dom"
-    ],
+    "lib": ["es2015", "es2015.iterable", "dom"],
     "paths": {
       "@angular-redux/store": ["src/index.ts"]
     },
@@ -24,21 +20,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "pretty": true,
-	"strictPropertyInitialization": false
+    "strictPropertyInitialization": false
   },
   "compileOnSave": false,
   "buildOnSave": false,
-  "include": [
-    "src/**/*.ts",
-    "testing/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "lib"
-  ],
+  "include": ["src/**/*.ts", "testing/**/*.ts"],
+  "exclude": ["node_modules", "lib"],
   "angularCompilerOptions": {
     "strictMetadataEmit": true,
     "genDir": ".compiled",
-	"disableTypeScriptVersionCheck": true
+    "disableTypeScriptVersionCheck": true
   }
 }

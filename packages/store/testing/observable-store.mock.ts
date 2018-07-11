@@ -2,7 +2,7 @@ import {
   Selector,
   Comparator,
   ObservableStore,
-  PathSelector,
+  PathSelector
 } from '@angular-redux/store';
 import { AnyAction, Reducer, Dispatch } from 'redux';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
@@ -85,7 +85,7 @@ export class MockObservableStore<State> implements ObservableStore<any> {
     const key = selector ? selector.toString() : '';
     const record = this.selections[key] || {
       subject: new ReplaySubject<SelectedState>(),
-      comparator,
+      comparator
     };
 
     this.selections[key] = record;

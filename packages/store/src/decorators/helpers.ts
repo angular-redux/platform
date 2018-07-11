@@ -5,7 +5,7 @@ import {
   Selector,
   PathSelector,
   Comparator,
-  Transformer,
+  Transformer
 } from '../components/selectors';
 import { distinctUntilChanged } from 'rxjs/operators';
 
@@ -171,12 +171,10 @@ export const getInstanceSelection = <T>(
       selections[key] ||
       (!transformer
         ? store.select(selector, comparator)
-        : store
-            .select(selector)
-            .pipe(
-              obs$ => transformer(obs$, decoratedInstance),
-              distinctUntilChanged(comparator)
-            ));
+        : store.select(selector).pipe(
+            obs$ => transformer(obs$, decoratedInstance),
+            distinctUntilChanged(comparator)
+          ));
 
     return selections[key];
   }

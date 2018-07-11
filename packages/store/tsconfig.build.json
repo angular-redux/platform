@@ -20,7 +20,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "pretty": true,
-	"strictPropertyInitialization": false
+    "strictPropertyInitialization": false
   },
   "compileOnSave": false,
   "buildOnSave": false,
@@ -31,6 +31,6 @@
     "strictMetadataEmit": true,
     "genDir": ".compiled",
     "annotationsAs": "decorators",
-	"disableTypeScriptVersionCheck": true
+    "disableTypeScriptVersionCheck": true
   }
 }

@@ -5,7 +5,9 @@ import { IAnimal, AnimalType } from '../model';
 
 // Flux-standard-action gives us stronger typing of our actions.
 type Payload = IAnimal[];
-interface MetaData { animalType: AnimalType; };
+interface MetaData {
+  animalType: AnimalType;
+}
 export type AnimalAPIAction = FluxStandardAction<Payload, MetaData>;
 
 @Injectable()
@@ -26,18 +28,21 @@ export class AnimalAPIActions {
     type: AnimalAPIActions.LOAD_STARTED,
     meta: { animalType },
     payload: null,
-  })
+  });
 
-  loadSucceeded = (animalType: AnimalType, payload: Payload): AnimalAPIAction => ({
+  loadSucceeded = (
+    animalType: AnimalType,
+    payload: Payload,
+  ): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_SUCCEEDED,
     meta: { animalType },
     payload,
-  })
+  });
 
   loadFailed = (animalType: AnimalType, error): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_FAILED,
     meta: { animalType },
     payload: null,
     error,
-  })
+  });
 }

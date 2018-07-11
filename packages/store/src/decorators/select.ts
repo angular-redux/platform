@@ -80,7 +80,7 @@ function decorate(
       Object.defineProperty(target, key, {
         get: getter,
         enumerable: true,
-        configurable: true,
+        configurable: true
       });
     }
   };

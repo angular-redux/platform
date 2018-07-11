@@ -15,7 +15,7 @@ export function _mockNgReduxFactory() {
   imports: [],
   providers: [
     { provide: NgRedux, useFactory: _mockNgReduxFactory },
-    { provide: DevToolsExtension, useClass: MockDevToolsExtension },
-  ],
+    { provide: DevToolsExtension, useClass: MockDevToolsExtension }
+  ]
 })
 export class NgReduxTestingModule {}

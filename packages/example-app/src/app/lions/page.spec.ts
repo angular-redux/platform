@@ -1,5 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
-import { NgReduxTestingModule, MockNgRedux } from '@angular-redux/store/testing';
+import {
+  NgReduxTestingModule,
+  MockNgRedux,
+} from '@angular-redux/store/testing';
 
 import { Component, Input } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
@@ -22,7 +25,7 @@ class MockAnimalListComponent {
   @Input() animals: Observable<any>;
   @Input() loading: Observable<boolean>;
   @Input() error: Observable<any>;
-};
+}
 
 describe('Lion Page Container', () => {
   beforeEach(() => {
@@ -43,15 +46,16 @@ describe('Lion Page Container', () => {
       {
         lion1: { name: 'I am a Lion!', id: 'lion1' },
         lion2: { name: 'I am a second Lion!', id: 'lion2' },
-      }];
+      },
+    ];
 
     const expectedSequence = [
-      [ { name: 'I am a Lion!', id: 'lion1' } ],
+      [{ name: 'I am a Lion!', id: 'lion1' }],
       [
         // Alphanumeric sort by name.
         { name: 'I am a Lion!', id: 'lion1' },
         { name: 'I am a second Lion!', id: 'lion2' },
-      ]
+      ],
     ];
 
     const itemStub = MockNgRedux.getSelectorStub(['lion', 'items']);
@@ -63,7 +67,8 @@ describe('Lion Page Container', () => {
       .subscribe(
         actualSequence => expect(actualSequence).toEqual(expectedSequence),
         null,
-        done);
+        done,
+      );
   });
 
   it('should know when the animals are loading', done => {
@@ -78,15 +83,16 @@ describe('Lion Page Container', () => {
     lionPage.loading$
       .toArray()
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual([ false, true ]),
+        actualSequence => expect(actualSequence).toEqual([false, true]),
         null,
-        done);
+        done,
+      );
   });
 
-  it('should know when there\'s an error', done => {
+  it("should know when there's an error", done => {
     const fixture = TestBed.createComponent(LionPageComponent);
     const lionPage = fixture.debugElement.componentInstance;
-    const expectedSequence = [ true ];
+    const expectedSequence = [true];
 
     const lionsErrorStub = MockNgRedux.getSelectorStub(['lion', 'error']);
     lionsErrorStub.next(false);
@@ -96,9 +102,10 @@ describe('Lion Page Container', () => {
     lionPage.error$
       .toArray()
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual([ false, true ]),
+        actualSequence => expect(actualSequence).toEqual([false, true]),
         null,
-        done);
+        done,
+      );
   });
 
   it('should load lions on creation', () => {

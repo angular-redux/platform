@@ -2,7 +2,7 @@ import {
   NgRedux,
   Selector,
   Comparator,
-  PathSelector,
+  PathSelector
 } from '@angular-redux/store';
 import {
   AnyAction,
@@ -10,7 +10,7 @@ import {
   Dispatch,
   Middleware,
   Store,
-  StoreEnhancer,
+  StoreEnhancer
 } from 'redux';
 import { Observable, Subject } from 'rxjs';
 import { MockObservableStore } from './observable-store.mock';

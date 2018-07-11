@@ -1,17 +1,17 @@
 ### This is a...
 
-* [ ] feature request
-* [ ] bug report
-* [ ] usage question
+- [ ] feature request
+- [ ] bug report
+- [ ] usage question
 
 ### What toolchain are you using for transpilation/bundling?
 
-* [ ] @angular/cli
-* [ ] Custom @ngTools/webpack
-* [ ] Raw `ngc`
-* [ ] SystemJS
-* [ ] Rollup
-* [ ] Other
+- [ ] @angular/cli
+- [ ] Custom @ngTools/webpack
+- [ ] Raw `ngc`
+- [ ] SystemJS
+- [ ] Rollup
+- [ ] Other
 
 ### Environment
 
@@ -23,20 +23,15 @@ Angular Version:
 OS:
 
 ### Link to repo showing the issus
+
 (optional, but helps _a lot_)
 
 ### Expected Behaviour:
 
-
-
 ### Actual Behaviour:
-
-
 
 ### Stack Trace/Error Message:
 
-
-
 ### Additional Notes:
-(optional)
 
+(optional)

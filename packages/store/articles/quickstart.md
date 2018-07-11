@@ -14,6 +14,7 @@ import { AppModule } from './containers/app.module';
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
+
 Import the `NgReduxModule` class and add it to your application module as an
 `import`. Once you've done this, you'll be able to inject `NgRedux` into your
 Angular components. In your top-level app module, you
@@ -25,15 +26,17 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { createLogger } from 'redux-logger';
 import { rootReducer } from './reducers';
 
-interface IAppState { /* ... */ };
+interface IAppState {
+  /* ... */
+}
 
 @NgModule({
   /* ... */
-  imports: [ /* ... */, NgReduxModule ]
+  imports: [, /* ... */ NgReduxModule]
 })
 export class AppModule {
   constructor(ngRedux: NgRedux<IAppState>) {
-    ngRedux.configureStore(rootReducer, {}, [ createLogger() ]);
+    ngRedux.configureStore(rootReducer, {}, [createLogger()]);
   }
 }
 ```
@@ -53,7 +56,9 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { createLogger } from 'redux-logger';
 import { rootReducer } from './reducers';
 
-interface IAppState { /* ... */ };
+interface IAppState {
+  /* ... */
+}
 
 export const store: Store<IAppState> = createStore(
   rootReducer,
@@ -62,7 +67,7 @@ export const store: Store<IAppState> = createStore(
 
 @NgModule({
   /* ... */
-  imports: [ /* ... */, NgReduxModule ]
+  imports: [, /* ... */ NgReduxModule]
 })
 class AppModule {
   constructor(ngRedux: NgRedux<IAppState>) {
@@ -86,7 +91,8 @@ access your store state, and `.dispatch()` to dispatch actions:
 import { select } from '@angular-redux/store';
 
 @Component({
-  template: '<button (click)="onClick()">Clicked {{ count | async }} times</button>'
+  template:
+    '<button (click)="onClick()">Clicked {{ count | async }} times</button>'
 })
 class App {
   @select() count$: Observable<number>;

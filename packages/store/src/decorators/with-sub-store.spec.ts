@@ -27,12 +27,12 @@ describe('@WithSubStore', () => {
     const defaultState = {
       foo: 'Root Foo!',
       a: {
-        b: { foo: 'Foo!' },
-      },
+        b: { foo: 'Foo!' }
+      }
     };
 
     ngRedux = new RootStore(new MockNgZone({
-      enableLongStackTrace: false,
+      enableLongStackTrace: false
     }) as NgZone);
     NgRedux.instance = ngRedux;
     ngRedux.configureStore((state: any, _: Action) => state, defaultState);
@@ -141,7 +141,10 @@ describe('@WithSubStore', () => {
 
       const testInstance = new TestClass();
       testInstance.obs$
-        .pipe(take(2), toArray())
+        .pipe(
+          take(2),
+          toArray()
+        )
         .subscribe((v: Array<any>) =>
           expect(v).toEqual([undefined, 'now I exist'])
         );
@@ -201,10 +204,7 @@ describe('@WithSubStore', () => {
 
   describe('on the class causes @dispatch to', () => {
     it('scope dispatches to substore', () => {
-      spyOn(
-        NgRedux.instance as ObservableStore<any>,
-        'dispatch'
-      );
+      spyOn(NgRedux.instance as ObservableStore<any>, 'dispatch');
 
       @WithSubStore({ basePathMethodName, localReducer })
       class TestClass {
@@ -215,7 +215,7 @@ describe('@WithSubStore', () => {
       new TestClass().createFooAction();
       expect(ngRedux.dispatch).toHaveBeenCalledWith({
         type: 'FOO',
-        '@angular-redux::fractalkey': JSON.stringify(['a', 'b']),
+        '@angular-redux::fractalkey': JSON.stringify(['a', 'b'])
       });
     });
   });

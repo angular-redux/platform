@@ -8,8 +8,8 @@ import { AnimalType } from '../model';
 
 @Component({ selector: 'zoo-animal', template: '' })
 class MockAnimalComponent {
-  @Input() key: string
-  @Input() animalType: AnimalType
+  @Input() key: string;
+  @Input() animalType: AnimalType;
 }
 
 describe('AnimalListComponent', () => {
@@ -29,6 +29,8 @@ describe('AnimalListComponent', () => {
     fixture.detectChanges();
 
     const titleElement = fixture.debugElement.query(By.css('h2'));
-    expect(titleElement.nativeElement.textContent).toContain('We have Wallabies');
+    expect(titleElement.nativeElement.textContent).toContain(
+      'We have Wallabies',
+    );
   }));
 });

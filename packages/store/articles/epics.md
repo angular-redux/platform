@@ -28,13 +28,13 @@ export class SessionActions {
   loginUser(credentials) {
     this.ngRedux.dispatch({
       type: SessionActions.LOGIN_USER,
-      payload: credentials,
+      payload: credentials
     });
-  };
+  }
 
   logoutUser() {
     this.ngRedux.dispatch({ type: SessionActions.LOGOUT_USER });
-  };
+  }
 }
 ```
 
@@ -60,18 +60,20 @@ export class SessionEpics {
   constructor(private http: Http) {}
 
   login = (action$: ActionsObservable) => {
-    return action$.ofType(SessionActions.LOGIN_USER)
-      .mergeMap(({payload}) => {
-        return this.http.post(`${BASE_URL}/auth/login`, payload)
-          .map(result => ({
-            type: SessionActions.LOGIN_USER_SUCCESS,
-            payload: result.json().meta
-          }))
-          .catch(error => Observable.of({
+    return action$.ofType(SessionActions.LOGIN_USER).mergeMap(({ payload }) => {
+      return this.http
+        .post(`${BASE_URL}/auth/login`, payload)
+        .map(result => ({
+          type: SessionActions.LOGIN_USER_SUCCESS,
+          payload: result.json().meta
+        }))
+        .catch(error =>
+          Observable.of({
             type: SessionActions.LOGIN_USER_ERROR
-          }));
-        });
-  }
+          })
+        );
+    });
+  };
 }
 ```
 
@@ -92,21 +94,19 @@ import { SessionEpics } from './epics';
 
 @NgModule({
   /* ... */
-  imports: [ /* ... */, NgReduxModule ],
+  imports: [, /* ... */ NgReduxModule],
   providers: [
-    SessionEpics,
+    SessionEpics
     /* ... */
   ]
 })
 export class AppModule {
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private epics: SessionEpics) {
-
-      const middleware = [
-        createEpicMiddleware(this.epics.login)
-      ];
-      ngRedux.configureStore(rootReducer, {}, middleware);
+    private epics: SessionEpics
+  ) {
+    const middleware = [createEpicMiddleware(this.epics.login)];
+    ngRedux.configureStore(rootReducer, {}, middleware);
   }
 }
 ```

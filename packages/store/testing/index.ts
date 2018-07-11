@@ -11,5 +11,5 @@ export {
   NgReduxTestingModule,
   MockDevToolsExtension,
   MockNgRedux,
-  MockObservableStore,
+  MockObservableStore
 };

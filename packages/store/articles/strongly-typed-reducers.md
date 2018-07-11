@@ -69,7 +69,10 @@ particular, consider importing and using the `Action` and `Reducer` types:
 ```typescript
 import { Action, Reducer } from 'redux';
 
-export const fooReducer: Reducer<TFoo> = (state: TFoo, action: Action): TFoo => {
+export const fooReducer: Reducer<TFoo> = (
+  state: TFoo,
+  action: Action
+): TFoo => {
   // ...
 };
 ```
@@ -87,14 +90,17 @@ npm install --save flux-standard-action
 ```
 
 Flux standard actions take 'payload', and 'error' parameters in addition to the
-basic `type`.  Payloads in particular help you strengthen your reducers even
+basic `type`. Payloads in particular help you strengthen your reducers even
 further:
 
 ```typescript
 import { Reducer } from 'redux';
 import { Action } from 'flux-standard-action';
 
-export const fooReducer: Reducer<TFoo> = (state: TFoo, action: Action<TFoo>): TFoo => {
+export const fooReducer: Reducer<TFoo> = (
+  state: TFoo,
+  action: Action<TFoo>
+): TFoo => {
   // ...
 };
 ```
@@ -104,8 +110,11 @@ If you need more flexibility in payload types, you can use a union and
 [type assertions](https://www.typescriptlang.org/docs/handbook/advanced-types.html):
 
 ```typescript
-export const barReducer: Reducer<IBar> = (state: IBar, action: Action<number | string>): IBar => {
-  switch(action.type) {
+export const barReducer: Reducer<IBar> = (
+  state: IBar,
+  action: Action<number | string>
+): IBar => {
+  switch (action.type) {
     case A_HAS_CHANGED:
       return Object.assign({}, state, {
         a: <number>action.payload
@@ -127,8 +136,11 @@ In the Babel world, reducers often use `Object.assign` or property spread to
 maintain immutability. This works in Typescript too, but it's not typesafe:
 
 ```typescript
-export const barReducer: Reducer<IBar> = (state: IBar, action: Action<number | string>): IBar => {
-  switch(action.type) {
+export const barReducer: Reducer<IBar> = (
+  state: IBar,
+  action: Action<number | string>
+): IBar => {
+  switch (action.type) {
     case A_HAS_CHANGED:
       return Object.assign({}, state, {
         a: <number>action.payload,
@@ -150,8 +162,11 @@ that will catch this type of error:
 ```typescript
 import { tassign } from 'tassign';
 
-export const barReducer: Reducer<IBar> = (state: IBar, action: Action<number | string>): IBar => {
-  switch(action.type) {
+export const barReducer: Reducer<IBar> = (
+  state: IBar,
+  action: Action<number | string>
+): IBar => {
+  switch (action.type) {
     case A_HAS_CHANGED:
       return tassign(state, {
         a: <number>action.payload,

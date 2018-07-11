@@ -23,7 +23,6 @@ export interface ControlPair {
 }
 
 export class ConnectBase {
-
   @Input('connect') connect?: () => (string | number) | Array<string | number>;
   private stateSubscription?: Unsubscribe;
 
@@ -32,9 +31,8 @@ export class ConnectBase {
   protected form: any;
 
   public get path(): Array<string> {
-    const path = typeof this.connect === 'function'
-      ? this.connect()
-      : this.connect;
+    const path =
+      typeof this.connect === 'function' ? this.connect() : this.connect;
 
     switch (typeof path) {
       case 'object':
@@ -46,8 +44,11 @@ export class ConnectBase {
         }
       case 'string':
         return (<string>path).split(/\./g);
-      default: // fallthrough above (no break)
-        throw new Error(`Cannot determine path to object: ${JSON.stringify(path)}`);
+      default:
+        // fallthrough above (no break)
+        throw new Error(
+          `Cannot determine path to object: ${JSON.stringify(path)}`,
+        );
     }
   }
 
@@ -77,7 +78,10 @@ export class ConnectBase {
     });
   }
 
-  private descendants(path: Array<string>, formElement: any): Array<ControlPair> {
+  private descendants(
+    path: Array<string>,
+    formElement: any,
+  ): Array<ControlPair> {
     const pairs = new Array<ControlPair>();
 
     if (formElement instanceof FormArray) {
@@ -85,23 +89,28 @@ export class ConnectBase {
         for (const d of this.descendants((<any>path).concat([index]), c)) {
           pairs.push(d);
         }
-      })
-    }
-    else if (formElement instanceof FormGroup) {
+      });
+    } else if (formElement instanceof FormGroup) {
       for (const k of Object.keys(formElement.controls)) {
-        pairs.push({ path: path.concat([k]), control: formElement.controls[k] });
+        pairs.push({
+          path: path.concat([k]),
+          control: formElement.controls[k],
+        });
       }
-    }
-    else if (formElement instanceof NgControl || formElement instanceof FormControl) {
+    } else if (
+      formElement instanceof NgControl ||
+      formElement instanceof FormControl
+    ) {
       return [{ path: path, control: <any>formElement }];
-    }
-    else {
-      throw new Error(`Unknown type of form element: ${formElement.constructor.name}`);
+    } else {
+      throw new Error(
+        `Unknown type of form element: ${formElement.constructor.name}`,
+      );
     }
 
     return pairs.filter(p => {
-        const parent = (p.control as any)._parent;
-        return parent === this.form.control || parent === this.form;
+      const parent = (p.control as any)._parent;
+      return parent === this.form.control || parent === this.form;
     });
   }
 
@@ -109,8 +118,7 @@ export class ConnectBase {
     var formElement;
     if (this.form.control === undefined) {
       formElement = this.form;
-    }
-    else {
+    } else {
       formElement = this.form.control;
     }
 

@@ -33,7 +33,7 @@ describe('NgRedux Observable Store', () => {
     defaultState = {
       foo: 'bar',
       bar: 'foo',
-      baz: -1,
+      baz: -1
     };
 
     rootReducer = (state = defaultState, action: PayloadAction) => {
@@ -255,7 +255,7 @@ describe('Chained actions in subscriptions', () => {
   beforeEach(() => {
     defaultState = {
       keyword: '',
-      keywordLength: -1,
+      keywordLength: -1
     };
 
     rootReducer = (state = defaultState, action: PayloadAction) => {

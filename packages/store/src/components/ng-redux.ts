@@ -5,7 +5,7 @@ import {
   Unsubscribe,
   Middleware,
   Store,
-  StoreEnhancer,
+  StoreEnhancer
 } from 'redux';
 import { Observable } from 'rxjs';
 import { ObservableStore } from './observable-store';

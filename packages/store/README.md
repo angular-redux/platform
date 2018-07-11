@@ -1,4 +1,3 @@
-
 # Which Version to use?
 
 ## Angular 6+
@@ -34,9 +33,9 @@ For Angular 1 see [ng-redux](https://github.com/wbuchwalter/ng-redux)
 
 Redux is a popular approach to managing state in applications. It emphasises:
 
-* A single, immutable data store.
-* One-way data flow.
-* An approach to change based on pure functions and a stream of actions.
+- A single, immutable data store.
+- One-way data flow.
+- An approach to change based on pure functions and a stream of actions.
 
 You can find lots of excellent documentation here: [Redux](http://redux.js.org/).
 
@@ -46,34 +45,34 @@ We provide a set of npm packages that help you integrate your redux store
 into your Angular 2+ applications. Our approach helps you by bridging the gap
 with some of Angular's advanced features, including:
 
-* Change processing with RxJS observables.
-* Compile time optimizations with `NgModule` and Ahead-of-Time compilation.
-* Integration with the Angular change detector.
+- Change processing with RxJS observables.
+- Compile time optimizations with `NgModule` and Ahead-of-Time compilation.
+- Integration with the Angular change detector.
 
 ## Getting Started
 
-* I already know what Redux and RxJS are. [Give me the TL;DR](https://github.com/angular-redux/store/blob/master/articles/quickstart.md).
-* I'm just learning about Redux. [Break it down for me](https://github.com/angular-redux/store/blob/master/articles/intro-tutorial.md)!
-* Talk is cheap. [Show me a complete code example](https://github.com/angular-redux/example-app).
-* Take me to the [API docs](https://angular-redux.github.io/store).
+- I already know what Redux and RxJS are. [Give me the TL;DR](https://github.com/angular-redux/store/blob/master/articles/quickstart.md).
+- I'm just learning about Redux. [Break it down for me](https://github.com/angular-redux/store/blob/master/articles/intro-tutorial.md)!
+- Talk is cheap. [Show me a complete code example](https://github.com/angular-redux/example-app).
+- Take me to the [API docs](https://angular-redux.github.io/store).
 
 ## Examples
 
 Here are some examples of the `angular-redux` family of packages in action:
 
-* [Zoo Animals Combined Example App](https://github.com/angular-redux/example-app)
-* [Simple SystemJS Example (Angular Quickstart)](https://github.com/angular-redux/system-js-example)
+- [Zoo Animals Combined Example App](https://github.com/angular-redux/example-app)
+- [Simple SystemJS Example (Angular Quickstart)](https://github.com/angular-redux/system-js-example)
 
 ## Companion Packages
 
-* [Reduxify your Routing with @angular-redux/router](https://github.com/angular-redux/router)
-* [Reduxify your Forms with @angular-redux/form](https://github.com/angular-redux/form)
+- [Reduxify your Routing with @angular-redux/router](https://github.com/angular-redux/router)
+- [Reduxify your Forms with @angular-redux/form](https://github.com/angular-redux/form)
 
 ## Resources
 
-* [Using Redux with Angular - JS Toronto Meetup 2016-07-12](https://www.youtube.com/watch?v=s4xr2avwv3s)
-* [Getting started with Redux](https://egghead.io/courses/getting-started-with-redux)
-* [Awesome Redux: Community Resources](https://github.com/xgrommx/awesome-redux)
+- [Using Redux with Angular - JS Toronto Meetup 2016-07-12](https://www.youtube.com/watch?v=s4xr2avwv3s)
+- [Getting started with Redux](https://egghead.io/courses/getting-started-with-redux)
+- [Awesome Redux: Community Resources](https://github.com/xgrommx/awesome-redux)
 
 ## In-Depth Usage
 
@@ -85,12 +84,12 @@ Read more here: [Select Pattern](https://github.com/angular-redux/store/blob/mas
 
 We also have a number of 'cookbooks' for specific Angular topics:
 
-* [Using Angular's Dependency Injector with Action Creators](https://github.com/angular-redux/store/blob/master/articles/action-creator-service.md)
-* [Using Angular's Dependency Injector with Middlewares](https://github.com/angular-redux/store/blob/master/articles/di-middleware.md)
-* [Managing Side-Effects with redux-observable Epics](https://github.com/angular-redux/store/blob/master/articles/epics.md)
-* [Using the Redux DevTools Chrome Extension](https://github.com/angular-redux/store/blob/master/articles/redux-dev-tools.md)
-* [@angular-redux/store and ImmutableJS](https://github.com/angular-redux/store/blob/master/articles/immutable-js.md)
-* [Strongly Typed Reducers](https://github.com/angular-redux/store/blob/master/articles/strongly-typed-reducers.md)
+- [Using Angular's Dependency Injector with Action Creators](https://github.com/angular-redux/store/blob/master/articles/action-creator-service.md)
+- [Using Angular's Dependency Injector with Middlewares](https://github.com/angular-redux/store/blob/master/articles/di-middleware.md)
+- [Managing Side-Effects with redux-observable Epics](https://github.com/angular-redux/store/blob/master/articles/epics.md)
+- [Using the Redux DevTools Chrome Extension](https://github.com/angular-redux/store/blob/master/articles/redux-dev-tools.md)
+- [@angular-redux/store and ImmutableJS](https://github.com/angular-redux/store/blob/master/articles/immutable-js.md)
+- [Strongly Typed Reducers](https://github.com/angular-redux/store/blob/master/articles/strongly-typed-reducers.md)
 
 ## Hacking on angular-redux/store
 
@@ -98,16 +97,16 @@ Want to hack on angular-redux/store or any of the related packages? Feel free to
 
 Here's how to do that:
 
-1. Write unit tests. You can check that they work by running
-`npm test`.
-2. Run the linter. If your editor doesn't do it automatically, do it
-manually with `npm run lint`.
-3. Test your changes in a 'real world scenario'. We use the [example-app](https://github.com/angular-redux/example-app) for this, using some npm
-fakery to 'publish the package locally':
+1.  Write unit tests. You can check that they work by running
+    `npm test`.
+2.  Run the linter. If your editor doesn't do it automatically, do it
+    manually with `npm run lint`.
+3.  Test your changes in a 'real world scenario'. We use the [example-app](https://github.com/angular-redux/example-app) for this, using some npm
+    fakery to 'publish the package locally':
 
-* clone the example app (`git clone https://github.com/angular-redux/example-app.git`)
-* generate a 'local package' (`cd` to your `angular-redux/store` clone and run `npm pack`). This will create a `.tgz` file.
-* hook your 'local package' up to your example-app (`cd` to your example-app clone and run `npm install --save /path/to/the/tgz/file/from/above`)
-* run `ng serve --aot`
+- clone the example app (`git clone https://github.com/angular-redux/example-app.git`)
+- generate a 'local package' (`cd` to your `angular-redux/store` clone and run `npm pack`). This will create a `.tgz` file.
+- hook your 'local package' up to your example-app (`cd` to your example-app clone and run `npm install --save /path/to/the/tgz/file/from/above`)
+- run `ng serve --aot`
 
 Please make sure your changes pass Angular's AoT compiler, because it's a bit finicky with TS syntax.

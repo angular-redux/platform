@@ -10,7 +10,7 @@ import 'zone.js/dist/fake-async-test';
 import 'zone.js/dist/proxy';
 import 'zone.js/dist/jasmine-patch';
 
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import {
   BrowserDynamicTestingModule,
@@ -19,10 +19,14 @@ import {
 
 TestBed.initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting());
+  platformBrowserDynamicTesting(),
+);
 
-const testContext = (<{ context?: Function }>require)
-  .context('./', true, /^(.(?!tests\.entry))*\.ts$/);
+const testContext = (<{ context?: Function }>require).context(
+  './',
+  true,
+  /^(.(?!tests\.entry))*\.ts$/,
+);
 
 testContext('./index.ts');
 

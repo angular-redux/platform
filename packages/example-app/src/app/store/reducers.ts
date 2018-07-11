@@ -13,4 +13,5 @@ export const rootReducer = composeReducers(
     elephant: createAnimalAPIReducer(ANIMAL_TYPES.ELEPHANT),
     lion: createAnimalAPIReducer(ANIMAL_TYPES.LION),
     router: routerReducer,
-  }));
+  }),
+);

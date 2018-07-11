@@ -6,16 +6,8 @@ import { ErrorWellComponent } from './error-well/component';
 import { CounterComponent } from './counter/component';
 
 @NgModule({
-  declarations: [
-    SpinnerComponent,
-    ErrorWellComponent,
-    CounterComponent,
-  ],
-  imports: [ CommonModule ],
-  exports: [
-    SpinnerComponent,
-    ErrorWellComponent,
-    CounterComponent,
-  ],
+  declarations: [SpinnerComponent, ErrorWellComponent, CounterComponent],
+  imports: [CommonModule],
+  exports: [SpinnerComponent, ErrorWellComponent, CounterComponent],
 })
 export class CoreModule {}

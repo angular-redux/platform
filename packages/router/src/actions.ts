@@ -1,1 +1,1 @@
-export const UPDATE_LOCATION: string = "@angular-redux/router::UPDATE_LOCATION";
+export const UPDATE_LOCATION: string = '@angular-redux/router::UPDATE_LOCATION';
