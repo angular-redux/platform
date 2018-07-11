@@ -30,7 +30,7 @@ export function dispatch(): PropertyDecorator {
     if (descriptor === undefined) {
       const dispatchDescriptor: PropertyDescriptor = {
         get: () => wrapped,
-        set: setMethod => (originalMethod = setMethod),
+        set: setMethod => (originalMethod = setMethod)
       };
       Object.defineProperty(target, key, dispatchDescriptor);
       return dispatchDescriptor;

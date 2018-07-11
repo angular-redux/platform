@@ -1,5 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
-import { NgReduxTestingModule, MockNgRedux } from '@angular-redux/store/testing';
+import {
+  NgReduxTestingModule,
+  MockNgRedux,
+} from '@angular-redux/store/testing';
 
 import { Component, Input } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
@@ -22,7 +25,7 @@ class MockAnimalListComponent {
   @Input() animals: Observable<any>;
   @Input() loading: Observable<boolean>;
   @Input() error: Observable<any>;
-};
+}
 
 describe('Elephant Page Container', () => {
   beforeEach(() => {
@@ -43,15 +46,16 @@ describe('Elephant Page Container', () => {
       {
         elephant1: { name: 'I am an Elephant!', id: 'elephant1' },
         elephant2: { name: 'I am a second Elephant!', id: 'elephant2' },
-      }];
+      },
+    ];
 
     const expectedSequence = [
-      [ { name: 'I am an Elephant!', id: 'elephant1' } ],
+      [{ name: 'I am an Elephant!', id: 'elephant1' }],
       [
         // Alphanumeric sort by name.
         { name: 'I am a second Elephant!', id: 'elephant2' },
         { name: 'I am an Elephant!', id: 'elephant1' },
-      ]
+      ],
     ];
 
     const elephantItemStub = MockNgRedux.getSelectorStub(['elephant', 'items']);
@@ -63,7 +67,8 @@ describe('Elephant Page Container', () => {
       .subscribe(
         actualSequence => expect(actualSequence).toEqual(expectedSequence),
         null,
-        done);
+        done,
+      );
   });
 
   it('should know when the animals are loading', done => {
@@ -78,12 +83,13 @@ describe('Elephant Page Container', () => {
     elephantPage.loading$
       .toArray()
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual([ false, true ]),
+        actualSequence => expect(actualSequence).toEqual([false, true]),
         null,
-        done);
+        done,
+      );
   });
 
-  it('should know when there\'s an error', done => {
+  it("should know when there's an error", done => {
     const fixture = TestBed.createComponent(ElephantPageComponent);
     const elephantPage = fixture.debugElement.componentInstance;
 
@@ -95,9 +101,10 @@ describe('Elephant Page Container', () => {
     elephantPage.error$
       .toArray()
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual([ false, true ]),
+        actualSequence => expect(actualSequence).toEqual([false, true]),
         null,
-        done);
+        done,
+      );
   });
 
   it('should load elephants on creation', () => {

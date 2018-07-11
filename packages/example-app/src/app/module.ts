@@ -32,6 +32,6 @@ import { AppComponent } from './component';
     FeedbackModule,
     StoreModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

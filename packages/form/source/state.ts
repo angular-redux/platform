@@ -1,6 +1,6 @@
-import {Iterable, Map as ImmutableMap} from 'immutable';
+import { Iterable, Map as ImmutableMap } from 'immutable';
 
-import {FormException} from './form-exception';
+import { FormException } from './form-exception';
 
 export interface Operations<T> {
   /// Shallow clone the object
@@ -14,7 +14,12 @@ export interface Operations<T> {
 }
 
 export interface TraverseCallback {
-  (parent: any, key: number | string, remainingPath: string[], value?: any): any;
+  (
+    parent: any,
+    key: number | string,
+    remainingPath: string[],
+    value?: any,
+  ): any;
 }
 
 export abstract class State {
@@ -25,23 +30,27 @@ export abstract class State {
       const parent = deepValue;
 
       if (Iterable.isIterable(deepValue)) {
-        const m = <ImmutableMap<string, any>> <any> deepValue;
+        const m = <ImmutableMap<string, any>>(<any>deepValue);
         if (typeof m.get === 'function') {
-           deepValue = m.get(k);
+          deepValue = m.get(k);
+        } else {
+          throw new FormException(
+            `Cannot retrieve value from immutable nonassociative container: ${k}`,
+          );
         }
-        else {
-          throw new FormException(`Cannot retrieve value from immutable nonassociative container: ${k}`);
-        }
-      }
-      else if (deepValue instanceof Map) {
-        deepValue = (<Map<string, any>> <any> deepValue).get(k);
-      }
-      else {
+      } else if (deepValue instanceof Map) {
+        deepValue = (<Map<string, any>>(<any>deepValue)).get(k);
+      } else {
         deepValue = (deepValue as any)[k];
       }
 
       if (typeof fn === 'function') {
-        const transformed = fn(parent, k, path.slice(path.indexOf(k) + 1), deepValue);
+        const transformed = fn(
+          parent,
+          k,
+          path.slice(path.indexOf(k) + 1),
+          deepValue,
+        );
 
         deepValue = transformed[k];
 
@@ -79,19 +88,22 @@ export abstract class State {
     // to offer the best performance: we can shallow clone everything that has
     // not been modified, and {deep clone + update} the path down to the value
     // that we wish to update.
-    State.traverse(root, path,
+    State.traverse(
+      root,
+      path,
       (parent, key: number | string, remainingPath: string[], innerValue?) => {
         const parentOperations = State.inspect(parent);
 
         if (innerValue) {
           const innerOperations = State.inspect(innerValue);
 
-          return parentOperations.update(key,
+          return parentOperations.update(
+            key,
             remainingPath.length > 0
               ? innerOperations.clone()
-              : innerOperations.merge(null, value));
-        }
-        else {
+              : innerOperations.merge(null, value),
+          );
+        } else {
           const getProbableType = (key: string | number) => {
             // NOTE(cbond): If your code gets here, you might not be using the library
             /// correctly. If you are assigning into a path in your state, try to
@@ -106,32 +118,41 @@ export abstract class State {
                 : new Object();
           };
 
-          return parentOperations.update(key,
+          return parentOperations.update(
+            key,
             remainingPath.length > 0
               ? getProbableType(remainingPath[0])
-              : value);
+              : value,
+          );
         }
-      });
+      },
+    );
 
     return root;
   }
 
   static inspect<K>(object: K): Operations<K> {
-    const metaOperations = (update: Function, merge: Function, clone?: Function) => {
+    const metaOperations = (
+      update: Function,
+      merge: Function,
+      clone?: Function,
+    ) => {
       const operations = {
         /// Clone the object (shallow)
-        clone: typeof clone === 'function'
-          ? () => clone(<any> object) as any
-          : () => object,
+        clone:
+          typeof clone === 'function'
+            ? () => clone(<any>object) as any
+            : () => object,
 
         /// Update a specific key inside of the container object
-        update: (key: string, value: K) => update(operations.clone(), key, value),
+        update: (key: string, value: K) =>
+          update(operations.clone(), key, value),
 
         /// Merge existing values with new values
         merge: (key: string, value: K) => {
           const cloned = operations.clone();
           return merge(cloned, key, value, (v: any) => update(cloned, key, v));
-        }
+        },
       };
 
       return operations;
@@ -143,8 +164,7 @@ export abstract class State {
         (parent: any, key: number | string, value: K) => {
           if (key != null) {
             return parent.set(key, value);
-          }
-          else {
+          } else {
             return value;
           }
         },
@@ -152,27 +172,26 @@ export abstract class State {
         (parent: any, key: number | string | string[], value: K) => {
           if (key) {
             return parent.mergeDeepIn(Array.isArray(key) ? key : [key], value);
-          }
-          else {
+          } else {
             if (ImmutableMap.isMap(value)) {
               return parent.mergeDeep(value);
-            }
-            else {
+            } else {
               return parent.concat(value);
             }
           }
-        });
-    }
-    else if (Array.isArray(object)) {
+        },
+      );
+    } else if (Array.isArray(object)) {
       return metaOperations(
         // Replace array contents
         (parent: any, key: number, value: K) => {
           if (key != null) {
             parent[key] = value;
-          }
-          else {
-            parent.splice.apply(parent, [0, parent.length]
-              .concat(Array.isArray(value) ? value : [value]));
+          } else {
+            parent.splice.apply(
+              parent,
+              [0, parent.length].concat(Array.isArray(value) ? value : [value]),
+            );
           }
         },
 
@@ -183,18 +202,16 @@ export abstract class State {
         },
 
         // Clone
-        () => Array.prototype.slice.call(object, 0)
+        () => Array.prototype.slice.call(object, 0),
       );
-    }
-    else if (object instanceof Map) {
+    } else if (object instanceof Map) {
       return metaOperations(
         // Update map key
         (parent: any, key: number | string, value: K) => {
           if (key != null) {
             return parent.set(key, value);
-          }
-          else {
-            const m = new Map(<any> value);
+          } else {
+            const m = new Map(<any>value);
             parent.clear();
             m.forEach((value, index) => parent.set(index, value));
             return parent;
@@ -203,26 +220,25 @@ export abstract class State {
 
         // Merge
         (parent: Map<string, any>, _: any, value: K) => {
-          const m = new Map<string, any>(<any> value);
+          const m = new Map<string, any>(<any>value);
           m.forEach((value, key) => parent.set(key, value));
           return parent;
         },
 
         // Clone
-        () => object instanceof WeakMap
-          ? new WeakMap<Object, any>(<any> object)
-          : new Map<string, any>(<any> object)
+        () =>
+          object instanceof WeakMap
+            ? new WeakMap<Object, any>(<any>object)
+            : new Map<string, any>(<any>object),
       );
-    }
-    else if (object instanceof WeakSet || object instanceof Set) {
+    } else if (object instanceof WeakSet || object instanceof Set) {
       return metaOperations(
         // Update element at index in set
         (parent: any, key: number, value: K) => {
           if (key != null) {
             return parent.set(key, value);
-          }
-          else {
-            const s = new Set(<any> value);
+          } else {
+            const s = new Set(<any>value);
             s.forEach((value, index) => parent.set(index, value));
             s.clear();
             return parent;
@@ -238,55 +254,60 @@ export abstract class State {
         },
 
         // Clone
-        () => object instanceof WeakSet
-          ? new WeakSet<any>(<any> object)
-          : new Set<any>(<any> object)
-       );
-     }
-     else if (object instanceof Date) {
-       throw new FormException('Cannot understand why a Date object appears in the mutation path!');
-     }
-     else {
-       switch (typeof object) {
-         case 'boolean':
-         case 'function':
-         case 'number':
-         case 'string':
-         case 'symbol':
-         case 'undefined':
-           break;
-         case 'object':
-           if (object == null) {
-             break;
-           }
-           return metaOperations(
-             (parent: any, key: any, value: K) => {
-               if (key != null) {
-                 return Object.assign(parent, {[key]: value});
-               }
-                return Object.assign(parent, value);
-             },
-             (parent: any, _: any, value: K) => {
-               for (const k of Object.keys(value)) {
-                 parent[k] = (value as any)[k];
-               }
-               return parent;
-             },
-             () => Object.assign({}, object)
-           )
-          default:
+        () =>
+          object instanceof WeakSet
+            ? new WeakSet<any>(<any>object)
+            : new Set<any>(<any>object),
+      );
+    } else if (object instanceof Date) {
+      throw new FormException(
+        'Cannot understand why a Date object appears in the mutation path!',
+      );
+    } else {
+      switch (typeof object) {
+        case 'boolean':
+        case 'function':
+        case 'number':
+        case 'string':
+        case 'symbol':
+        case 'undefined':
+          break;
+        case 'object':
+          if (object == null) {
             break;
-       }
-     }
+          }
+          return metaOperations(
+            (parent: any, key: any, value: K) => {
+              if (key != null) {
+                return Object.assign(parent, { [key]: value });
+              }
+              return Object.assign(parent, value);
+            },
+            (parent: any, _: any, value: K) => {
+              for (const k of Object.keys(value)) {
+                parent[k] = (value as any)[k];
+              }
+              return parent;
+            },
+            () => Object.assign({}, object),
+          );
+        default:
+          break;
+      }
+    }
 
-     throw new Error(
-       `An object of type ${typeof object} has appeared in the mutation path! Every element ` +
-       'in the mutation path should be an array, an associative container, or a set');
+    throw new Error(
+      `An object of type ${typeof object} has appeared in the mutation path! Every element ` +
+        'in the mutation path should be an array, an associative container, or a set',
+    );
   }
 
   static empty(value: any): boolean {
-    return value == null
-      || (value.length === 0
-      || (typeof value.length === 'undefined' && Object.keys(value).length === 0));
+    return (
+      value == null ||
+      (value.length === 0 ||
+        (typeof value.length === 'undefined' &&
+          Object.keys(value).length === 0))
+    );
   }
 }

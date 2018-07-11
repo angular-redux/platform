@@ -44,7 +44,10 @@ describe('Select decorators', () => {
         const mockInstance = new MockClass();
 
         mockInstance.baz
-          .pipe(take(2), toArray())
+          .pipe(
+            take(2),
+            toArray()
+          )
           .subscribe(
             values => expect(values).toEqual([-1, 1]),
             undefined,
@@ -61,7 +64,10 @@ describe('Select decorators', () => {
         const mockInstance = new MockClass();
 
         mockInstance.baz$
-          .pipe(take(2), toArray())
+          .pipe(
+            take(2),
+            toArray()
+          )
           .subscribe(
             values => expect(values).toEqual([-1, 4]),
             undefined,
@@ -80,7 +86,10 @@ describe('Select decorators', () => {
         const mockInstance = new MockClass();
 
         mockInstance.obs$
-          .pipe(take(2), toArray())
+          .pipe(
+            take(2),
+            toArray()
+          )
           .subscribe(
             values => expect(values).toEqual([-1, 3]),
             undefined,
@@ -99,7 +108,10 @@ describe('Select decorators', () => {
         const mockInstance = new MockClass();
 
         mockInstance.obs$
-          .pipe(take(2), toArray())
+          .pipe(
+            take(2),
+            toArray()
+          )
           .subscribe(
             values => expect(values).toEqual([-2, 10]),
             undefined,
@@ -119,7 +131,10 @@ describe('Select decorators', () => {
       it('should only trigger next when comparator returns true', done => {
         const mockInstance = new MockClass();
         mockInstance.baz$
-          .pipe(take(2), toArray())
+          .pipe(
+            take(2),
+            toArray()
+          )
           .subscribe(
             values => expect(values).toEqual([-1, 2]),
             undefined,
@@ -160,7 +175,10 @@ describe('Select decorators', () => {
       const mockInstance = new MockClass();
 
       mockInstance.baz$
-        .pipe(take(2), toArray())
+        .pipe(
+          take(2),
+          toArray()
+        )
         .subscribe(values => expect(values).toEqual([-2, 10]), undefined, done);
       ngRedux.dispatch({ type: 'nvm', payload: 5 });
     });
@@ -175,7 +193,10 @@ describe('Select decorators', () => {
       it('should only trigger next when the comparator returns true', done => {
         const mockInstance = new MockClass();
         mockInstance.baz$
-          .pipe(take(2), toArray())
+          .pipe(
+            take(2),
+            toArray()
+          )
           .subscribe(
             values => expect(values).toEqual([-2, 2]),
             undefined,

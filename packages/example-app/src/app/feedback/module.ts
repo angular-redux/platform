@@ -6,8 +6,8 @@ import { FeedbackFormComponent } from './page';
 import { StoreModule } from '../store/module';
 
 @NgModule({
-  declarations: [ FeedbackFormComponent ],
-  providers: [ ],
+  declarations: [FeedbackFormComponent],
+  providers: [],
   imports: [
     CommonModule,
     FormsModule,
@@ -15,6 +15,6 @@ import { StoreModule } from '../store/module';
     NgReduxFormModule,
     StoreModule,
   ],
-  exports: [ FeedbackFormComponent ],
+  exports: [FeedbackFormComponent],
 })
 export class FeedbackModule {}

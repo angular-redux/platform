@@ -5,16 +5,17 @@
 This is a sample project showing how the following packages work together to make a simple
 application.
 
-* [redux](https://github.com/reactjs/redux) Predictable state container for Javascript.
-* [redux-observable](https://github.com/redux-observable/redux-observable) Side-effect handling with Observables
-* [@angular-redux/store](https://github.com/angular-redux/store) Redux + Angular bindings
-* [@angular-redux/router](https://github.com/angular-redux/router) Time travel with the Angular router
-* [@angular-redux/form](https://github.com/angular-redux/form) Time travel with Angular forms
-* [Redux DevTools Chrome Extension](https://github.com/zalmoxisus/redux-devtools-extension)
+- [redux](https://github.com/reactjs/redux) Predictable state container for Javascript.
+- [redux-observable](https://github.com/redux-observable/redux-observable) Side-effect handling with Observables
+- [@angular-redux/store](https://github.com/angular-redux/store) Redux + Angular bindings
+- [@angular-redux/router](https://github.com/angular-redux/router) Time travel with the Angular router
+- [@angular-redux/form](https://github.com/angular-redux/form) Time travel with Angular forms
+- [Redux DevTools Chrome Extension](https://github.com/zalmoxisus/redux-devtools-extension)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.0.
 
 ## Development server
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding

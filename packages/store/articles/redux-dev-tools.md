@@ -15,31 +15,29 @@ tools that handles this for you.
 Here's how to hook the extension up to your app:
 
 ```typescript
-import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
+import {
+  NgReduxModule,
+  NgRedux,
+  DevToolsExtension
+} from '@angular-redux/store';
 
 // Add the dev tools enhancer your ngRedux.configureStore called
 // when you initialize your root component:
 @NgModule({
   /* ... */
-  imports: [ /* ... */, NgReduxModule ]
-})export class AppModule {
-  constructor(
-    private ngRedux: NgRedux,
-    private devTools: DevToolsExtension) {
-
+  imports: [, /* ... */ NgReduxModule]
+})
+export class AppModule {
+  constructor(private ngRedux: NgRedux, private devTools: DevToolsExtension) {
     let enhancers = [];
     // ... add whatever other enhancers you want.
 
     // You probably only want to expose this tool in devMode.
     if (__DEVMODE__ && devTools.isEnabled()) {
-      enhancers = [ ...enhancers, devTools.enhancer() ];
+      enhancers = [...enhancers, devTools.enhancer()];
     }
 
-    this.ngRedux.configureStore(
-      rootReducer,
-      initialState,
-      [],
-      enhancers);
+    this.ngRedux.configureStore(rootReducer, initialState, [], enhancers);
   }
 }
 ```

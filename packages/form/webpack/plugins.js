@@ -2,12 +2,10 @@
 
 const webpack = require('webpack');
 
-const base = [
-  new webpack.NoErrorsPlugin(),
-];
+const base = [new webpack.NoErrorsPlugin()];
 
 const development = [
-  new webpack.SourceMapDevToolPlugin({filename: null, test: /\.ts$/})
+  new webpack.SourceMapDevToolPlugin({ filename: null, test: /\.ts$/ }),
 ];
 
 const production = [];

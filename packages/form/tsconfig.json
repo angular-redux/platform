@@ -30,11 +30,5 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "examples",
-    "index.d.ts",
-    "**/*test*.ts"
-  ]
+  "exclude": ["node_modules", "dist", "examples", "index.d.ts", "**/*test*.ts"]
 }

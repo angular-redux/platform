@@ -10,7 +10,9 @@ export const sortAnimals = (animalDictionary$: Observable<{}>) =>
   animalDictionary$.map(
     pipe(
       values,
-      sortBy(prop('name'))));
+      sortBy(prop('name')),
+    ),
+  );
 
 @Component({
   templateUrl: './page.html',

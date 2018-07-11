@@ -71,7 +71,7 @@ import { NgReduxFormModule } from '@angular-redux/form';
     NgReduxFormModule,
     NgReduxModule,
   ],
-  bootstrap: [MyApplicationComponent]
+  bootstrap: [MyApplicationComponent],
 })
 export class ExampleModule {}
 ```
@@ -80,22 +80,15 @@ Or if you are using Redux without `@angular-redux/store`, then your bootstrap ca
 more like this (substitute your own store creation code):
 
 ```typescript
-import {provideReduxForms} from '@angular-redux/form';
+import { provideReduxForms } from '@angular-redux/form';
 
 const storeCreator = compose(applyMiddleware(logger))(createStore);
-const store = create(reducers, <MyApplicationState> {});
+const store = create(reducers, <MyApplicationState>{});
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgReduxFormModule,
-  ],
-  providers: [
-    provideReduxForms(store),
-  ],
-  bootstrap: [MyApplicationComponent]
+  imports: [BrowserModule, ReactiveFormsModule, FormsModule, NgReduxFormModule],
+  providers: [provideReduxForms(store)],
+  bootstrap: [MyApplicationComponent],
 })
 export class ExampleModule {}
 ```
@@ -108,7 +101,7 @@ basic:
 ```typescript
 export interface AbstractStore<RootState> {
   /// Dispatch an action
-  dispatch(action: Action & {payload?}): void;
+  dispatch(action: Action & { payload? }): void;
 
   /// Retrieve the current application state
   getState(): RootState;
@@ -210,6 +203,7 @@ From there, `@angular-redux/form` is able to take that path and extract the valu
 that element from the Redux state.
 
 #### Reactive Forms
+
 The value in "connect" attribute is the value that will show up in the Redux store. The formGroup value is the name of the object in your code that represents the form group.
 
 ```html
@@ -240,14 +234,14 @@ your data when the user updates form inputs, then you should use this default re
 To use it, you need to combine it with your existing reducers like so:
 
 ```typescript
-import {composeReducers, defaultFormReducer} from '@angular-redux/form';
+import { composeReducers, defaultFormReducer } from '@angular-redux/form';
 
 const reducer = composeReducers(
   defaultFormReducer(),
   combineReducers({
     foo: fooReducer,
-    bar: barReducer
-  })
+    bar: barReducer,
+  }),
 );
 ```
 

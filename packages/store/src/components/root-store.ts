@@ -8,7 +8,7 @@ import {
   createStore,
   applyMiddleware,
   compose,
-  Dispatch,
+  Dispatch
 } from 'redux';
 
 import { NgZone } from '@angular/core';
@@ -19,7 +19,7 @@ import {
   Selector,
   PathSelector,
   Comparator,
-  resolveToFunctionSelector,
+  resolveToFunctionSelector
 } from './selectors';
 import { assert } from '../utils/assert';
 import { SubStore } from './sub-store';

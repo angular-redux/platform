@@ -1,26 +1,23 @@
-import {flushMicrotasks} from '@angular/core/testing';
+import { flushMicrotasks } from '@angular/core/testing';
 
-import {Iterable} from 'immutable';
+import { Iterable } from 'immutable';
 
-import {createLogger} from 'redux-logger';
+import { createLogger } from 'redux-logger';
 
 export const logger = createLogger({
   level: 'debug',
   collapsed: true,
   predicate: (getState, action) => true,
-  stateTransformer:
-    state => {
-      const newState = new Object();
+  stateTransformer: state => {
+    const newState = new Object();
 
-      for (const i of Object.keys(state)) {
-        newState[i] = Iterable.isIterable(state[i])
-          ? state[i].toJS()
-          : state[i];
-      };
-
-      return newState;
+    for (const i of Object.keys(state)) {
+      newState[i] = Iterable.isIterable(state[i]) ? state[i].toJS() : state[i];
     }
-  });
+
+    return newState;
+  },
+});
 
 export const simulateUserTyping = (control, text: string): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
@@ -30,8 +27,7 @@ export const simulateUserTyping = (control, text: string): Promise<void> => {
     } catch (error) {
       console.error('Failed to dispatch typing events', error);
       reject(error);
-    }
-    finally {
+    } finally {
       flushMicrotasks();
     }
   });
@@ -67,7 +63,7 @@ export const dispatchKeyEvents = (control, text: string) => {
         bubbles: true,
         cancelable: false,
       });
-    }
+    };
 
     control.dispatchEvent(keyboardEventFactory('keydown', c));
     control.dispatchEvent(keyboardEventFactory('keypress', c));

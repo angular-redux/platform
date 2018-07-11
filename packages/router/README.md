@@ -16,56 +16,59 @@ For use with Angular 2-4: Use v6.
 
 ### Setup
 
-1. Use npm to install the bindings:
-  ```
-  npm install @angular-redux/router --save
-  ```
+1.  Use npm to install the bindings:
 
-2. Use the `routerReducer` when providing `Store`:
-  ```ts
-  import { combineReducers } from 'redux';
-  import { routerReducer } from '@angular-redux/router';
 
-  export default combineReducers<IAppState>({
-    // your reducers..
-    router: routerReducer
-  });
-  ```
+```
+npm install @angular-redux/router --save
+```
 
-3. Add the bindings to your root module.
-  ```ts
-  import { NgModule } from '@angular/core';
-  import { NgReduxModule, NgRedux } from '@angular-redux/core';
-  import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
-  import { RouterModule } from '@angular/router';
-  import { routes } from './routes';
+2.  Use the `routerReducer` when providing `Store`:
 
-  @NgModule({
-    imports: [
-      RouterModule.forRoot(routes),
-      NgReduxModule,
-      NgReduxRouterModule.forRoot()
-      // ...your imports
-    ],
-    // Other stuff..
-  })
-  export class AppModule {
-    constructor(
-      ngRedux: NgRedux<IAppState>,
-      ngReduxRouter: NgReduxRouter
-    ) {
-      ngRedux.configureStore(/* args */);
-      ngReduxRouter.initialize(/* args */);
-    }
+
+```ts
+import { combineReducers } from 'redux';
+import { routerReducer } from '@angular-redux/router';
+
+export default combineReducers<IAppState>({
+  // your reducers..
+  router: routerReducer,
+});
+```
+
+3.  Add the bindings to your root module.
+
+
+```ts
+import { NgModule } from '@angular/core';
+import { NgReduxModule, NgRedux } from '@angular-redux/core';
+import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
+import { RouterModule } from '@angular/router';
+import { routes } from './routes';
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes),
+    NgReduxModule,
+    NgReduxRouterModule.forRoot(),
+    // ...your imports
+  ],
+  // Other stuff..
+})
+export class AppModule {
+  constructor(ngRedux: NgRedux<IAppState>, ngReduxRouter: NgReduxRouter) {
+    ngRedux.configureStore(/* args */);
+    ngReduxRouter.initialize(/* args */);
   }
+}
 ```
 
 ### What if I use Immutable.js with my Redux store?
 
 When using a wrapper for your store's state, such as Immutable.js, you will need to change two things from the standard setup:
 
-1. Provide your own reducer function that will receive actions of type  `UPDATE_LOCATION` and return the payload merged into state.
-2. Pass a selector to access the payload state and convert it to a JS object via the `selectLocationFromState` option on `NgReduxRouter`'s `initialize()`.
+1.  Provide your own reducer function that will receive actions of type `UPDATE_LOCATION` and return the payload merged into state.
+2.  Pass a selector to access the payload state and convert it to a JS object via the `selectLocationFromState` option on `NgReduxRouter`'s `initialize()`.
 
 These two hooks will allow you to store the state that this library uses in whatever format or wrapper you would like.
 
@@ -79,4 +82,4 @@ getting the URL from there.
 
 ### Examples
 
-* [Example-app: An example of using @angular-redux/router along with the other companion packages.](https://github.com/angular-redux/example-app)
+- [Example-app: An example of using @angular-redux/router along with the other companion packages.](https://github.com/angular-redux/example-app)

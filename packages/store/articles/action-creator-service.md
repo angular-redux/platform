@@ -6,8 +6,8 @@ them into Angular's dependency injector.
 We may as well adopt a more class-based approach to satisfy
 Angular 2's OOP idiom, and to allow us to
 
-1. make our actions `@Injectable()`, and
-2. inject other services for our action creators to use.
+1.  make our actions `@Injectable()`, and
+2.  inject other services for our action creators to use.
 
 Take a look at this example, which injects NgRedux to access
 `dispatch` and `getState` (a replacement for `redux-thunk`),
@@ -22,9 +22,10 @@ import { RandomNumberService } from '../services/random-number';
 
 @Injectable()
 export class CounterActions {
-  constructor (
+  constructor(
     private ngRedux: NgRedux<RootState>,
-    private randomNumberService: RandomNumberService) {}
+    private randomNumberService: RandomNumberService
+  ) {}
 
   static INCREMENT_COUNTER: string = 'INCREMENT_COUNTER';
   static DECREMENT_COUNTER: string = 'DECREMENT_COUNTER';
@@ -74,7 +75,7 @@ import { RandomNumberService } from '../services/random-number';
 
 @Component({
   selector: 'counter',
-  providers: [ CounterActions, RandomNumberService ],
+  providers: [CounterActions, RandomNumberService],
   template: `
   <p>
     Clicked: {{ counter$ | async }} times

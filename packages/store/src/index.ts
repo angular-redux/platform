@@ -5,7 +5,7 @@ import {
   PropertySelector,
   FunctionSelector,
   Comparator,
-  Transformer,
+  Transformer
 } from './components/selectors';
 import { ObservableStore } from './components/observable-store';
 import { DevToolsExtension } from './components/dev-tools';
@@ -35,5 +35,5 @@ export {
   select$,
   dispatch,
   WithSubStore,
-  ObservableStore,
+  ObservableStore
 };

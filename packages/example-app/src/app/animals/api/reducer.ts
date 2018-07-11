@@ -12,9 +12,10 @@ const INITIAL_STATE: IAnimalList = {
 // A higher-order reducer: accepts an animal type and returns a reducer
 // that only responds to actions for that particular animal type.
 export function createAnimalAPIReducer(animalType: AnimalType) {
-  return function animalReducer(state: IAnimalList = INITIAL_STATE,
-    a: Action): IAnimalList {
-
+  return function animalReducer(
+    state: IAnimalList = INITIAL_STATE,
+    a: Action,
+  ): IAnimalList {
     const action = a as AnimalAPIAction;
     if (!action.meta || action.meta.animalType !== animalType) {
       return state;

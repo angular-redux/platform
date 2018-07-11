@@ -1,14 +1,8 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
-import {
-  fromJS,
-  List,
-  Map,
-  OrderedSet,
-  Set
-} from 'immutable';
+import { fromJS, List, Map, OrderedSet, Set } from 'immutable';
 
-import {composeReducers} from './compose-reducers';
+import { composeReducers } from './compose-reducers';
 
 describe('composeReducers', () => {
   const compose = (s1, s2, s3) => {
@@ -18,32 +12,48 @@ describe('composeReducers', () => {
 
     const reducer = composeReducers(r1, r2, r3);
 
-    return reducer(undefined, {type: ''});
+    return reducer(undefined, { type: '' });
   };
 
   it('can compose plain-object initial states', () => {
-    const state = compose({a: 1}, {b: 1}, {c: 1});
+    const state = compose(
+      { a: 1 },
+      { b: 1 },
+      { c: 1 },
+    );
     expect(state).not.to.be.undefined;
-    expect(state).to.deep.equal({a: 1, b: 1, c: 1});
+    expect(state).to.deep.equal({ a: 1, b: 1, c: 1 });
   });
 
   it('can compose array states', () => {
-    const state = compose([1], [2], [3]);
+    const state = compose(
+      [1],
+      [2],
+      [3],
+    );
     expect(state).not.to.be.undefined;
     expect(state).to.deep.equal([1, 2, 3]);
   });
 
   it('can compose Immutable::Map initial states', () => {
-    const state = compose(fromJS({a: 1}), fromJS({b: 1}), fromJS({c: 1}));
+    const state = compose(
+      fromJS({ a: 1 }),
+      fromJS({ b: 1 }),
+      fromJS({ c: 1 }),
+    );
     expect(Map.isMap(state)).to.be.true;
 
     const plain = state.toJS();
     expect(plain).not.to.be.null;
-    expect(plain).to.deep.equal({a: 1, b: 1, c: 1});
+    expect(plain).to.deep.equal({ a: 1, b: 1, c: 1 });
   });
 
   it('can compose Immutable::Set initial states', () => {
-    const state = compose(Set.of(1, 2, 3), Set.of(4, 5, 6), Set.of());
+    const state = compose(
+      Set.of(1, 2, 3),
+      Set.of(4, 5, 6),
+      Set.of(),
+    );
     expect(Set.isSet(state)).to.be.true;
 
     const plain = state.toJS();
@@ -52,7 +62,11 @@ describe('composeReducers', () => {
   });
 
   it('can compose Immutable::OrderedSet initial states', () => {
-    const state = compose(Set.of(3, 2, 1), Set.of(4, 6, 5), Set.of());
+    const state = compose(
+      Set.of(3, 2, 1),
+      Set.of(4, 6, 5),
+      Set.of(),
+    );
     expect(Set.isSet(state)).to.be.true;
 
     const plain = state.toJS();
@@ -61,7 +75,11 @@ describe('composeReducers', () => {
   });
 
   it('can compose Immutable::List initial states', () => {
-    const state = compose(List.of('a', 'b'), List.of('c', 'd'), List.of());
+    const state = compose(
+      List.of('a', 'b'),
+      List.of('c', 'd'),
+      List.of(),
+    );
     expect(List.isList(state)).to.be.true;
 
     const plain = state.toJS();

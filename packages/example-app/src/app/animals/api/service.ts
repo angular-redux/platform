@@ -17,7 +17,8 @@ export class AnimalAPIService {
   constructor(private http: Http) {}
 
   getAll = (animalType: AnimalType): Observable<IAnimal[]> =>
-    this.http.get(URLS[animalType])
+    this.http
+      .get(URLS[animalType])
       .map(resp => resp.json())
       .map(records => records.map(fromServer));
 }

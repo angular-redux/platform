@@ -28,7 +28,7 @@ describe('@dispatch', () => {
   beforeEach(() => {
     defaultState = {
       value: 'init-value',
-      instanceProperty: 'init-instanceProperty',
+      instanceProperty: 'init-instanceProperty'
     };
 
     rootReducer = (state = defaultState, action: PayloadAction) => {
@@ -46,10 +46,7 @@ describe('@dispatch', () => {
 
     ngRedux = new RootStore<any>(mockNgZone);
     ngRedux.configureStore(rootReducer, defaultState);
-    spyOn(
-      NgRedux.instance as ObservableStore<any>,
-      'dispatch'
-    );
+    spyOn(NgRedux.instance as ObservableStore<any>, 'dispatch');
   });
 
   describe('on the RootStore', () => {
@@ -62,7 +59,7 @@ describe('@dispatch', () => {
       classMethod(value: string): PayloadAction {
         return {
           type: 'TEST',
-          payload: { value, instanceProperty: this.instanceProperty },
+          payload: { value, instanceProperty: this.instanceProperty }
         };
       }
 
@@ -75,8 +72,8 @@ describe('@dispatch', () => {
             type: 'CONDITIONAL_DISPATCH_TEST',
             payload: {
               value: 'Conditional Dispatch Action',
-              instanceProperty: this.instanceProperty,
-            },
+              instanceProperty: this.instanceProperty
+            }
           };
         } else {
           return false;
@@ -86,7 +83,7 @@ describe('@dispatch', () => {
       @dispatch()
       boundProperty = (value: string): PayloadAction => ({
         type: 'TEST',
-        payload: { value, instanceProperty: this.instanceProperty },
+        payload: { value, instanceProperty: this.instanceProperty }
       });
     }
 
@@ -102,8 +99,8 @@ describe('@dispatch', () => {
         type: 'TEST',
         payload: {
           value: 'class method',
-          instanceProperty: 'test',
-        },
+          instanceProperty: 'test'
+        }
       };
       expect(result.type).toBe('TEST');
       expect(result.payload && result.payload.value).toBe('class method');
@@ -138,8 +135,8 @@ describe('@dispatch', () => {
         type: 'CONDITIONAL_DISPATCH_TEST',
         payload: {
           value: 'Conditional Dispatch Action',
-          instanceProperty: 'test',
-        },
+          instanceProperty: 'test'
+        }
       });
     });
 
@@ -149,8 +146,8 @@ describe('@dispatch', () => {
         type: 'TEST',
         payload: {
           value: 'bound property',
-          instanceProperty: 'test',
-        },
+          instanceProperty: 'test'
+        }
       };
       expect(result.type).toBe('TEST');
       expect(result.payload && result.payload.value).toBe('bound property');
@@ -168,8 +165,8 @@ describe('@dispatch', () => {
           type: 'TEST',
           payload: {
             value,
-            instanceProperty,
-          },
+            instanceProperty
+          }
         };
       }
       instance.externalFunction = externalFunction;
@@ -178,8 +175,8 @@ describe('@dispatch', () => {
         type: 'TEST',
         payload: {
           value: 'external function',
-          instanceProperty: 'test',
-        },
+          instanceProperty: 'test'
+        }
       };
       expect(result.type).toBe('TEST');
       expect(result.payload && result.payload.value).toBe('external function');
@@ -195,7 +192,7 @@ describe('@dispatch', () => {
     const localReducer = (state: any, _: Action) => state;
     @WithSubStore({
       basePathMethodName: 'getBasePath',
-      localReducer,
+      localReducer
     })
     class TestClass {
       getBasePath = () => ['bar', 'foo'];
@@ -204,7 +201,7 @@ describe('@dispatch', () => {
       decoratedActionCreator(value: string): PayloadAction {
         return {
           type: 'TEST',
-          payload: { value },
+          payload: { value }
         };
       }
     }
@@ -223,7 +220,7 @@ describe('@dispatch', () => {
       ).toHaveBeenCalledWith({
         type: 'TEST',
         payload: { value: 'hello' },
-        '@angular-redux::fractalkey': '["bar","foo"]',
+        '@angular-redux::fractalkey': '["bar","foo"]'
       });
     });
   });

@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
-import {NgRedux} from '@angular-redux/store';
+import { NgRedux } from '@angular-redux/store';
 
-import {Action, Unsubscribe} from 'redux';
+import { Action, Unsubscribe } from 'redux';
 
 export interface AbstractStore<RootState> {
   /// Dispatch an action
-  dispatch(action: Action & {payload: any}): void;
+  dispatch(action: Action & { payload: any }): void;
 
   /// Retrieve the current application state
   getState(): RootState;
@@ -45,8 +45,8 @@ export class FormStore {
         path,
         form,
         valid: form.valid === true,
-        value
-      }
+        value,
+      },
     });
   }
 }

@@ -1,5 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
-import { NgReduxTestingModule, MockNgRedux } from '@angular-redux/store/testing';
+import {
+  NgReduxTestingModule,
+  MockNgRedux,
+} from '@angular-redux/store/testing';
 import { NgRedux } from '@angular-redux/store';
 
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +22,7 @@ describe('Feedback Form Component', () => {
     MockNgRedux.reset();
   });
 
-  it('should keep track of the number of remaining characters left', (done) => {
+  it('should keep track of the number of remaining characters left', done => {
     const fixture = TestBed.createComponent(FeedbackFormComponent);
     const form = fixture.debugElement.componentInstance;
 
@@ -31,7 +34,10 @@ describe('Feedback Form Component', () => {
       form.getMaxCommentChars() - 5,
     ];
 
-    const feedbackCommentsStub = MockNgRedux.getSelectorStub(['feedback', 'comments']);
+    const feedbackCommentsStub = MockNgRedux.getSelectorStub([
+      'feedback',
+      'comments',
+    ]);
     feedbackCommentsStub.next('h');
     feedbackCommentsStub.next('he');
     feedbackCommentsStub.next('hel');
@@ -42,8 +48,10 @@ describe('Feedback Form Component', () => {
     form.charsLeft$
       .toArray()
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual(expectedCharsLeftSequence),
+        actualSequence =>
+          expect(actualSequence).toEqual(expectedCharsLeftSequence),
         null,
-        done);
+        done,
+      );
   });
 });

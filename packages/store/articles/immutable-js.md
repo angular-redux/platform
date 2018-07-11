@@ -28,7 +28,7 @@ const mutableFoo = {
   foo: 1
 };
 
-const foo: number = mutableFoo.foo
+const foo: number = mutableFoo.foo;
 ```
 
 becomes:

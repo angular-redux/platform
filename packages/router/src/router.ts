@@ -5,7 +5,7 @@ import {
   Router,
   NavigationEnd,
   NavigationCancel,
-  DefaultUrlSerializer
+  DefaultUrlSerializer,
 } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
 import { Observable, Subscription } from 'rxjs';
@@ -29,7 +29,7 @@ export class NgReduxRouter {
     private router: Router,
     private ngRedux: NgRedux<any>,
     private applicationRef: ApplicationRef,
-    private location: Location
+    private location: Location,
   ) {}
 
   /**
@@ -66,11 +66,11 @@ export class NgReduxRouter {
    */
   initialize(
     selectLocationFromState: (state: any) => string = state => state.router,
-    urlState$: Observable<string> | undefined = undefined
+    urlState$: Observable<string> | undefined = undefined,
   ) {
     if (this.initialized) {
       throw new Error(
-        '@angular-redux/router already initialized! If you meant to re-initialize, call destroy first.'
+        '@angular-redux/router already initialized! If you meant to re-initialize, call destroy first.',
       );
     }
 
@@ -87,7 +87,7 @@ export class NgReduxRouter {
     return this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(event => this.location.path()),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -120,7 +120,7 @@ export class NgReduxRouter {
 
       this.ngRedux.dispatch(<RouterAction>{
         type: UPDATE_LOCATION,
-        payload: location
+        payload: location,
       });
     };
 

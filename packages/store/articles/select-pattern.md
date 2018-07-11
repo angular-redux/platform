@@ -15,11 +15,11 @@ The decorator expects to receive a `string`, an array of `string`s, a `function`
 parameter at all.
 
 - If a `string` is passed the `@select` decorator will attempt to observe a store
-property whose name matches the `string`.
+  property whose name matches the `string`.
 - If an array of strings is passed, the decorator will attempt to match that path
-through the store (similar to `immutableJS`'s `getIn`).
+  through the store (similar to `immutableJS`'s `getIn`).
 - If a `function` is passed the `@select` decorator will attempt to use that function
-as a selector on the RxJs observable.
+  as a selector on the RxJs observable.
 - If nothing is passed then the `@select` decorator will attempt to use the name of the class property to find a matching value in the Redux store. Note that a utility is in place here where any $ characters will be ignored from the class property's name.
 
 ```typescript
@@ -28,8 +28,8 @@ import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
 
 @Component({
-    selector: 'counter-value-printed-many-times',
-    template: `
+  selector: 'counter-value-printed-many-times',
+  template: `
     <p>{{counter$ | async}}</p>
     <p>{{counter | async}}</p>
     <p>{{counterSelectedWithString | async}}</p>
@@ -38,27 +38,28 @@ import { select } from '@angular-redux/store';
     `
 })
 export class CounterValue {
+  // this selects `counter` from the store and attaches it to this property
+  // it uses the property name to select, and ignores the $ from it
+  @select() counter$;
 
-    // this selects `counter` from the store and attaches it to this property
-    // it uses the property name to select, and ignores the $ from it
-    @select() counter$;
+  // this selects `counter` from the store and attaches it to this property
+  @select() counter;
 
-    // this selects `counter` from the store and attaches it to this property
-    @select() counter;
+  // this selects `counter` from the store and attaches it to this property
+  @select('counter') counterSelectedWithString;
 
-    // this selects `counter` from the store and attaches it to this property
-    @select('counter') counterSelectedWithString;
+  // this selects `pathDemo.foo.bar` from the store and attaches it to this
+  // property.
+  @select(['pathDemo', 'foo', 'bar'])
+  pathSelection;
 
-    // this selects `pathDemo.foo.bar` from the store and attaches it to this
-    // property.
-    @select(['pathDemo', 'foo', 'bar']) pathSelection;
+  // this selects `counter` from the store and attaches it to this property
+  @select(state => state.counter)
+  counterSelectedWithFunction;
 
-    // this selects `counter` from the store and attaches it to this property
-    @select(state => state.counter) counterSelectedWithFunction;
-
-    // this selects `counter` from the store and multiples it by two
-    @select(state => state.counter * 2)
-    counterSelectedWithFuntionAndMultipliedByTwo: Observable<any>;
+  // this selects `counter` from the store and multiples it by two
+  @select(state => state.counter * 2)
+  counterSelectedWithFuntionAndMultipliedByTwo: Observable<any>;
 }
 ```
 
@@ -76,11 +77,11 @@ import { NgRedux } from '@angular-redux/store';
 
 interface IAppState {
   counter: number;
-};
+}
 
 @Component({
-    selector: 'root',
-    template: `
+  selector: 'root',
+  template: `
   <counter [counter]="counter$| async"
     [increment]="increment"
     [decrement]="decrement">
@@ -93,15 +94,15 @@ export class Counter {
   constructor(private ngRedux: NgRedux<IAppState>) {}
 
   ngOnInit() {
-    let {increment, decrement } = CounterActions;
+    let { increment, decrement } = CounterActions;
     this.counter$ = this.ngRedux.select('counter');
   }
 
-  incrementIfOdd = () => this.ngRedux.dispatch(
-    <any>CounterActions.incrementIfOdd());
+  incrementIfOdd = () =>
+    this.ngRedux.dispatch(<any>CounterActions.incrementIfOdd());
 
-  incrementAsync = () => this.ngRedux.dispatch(
-    <any>CounterActions.incrementAsync());
+  incrementAsync = () =>
+    this.ngRedux.dispatch(<any>CounterActions.incrementAsync());
 }
 ```
 
@@ -116,9 +117,7 @@ The `@select$` decorator works similar to `@select`, however you are able to spe
 ```typescript
 import { select$ } from 'angular-redux/store';
 
-export const debounceAndTriple = obs$ => obs$
-  .debounce(300)
-  .map(x => 3 * x);
+export const debounceAndTriple = obs$ => obs$.debounce(300).map(x => 3 * x);
 
 class Foo {
   @select$(['foo', 'bar'], debounceAndTriple)

@@ -1,2 +1,6 @@
-:host { display: flex; }
-div { flex-basis: 25%; }
+:host {
+  display: flex;
+}
+div {
+  flex-basis: 25%;
+}

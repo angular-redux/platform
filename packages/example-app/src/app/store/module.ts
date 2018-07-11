@@ -4,7 +4,11 @@ import { NgModule } from '@angular/core';
 // @angular-redux/form and @angular-redux/router are optional
 // extensions that sync form and route location state between
 // our store and Angular.
-import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
+import {
+  NgReduxModule,
+  NgRedux,
+  DevToolsExtension,
+} from '@angular-redux/store';
 import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
 import { provideReduxForms } from '@angular-redux/form';
 
@@ -33,8 +37,9 @@ export class StoreModule {
     store.configureStore(
       rootReducer,
       {},
-      [ createLogger(), ...rootEpics.createEpics() ],
-      devTools.isEnabled() ? [ devTools.enhancer() ] : []);
+      [createLogger(), ...rootEpics.createEpics()],
+      devTools.isEnabled() ? [devTools.enhancer()] : [],
+    );
 
     // Enable syncing of Angular router state with our Redux store.
     if (ngReduxRouter) {
