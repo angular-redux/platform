@@ -22,6 +22,10 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - packages/example-app/node_modules
+            - packages/form/node_modules
+            - packages/router/node_modules
+            - packages/store/node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
         
       - run: yarn build
