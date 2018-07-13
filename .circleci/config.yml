@@ -1,16 +1,29 @@
-defaults: 
-  docker: &docker
+defaults: &defaults
+  docker: 
     - image: 'circleci/node:8-browsers'
+  working_directory: ~/repo
+
+repo_cache: &repo_cache
+  key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+
+deps_cache: &deps_cache
+  key: v1-dependencies-{{ checksum "yarn.lock" }}
 
 version: 2
 jobs:
-  build:
-    docker: *docker
-    working_directory: ~/repo
-
+  checkout_code:
+    <<: *defaults
     steps:
       - checkout
+      - save_cache:
+          <<: *repo_cache
+          paths:
+            - ~/repo
 
+  install_dependencies: 
+    <<: *defaults
+    steps: 
+      - restore_cache: *repo_cache
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "yarn.lock" }}
@@ -26,12 +39,33 @@ jobs:
             - packages/form/node_modules
             - packages/router/node_modules
             - packages/store/node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
-        
+          <<: *deps_cache
+
+  lint: 
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - run: yarn lint
+
+  build:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
       - run: yarn build
 
 workflows:
   version: 2
   build:
     jobs:
-      - build
+      - checkout_code
+      - install_dependencies:
+          requires:
+            - checkout_code
+      - lint:
+          requires:
+            - install_dependencies
+      - build:
+          requires:
+            - install_dependencies

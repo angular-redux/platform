@@ -18,13 +18,11 @@ For use with Angular 2-4: Use v6.
 
 1.  Use npm to install the bindings:
 
-
 ```
 npm install @angular-redux/router --save
 ```
 
 2.  Use the `routerReducer` when providing `Store`:
-
 
 ```ts
 import { combineReducers } from 'redux';
@@ -37,7 +35,6 @@ export default combineReducers<IAppState>({
 ```
 
 3.  Add the bindings to your root module.
-
 
 ```ts
 import { NgModule } from '@angular/core';
