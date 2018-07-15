@@ -21,7 +21,7 @@ describe('getIn', () => {
       a: false,
       b: 0,
       c: '',
-      d: undefined
+      d: undefined,
     };
     expect(getIn(test, ['a'])).toEqual(false);
     expect(getIn(test, ['b'])).toEqual(0);
@@ -35,8 +35,8 @@ describe('getIn', () => {
         a: false,
         b: 0,
         c: '',
-        d: undefined
-      }
+        d: undefined,
+      },
     };
     expect(getIn(test, ['foo', 'a'])).toEqual(false);
     expect(getIn(test, ['foo', 'b'])).toEqual(0);
@@ -91,7 +91,8 @@ describe('getIn', () => {
   it('should defer to a native getIn function if it exists on the data', () => {
     const testPath = ['foo', 'bar'];
     const test = {
-      getIn: (path: (string | number)[]) => (path === testPath ? 42 : undefined)
+      getIn: (path: (string | number)[]) =>
+        path === testPath ? 42 : undefined,
     };
 
     expect(getIn(test, testPath)).toEqual(42);

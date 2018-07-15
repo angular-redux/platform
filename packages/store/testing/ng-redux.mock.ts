@@ -2,7 +2,7 @@ import {
   NgRedux,
   Selector,
   Comparator,
-  PathSelector
+  PathSelector,
 } from '@angular-redux/store';
 import {
   AnyAction,
@@ -10,7 +10,7 @@ import {
   Dispatch,
   Middleware,
   Store,
-  StoreEnhancer
+  StoreEnhancer,
 } from 'redux';
 import { Observable, Subject } from 'rxjs';
 import { MockObservableStore } from './observable-store.mock';
@@ -34,11 +34,11 @@ export class MockNgRedux<T = {}> extends NgRedux<T> {
    */
   static getSelectorStub<R, S>(
     selector?: Selector<R, S>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ): Subject<S> {
     return MockNgRedux.getInstance().mockRootStore.getSelectorStub<S>(
       selector,
-      comparator
+      comparator,
     );
   }
 
@@ -81,14 +81,14 @@ export class MockNgRedux<T = {}> extends NgRedux<T> {
     _: Reducer<any, AnyAction>,
     __: any,
     ___?: Middleware[],
-    ____?: StoreEnhancer<any>[]
+    ____?: StoreEnhancer<any>[],
   ): void => {};
 
   configureSubStore = this.mockRootStore.configureSubStore;
 
   select: <SelectedType>(
     selector?: Selector<T, SelectedType>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ) => Observable<SelectedType> = this.mockRootStore.select;
 
   dispatch = this.mockRootStore.dispatch as Dispatch<any>;

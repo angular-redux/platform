@@ -2,7 +2,7 @@ import {
   Selector,
   Comparator,
   ObservableStore,
-  PathSelector
+  PathSelector,
 } from '@angular-redux/store';
 import { AnyAction, Reducer, Dispatch } from 'redux';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
@@ -31,7 +31,7 @@ export class MockObservableStore<State> implements ObservableStore<any> {
 
   getSelectorStub = <SelectedState>(
     selector?: Selector<State, SelectedState>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ): Subject<SelectedState> =>
     this.initSelectorStub<SelectedState>(selector, comparator).subject;
 
@@ -48,7 +48,7 @@ export class MockObservableStore<State> implements ObservableStore<any> {
 
   select = <SelectedState>(
     selector?: Selector<any, SelectedState>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ): Observable<any> => {
     const stub = this.initSelectorStub<SelectedState>(selector, comparator);
     return stub.comparator
@@ -58,7 +58,7 @@ export class MockObservableStore<State> implements ObservableStore<any> {
 
   configureSubStore = <SubState>(
     basePath: PathSelector,
-    _: Reducer<SubState, AnyAction>
+    _: Reducer<SubState, AnyAction>,
   ): MockObservableStore<SubState> => this.initSubStore<SubState>(basePath);
 
   getSubStore = <SubState>(
@@ -80,12 +80,12 @@ export class MockObservableStore<State> implements ObservableStore<any> {
 
   private initSelectorStub<SelectedState>(
     selector?: Selector<State, SelectedState>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ): SelectorStubRecord {
     const key = selector ? selector.toString() : '';
     const record = this.selections[key] || {
       subject: new ReplaySubject<SelectedState>(),
-      comparator
+      comparator,
     };
 
     this.selections[key] = record;

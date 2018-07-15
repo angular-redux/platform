@@ -5,7 +5,7 @@ import {
   Unsubscribe,
   Middleware,
   Store,
-  StoreEnhancer
+  StoreEnhancer,
 } from 'redux';
 import { Observable } from 'rxjs';
 import { ObservableStore } from './observable-store';
@@ -36,7 +36,7 @@ export abstract class NgRedux<RootState> implements ObservableStore<RootState> {
     rootReducer: Reducer<RootState, AnyAction>,
     initState: RootState,
     middleware?: Middleware[],
-    enhancers?: StoreEnhancer<RootState>[]
+    enhancers?: StoreEnhancer<RootState>[],
   ) => void;
 
   /**
@@ -60,10 +60,10 @@ export abstract class NgRedux<RootState> implements ObservableStore<RootState> {
   // ObservableStore methods.
   abstract select: <SelectedType>(
     selector?: Selector<RootState, SelectedType>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ) => Observable<SelectedType>;
   abstract configureSubStore: <SubState>(
     basePath: PathSelector,
-    localReducer: Reducer<SubState, AnyAction>
+    localReducer: Reducer<SubState, AnyAction>,
   ) => ObservableStore<SubState>;
 }

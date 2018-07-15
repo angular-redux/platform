@@ -32,12 +32,12 @@ describe('Substore', () => {
 
   beforeEach(() => {
     ngRedux = new RootStore<IAppState>(new MockNgZone({
-      enableLongStackTrace: false
+      enableLongStackTrace: false,
     }) as NgZone);
     ngRedux.configureStore(defaultReducer, {
       foo: {
-        bar: { wat: { quux: 3 } }
-      }
+        bar: { wat: { quux: 3 } },
+      },
     });
 
     subStore = ngRedux.configureSubStore<ISubState>(basePath, defaultReducer);
@@ -46,7 +46,7 @@ describe('Substore', () => {
   it('adds a key to actions it dispatches', () =>
     expect(subStore.dispatch<AnyAction>({ type: 'MY_ACTION' })).toEqual({
       type: 'MY_ACTION',
-      '@angular-redux::fractalkey': '["foo","bar"]'
+      '@angular-redux::fractalkey': '["foo","bar"]',
     }));
 
   it('gets state rooted at the base path', () =>
@@ -59,54 +59,54 @@ describe('Substore', () => {
   it(`handles property selection on a base path that doesn't exist yet`, () => {
     const nonExistentSubStore = ngRedux.configureSubStore(
       ['sure', 'whatever'],
-      (state: any, action: any) => ({ ...state, value: action.newValue })
+      (state: any, action: any) => ({ ...state, value: action.newValue }),
     );
     nonExistentSubStore
       .select<any>('value')
       .pipe(
         take(2),
-        toArray()
+        toArray(),
       )
       .subscribe(v => expect(v).toEqual([undefined, 'now I exist']));
     nonExistentSubStore.dispatch<AnyAction>({
       type: 'nvm',
-      newValue: 'now I exist'
+      newValue: 'now I exist',
     });
   });
 
   it(`handles path selection on a base path that doesn't exist yet`, () => {
     const nonExistentSubStore = ngRedux.configureSubStore(
       ['sure', 'whatever'],
-      (state: any, action: any) => ({ ...state, value: action.newValue })
+      (state: any, action: any) => ({ ...state, value: action.newValue }),
     );
     nonExistentSubStore
       .select<any>(['value'])
       .pipe(
         take(2),
-        toArray()
+        toArray(),
       )
       .subscribe(v => expect(v).toEqual([undefined, 'now I exist']));
     nonExistentSubStore.dispatch<AnyAction>({
       type: 'nvm',
-      newValue: 'now I exist'
+      newValue: 'now I exist',
     });
   });
 
   it(`handles function selection on a base path that doesn't exist yet`, () => {
     const nonExistentSubStore = ngRedux.configureSubStore(
       ['sure', 'whatever'],
-      (state: any, action: any) => ({ ...state, value: action.newValue })
+      (state: any, action: any) => ({ ...state, value: action.newValue }),
     );
     nonExistentSubStore
       .select(s => (s ? s.value : s))
       .pipe(
         take(2),
-        toArray()
+        toArray(),
       )
       .subscribe(v => expect(v).toEqual([undefined, 'now I exist']));
     nonExistentSubStore.dispatch<AnyAction>({
       type: 'nvm',
-      newValue: 'now I exist'
+      newValue: 'now I exist',
     });
   });
 
@@ -117,7 +117,7 @@ describe('Substore', () => {
 
     expect(subSubStore.dispatch<AnyAction>({ type: 'MY_ACTION' })).toEqual({
       type: 'MY_ACTION',
-      '@angular-redux::fractalkey': '["foo","bar","wat"]'
+      '@angular-redux::fractalkey': '["foo","bar","wat"]',
     });
   });
 });

@@ -13,9 +13,9 @@ describe('setIn', () => {
       a: 1,
       b: {
         c: {
-          d: 2
-        }
-      }
+          d: 2,
+        },
+      },
     };
 
     expect(setIn(original, ['b', 'c', 'd'], 2)).toEqual(expected);
@@ -26,17 +26,17 @@ describe('setIn', () => {
     const original = {
       a: 1,
       b: {
-        wat: 3
-      }
+        wat: 3,
+      },
     };
     const expected = {
       a: 1,
       b: {
         wat: 3,
         c: {
-          d: 2
-        }
-      }
+          d: 2,
+        },
+      },
     };
 
     expect(setIn(original, ['b', 'c', 'd'], 2)).toEqual(expected);
@@ -53,7 +53,7 @@ describe('setIn', () => {
     }
 
     const original = {
-      root: new TestClass()
+      root: new TestClass(),
     };
     setIn(original, ['root', 'a', 'b', 'c'], 123);
     expect(setInCalled).toEqual(true);

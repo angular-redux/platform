@@ -28,7 +28,7 @@ describe('@dispatch', () => {
   beforeEach(() => {
     defaultState = {
       value: 'init-value',
-      instanceProperty: 'init-instanceProperty'
+      instanceProperty: 'init-instanceProperty',
     };
 
     rootReducer = (state = defaultState, action: PayloadAction) => {
@@ -59,21 +59,21 @@ describe('@dispatch', () => {
       classMethod(value: string): PayloadAction {
         return {
           type: 'TEST',
-          payload: { value, instanceProperty: this.instanceProperty }
+          payload: { value, instanceProperty: this.instanceProperty },
         };
       }
 
       @dispatch()
       conditionalDispatchMethod(
-        shouldDispatch: boolean
+        shouldDispatch: boolean,
       ): PayloadAction | false {
         if (shouldDispatch) {
           return {
             type: 'CONDITIONAL_DISPATCH_TEST',
             payload: {
               value: 'Conditional Dispatch Action',
-              instanceProperty: this.instanceProperty
-            }
+              instanceProperty: this.instanceProperty,
+            },
           };
         } else {
           return false;
@@ -83,7 +83,7 @@ describe('@dispatch', () => {
       @dispatch()
       boundProperty = (value: string): PayloadAction => ({
         type: 'TEST',
-        payload: { value, instanceProperty: this.instanceProperty }
+        payload: { value, instanceProperty: this.instanceProperty },
       });
     }
 
@@ -99,15 +99,15 @@ describe('@dispatch', () => {
         type: 'TEST',
         payload: {
           value: 'class method',
-          instanceProperty: 'test'
-        }
+          instanceProperty: 'test',
+        },
       };
       expect(result.type).toBe('TEST');
       expect(result.payload && result.payload.value).toBe('class method');
       expect(result.payload && result.payload.instanceProperty).toBe('test');
       expect(NgRedux.instance).toBeTruthy();
       expect(
-        NgRedux.instance && NgRedux.instance.dispatch
+        NgRedux.instance && NgRedux.instance.dispatch,
       ).toHaveBeenCalledWith(expectedArgs);
     });
 
@@ -117,7 +117,7 @@ describe('@dispatch', () => {
       expect(result).toBe(false);
       expect(NgRedux.instance).toBeTruthy();
       expect(NgRedux.instance && NgRedux.instance.getState()).toEqual(
-        stateBeforeAction
+        stateBeforeAction,
       );
     });
 
@@ -125,18 +125,18 @@ describe('@dispatch', () => {
       const result = <PayloadAction>instance.conditionalDispatchMethod(true);
       expect(result.type).toBe('CONDITIONAL_DISPATCH_TEST');
       expect(result.payload && result.payload.value).toBe(
-        'Conditional Dispatch Action'
+        'Conditional Dispatch Action',
       );
       expect(result.payload && result.payload.instanceProperty).toBe('test');
       expect(NgRedux.instance).toBeTruthy();
       expect(
-        NgRedux.instance && NgRedux.instance.dispatch
+        NgRedux.instance && NgRedux.instance.dispatch,
       ).toHaveBeenCalledWith({
         type: 'CONDITIONAL_DISPATCH_TEST',
         payload: {
           value: 'Conditional Dispatch Action',
-          instanceProperty: 'test'
-        }
+          instanceProperty: 'test',
+        },
       });
     });
 
@@ -146,15 +146,15 @@ describe('@dispatch', () => {
         type: 'TEST',
         payload: {
           value: 'bound property',
-          instanceProperty: 'test'
-        }
+          instanceProperty: 'test',
+        },
       };
       expect(result.type).toBe('TEST');
       expect(result.payload && result.payload.value).toBe('bound property');
       expect(result.payload && result.payload.instanceProperty).toBe('test');
       expect(NgRedux.instance).toBeTruthy();
       expect(
-        NgRedux.instance && NgRedux.instance.dispatch
+        NgRedux.instance && NgRedux.instance.dispatch,
       ).toHaveBeenCalledWith(expectedArgs);
     });
 
@@ -165,8 +165,8 @@ describe('@dispatch', () => {
           type: 'TEST',
           payload: {
             value,
-            instanceProperty
-          }
+            instanceProperty,
+          },
         };
       }
       instance.externalFunction = externalFunction;
@@ -175,15 +175,15 @@ describe('@dispatch', () => {
         type: 'TEST',
         payload: {
           value: 'external function',
-          instanceProperty: 'test'
-        }
+          instanceProperty: 'test',
+        },
       };
       expect(result.type).toBe('TEST');
       expect(result.payload && result.payload.value).toBe('external function');
       expect(result.payload && result.payload.instanceProperty).toBe('test');
       expect(NgRedux.instance).toBeTruthy();
       expect(
-        NgRedux.instance && NgRedux.instance.dispatch
+        NgRedux.instance && NgRedux.instance.dispatch,
       ).toHaveBeenCalledWith(expectedArgs);
     });
   });
@@ -192,7 +192,7 @@ describe('@dispatch', () => {
     const localReducer = (state: any, _: Action) => state;
     @WithSubStore({
       basePathMethodName: 'getBasePath',
-      localReducer
+      localReducer,
     })
     class TestClass {
       getBasePath = () => ['bar', 'foo'];
@@ -201,7 +201,7 @@ describe('@dispatch', () => {
       decoratedActionCreator(value: string): PayloadAction {
         return {
           type: 'TEST',
-          payload: { value }
+          payload: { value },
         };
       }
     }
@@ -216,11 +216,11 @@ describe('@dispatch', () => {
       instance.decoratedActionCreator('hello');
 
       expect(
-        NgRedux.instance && NgRedux.instance.dispatch
+        NgRedux.instance && NgRedux.instance.dispatch,
       ).toHaveBeenCalledWith({
         type: 'TEST',
         payload: { value: 'hello' },
-        '@angular-redux::fractalkey': '["bar","foo"]'
+        '@angular-redux::fractalkey': '["bar","foo"]',
       });
     });
   });

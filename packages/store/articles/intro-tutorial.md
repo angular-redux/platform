@@ -55,10 +55,10 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgReduxModule // <- New
+    NgReduxModule, // <- New
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -89,7 +89,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'app works!';
@@ -151,7 +151,7 @@ const nextValueOfCount = streamOfActions.reduce(
 
     return state;
   },
-  { count: 0 }
+  { count: 0 },
 );
 ```
 
@@ -192,7 +192,7 @@ export interface IAppState {
 }
 
 export const INITIAL_STATE: IAppState = {
-  count: 0
+  count: 0,
 };
 
 export function rootReducer(lastState: IAppState, action: Action): IAppState {
@@ -230,7 +230,7 @@ import { CounterActions } from './app.actions'; // <- New
   declarations: [AppComponent],
   imports: [BrowserModule, FormsModule, HttpModule, NgReduxModule],
   providers: [CounterActions], // <- New
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(ngRedux: NgRedux<IAppState>) {
@@ -273,7 +273,7 @@ ends up looking conceptually a bit like this:
 // Pseudocode
 const finalAppState: IAppState = actionsOverTime.reduce(
   rootReducer,
-  INITIAL_STATE
+  INITIAL_STATE,
 );
 ```
 
@@ -306,7 +306,7 @@ import { IAppState } from '../store'; // <- New
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'app works!';
@@ -315,7 +315,7 @@ export class AppComponent {
   constructor(
     // <- New
     private ngRedux: NgRedux<IAppState>, // <- New
-    private actions: CounterActions
+    private actions: CounterActions,
   ) {} // <- New
 
   increment() {
@@ -350,7 +350,7 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private actions: CounterActions
+    private actions: CounterActions,
   ) {
     this.subscription = ngRedux
       .select<number>('count') // <- New
@@ -447,7 +447,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'app works!';
@@ -455,7 +455,7 @@ export class AppComponent {
 
   constructor(
     private actions: CounterActions,
-    private ngRedux: NgRedux<IAppState>
+    private ngRedux: NgRedux<IAppState>,
   ) {} // <- Changed
 
   increment() {
@@ -590,7 +590,7 @@ Then, make a quick adjustment to enable them in your app:
 import {
   NgReduxModule,
   NgRedux,
-  DevToolsExtension
+  DevToolsExtension,
 } from '@angular-redux/store'; // <- Changed
 
 @NgModule({
@@ -608,7 +608,7 @@ export class AppModule {
       rootReducer,
       INITIAL_STATE,
       [], // <- New
-      storeEnhancers
+      storeEnhancers,
     ); // <- New
   }
 }

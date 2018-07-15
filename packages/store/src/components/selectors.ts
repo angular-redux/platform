@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export type Comparator = (x: any, y: any) => boolean;
 export type Transformer<RootState, V> = (
   store$: Observable<RootState>,
-  scope: any
+  scope: any,
 ) => Observable<V>;
 export type PropertySelector = string | number | symbol;
 export type PathSelector = (string | number)[];
@@ -26,7 +26,7 @@ export type Selector<RootState, S> =
 
 /** @hidden */
 export const sniffSelectorType = <RootState, S>(
-  selector?: Selector<RootState, S>
+  selector?: Selector<RootState, S>,
 ) =>
   !selector
     ? 'nil'
@@ -42,10 +42,10 @@ export const resolver = <RootState, S>(selector?: Selector<RootState, S>) => ({
     state ? state[selector as PropertySelector] : undefined,
   path: (state: RootState) => getIn(state, selector as PathSelector),
   function: selector as FunctionSelector<RootState, S>,
-  nil: (state: RootState) => state
+  nil: (state: RootState) => state,
 });
 
 /** @hidden */
 export const resolveToFunctionSelector = <RootState, S>(
-  selector?: Selector<RootState, S>
+  selector?: Selector<RootState, S>,
 ) => resolver(selector)[sniffSelectorType(selector)];

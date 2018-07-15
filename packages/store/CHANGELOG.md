@@ -161,7 +161,7 @@ You can now create an encapsulated 'sub-store' that only operates on a section o
 ```typescript
 const subStore = ngRedux.configureSubStore(
   ['path', 'to', 'somewhere'],
-  localReducer
+  localReducer,
 );
 ```
 
@@ -210,7 +210,7 @@ export class AnimalActions {
   @dispatch()
   loadAnimals = (animalType: AnimalType): Action => ({
     type: AnimalActions.LOAD_ANIMALS,
-    meta: { animalType }
+    meta: { animalType },
   });
 
   // ...
@@ -356,7 +356,7 @@ import { NgReduxModule } from 'ng2-redux';
   declarations: [AppComponent],
   imports: [NgReduxModule.forRoot(), BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 class AppModule {
   // etc.
@@ -374,7 +374,7 @@ import { NgReduxModule } from 'ng2-redux';
   declarations: [AppComponent],
   imports: [NgReduxModule, BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 class AppModule {
   // etc.
@@ -439,7 +439,7 @@ import { rootReducer } from './store';
   declarations: [AppComponent],
   imports: [NgReduxModule, BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(ngRedux: NgRedux<IAppState>) {
@@ -566,7 +566,7 @@ import {
   Store,
   combineReducers,
   compose,
-  createStore
+  createStore,
 } from 'redux';
 import thunk from 'redux-thunk';
 import reduxLogger from 'redux-logger';
@@ -574,12 +574,12 @@ import reduxLogger from 'redux-logger';
 import { myReducer } from './reducers/my-reducer';
 
 const rootReducer = combineReducers({
-  myReducer
+  myReducer,
 });
 
 export const store = createStore(
   rootReducer,
-  compose(applyMiddleware(thunk, reduxLogger))
+  compose(applyMiddleware(thunk, reduxLogger)),
 ) as Store;
 ```
 
@@ -681,7 +681,7 @@ const middleware = [createLogger()];
 const enhancers = [persistState('counter', { key: 'example-app' })];
 const store = compose(
   applyMiddleware(middleware),
-  ...enhancers
+  ...enhancers,
 )(createStore)(rootReducer);
 
 bootstrap(App, [provide(store)]);

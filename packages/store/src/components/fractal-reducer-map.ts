@@ -24,12 +24,12 @@ export function enableFractalReducers(rootReducer: Reducer<any, AnyAction>) {
 /** @hidden */
 export function registerFractalReducer(
   basePath: PathSelector,
-  localReducer: Reducer<any, AnyAction>
+  localReducer: Reducer<any, AnyAction>,
 ): void {
   const existingFractalReducer = reducerMap[JSON.stringify(basePath)];
   if (existingFractalReducer && existingFractalReducer !== localReducer) {
     throw new Error(
-      `attempt to overwrite fractal reducer for basePath ${basePath}`
+      `attempt to overwrite fractal reducer for basePath ${basePath}`,
     );
   }
 
@@ -39,14 +39,14 @@ export function registerFractalReducer(
 /** @hidden */
 export function replaceLocalReducer(
   basePath: PathSelector,
-  nextLocalReducer: Reducer<any, AnyAction>
+  nextLocalReducer: Reducer<any, AnyAction>,
 ): void {
   reducerMap[JSON.stringify(basePath)] = nextLocalReducer;
 }
 
 function rootFractalReducer(
   state: {} = {},
-  action: AnyAction & { '@angular-redux::fractalkey'?: string }
+  action: AnyAction & { '@angular-redux::fractalkey'?: string },
 ) {
   const fractalKey = action['@angular-redux::fractalkey'];
   const fractalPath = fractalKey ? JSON.parse(fractalKey) : [];

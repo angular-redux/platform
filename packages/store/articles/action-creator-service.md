@@ -24,7 +24,7 @@ import { RandomNumberService } from '../services/random-number';
 export class CounterActions {
   constructor(
     private ngRedux: NgRedux<RootState>,
-    private randomNumberService: RandomNumberService
+    private randomNumberService: RandomNumberService,
   ) {}
 
   static INCREMENT_COUNTER: string = 'INCREMENT_COUNTER';
@@ -58,7 +58,7 @@ export class CounterActions {
   randomize(): void {
     this.ngRedux.dispatch({
       type: CounterActions.RANDOMIZE_COUNTER,
-      payload: this.randomNumberService.pick()
+      payload: this.randomNumberService.pick(),
     });
   }
 }
@@ -85,7 +85,7 @@ import { RandomNumberService } from '../services/random-number';
     <button (click)="actions.incrementAsync(2222)">Increment async</button>
     <button (click)="actions.randomize()">Set to random number</button>
   </p>
-  `
+  `,
 })
 export class Counter {
   @select('counter') counter$: any;
