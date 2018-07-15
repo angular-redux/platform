@@ -43,7 +43,7 @@ export interface IAppState {
 
 export const rootReducer = combineReducers({
   foo: fooReducer,
-  bar: barReducer
+  bar: barReducer,
 });
 ```
 
@@ -71,7 +71,7 @@ import { Action, Reducer } from 'redux';
 
 export const fooReducer: Reducer<TFoo> = (
   state: TFoo,
-  action: Action
+  action: Action,
 ): TFoo => {
   // ...
 };
@@ -99,7 +99,7 @@ import { Action } from 'flux-standard-action';
 
 export const fooReducer: Reducer<TFoo> = (
   state: TFoo,
-  action: Action<TFoo>
+  action: Action<TFoo>,
 ): TFoo => {
   // ...
 };
@@ -112,16 +112,16 @@ If you need more flexibility in payload types, you can use a union and
 ```typescript
 export const barReducer: Reducer<IBar> = (
   state: IBar,
-  action: Action<number | string>
+  action: Action<number | string>,
 ): IBar => {
   switch (action.type) {
     case A_HAS_CHANGED:
       return Object.assign({}, state, {
-        a: <number>action.payload
+        a: <number>action.payload,
       });
     case B_HAS_CHANGED:
       return Object.assign({}, state, {
-        b: <string>action.payload
+        b: <string>action.payload,
       });
     // ...
   }
@@ -138,13 +138,13 @@ maintain immutability. This works in Typescript too, but it's not typesafe:
 ```typescript
 export const barReducer: Reducer<IBar> = (
   state: IBar,
-  action: Action<number | string>
+  action: Action<number | string>,
 ): IBar => {
   switch (action.type) {
     case A_HAS_CHANGED:
       return Object.assign({}, state, {
         a: <number>action.payload,
-        zzz: 'test' // We'd like this to generate a compile error, but it doesn't
+        zzz: 'test', // We'd like this to generate a compile error, but it doesn't
       });
     // ...
   }
@@ -164,13 +164,13 @@ import { tassign } from 'tassign';
 
 export const barReducer: Reducer<IBar> = (
   state: IBar,
-  action: Action<number | string>
+  action: Action<number | string>,
 ): IBar => {
   switch (action.type) {
     case A_HAS_CHANGED:
       return tassign(state, {
         a: <number>action.payload,
-        zzz: 'test' // Error: zzz is not a property of IBar
+        zzz: 'test', // Error: zzz is not a property of IBar
       });
     // ...
   }

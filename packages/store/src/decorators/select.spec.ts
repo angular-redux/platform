@@ -46,12 +46,12 @@ describe('Select decorators', () => {
         mockInstance.baz
           .pipe(
             take(2),
-            toArray()
+            toArray(),
           )
           .subscribe(
             values => expect(values).toEqual([-1, 1]),
             undefined,
-            done
+            done,
           );
         ngRedux.dispatch({ type: 'nvm', payload: 1 });
       });
@@ -66,12 +66,12 @@ describe('Select decorators', () => {
         mockInstance.baz$
           .pipe(
             take(2),
-            toArray()
+            toArray(),
           )
           .subscribe(
             values => expect(values).toEqual([-1, 4]),
             undefined,
-            done
+            done,
           );
         ngRedux.dispatch({ type: 'nvm', payload: 4 });
       });
@@ -88,12 +88,12 @@ describe('Select decorators', () => {
         mockInstance.obs$
           .pipe(
             take(2),
-            toArray()
+            toArray(),
           )
           .subscribe(
             values => expect(values).toEqual([-1, 3]),
             undefined,
-            done
+            done,
           );
         ngRedux.dispatch({ type: 'nvm', payload: 3 });
       });
@@ -110,12 +110,12 @@ describe('Select decorators', () => {
         mockInstance.obs$
           .pipe(
             take(2),
-            toArray()
+            toArray(),
           )
           .subscribe(
             values => expect(values).toEqual([-2, 10]),
             undefined,
-            done
+            done,
           );
         ngRedux.dispatch({ type: 'nvm', payload: 5 });
       });
@@ -133,12 +133,12 @@ describe('Select decorators', () => {
         mockInstance.baz$
           .pipe(
             take(2),
-            toArray()
+            toArray(),
           )
           .subscribe(
             values => expect(values).toEqual([-1, 2]),
             undefined,
-            done
+            done,
           );
         ngRedux.dispatch({ type: 'nvm', payload: 1 });
         ngRedux.dispatch({ type: 'nvm', payload: 2 });
@@ -177,7 +177,7 @@ describe('Select decorators', () => {
       mockInstance.baz$
         .pipe(
           take(2),
-          toArray()
+          toArray(),
         )
         .subscribe(values => expect(values).toEqual([-2, 10]), undefined, done);
       ngRedux.dispatch({ type: 'nvm', payload: 5 });
@@ -195,12 +195,12 @@ describe('Select decorators', () => {
         mockInstance.baz$
           .pipe(
             take(2),
-            toArray()
+            toArray(),
           )
           .subscribe(
             values => expect(values).toEqual([-2, 2]),
             undefined,
-            done
+            done,
           );
         ngRedux.dispatch({ type: 'nvm', payload: 1 });
         ngRedux.dispatch({ type: 'nvm', payload: 2 });

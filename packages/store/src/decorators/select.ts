@@ -22,7 +22,7 @@ import { getInstanceSelection } from './helpers';
  */
 export function select<T>(
   selector?: Selector<any, T>,
-  comparator?: Comparator
+  comparator?: Comparator,
 ): PropertyDecorator {
   return (target: any, key: string | symbol): void => {
     const adjustedSelector = selector
@@ -60,7 +60,7 @@ export function select<T>(
 export function select$<T>(
   selector: Selector<any, T>,
   transformer: Transformer<any, T>,
-  comparator?: Comparator
+  comparator?: Comparator,
 ): PropertyDecorator {
   return decorate(selector, transformer, comparator);
 }
@@ -68,7 +68,7 @@ export function select$<T>(
 function decorate(
   selector: Selector<any, any>,
   transformer?: Transformer<any, any>,
-  comparator?: Comparator
+  comparator?: Comparator,
 ): PropertyDecorator {
   return function decorator(target: any, key): void {
     function getter(this: any) {
@@ -80,7 +80,7 @@ function decorate(
       Object.defineProperty(target, key, {
         get: getter,
         enumerable: true,
-        configurable: true
+        configurable: true,
       });
     }
   };

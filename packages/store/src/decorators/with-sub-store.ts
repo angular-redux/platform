@@ -10,12 +10,12 @@ import { IFractalStoreOptions, setClassOptions } from './helpers';
  */
 export function WithSubStore({
   basePathMethodName,
-  localReducer
+  localReducer,
 }: IFractalStoreOptions): ClassDecorator {
   return function decorate(constructor: Function): void {
     setClassOptions(constructor, {
       basePathMethodName,
-      localReducer
+      localReducer,
     });
   };
 }

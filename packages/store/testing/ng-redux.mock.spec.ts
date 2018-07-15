@@ -8,7 +8,7 @@ import { NgRedux, select, select$ } from '../src';
 
 @Component({
   template: 'whatever',
-  selector: 'test-component'
+  selector: 'test-component',
 })
 class TestComponent {
   @select('foo') readonly obs$: Observable<number>;
@@ -27,7 +27,7 @@ xdescribe('NgReduxMock', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestComponent],
-      providers: [{ provide: NgRedux, useFactory: MockNgRedux.getInstance }]
+      providers: [{ provide: NgRedux, useFactory: MockNgRedux.getInstance }],
     }).compileComponents();
 
     MockNgRedux.reset();

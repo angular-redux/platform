@@ -25,7 +25,7 @@ export interface ObservableStore<StateType> extends Store<StateType> {
    */
   select: <SelectedType>(
     selector: Selector<StateType, SelectedType>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ) => Observable<SelectedType>;
 
   /**
@@ -41,6 +41,6 @@ export interface ObservableStore<StateType> extends Store<StateType> {
    */
   configureSubStore: <SubState>(
     basePath: PathSelector,
-    localReducer: Reducer<SubState, AnyAction>
+    localReducer: Reducer<SubState, AnyAction>,
   ) => ObservableStore<SubState>;
 }

@@ -5,7 +5,7 @@ import {
   Selector,
   PathSelector,
   Comparator,
-  Transformer
+  Transformer,
 } from '../components/selectors';
 import { distinctUntilChanged } from 'rxjs/operators';
 
@@ -65,7 +65,7 @@ const getClassOptions = (decoratedInstance: any): IFractalStoreOptions =>
 /** @hidden */
 export const setClassOptions = (
   decoratedClassConstructor: any,
-  options: IFractalStoreOptions
+  options: IFractalStoreOptions,
 ): void => {
   decoratedClassConstructor[OPTIONS_KEY] = options;
 };
@@ -76,7 +76,7 @@ export const setClassOptions = (
 //    instance is destroyed.
 const setInstanceStore = (
   decoratedInstance: any,
-  store?: ObservableStore<any>
+  store?: ObservableStore<any>,
 ) => (decoratedInstance[INSTANCE_SUBSTORE_KEY] = store);
 
 const getInstanceStore = (decoratedInstance: any): ObservableStore<any> =>
@@ -90,13 +90,13 @@ const getInstanceSelectionMap = (decoratedInstance: any) => {
 
 const hasBasePathChanged = (
   decoratedInstance: any,
-  basePath?: PathSelector
+  basePath?: PathSelector,
 ): boolean =>
   decoratedInstance[INSTANCE_BASE_PATH_KEY] !== (basePath || []).toString();
 
 const setInstanceBasePath = (
   decoratedInstance: any,
-  basePath?: PathSelector
+  basePath?: PathSelector,
 ): void => {
   decoratedInstance[INSTANCE_BASE_PATH_KEY] = (basePath || []).toString();
 };
@@ -113,7 +113,7 @@ const clearInstanceState = (decoratedInstance: any) => {
  * @hidden
  */
 export const getBaseStore = (
-  decoratedInstance: any
+  decoratedInstance: any,
 ): ObservableStore<any> | undefined => {
   // The root store hasn't been set up yet.
   if (!NgRedux.instance) {
@@ -142,7 +142,7 @@ export const getBaseStore = (
   if (!store) {
     setInstanceStore(
       decoratedInstance,
-      NgRedux.instance.configureSubStore(basePath, options.localReducer)
+      NgRedux.instance.configureSubStore(basePath, options.localReducer),
     );
   }
 
@@ -160,7 +160,7 @@ export const getInstanceSelection = <T>(
   key: string | symbol,
   selector: Selector<any, T>,
   transformer?: Transformer<any, T>,
-  comparator?: Comparator
+  comparator?: Comparator,
 ) => {
   const store = getBaseStore(decoratedInstance);
 
@@ -173,7 +173,7 @@ export const getInstanceSelection = <T>(
         ? store.select(selector, comparator)
         : store.select(selector).pipe(
             obs$ => transformer(obs$, decoratedInstance),
-            distinctUntilChanged(comparator)
+            distinctUntilChanged(comparator),
           ));
 
     return selections[key];

@@ -8,7 +8,7 @@ import {
   createStore,
   applyMiddleware,
   compose,
-  Dispatch
+  Dispatch,
 } from 'redux';
 
 import { NgZone } from '@angular/core';
@@ -19,7 +19,7 @@ import {
   Selector,
   PathSelector,
   Comparator,
-  resolveToFunctionSelector
+  resolveToFunctionSelector,
 } from './selectors';
 import { assert } from '../utils/assert';
 import { SubStore } from './sub-store';
@@ -37,7 +37,7 @@ export class RootStore<RootState> extends NgRedux<RootState> {
     NgRedux.instance = this;
     this._store$ = new BehaviorSubject<RootState | undefined>(undefined).pipe(
       filter(n => n !== undefined),
-      switchMap(observableStore => observableStore as any)
+      switchMap(observableStore => observableStore as any),
       // TODO: fix this? needing to explicitly cast this is wrong
     ) as BehaviorSubject<RootState>;
   }
@@ -46,15 +46,15 @@ export class RootStore<RootState> extends NgRedux<RootState> {
     rootReducer: Reducer<RootState, AnyAction>,
     initState: RootState,
     middleware: Middleware[] = [],
-    enhancers: StoreEnhancer<RootState>[] = []
+    enhancers: StoreEnhancer<RootState>[] = [],
   ): void => {
     assert(!this._store, 'Store already configured!');
 
     // Variable-arity compose in typescript FTW.
     this.setStore(
       compose.apply(null, [applyMiddleware(...middleware), ...enhancers])(
-        createStore
-      )(enableFractalReducers(rootReducer), initState)
+        createStore,
+      )(enableFractalReducers(rootReducer), initState),
     );
   };
 
@@ -77,7 +77,7 @@ export class RootStore<RootState> extends NgRedux<RootState> {
       !!this._store,
       'Dispatch failed: did you forget to configure your store? ' +
         'https://github.com/angular-redux/@angular-redux/core/blob/master/' +
-        'README.md#quick-start'
+        'README.md#quick-start',
     );
 
     if (!NgZone.isInAngularZone()) {
@@ -89,17 +89,17 @@ export class RootStore<RootState> extends NgRedux<RootState> {
 
   select = <SelectedType>(
     selector?: Selector<RootState, SelectedType>,
-    comparator?: Comparator
+    comparator?: Comparator,
   ): Observable<SelectedType> =>
     this._store$.pipe(
       distinctUntilChanged(),
       map(resolveToFunctionSelector(selector)),
-      distinctUntilChanged(comparator)
+      distinctUntilChanged(comparator),
     );
 
   configureSubStore = <SubState>(
     basePath: PathSelector,
-    localReducer: Reducer<SubState, AnyAction>
+    localReducer: Reducer<SubState, AnyAction>,
   ): ObservableStore<SubState> =>
     new SubStore<SubState>(this, basePath, localReducer);
 
@@ -110,12 +110,12 @@ export class RootStore<RootState> extends NgRedux<RootState> {
   }
 
   private storeToObservable = (
-    store: Store<RootState>
+    store: Store<RootState>,
   ): Observable<RootState> =>
     new Observable<RootState>((observer: Observer<RootState>) => {
       observer.next(store.getState());
       const unsubscribeFromRedux = store.subscribe(() =>
-        observer.next(store.getState())
+        observer.next(store.getState()),
       );
       return () => {
         unsubscribeFromRedux();

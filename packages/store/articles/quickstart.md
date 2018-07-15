@@ -32,7 +32,7 @@ interface IAppState {
 
 @NgModule({
   /* ... */
-  imports: [, /* ... */ NgReduxModule]
+  imports: [, /* ... */ NgReduxModule],
 })
 export class AppModule {
   constructor(ngRedux: NgRedux<IAppState>) {
@@ -50,7 +50,7 @@ import {
   Store,
   combineReducers,
   compose,
-  createStore
+  createStore,
 } from 'redux';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { createLogger } from 'redux-logger';
@@ -62,12 +62,12 @@ interface IAppState {
 
 export const store: Store<IAppState> = createStore(
   rootReducer,
-  applyMiddleware(createLogger())
+  applyMiddleware(createLogger()),
 );
 
 @NgModule({
   /* ... */
-  imports: [, /* ... */ NgReduxModule]
+  imports: [, /* ... */ NgReduxModule],
 })
 class AppModule {
   constructor(ngRedux: NgRedux<IAppState>) {
@@ -92,7 +92,7 @@ import { select } from '@angular-redux/store';
 
 @Component({
   template:
-    '<button (click)="onClick()">Clicked {{ count | async }} times</button>'
+    '<button (click)="onClick()">Clicked {{ count | async }} times</button>',
 })
 class App {
   @select() count$: Observable<number>;

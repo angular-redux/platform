@@ -25,7 +25,7 @@ can no longer easily dereference properties:
 
 ```typescript
 const mutableFoo = {
-  foo: 1
+  foo: 1,
 };
 
 const foo: number = mutableFoo.foo;
@@ -89,8 +89,8 @@ Immutable.Map<string, any>({
   totalCount: 0,
   counts: Immutable.map<string, number>({
     firstCount: 0,
-    secondCount: 0
-  })
+    secondCount: 0,
+  }),
 });
 ```
 

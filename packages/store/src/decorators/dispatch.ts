@@ -11,7 +11,7 @@ export function dispatch(): PropertyDecorator {
   return function decorate(
     target: Object,
     key: string | symbol | number,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ): PropertyDescriptor {
     let originalMethod: Function;
 
@@ -30,7 +30,7 @@ export function dispatch(): PropertyDecorator {
     if (descriptor === undefined) {
       const dispatchDescriptor: PropertyDescriptor = {
         get: () => wrapped,
-        set: setMethod => (originalMethod = setMethod)
+        set: setMethod => (originalMethod = setMethod),
       };
       Object.defineProperty(target, key, dispatchDescriptor);
       return dispatchDescriptor;

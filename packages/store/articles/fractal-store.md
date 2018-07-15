@@ -50,7 +50,7 @@ export const userComponentReducer = (state, action) =>
     <p>occupation: {{ occupation$ | async }}</p>
     <p>lines of code: {{ loc$ | async }}</p>
     <button (click)=addCode(100)>Add 100 lines of code</button>
-  `
+  `,
 })
 export class UserComponent implements NgOnInit {
   @Input() userId: String;
@@ -68,7 +68,7 @@ export class UserComponent implements NgOnInit {
     // in the top-level store.
     this.subStore = this.ngRedux.configureSubStore(
       ['users', userId],
-      userComponentReducer
+      userComponentReducer,
     );
 
     // Substore selectons are scoped to the base path used to configure
@@ -129,11 +129,11 @@ export const defaultToZero = (obs$: Observable<number>) =>
     <p>occupation: {{ occupation$ | async }}</p>
     <p>lines of code: {{ loc$ | async }}</p>
     <button (click)=addCode(100)>Add 100 lines of code</button>
-  `
+  `,
 })
 @WithSubStore({
   basePathMethodName: 'getBasePath',
-  localReducer: userComponentReducer
+  localReducer: userComponentReducer,
 })
 export class UserComponent implements NgOnInit {
   @Input() userId: String;

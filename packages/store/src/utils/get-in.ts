@@ -6,7 +6,7 @@
  */
 export function getIn(
   v: any | undefined,
-  pathElems: (string | number)[]
+  pathElems: (string | number)[],
 ): any | undefined {
   if (!v) {
     return v;

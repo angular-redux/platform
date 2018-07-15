@@ -33,7 +33,7 @@ describe('NgRedux Observable Store', () => {
     defaultState = {
       foo: 'bar',
       bar: 'foo',
-      baz: -1
+      baz: -1,
     };
 
     rootReducer = (state = defaultState, action: PayloadAction) => {
@@ -58,7 +58,7 @@ describe('NgRedux Observable Store', () => {
     // Configured once in beforeEach, now we try to configure
     // it a second time.
     expect(
-      ngRedux.configureStore.bind(ngRedux, rootReducer, defaultState)
+      ngRedux.configureStore.bind(ngRedux, rootReducer, defaultState),
     ).toThrowError(Error);
   });
 
@@ -255,7 +255,7 @@ describe('Chained actions in subscriptions', () => {
   beforeEach(() => {
     defaultState = {
       keyword: '',
-      keywordLength: -1
+      keywordLength: -1,
     };
 
     rootReducer = (state = defaultState, action: PayloadAction) => {

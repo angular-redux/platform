@@ -35,7 +35,7 @@ import { select } from '@angular-redux/store';
     <p>{{counterSelectedWithString | async}}</p>
     <p>{{counterSelectedWithFunction | async}}</p>
     <p>{{counterSelectedWithFunctionAndMultipliedByTwo | async}}</p>
-    `
+    `,
 })
 export class CounterValue {
   // this selects `counter` from the store and attaches it to this property
@@ -86,7 +86,7 @@ interface IAppState {
     [increment]="increment"
     [decrement]="decrement">
   </counter>
-  `
+  `,
 })
 export class Counter {
   private count$: Observable<number>;

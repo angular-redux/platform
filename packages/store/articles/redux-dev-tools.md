@@ -18,14 +18,14 @@ Here's how to hook the extension up to your app:
 import {
   NgReduxModule,
   NgRedux,
-  DevToolsExtension
+  DevToolsExtension,
 } from '@angular-redux/store';
 
 // Add the dev tools enhancer your ngRedux.configureStore called
 // when you initialize your root component:
 @NgModule({
   /* ... */
-  imports: [, /* ... */ NgReduxModule]
+  imports: [, /* ... */ NgReduxModule],
 })
 export class AppModule {
   constructor(private ngRedux: NgRedux, private devTools: DevToolsExtension) {
