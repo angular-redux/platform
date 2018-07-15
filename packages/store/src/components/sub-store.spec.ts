@@ -52,8 +52,9 @@ describe('Substore', () => {
   it('gets state rooted at the base path', () =>
     expect(subStore.getState()).toEqual({ wat: { quux: 3 } }));
 
-  it('selects based on base path', () =>
-    subStore.select('wat').subscribe(wat => expect(wat).toEqual({ quux: 3 })));
+  it('selects based on base path', () => {
+    subStore.select('wat').subscribe(wat => expect(wat).toEqual({ quux: 3 }));
+  });
 
   it(`handles property selection on a base path that doesn't exist yet`, () => {
     const nonExistentSubStore = ngRedux.configureSubStore(

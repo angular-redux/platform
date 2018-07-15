@@ -55,8 +55,6 @@
     "lint": "tslint 'src/**/*.ts'",
     "prettier": "prettier --parser typescript --single-quote --trailing-comma es5 --write \"**/*.ts\"",
     "prepublish": "npm run lint && npm run build && npm test",
-    "test": "nyc node tests.js",
-    "test:watch": "nodemon tests.js -w src -w testing -e ts",
     "ci": "npm run lint && npm run build && npm test",
     "predoc": "rimraf docs",
     "doc": "typedoc --out docs --excludeExternals --excludePrivate --excludeNotExported -theme minimal --sourcefile-url-prefix \"https://github.com/angular-redux/store/blob/master/src/\" --name @angular-redux/store --mode file --module commonjs --tsconfig tsconfig.docs.json src"
@@ -75,15 +73,9 @@
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/platform-server": "6.0.7",
-    "@types/jasmine": "2.5.38",
     "@types/node": "10.5.2",
     "core-js": "2.5.7",
     "husky": "0.14.3",
-    "jasmine": "2.99.0",
-    "lint-staged": "7.2.0",
-    "nodemon": "1.17.5",
-    "nyc": "10.3.2",
-    "prettier": "1.9.2",
     "redux": "4.0.0",
     "reflect-metadata": "0.1.12",
     "rimraf": "2.6.2",
@@ -96,23 +88,5 @@
     "typedoc-plugin-sourcefile-url": "1.0.3",
     "typescript": "2.7.2",
     "zone.js": "0.8.26"
-  },
-  "nyc": {
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "**/*.spec.ts"
-    ],
-    "include": [
-      "src/**/*.ts",
-      "testing/**/*.ts"
-    ]
-  },
-  "lint-staged": {
-    "*.ts": [
-      "yarn prettier",
-      "git add"
-    ]
   }
 }

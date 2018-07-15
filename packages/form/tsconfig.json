@@ -3,7 +3,6 @@
     "module": "commonjs",
     "target": "es5",
     "lib": ["es6", "dom"],
-    "types": ["node", "chai", "jasmine"],
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

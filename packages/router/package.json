@@ -37,7 +37,6 @@
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/router": "6.0.7",
     "@types/core-js": "0.9.46",
-    "@types/jasmine": "2.8.8",
     "redux": "4.0.0",
     "rimraf": "2.6.2",
     "rxjs": "6.2.1",

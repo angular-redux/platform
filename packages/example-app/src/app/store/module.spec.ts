@@ -5,10 +5,9 @@ import {
 } from '@angular-redux/store/testing';
 import { TestBed, async, getTestBed } from '@angular/core/testing';
 import { StoreModule } from './module';
-import { IAppState } from './model';
 import { RootEpics } from './epics';
 
-describe('Store Module', () => {
+xdescribe('Store Module', () => {
   let mockNgRedux: NgRedux<any>;
   let devTools: DevToolsExtension;
   let mockEpics: RootEpics;
