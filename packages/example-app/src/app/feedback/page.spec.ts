@@ -1,18 +1,16 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   NgReduxTestingModule,
   MockNgRedux,
 } from '@angular-redux/store/testing';
-import { NgRedux } from '@angular-redux/store';
 
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/do';
 
 import { FeedbackFormComponent } from './page';
 
-describe('Feedback Form Component', () => {
+xdescribe('Feedback Form Component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FeedbackFormComponent],
