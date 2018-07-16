@@ -48,6 +48,13 @@ jobs:
       - restore_cache: *deps_cache
       - run: yarn lint
 
+  test:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - run: yarn test:ci
+
   build:
     <<: *defaults
     steps:
@@ -64,6 +71,9 @@ workflows:
           requires:
             - checkout_code
       - lint:
+          requires:
+            - install_dependencies
+      - test:
           requires:
             - install_dependencies
       - build:

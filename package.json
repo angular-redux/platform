@@ -13,7 +13,7 @@
     "lint:packages": "lerna run lint",
     "lint:prettier": "prettier -l \"**/*.*(ts|js|css|scss|json|md)\"",
     "test": "jest --coverage",
-    "test:ci": "jest --coverage --ci",
+    "test:ci": "jest --coverage --ci --maxWorkers=2",
     "test:watch": "jest --watch",
     "commit": "commit",
     "prettier": "prettier --write \"**/*.*(ts|js|css|scss|json|md)\"",
