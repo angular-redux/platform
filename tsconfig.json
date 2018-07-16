@@ -4,6 +4,12 @@
     "module": "es2015",
     "moduleResolution": "node",
     "lib": ["esnext", "dom", "dom.iterable"],
+    "baseUrl": ".",
+    "paths": {
+      "@angular-redux/store": ["packages/store/src/index.ts"],
+      "@angular-redux/form": ["packages/form/source/index.ts"],
+      "@angular-redux/router": ["packages/router/src/index.ts"]
+    },
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

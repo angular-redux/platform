@@ -74,7 +74,6 @@
     "@angular/platform-server": "6.0.7",
     "@types/node": "10.5.2",
     "core-js": "2.5.7",
-    "husky": "0.14.3",
     "redux": "4.0.0",
     "reflect-metadata": "0.1.12",
     "rimraf": "2.6.2",
