@@ -54,6 +54,10 @@ jobs:
       - restore_cache: *repo_cache
       - restore_cache: *deps_cache
       - run: yarn test:ci
+      - store_test_results:
+          path: ./coverage
+      - store_artifacts:
+          path: ./coverage
 
   build:
     <<: *defaults
