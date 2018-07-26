@@ -1,6 +1,6 @@
 import { ElephantPageComponent } from './elephants/page';
-import { LionPageComponent } from './lions/page';
 import { FeedbackFormComponent } from './feedback/page';
+import { LionPageComponent } from './lions/page';
 
 export const appRoutes = [
   { path: '', redirectTo: '/elephants', pathMatch: 'full' },

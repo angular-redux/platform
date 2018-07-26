@@ -1,7 +1,7 @@
 import { NgModule, NgZone } from '@angular/core';
+import { DevToolsExtension } from './components/dev-tools';
 import { NgRedux } from './components/ng-redux';
 import { RootStore } from './components/root-store';
-import { DevToolsExtension } from './components/dev-tools';
 
 /** @hidden */
 export function _ngReduxFactory(ngZone: NgZone) {

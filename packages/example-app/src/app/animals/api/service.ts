@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
-import { ANIMAL_TYPES, AnimalType, IAnimal, fromServer } from '../model';
+import { Animal, ANIMAL_TYPES, AnimalType, fromServer } from '../model';
 
 // A fake API on the internets.
 const URLS = {
@@ -16,7 +16,7 @@ const URLS = {
 export class AnimalAPIService {
   constructor(private http: Http) {}
 
-  getAll = (animalType: AnimalType): Observable<IAnimal[]> =>
+  getAll = (animalType: AnimalType): Observable<Animal[]> =>
     this.http
       .get(URLS[animalType])
       .map(resp => resp.json())

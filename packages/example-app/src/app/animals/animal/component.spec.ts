@@ -1,11 +1,11 @@
-import { async, TestBed } from '@angular/core/testing';
 import {
-  NgReduxTestingModule,
   MockNgRedux,
+  NgReduxTestingModule,
 } from '@angular-redux/store/testing';
-import { AnimalComponent } from './component';
-import { CoreModule } from '../../core/module';
+import { async, TestBed } from '@angular/core/testing';
 import 'rxjs/add/operator/toArray';
+import { CoreModule } from '../../core/module';
+import { AnimalComponent } from './component';
 
 xdescribe('AnimalComponent', () => {
   let fixture;

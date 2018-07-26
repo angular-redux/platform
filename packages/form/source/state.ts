@@ -13,24 +13,22 @@ export interface Operations<T> {
   update(key: number | string | null, value: T): any;
 }
 
-export interface TraverseCallback {
-  (
-    parent: any,
-    key: number | string,
-    remainingPath: string[],
-    value?: any,
-  ): any;
-}
+export type TraverseCallback = (
+  parent: any,
+  key: number | string,
+  remainingPath: string[],
+  value?: any,
+) => any;
 
 export abstract class State {
-  static traverse<State>(state: State, path: string[], fn?: TraverseCallback) {
+  static traverse<StateType>(state: StateType, path: string[], fn?: TraverseCallback) {
     let deepValue = state;
 
     for (const k of path) {
       const parent = deepValue;
 
       if (Iterable.isIterable(deepValue)) {
-        const m = <ImmutableMap<string, any>>(<any>deepValue);
+        const m = (deepValue as any) as ImmutableMap<string, any>;
         if (typeof m.get === 'function') {
           deepValue = m.get(k);
         } else {
@@ -39,7 +37,7 @@ export abstract class State {
           );
         }
       } else if (deepValue instanceof Map) {
-        deepValue = (<Map<string, any>>(<any>deepValue)).get(k);
+        deepValue = ((deepValue as any) as Map<string, any>).get(k);
       } else {
         deepValue = (deepValue as any)[k];
       }
@@ -69,11 +67,11 @@ export abstract class State {
     return deepValue;
   }
 
-  static get<State>(state: State, path: string[]): any {
+  static get<StateType>(state: StateType, path: string[]): any {
     return State.traverse(state, path);
   }
 
-  static assign<State>(state: State, path: string[], value?: any) {
+  static assign<StateType>(state: StateType, path: string[], value?: any) {
     const operations = State.inspect(state);
 
     if (path.length === 0) {
@@ -104,16 +102,16 @@ export abstract class State {
               : innerOperations.merge(null, value),
           );
         } else {
-          const getProbableType = (key: string | number) => {
+          const getProbableType = (stateKey: string | number) => {
             // NOTE(cbond): If your code gets here, you might not be using the library
             /// correctly. If you are assigning into a path in your state, try to
             /// ensure that there is a path to traverse, even if everything is just
             /// empty objects and arrays. If we have to guess the type of the containers
             /// and then create them ourselves, we may not get the types right. Use
             /// the Redux `initial state' construct to resolve this issue if you like.
-            return typeof key === 'number'
+            return typeof stateKey === 'number'
               ? new Array()
-              : Array.isArray(key)
+              : Array.isArray(stateKey)
                 ? ImmutableMap()
                 : new Object();
           };
@@ -133,6 +131,7 @@ export abstract class State {
 
   static inspect<K>(object: K): Operations<K> {
     const metaOperations = (
+      // TODO: Write proper type declarations for following Function types
       update: Function,
       merge: Function,
       clone?: Function,
@@ -141,7 +140,7 @@ export abstract class State {
         /// Clone the object (shallow)
         clone:
           typeof clone === 'function'
-            ? () => clone(<any>object) as any
+            ? () => clone(object as any) as any
             : () => object,
 
         /// Update a specific key inside of the container object
@@ -211,25 +210,25 @@ export abstract class State {
           if (key != null) {
             return parent.set(key, value);
           } else {
-            const m = new Map(<any>value);
+            const m = new Map(value as any);
             parent.clear();
-            m.forEach((value, index) => parent.set(index, value));
+            m.forEach((mapValue, index) => parent.set(index, mapValue));
             return parent;
           }
         },
 
         // Merge
         (parent: Map<string, any>, _: any, value: K) => {
-          const m = new Map<string, any>(<any>value);
-          m.forEach((value, key) => parent.set(key, value));
+          const m = new Map<string, any>(value as any);
+          m.forEach((mapValue, key) => parent.set(key, mapValue));
           return parent;
         },
 
         // Clone
         () =>
           object instanceof WeakMap
-            ? new WeakMap<Object, any>(<any>object)
-            : new Map<string, any>(<any>object),
+            ? new WeakMap<object, any>(object as any)
+            : new Map<string, any>(object as any),
       );
     } else if (object instanceof WeakSet || object instanceof Set) {
       return metaOperations(
@@ -238,8 +237,8 @@ export abstract class State {
           if (key != null) {
             return parent.set(key, value);
           } else {
-            const s = new Set(<any>value);
-            s.forEach((value, index) => parent.set(index, value));
+            const s = new Set(value as any);
+            s.forEach((setValue, index) => parent.set(index, setValue));
             s.clear();
             return parent;
           }
@@ -256,8 +255,8 @@ export abstract class State {
         // Clone
         () =>
           object instanceof WeakSet
-            ? new WeakSet<any>(<any>object)
-            : new Set<any>(<any>object),
+            ? new WeakSet<any>(object as any)
+            : new Set<any>(object as any),
       );
     } else if (object instanceof Date) {
       throw new FormException(
@@ -279,9 +278,9 @@ export abstract class State {
           return metaOperations(
             (parent: any, key: any, value: K) => {
               if (key != null) {
-                return Object.assign(parent, { [key]: value });
+                return { ...parent, [key]: value };
               }
-              return Object.assign(parent, value);
+              return { ...parent, ...value as any };
             },
             (parent: any, _: any, value: K) => {
               for (const k of Object.keys(value)) {
@@ -289,7 +288,7 @@ export abstract class State {
               }
               return parent;
             },
-            () => Object.assign({}, object),
+            () => ({ ...object as any }),
           );
         default:
           break;

@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
 import {
-  NgReduxTestingModule,
   MockNgRedux,
+  NgReduxTestingModule,
 } from '@angular-redux/store/testing';
+import { TestBed } from '@angular/core/testing';
 
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/toArray';
 
 import { FeedbackFormComponent } from './page';
 
