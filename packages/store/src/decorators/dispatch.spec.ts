@@ -1,5 +1,5 @@
-import { Reducer, Action, AnyAction } from 'redux';
 import { NgZone } from '@angular/core';
+import { Action, AnyAction, Reducer } from 'redux';
 import { NgRedux } from '../components/ng-redux';
 import { ObservableStore } from '../components/observable-store';
 import { RootStore } from '../components/root-store';
@@ -12,18 +12,18 @@ class MockNgZone extends NgZone {
   }
 }
 
-interface IAppState {
+interface AppState {
   value: string;
   instanceProperty?: string;
 }
 
-type PayloadAction = Action & { payload?: IAppState };
+type PayloadAction = Action & { payload?: AppState };
 
 describe('@dispatch', () => {
   let ngRedux;
   const mockNgZone = new MockNgZone({ enableLongStackTrace: false }) as NgZone;
-  let defaultState: IAppState;
-  let rootReducer: Reducer<IAppState, AnyAction>;
+  let defaultState: AppState;
+  let rootReducer: Reducer<AppState, AnyAction>;
 
   beforeEach(() => {
     defaultState = {
@@ -36,7 +36,7 @@ describe('@dispatch', () => {
         case 'TEST':
           const { value = null, instanceProperty = null } =
             action.payload || {};
-          return Object.assign({}, state, { value, instanceProperty });
+          return { ...state, value, instanceProperty };
         case 'CONDITIONAL_DISPATCH_TEST':
           return { ...state, ...action.payload };
         default:
@@ -50,6 +50,7 @@ describe('@dispatch', () => {
   });
 
   describe('on the RootStore', () => {
+    // tslint:disable-next-line:max-classes-per-file
     class TestClass {
       instanceProperty = 'test';
 
@@ -122,7 +123,7 @@ describe('@dispatch', () => {
     });
 
     it('should call dispatch with result of function normally', () => {
-      const result = <PayloadAction>instance.conditionalDispatchMethod(true);
+      const result = instance.conditionalDispatchMethod(true) as PayloadAction;
       expect(result.type).toBe('CONDITIONAL_DISPATCH_TEST');
       expect(result.payload && result.payload.value).toBe(
         'Conditional Dispatch Action',
@@ -190,6 +191,8 @@ describe('@dispatch', () => {
 
   describe('On a substore', () => {
     const localReducer = (state: any, _: Action) => state;
+
+    // tslint:disable-next-line:max-classes-per-file
     @WithSubStore({
       basePathMethodName: 'getBasePath',
       localReducer,

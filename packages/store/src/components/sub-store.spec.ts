@@ -1,9 +1,9 @@
 import { NgZone } from '@angular/core';
 import { Action, AnyAction } from 'redux';
-import { RootStore } from './root-store';
+import { take, toArray } from 'rxjs/operators';
 import { NgRedux } from './ng-redux';
 import { ObservableStore } from './observable-store';
-import { take, toArray } from 'rxjs/operators';
+import { RootStore } from './root-store';
 
 class MockNgZone extends NgZone {
   run<T>(fn: (...args: any[]) => T): T {
@@ -11,15 +11,15 @@ class MockNgZone extends NgZone {
   }
 }
 
-interface ISubState {
+interface SubState {
   wat: {
     quux: number;
   };
 }
 
-interface IAppState {
+interface AppState {
   foo: {
-    bar: ISubState;
+    bar: SubState;
   };
 }
 
@@ -27,11 +27,11 @@ describe('Substore', () => {
   const defaultReducer = (state: any, _: Action) => state;
 
   const basePath = ['foo', 'bar'];
-  let ngRedux: NgRedux<IAppState>;
-  let subStore: ObservableStore<ISubState>;
+  let ngRedux: NgRedux<AppState>;
+  let subStore: ObservableStore<SubState>;
 
   beforeEach(() => {
-    ngRedux = new RootStore<IAppState>(new MockNgZone({
+    ngRedux = new RootStore<AppState>(new MockNgZone({
       enableLongStackTrace: false,
     }) as NgZone);
     ngRedux.configureStore(defaultReducer, {
@@ -40,7 +40,7 @@ describe('Substore', () => {
       },
     });
 
-    subStore = ngRedux.configureSubStore<ISubState>(basePath, defaultReducer);
+    subStore = ngRedux.configureSubStore<SubState>(basePath, defaultReducer);
   });
 
   it('adds a key to actions it dispatches', () =>
@@ -56,7 +56,7 @@ describe('Substore', () => {
     subStore.select('wat').subscribe(wat => expect(wat).toEqual({ quux: 3 }));
   });
 
-  it(`handles property selection on a base path that doesn't exist yet`, () => {
+  it("handles property selection on a base path that doesn't exist yet", () => {
     const nonExistentSubStore = ngRedux.configureSubStore(
       ['sure', 'whatever'],
       (state: any, action: any) => ({ ...state, value: action.newValue }),
@@ -74,7 +74,7 @@ describe('Substore', () => {
     });
   });
 
-  it(`handles path selection on a base path that doesn't exist yet`, () => {
+  it("handles path selection on a base path that doesn't exist yet", () => {
     const nonExistentSubStore = ngRedux.configureSubStore(
       ['sure', 'whatever'],
       (state: any, action: any) => ({ ...state, value: action.newValue }),
@@ -92,7 +92,7 @@ describe('Substore', () => {
     });
   });
 
-  it(`handles function selection on a base path that doesn't exist yet`, () => {
+  it("handles function selection on a base path that doesn't exist yet", () => {
     const nonExistentSubStore = ngRedux.configureSubStore(
       ['sure', 'whatever'],
       (state: any, action: any) => ({ ...state, value: action.newValue }),

@@ -4,21 +4,21 @@ import { NgModule } from '@angular/core';
 // @angular-redux/form and @angular-redux/router are optional
 // extensions that sync form and route location state between
 // our store and Angular.
-import {
-  NgReduxModule,
-  NgRedux,
-  DevToolsExtension,
-} from '@angular-redux/store';
-import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
 import { provideReduxForms } from '@angular-redux/form';
+import { NgReduxRouter, NgReduxRouterModule } from '@angular-redux/router';
+import {
+  DevToolsExtension,
+  NgRedux,
+  NgReduxModule,
+} from '@angular-redux/store';
 
 // Redux ecosystem stuff.
 import { createLogger } from 'redux-logger';
 
 // The top-level reducers and epics that make up our app's logic.
-import { IAppState } from './model';
-import { rootReducer } from './reducers';
 import { RootEpics } from './epics';
+import { AppState } from './model';
+import { rootReducer } from './reducers';
 
 @NgModule({
   imports: [NgReduxModule, NgReduxRouterModule],
@@ -26,7 +26,7 @@ import { RootEpics } from './epics';
 })
 export class StoreModule {
   constructor(
-    public store: NgRedux<IAppState>,
+    public store: NgRedux<AppState>,
     devTools: DevToolsExtension,
     ngReduxRouter: NgReduxRouter,
     rootEpics: RootEpics,

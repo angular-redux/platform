@@ -1,20 +1,22 @@
+// TODO: See if this linting rule can be enabled with new build process (ng-packagr)
+// tslint:disable:no-implicit-dependencies
+// tslint:disable:member-ordering
 import {
-  NgRedux,
-  Selector,
   Comparator,
+  NgRedux,
   PathSelector,
+  Selector,
 } from '@angular-redux/store';
 import {
   AnyAction,
-  Reducer,
   Dispatch,
   Middleware,
+  Reducer,
   Store,
   StoreEnhancer,
 } from 'redux';
 import { Observable, Subject } from 'rxjs';
 import { MockObservableStore } from './observable-store.mock';
-// tslint:disable:member-ordering
 /**
  * Convenience mock to make it easier to control selector
  * behaviour in unit tests.
@@ -22,8 +24,6 @@ import { MockObservableStore } from './observable-store.mock';
 export class MockNgRedux<T = {}> extends NgRedux<T> {
   /** @deprecated Use MockNgRedux.getInstance() instead. */
   static mockInstance?: MockNgRedux<any> = undefined;
-
-  private mockRootStore = new MockObservableStore<any>();
 
   /**
    * Returns a subject that's connected to any observable returned by the
@@ -64,7 +64,7 @@ export class MockNgRedux<T = {}> extends NgRedux<T> {
    */
   static reset(): void {
     MockNgRedux.getInstance().mockRootStore.reset();
-    NgRedux.instance = MockNgRedux.mockInstance;
+    NgRedux.instance = MockNgRedux.mockInstance as any;
   }
 
   /**
@@ -75,31 +75,31 @@ export class MockNgRedux<T = {}> extends NgRedux<T> {
     MockNgRedux.mockInstance = MockNgRedux.mockInstance || new MockNgRedux();
     return MockNgRedux.mockInstance;
   }
+  //
+  private mockRootStore = new MockObservableStore<any>();
 
-  provideStore = (_: Store<any>): void => {};
-  configureStore = (
-    _: Reducer<any, AnyAction>,
-    __: any,
-    ___?: Middleware[],
-    ____?: StoreEnhancer<any>[],
-  ): void => {};
-
-  configureSubStore = this.mockRootStore.configureSubStore;
-
+  configureSubStore = this.mockRootStore.configureSubStore as any;
+  dispatch = this.mockRootStore.dispatch as Dispatch<any>;
+  getState = this.mockRootStore.getState as any;
+  subscribe = this.mockRootStore.subscribe;
+  replaceReducer = this.mockRootStore.replaceReducer;
   select: <SelectedType>(
     selector?: Selector<T, SelectedType>,
     comparator?: Comparator,
   ) => Observable<SelectedType> = this.mockRootStore.select;
 
-  dispatch = this.mockRootStore.dispatch as Dispatch<any>;
-  getState = this.mockRootStore.getState;
-  subscribe = this.mockRootStore.subscribe;
-  replaceReducer = this.mockRootStore.replaceReducer;
-
   /** @hidden */
-  private constructor() {
+  constructor() {
     super();
     // This hooks the mock up to @select.
-    NgRedux.instance = this;
+    NgRedux.instance = this as any;
   }
+
+  provideStore = (_: Store<any>): void => undefined;
+  configureStore = (
+    _: Reducer<any, AnyAction>,
+    __: any,
+    ___?: Middleware[],
+    ____?: StoreEnhancer<any>[],
+  ): void => undefined;
 }

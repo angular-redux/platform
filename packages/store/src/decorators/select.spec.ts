@@ -1,3 +1,5 @@
+// tslint:disable:max-classes-per-file
+
 import { NgZone } from '@angular/core';
 import { Action } from 'redux';
 
@@ -8,7 +10,7 @@ import { NgRedux } from '../components/ng-redux';
 import { RootStore } from '../components/root-store';
 import { select, select$ } from './select';
 
-interface IAppState {
+interface AppState {
   foo: string;
   baz: number;
 }
@@ -20,23 +22,22 @@ class MockNgZone {
 }
 
 describe('Select decorators', () => {
-  let ngRedux: NgRedux<IAppState>;
+  let ngRedux: NgRedux<AppState>;
 
   const mockNgZone = (new MockNgZone() as any) as NgZone;
   const defaultState = { foo: 'bar', baz: -1 };
 
   const rootReducer = (state = defaultState, action: PayloadAction) =>
-    action.payload ? Object.assign({}, state, { baz: action.payload }) : state;
+    action.payload ? { ...state, baz: action.payload } : state;
 
   beforeEach(() => {
-    ngRedux = new RootStore<IAppState>(mockNgZone);
+    ngRedux = new RootStore<AppState>(mockNgZone);
     NgRedux.instance = ngRedux;
     ngRedux.configureStore(rootReducer, defaultState);
   });
 
   describe('@select', () => {
     describe('when passed no arguments', () => {
-      // tslint:disable-next-line:max-line-length
       it('binds to a store property that matches the name of the class property', done => {
         class MockClass {
           @select() baz: Observable<number>;
@@ -56,7 +57,6 @@ describe('Select decorators', () => {
         ngRedux.dispatch({ type: 'nvm', payload: 1 });
       });
 
-      // tslint:disable-next-line:max-line-length
       it('binds by name ignoring any $ characters in the class property name', done => {
         class MockClass {
           @select() baz$: Observable<number>;
@@ -78,7 +78,6 @@ describe('Select decorators', () => {
     });
 
     describe('when passed a string', () => {
-      // tslint:disable-next-line:max-line-length
       it('binds to the store property whose name matches the string value', done => {
         class MockClass {
           @select('baz') obs$: Observable<number>;
@@ -101,7 +100,7 @@ describe('Select decorators', () => {
 
     describe('when passed a function', () => {
       it('attempts to use that function as the selector function', done => {
-        const selector = (state: IAppState) => state.baz * 2;
+        const selector = (state: AppState) => state.baz * 2;
         class MockClass {
           @select(selector) obs$: Observable<number>;
         }

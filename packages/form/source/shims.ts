@@ -1,10 +1,10 @@
 import {
+  CheckboxControlValueAccessor,
   ControlContainer,
   ControlValueAccessor,
-  CheckboxControlValueAccessor,
+  RadioControlValueAccessor,
   SelectControlValueAccessor,
   SelectMultipleControlValueAccessor,
-  RadioControlValueAccessor,
 } from '@angular/forms';
 
 export function controlPath(name: string, parent: ControlContainer): string[] {

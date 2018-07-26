@@ -6,7 +6,7 @@ export const ANIMAL_TYPES = {
 // TODO: is there a way to improve this?
 export type AnimalType = string;
 
-export interface IAnimal {
+export interface Animal {
   id: string;
   animalType: AnimalType;
   name: string;
@@ -14,13 +14,13 @@ export interface IAnimal {
   tickets: number;
 }
 
-export interface IAnimalList {
+export interface AnimalList {
   items: {};
   loading: boolean;
   error: any;
 }
 
-export const fromServer = (record: any): IAnimal => ({
+export const fromServer = (record: any): Animal => ({
   id: record.name.toLowerCase(),
   animalType: record.animalType,
   name: record.name,

@@ -1,16 +1,17 @@
-import { NgZone, Component, Injectable } from '@angular/core';
-import { Action } from 'redux';
+// tslint:disable:max-classes-per-file
 
+import { Component, Injectable, NgZone } from '@angular/core';
+import { Action } from 'redux';
 import { Observable } from 'rxjs';
 import { map, take, toArray } from 'rxjs/operators';
 
-import { WithSubStore } from './with-sub-store';
-import { select, select$ } from './select';
-import { dispatch } from './dispatch';
-import { PathSelector } from '../components/selectors';
-import { ObservableStore } from '../components/observable-store';
 import { NgRedux } from '../components/ng-redux';
+import { ObservableStore } from '../components/observable-store';
 import { RootStore } from '../components/root-store';
+import { PathSelector } from '../components/selectors';
+import { dispatch } from './dispatch';
+import { select, select$ } from './select';
+import { WithSubStore } from './with-sub-store';
 
 class MockNgZone extends NgZone {
   run<T>(fn: (...args: any[]) => T): T {
@@ -134,7 +135,7 @@ describe('@WithSubStore', () => {
       @WithSubStore({ basePathMethodName, localReducer: iDontExistYetReducer })
       class TestClass {
         @select('nonexistentkey') obs$: Observable<string>;
-        getSubStorePath = (): PathSelector => ['I', `don't`, 'exist', 'yet'];
+        getSubStorePath = (): PathSelector => ['I', "don't", 'exist', 'yet'];
         @dispatch()
         makeItExist = (newValue: string) => ({ type: 'nvm', newValue });
       }
@@ -145,9 +146,7 @@ describe('@WithSubStore', () => {
           take(2),
           toArray(),
         )
-        .subscribe((v: Array<any>) =>
-          expect(v).toEqual([undefined, 'now I exist']),
-        );
+        .subscribe((v: any[]) => expect(v).toEqual([undefined, 'now I exist']));
       testInstance.makeItExist('now I exist');
     });
   });
@@ -224,24 +223,24 @@ describe('@WithSubStore', () => {
     it('@Component', () => {
       @Component({ template: '<p>Wat</p>' })
       @WithSubStore({ basePathMethodName, localReducer })
-      class TestClass {
+      class TestComponent {
         @select() foo$: Observable<string>;
         getSubStorePath = (): PathSelector => ['a', 'b'];
       }
 
-      const testInstance = new TestClass();
+      const testInstance = new TestComponent();
       testInstance.foo$.pipe(take(1)).subscribe(v => expect(v).toEqual('Foo!'));
     });
 
     it('@Component the other way round', () => {
       @WithSubStore({ basePathMethodName, localReducer })
       @Component({ template: '<p>Wat</p>' })
-      class TestClass {
+      class TestComponent {
         @select() foo$: Observable<string>;
         getSubStorePath = (): PathSelector => ['a', 'b'];
       }
 
-      const testInstance = new TestClass();
+      const testInstance = new TestComponent();
       testInstance.foo$.pipe(take(1)).subscribe(v => expect(v).toEqual('Foo!'));
     });
 
@@ -271,7 +270,6 @@ describe('@WithSubStore', () => {
   });
 
   describe('with inheritance', () => {
-    // tslint:disable-next-line:max-line-length
     it('lets you select in a super class against a path from the sub class', () => {
       @WithSubStore({ basePathMethodName, localReducer })
       class SuperClass {
@@ -286,7 +284,6 @@ describe('@WithSubStore', () => {
       testInstance.foo$.pipe(take(1)).subscribe(v => expect(v).toEqual('Foo!'));
     });
 
-    // tslint:disable-next-line:max-line-length
     it('lets you select in a sub class against a path from the super class', () => {
       @WithSubStore({ basePathMethodName, localReducer })
       class SuperClass {

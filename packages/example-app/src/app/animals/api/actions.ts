@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { dispatch } from '@angular-redux/store';
+import { Injectable } from '@angular/core';
 import { FluxStandardAction } from 'flux-standard-action';
-import { IAnimal, AnimalType } from '../model';
+import { Animal, AnimalType } from '../model';
 
 // Flux-standard-action gives us stronger typing of our actions.
-type Payload = IAnimal[];
+type Payload = Animal[];
 interface MetaData {
   animalType: AnimalType;
 }

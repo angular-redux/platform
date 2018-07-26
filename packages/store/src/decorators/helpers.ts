@@ -1,13 +1,13 @@
-import { Reducer, AnyAction } from 'redux';
+import { AnyAction, Reducer } from 'redux';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { NgRedux } from '../components/ng-redux';
 import { ObservableStore } from '../components/observable-store';
 import {
-  Selector,
-  PathSelector,
   Comparator,
+  PathSelector,
+  Selector,
   Transformer,
 } from '../components/selectors';
-import { distinctUntilChanged } from 'rxjs/operators';
 
 /**
  * Used with the `@WithSubStore` class decorator to define a SubStore (AKA a
@@ -16,7 +16,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
  * For more info on substores, see
  * https://github.com/angular-redux/store/blob/master/articles/fractal-store.md
  */
-export interface IFractalStoreOptions {
+export interface FractalStoreOptions {
   /**
    * The name of an instance method that will define the
    * base path for the subStore. This method is expected to return an array
@@ -59,13 +59,13 @@ const INSTANCE_SELECTIONS_KEY =
  */
 const INSTANCE_BASE_PATH_KEY = '@angular-redux::substore::instance::basepath';
 
-const getClassOptions = (decoratedInstance: any): IFractalStoreOptions =>
+const getClassOptions = (decoratedInstance: any): FractalStoreOptions =>
   decoratedInstance.constructor[OPTIONS_KEY];
 
 /** @hidden */
 export const setClassOptions = (
   decoratedClassConstructor: any,
-  options: IFractalStoreOptions,
+  options: FractalStoreOptions,
 ): void => {
   decoratedClassConstructor[OPTIONS_KEY] = options;
 };

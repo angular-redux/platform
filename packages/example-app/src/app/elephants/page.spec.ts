@@ -1,19 +1,19 @@
-import { TestBed } from '@angular/core/testing';
 import {
-  NgReduxTestingModule,
   MockNgRedux,
+  NgReduxTestingModule,
 } from '@angular-redux/store/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { Component, Input } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/toArray';
+import { Observable } from 'rxjs/Observable';
 
-import { ElephantPageComponent } from './page';
 import { AnimalAPIActions } from '../animals/api/actions';
 import { ANIMAL_TYPES } from '../animals/model';
+import { ElephantPageComponent } from './page';
 
 @Component({
   selector: 'zoo-animal-list',

@@ -1,10 +1,10 @@
-import { Input } from '@angular/core';
+import { AfterContentInit, Input, OnDestroy } from '@angular/core';
 
 import {
   AbstractControl,
+  FormArray,
   FormControl,
   FormGroup,
-  FormArray,
   NgControl,
 } from '@angular/forms';
 
@@ -18,19 +18,12 @@ import { FormStore } from '../form-store';
 import { State } from '../state';
 
 export interface ControlPair {
-  path: Array<string>;
+  path: string[];
   control: AbstractControl;
 }
 
-export class ConnectBase {
-  @Input('connect') connect?: () => (string | number) | Array<string | number>;
-  private stateSubscription?: Unsubscribe;
-
-  private formSubscription?: Subscription;
-  protected store?: FormStore;
-  protected form: any;
-
-  public get path(): Array<string> {
+export class ConnectBase implements OnDestroy, AfterContentInit {
+  get path(): string[] {
     const path =
       typeof this.connect === 'function' ? this.connect() : this.connect;
 
@@ -40,10 +33,10 @@ export class ConnectBase {
           return [];
         }
         if (Array.isArray(path)) {
-          return <Array<string>>path;
+          return path as string[];
         }
       case 'string':
-        return (<string>path).split(/\./g);
+        return (path as string).split(/\./g);
       default:
         // fallthrough above (no break)
         throw new Error(
@@ -51,6 +44,12 @@ export class ConnectBase {
         );
     }
   }
+  @Input() connect?: () => (string | number) | (string | number)[];
+  protected store?: FormStore;
+  protected form: any;
+  private stateSubscription?: Unsubscribe;
+
+  private formSubscription?: Subscription;
 
   ngOnDestroy() {
     if (this.formSubscription) {
@@ -71,22 +70,19 @@ export class ConnectBase {
       }
 
       Promise.resolve().then(() => {
-        this.formSubscription = (<any>this.form.valueChanges)
+        this.formSubscription = (this.form.valueChanges as any)
           .pipe(debounceTime(0))
           .subscribe((values: any) => this.publish(values));
       });
     });
   }
 
-  private descendants(
-    path: Array<string>,
-    formElement: any,
-  ): Array<ControlPair> {
+  private descendants(path: string[], formElement: any): ControlPair[] {
     const pairs = new Array<ControlPair>();
 
     if (formElement instanceof FormArray) {
       formElement.controls.forEach((c, index) => {
-        for (const d of this.descendants((<any>path).concat([index]), c)) {
+        for (const d of this.descendants((path as any).concat([index]), c)) {
           pairs.push(d);
         }
       });
@@ -101,7 +97,7 @@ export class ConnectBase {
       formElement instanceof NgControl ||
       formElement instanceof FormControl
     ) {
-      return [{ path: path, control: <any>formElement }];
+      return [{ path, control: formElement as any }];
     } else {
       throw new Error(
         `Unknown type of form element: ${formElement.constructor.name}`,
@@ -115,12 +111,8 @@ export class ConnectBase {
   }
 
   private resetState() {
-    var formElement;
-    if (this.form.control === undefined) {
-      formElement = this.form;
-    } else {
-      formElement = this.form.control;
-    }
+    const formElement =
+      this.form.control === undefined ? this.form : this.form.control;
 
     const children = this.descendants([], formElement);
 

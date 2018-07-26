@@ -8,13 +8,15 @@ import { AbstractStore, FormStore } from './form-store';
 export const provideReduxForms = <T>(store: Store<T> | any) => {
   const abstractStore = wrap(store);
 
-  return [{ provide: FormStore, useValue: new FormStore(<any>abstractStore) }];
+  return [
+    { provide: FormStore, useValue: new FormStore(abstractStore as any) },
+  ];
 };
 
 const wrap = <T>(store: Store<T> | any): AbstractStore<T> => {
   const dispatch = (action: Action) => store.dispatch(action);
 
-  const getState = () => <T>store.getState();
+  const getState = () => store.getState() as T;
 
   const subscribe = (fn: (state: T) => void) =>
     store.subscribe(() => fn(store.getState()));

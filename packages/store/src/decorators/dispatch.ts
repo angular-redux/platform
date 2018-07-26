@@ -9,11 +9,11 @@ import { getBaseStore } from './helpers';
  */
 export function dispatch(): PropertyDecorator {
   return function decorate(
-    target: Object,
+    target: object,
     key: string | symbol | number,
     descriptor?: PropertyDescriptor,
   ): PropertyDescriptor {
-    let originalMethod: Function;
+    let originalMethod: () => void;
 
     const wrapped = function(this: any, ...args: any[]) {
       const result = originalMethod.apply(this, args);

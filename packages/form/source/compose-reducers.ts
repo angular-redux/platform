@@ -1,4 +1,4 @@
-import { Reducer, AnyAction } from 'redux';
+import { AnyAction, Reducer } from 'redux';
 
 export const composeReducers = <State>(
   ...reducers: Reducer<State, AnyAction>[]
