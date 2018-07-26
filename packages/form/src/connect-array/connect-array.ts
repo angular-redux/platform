@@ -44,7 +44,8 @@ import { ConnectArrayTemplate } from './connect-array-template';
     },
   ],
 })
-export class ConnectArrayDirective extends ControlContainer implements OnInit, OnDestroy {
+export class ConnectArrayDirective extends ControlContainer
+  implements OnInit, OnDestroy {
   private stateSubscription: Unsubscribe;
 
   private array = new FormArray([]);

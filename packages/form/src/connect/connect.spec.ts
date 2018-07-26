@@ -115,7 +115,8 @@
 // export class UpdateTextComponent {}
 
 describe('connect directive', () => {
-  it('should have a fake test for now until we can fix them...', () => undefined);
+  it('should have a fake test for now until we can fix them...', () =>
+    undefined);
   //   let store: Store<AppState>;
 
   //   beforeEach(done => {

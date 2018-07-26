@@ -1,10 +1,6 @@
 // TODO: See if this linting rule can be enabled with new build process (ng-packagr)
 // tslint:disable:no-implicit-dependencies
-import {
-  Comparator,
-  PathSelector,
-  Selector,
-} from '@angular-redux/store';
+import { Comparator, PathSelector, Selector } from '@angular-redux/store';
 import { AnyAction, Dispatch, Reducer } from 'redux';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
