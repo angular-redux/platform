@@ -1,6 +1,6 @@
-import { Store, Reducer, AnyAction } from 'redux';
+import { AnyAction, Reducer, Store } from 'redux';
 import { Observable } from 'rxjs';
-import { Selector, PathSelector, Comparator } from './selectors';
+import { Comparator, PathSelector, Selector } from './selectors';
 
 /**
  * This interface represents the glue that connects the

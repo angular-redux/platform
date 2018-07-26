@@ -1,25 +1,22 @@
-import { map, filter, distinctUntilChanged } from 'rxjs/operators';
-import { Injectable, ApplicationRef } from '@angular/core';
-import { Location } from '@angular/common';
-import {
-  Router,
-  NavigationEnd,
-  NavigationCancel,
-  DefaultUrlSerializer,
-} from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
+import { Location } from '@angular/common';
+import { ApplicationRef, Injectable } from '@angular/core';
+import {
+  DefaultUrlSerializer,
+  NavigationCancel,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { UPDATE_LOCATION } from './actions';
-import { RouterAction, DefaultRouterState } from './reducer';
+import { DefaultRouterState, RouterAction } from './reducer';
 
 @Injectable()
 export class NgReduxRouter {
   private initialized = false;
   private currentLocation?: string;
   private initialLocation?: string;
-
-  private selectLocationFromState: (state: any) => string = state =>
-    state.router;
   private urlState?: Observable<string>;
 
   private urlStateSubscription?: Subscription;
@@ -66,7 +63,7 @@ export class NgReduxRouter {
    */
   initialize(
     selectLocationFromState: (state: any) => string = state => state.router,
-    urlState$: Observable<string> | undefined = undefined,
+    urlState$?: Observable<string> | undefined,
   ) {
     if (this.initialized) {
       throw new Error(
@@ -82,6 +79,9 @@ export class NgReduxRouter {
     this.listenToReduxChanges();
     this.initialized = true;
   }
+
+  private selectLocationFromState: (state: any) => string = state =>
+    state.router;
 
   private getDefaultUrlStateObservable() {
     return this.router.events.pipe(
@@ -112,13 +112,13 @@ export class NgReduxRouter {
         // Fetch initial location from store and make sure
         // we dont dispath an event if the current url equals
         // the initial url.
-        let locationFromStore = this.getLocationFromStore();
+        const locationFromStore = this.getLocationFromStore();
         if (locationFromStore === this.currentLocation) {
           return;
         }
       }
 
-      this.ngRedux.dispatch(<RouterAction>{
+      this.ngRedux.dispatch({
         type: UPDATE_LOCATION,
         payload: location,
       });
@@ -136,7 +136,7 @@ export class NgReduxRouter {
         return;
       }
 
-      let locationInStore = this.getLocationFromStore(true);
+      const locationInStore = this.getLocationFromStore(true);
       if (this.currentLocation === locationInStore) {
         // Dont change router location if its equal to the one in the store.
         return;

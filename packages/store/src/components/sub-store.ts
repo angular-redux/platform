@@ -4,17 +4,17 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { getIn } from '../utils/get-in';
 import {
-  PathSelector,
-  Selector,
-  Comparator,
-  resolveToFunctionSelector,
-} from './selectors';
-import { NgRedux } from './ng-redux';
-import { ObservableStore } from './observable-store';
-import {
   registerFractalReducer,
   replaceLocalReducer,
 } from './fractal-reducer-map';
+import { NgRedux } from './ng-redux';
+import { ObservableStore } from './observable-store';
+import {
+  Comparator,
+  PathSelector,
+  resolveToFunctionSelector,
+  Selector,
+} from './selectors';
 
 /** @hidden */
 export class SubStore<State> implements ObservableStore<State> {
@@ -27,11 +27,10 @@ export class SubStore<State> implements ObservableStore<State> {
   }
 
   dispatch: Dispatch<AnyAction> = action =>
-    this.rootStore.dispatch(
-      Object.assign({}, action, {
-        '@angular-redux::fractalkey': JSON.stringify(this.basePath),
-      }),
-    );
+    this.rootStore.dispatch({
+      ...action as any,
+      '@angular-redux::fractalkey': JSON.stringify(this.basePath),
+    });
 
   getState = (): State => getIn(this.rootStore.getState(), this.basePath);
 

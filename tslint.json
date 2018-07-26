@@ -1,0 +1,72 @@
+{
+  "extends": "tslint:latest",
+  "rulesDirectory": ["node_modules/codelyzer"],
+  "rules": {
+    // Codelyzer
+    "banana-in-box": true,
+    "contextual-life-cycle": true,
+    "decorator-not-allowed": true,
+    "pipe-impure": true,
+    "templates-no-negated-async": true,
+    "trackBy-function": true,
+    "i18n": false,
+    "no-attribute-parameter-decorator": true,
+    "no-forward-ref": false,
+    "no-input-rename": true,
+    "no-output-named-after-standard-event": true,
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-unused-css": false,
+    "use-life-cycle-interface": true,
+    "use-pipe-decorator": true,
+    "use-pipe-transform-interface": true,
+    "use-view-encapsulation": true,
+    "angular-whitespace": [
+      true,
+      "check-interpolation",
+      "check-pipe",
+      "check-semicolon"
+    ],
+    "component-class-suffix": true,
+    "component-selector": ["element", "rdx", "kebab-case"],
+    "directive-class-suffix": true,
+    "directive-selector": ["attribute", "rdx", "camelCase"],
+    "import-destructuring-spacing": true,
+    "pipe-naming": ["camelCase", "rdx"],
+    "use-host-property-decorator": true,
+    "use-input-property-decorator": true,
+    "use-output-property-decorator": true,
+
+    // Preset Overrides
+    "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+    "object-literal-sort-keys": false,
+    "member-access": [true, "no-public"],
+    "arrow-parens": false,
+    "array-type": [true, "array"],
+    "semicolon": false,
+    "trailing-comma": false,
+    "interface-name": [true, "never-prefix"],
+    "no-console": [true, "log", "debug", "info", "time", "timeEnd", "trace"],
+    "object-literal-key-quotes": [true, "as-needed"],
+    "ban-types": [
+      true,
+      ["Object", "Avoid using the `Object` type. Did you mean `object`?"],
+      ["Boolean", "Avoid using the `Boolean` type. Did you mean `boolean`?"],
+      ["Number", "Avoid using the `Number` type. Did you mean `number`?"],
+      ["String", "Avoid using the `String` type. Did you mean `string`?"],
+      ["Symbol", "Avoid using the `Symbol` type. Did you mean `symbol`?"]
+    ],
+    "no-submodule-imports": [
+      true,
+      "core-js",
+      "zone.js",
+      "rxjs",
+      "@angular/core/testing",
+      "@angular/router/testing",
+      "@angular/platform-browser-dynamic/testing",
+      "@angular/platform-browser/animations",
+      "@angular-redux/store/testing"
+    ],
+    "no-implicit-dependencies": [true, "dev"]
+  }
+}

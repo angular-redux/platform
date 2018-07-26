@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Epic, createEpicMiddleware } from 'redux-observable';
-import { of } from 'rxjs/observable/of';
+import { createEpicMiddleware, Epic } from 'redux-observable';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
+import { of } from 'rxjs/observable/of';
 
-import { IAppState } from '../../store/model';
+import { AppState } from '../../store/model';
 import { AnimalType } from '../model';
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
 import { AnimalAPIService } from './service';
 
 const animalsNotAlreadyFetched = (
   animalType: AnimalType,
-  state: IAppState,
+  state: AppState,
 ): boolean =>
   !(
     state[animalType] &&
@@ -32,13 +32,13 @@ export class AnimalAPIEpics {
     private actions: AnimalAPIActions,
   ) {}
 
-  public createEpic(animalType: AnimalType) {
+  createEpic(animalType: AnimalType) {
     return createEpicMiddleware(this.createLoadAnimalEpic(animalType));
   }
 
   private createLoadAnimalEpic(
     animalType: AnimalType,
-  ): Epic<AnimalAPIAction, IAppState> {
+  ): Epic<AnimalAPIAction, AppState> {
     return (action$, store) =>
       action$
         .ofType(AnimalAPIActions.LOAD_ANIMALS)

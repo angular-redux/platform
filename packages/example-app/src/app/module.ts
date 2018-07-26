@@ -1,21 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { NgReduxRouterModule } from '@angular-redux/router';
+import { NgReduxModule } from '@angular-redux/store';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
-import { NgReduxModule } from '@angular-redux/store';
-import { NgReduxRouterModule } from '@angular-redux/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 // This app's ngModules
-import { StoreModule } from './store/module';
 import { AnimalModule } from './animals/module';
 import { ElephantModule } from './elephants/module';
-import { LionModule } from './lions/module';
 import { FeedbackModule } from './feedback/module';
+import { LionModule } from './lions/module';
+import { StoreModule } from './store/module';
 
 // Top-level app component constructs.
-import { appRoutes } from './routes';
 import { AppComponent } from './component';
+import { appRoutes } from './routes';
 
 @NgModule({
   declarations: [AppComponent],

@@ -24,7 +24,7 @@
 // }
 
 describe('NgReduxMock', () => {
-  it('should have a fake test for now until we can fix them...', () => {});
+  it('should have a fake test for now until we can fix them...', () => undefined);
   //   beforeEach(() => {
   //     TestBed.configureTestingModule({
   //       declarations: [TestComponent],

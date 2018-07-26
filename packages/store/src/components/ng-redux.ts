@@ -1,15 +1,15 @@
 import {
   AnyAction,
-  Reducer,
   Dispatch,
-  Unsubscribe,
   Middleware,
+  Reducer,
   Store,
   StoreEnhancer,
+  Unsubscribe,
 } from 'redux';
 import { Observable } from 'rxjs';
 import { ObservableStore } from './observable-store';
-import { Selector, PathSelector, Comparator } from './selectors';
+import { Comparator, PathSelector, Selector } from './selectors';
 
 /**
  * This is the public interface of @angular-redux/store. It wraps the global

@@ -1,7 +1,7 @@
-import { IAnimalList } from '../animals/model';
+import { AnimalList } from '../animals/model';
 
-export interface IAppState {
-  [animalType: string]: IAnimalList;
+export interface AppState {
+  [animalType: string]: AnimalList;
   routes?: any;
   feedback?: any;
 }
