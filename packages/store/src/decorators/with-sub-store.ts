@@ -1,4 +1,4 @@
-import { IFractalStoreOptions, setClassOptions } from './helpers';
+import { FractalStoreOptions, setClassOptions } from './helpers';
 
 /**
  * Modifies the behaviour of any `@select`, `@select$`, or `@dispatch`
@@ -11,7 +11,7 @@ import { IFractalStoreOptions, setClassOptions } from './helpers';
 export function WithSubStore({
   basePathMethodName,
   localReducer,
-}: IFractalStoreOptions): ClassDecorator {
+}: FractalStoreOptions): ClassDecorator {
   return function decorate(constructor: Function): void {
     setClassOptions(constructor, {
       basePathMethodName,

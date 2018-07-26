@@ -1,6 +1,7 @@
-import { Injectable, ApplicationRef } from '@angular/core';
+import { ApplicationRef, Injectable, NgZone } from '@angular/core';
+import { Unsubscribe } from 'redux';
 import { NgRedux } from './ng-redux';
-import { NgZone } from '@angular/core';
+
 declare const window: any;
 const environment: any = typeof window !== 'undefined' ? window : {};
 
@@ -21,8 +22,8 @@ export class DevToolsExtension {
    * format as described here:
    * [zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md]
    */
-  enhancer = (options?: Object) => {
-    let subscription: Function;
+  enhancer = (options?: object) => {
+    let subscription: Unsubscribe;
     if (!this.isEnabled()) {
       return null;
     }

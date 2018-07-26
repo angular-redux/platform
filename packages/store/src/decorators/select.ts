@@ -1,4 +1,4 @@
-import { Selector, Comparator, Transformer } from '../components/selectors';
+import { Comparator, Selector, Transformer } from '../components/selectors';
 import { getInstanceSelection } from './helpers';
 
 /**

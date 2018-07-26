@@ -1,9 +1,9 @@
+import { NgReduxFormModule } from '@angular-redux/form';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NgReduxFormModule } from '@angular-redux/form';
-import { FeedbackFormComponent } from './page';
 import { StoreModule } from '../store/module';
+import { FeedbackFormComponent } from './page';
 
 @NgModule({
   declarations: [FeedbackFormComponent],

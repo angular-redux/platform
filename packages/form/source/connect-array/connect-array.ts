@@ -1,50 +1,50 @@
 import {
+  Directive,
+  EmbeddedViewRef,
   forwardRef,
   Host,
-  Input,
-  SkipSelf,
-  Self,
   Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Self,
+  SkipSelf,
   TemplateRef,
   ViewContainerRef,
-  Directive,
-  Optional,
-  EmbeddedViewRef,
-  OnInit,
 } from '@angular/core';
 import {
   AbstractControl,
+  AsyncValidatorFn,
+  ControlContainer,
   FormArray,
   FormControl,
   FormGroup,
   FormGroupDirective,
+  NG_ASYNC_VALIDATORS,
+  NG_VALIDATORS,
   NgModelGroup,
-  ControlContainer,
+  ValidatorFn,
+  Validators,
 } from '@angular/forms';
-
-import { AsyncValidatorFn, ValidatorFn, Validators } from '@angular/forms';
-import { NG_ASYNC_VALIDATORS, NG_VALIDATORS } from '@angular/forms';
 import { Unsubscribe } from 'redux';
 
 import { ConnectBase } from '../connect';
 import { FormStore } from '../form-store';
-import { State } from '../state';
 import { controlPath } from '../shims';
-
-export class ConnectArrayTemplate {
-  constructor(public $implicit: any, public index: number, public item: any) {}
-}
+import { State } from '../state';
+import { ConnectArrayTemplate } from './connect-array-template';
 
 @Directive({
   selector: '[connectArray]',
   providers: [
     {
       provide: ControlContainer,
-      useExisting: forwardRef(() => ConnectArray),
+      useExisting: forwardRef(() => ConnectArrayDirective),
     },
   ],
 })
-export class ConnectArray extends ControlContainer implements OnInit {
+export class ConnectArrayDirective extends ControlContainer implements OnInit, OnDestroy {
   private stateSubscription: Unsubscribe;
 
   private array = new FormArray([]);
@@ -86,7 +86,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   ngOnInit() {
-    this.formDirective.addControl(<any>this);
+    this.formDirective.addControl(this as any);
   }
 
   get name(): string {
@@ -98,10 +98,10 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   get formDirective(): FormGroupDirective {
-    return <FormGroupDirective>this.parent.formDirective;
+    return this.parent.formDirective as FormGroupDirective;
   }
 
-  get path(): Array<string> {
+  get path(): string[] {
     return this.key ? controlPath(this.key, this.parent) : [];
   }
 
@@ -113,7 +113,9 @@ export class ConnectArray extends ControlContainer implements OnInit {
     return Validators.composeAsync(this.rawAsyncValidators);
   }
 
-  updateValueAndValidity() {}
+  updateValueAndValidity() {
+    // stub?
+  }
 
   ngOnDestroy() {
     this.viewContainerRef.clear();
@@ -135,15 +137,15 @@ export class ConnectArray extends ControlContainer implements OnInit {
     let index = 0;
 
     for (const value of iterable) {
-      var viewRef =
+      const viewRef =
         this.viewContainerRef.length > index
-          ? <EmbeddedViewRef<ConnectArrayTemplate>>(
-              this.viewContainerRef.get(index)
-            )
+          ? (this.viewContainerRef.get(index) as EmbeddedViewRef<
+              ConnectArrayTemplate
+            >)
           : null;
 
       if (viewRef == null) {
-        const viewRef = this.viewContainerRef.createEmbeddedView<
+        const embeddedViewRef = this.viewContainerRef.createEmbeddedView<
           ConnectArrayTemplate
         >(
           this.templateRef,
@@ -151,11 +153,11 @@ export class ConnectArray extends ControlContainer implements OnInit {
           index,
         );
 
-        this.patchDescendantControls(viewRef);
+        this.patchDescendantControls(embeddedViewRef);
 
         this.array.insert(
           index,
-          this.transform(this.array, viewRef.context.item),
+          this.transform(this.array, embeddedViewRef.context.item),
         );
       } else {
         Object.assign(
@@ -173,8 +175,8 @@ export class ConnectArray extends ControlContainer implements OnInit {
   }
 
   private registerInternals(array: any) {
-    array.registerControl = () => {};
-    array.registerOnChange = () => {};
+    array.registerControl = () => undefined;
+    array.registerOnChange = () => undefined;
 
     Object.defineProperties(this, {
       _rawValidators: {
@@ -197,7 +199,7 @@ export class ConnectArray extends ControlContainer implements OnInit {
           value: this,
         },
         _checkParentType: {
-          value: () => {},
+          value: () => undefined,
         },
       });
     });
@@ -262,11 +264,11 @@ export class ConnectArray extends ControlContainer implements OnInit {
     };
 
     if (Array.isArray(reference)) {
-      return iterate(<Array<any>>reference);
+      return iterate(reference as any[]);
     } else if (reference instanceof Set) {
-      return iterate(<Set<any>>reference);
+      return iterate(reference as Set<any>);
     } else if (reference instanceof Map) {
-      return associate(<Map<string, any>>reference);
+      return associate(reference as Map<string, any>);
     } else if (reference instanceof Object) {
       return associate(reference);
     } else {

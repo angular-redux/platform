@@ -7,7 +7,7 @@ import { ConnectBase } from './connect-base';
 
 // For template forms (with implicit NgForm)
 @Directive({ selector: 'form[connect]:not([formGroup])' })
-export class Connect extends ConnectBase {
+export class ConnectDirective extends ConnectBase {
   constructor(protected store: FormStore, protected form: NgForm) {
     super();
   }

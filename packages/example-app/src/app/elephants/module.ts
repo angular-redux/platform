@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { ElephantPageComponent } from './page';
 import { AnimalModule } from '../animals/module';
 import { CoreModule } from '../core/module';
 import { StoreModule } from '../store/module';
+import { ElephantPageComponent } from './page';
 
 @NgModule({
   declarations: [ElephantPageComponent],

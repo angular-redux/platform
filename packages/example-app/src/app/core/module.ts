@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { SpinnerComponent } from './spinner/component';
-import { ErrorWellComponent } from './error-well/component';
 import { CounterComponent } from './counter/component';
+import { ErrorWellComponent } from './error-well/component';
+import { SpinnerComponent } from './spinner/component';
 
 @NgModule({
   declarations: [SpinnerComponent, ErrorWellComponent, CounterComponent],

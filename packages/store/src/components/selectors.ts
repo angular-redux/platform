@@ -1,5 +1,5 @@
-import { getIn } from '../utils/get-in';
 import { Observable } from 'rxjs';
+import { getIn } from '../utils/get-in';
 
 /**
  * Custom equality checker that can be used with `.select` and `@select`.

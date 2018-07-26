@@ -1,7 +1,7 @@
 import { AnyAction, Reducer } from 'redux';
-import { PathSelector } from './selectors';
-import { setIn } from '../utils/set-in';
 import { getIn } from '../utils/get-in';
+import { setIn } from '../utils/set-in';
+import { PathSelector } from './selectors';
 
 let reducerMap: { [id: string]: Reducer<any, AnyAction> } = {};
 

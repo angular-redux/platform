@@ -1,11 +1,11 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { dispatch, select, select$, WithSubStore } from '@angular-redux/store';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { Animal } from '../model';
 import { animalComponentReducer } from './reducers';
-import { IAnimal } from '../model';
 
-export const toSubTotal = (obs$: Observable<IAnimal>): Observable<number> =>
+export const toSubTotal = (obs$: Observable<Animal>): Observable<number> =>
   obs$.map(s => s.ticketPrice * s.tickets);
 
 /**

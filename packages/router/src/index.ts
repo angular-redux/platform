@@ -1,8 +1,7 @@
-import { ModuleWithProviders } from '@angular/core';
-import { NgModule } from '@angular/core';
-import { NgReduxRouter } from './router';
-import { RouterAction, routerReducer } from './reducer';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { UPDATE_LOCATION } from './actions';
+import { RouterAction, routerReducer } from './reducer';
+import { NgReduxRouter } from './router';
 
 @NgModule()
 export class NgReduxRouterModule {

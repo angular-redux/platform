@@ -1,6 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IAnimal } from '../model';
+import { Animal } from '../model';
 
 @Component({
   selector: 'zoo-animal-list',
@@ -11,14 +11,14 @@ import { IAnimal } from '../model';
 export class AnimalListComponent {
   @Input() animalsName: string;
   @Input() animalType: string;
-  @Input() animals: Observable<IAnimal[]>;
+  @Input() animals: Observable<Animal[]>;
   @Input() loading: Observable<boolean>;
   @Input() error: Observable<any>;
 
   // Since we're observing an array of items, we need to set up a 'trackBy'
   // parameter so Angular doesn't tear down and rebuild the list's DOM every
   // time there's an update.
-  getKey(_, animal: IAnimal) {
+  getKey(_, animal: Animal) {
     return animal.id;
   }
 }

@@ -1,11 +1,12 @@
+// TODO: See if this linting rule can be enabled with new build process (ng-packagr)
+// tslint:disable:no-implicit-dependencies
 import {
-  Selector,
   Comparator,
-  ObservableStore,
   PathSelector,
+  Selector,
 } from '@angular-redux/store';
-import { AnyAction, Reducer, Dispatch } from 'redux';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { AnyAction, Dispatch, Reducer } from 'redux';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 /** @hidden */
@@ -25,7 +26,7 @@ export interface SubStoreStubMap {
 }
 
 /** @hidden */
-export class MockObservableStore<State> implements ObservableStore<any> {
+export class MockObservableStore<State> {
   selections: SelectorStubMap = {};
   subStores: SubStoreStubMap = {};
 
@@ -43,7 +44,7 @@ export class MockObservableStore<State> implements ObservableStore<any> {
 
   dispatch: Dispatch<AnyAction> = action => action;
   replaceReducer = () => null;
-  getState = () => ({} as State);
+  getState = () => ({});
   subscribe = () => () => null;
 
   select = <SelectedState>(

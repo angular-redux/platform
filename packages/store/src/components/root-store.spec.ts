@@ -1,12 +1,12 @@
 import { NgZone } from '@angular/core';
-import { createStore, Reducer, Action, AnyAction, Store } from 'redux';
+import { Action, AnyAction, createStore, Reducer, Store } from 'redux';
 
 import { Observable } from 'rxjs';
 import { combineLatest, filter } from 'rxjs/operators';
 
+import { select } from '../decorators/select';
 import { NgRedux } from './ng-redux';
 import { RootStore } from './root-store';
-import { select } from '../decorators/select';
 
 class MockNgZone extends NgZone {
   run<T>(fn: (...args: any[]) => T): T {
@@ -17,16 +17,16 @@ class MockNgZone extends NgZone {
 type PayloadAction = Action & { payload?: string | number };
 
 describe('NgRedux Observable Store', () => {
-  interface IAppState {
+  interface AppState {
     foo: string;
     bar: string;
     baz: number;
   }
 
-  let defaultState: IAppState;
-  let rootReducer: Reducer<IAppState, AnyAction>;
-  let store: Store<IAppState>;
-  let ngRedux: NgRedux<IAppState>;
+  let defaultState: AppState;
+  let rootReducer: Reducer<AppState, AnyAction>;
+  let store: Store<AppState>;
+  let ngRedux: NgRedux<AppState>;
   const mockNgZone = new MockNgZone({ enableLongStackTrace: false }) as NgZone;
 
   beforeEach(() => {
@@ -39,18 +39,18 @@ describe('NgRedux Observable Store', () => {
     rootReducer = (state = defaultState, action: PayloadAction) => {
       switch (action.type) {
         case 'UPDATE_FOO':
-          return Object.assign({}, state, { foo: action.payload });
+          return { ...state, foo: action.payload };
         case 'UPDATE_BAZ':
-          return Object.assign({}, state, { baz: action.payload });
+          return { ...state, baz: action.payload };
         case 'UPDATE_BAR':
-          return Object.assign({}, state, { bar: action.payload });
+          return { ...state, bar: action.payload };
         default:
           return state;
       }
     };
 
     store = createStore(rootReducer);
-    ngRedux = new RootStore<IAppState>(mockNgZone);
+    ngRedux = new RootStore<AppState>(mockNgZone);
     ngRedux.configureStore(rootReducer, defaultState);
   });
 
@@ -63,7 +63,7 @@ describe('NgRedux Observable Store', () => {
   });
 
   it('should get the initial state', done =>
-    ngRedux.select<any>().subscribe((state: IAppState) => {
+    ngRedux.select<any>().subscribe((state: AppState) => {
       expect(state.foo).toEqual('bar');
       expect(state.baz).toEqual(-1);
       done();
@@ -137,16 +137,16 @@ describe('NgRedux Observable Store', () => {
     expect(spy.calls.count()).toEqual(3);
   });
 
-  it(`should accept a custom compare function`, () => {
-    interface IRecord {
+  it('should accept a custom compare function', () => {
+    interface Record {
       data?: string;
     }
-    let fooData: IRecord = {};
+    let fooData: Record = {};
 
     const spy = jasmine
       .createSpy('spy')
-      .and.callFake((data: IRecord) => (fooData = data));
-    const cmp = (a: IRecord, b: IRecord) => a.data === b.data;
+      .and.callFake((data: Record) => (fooData = data));
+    const cmp = (a: Record, b: Record) => a.data === b.data;
 
     ngRedux
       .select(state => ({ data: `${state.foo}-${state.baz}` }), cmp)
@@ -168,10 +168,10 @@ describe('NgRedux Observable Store', () => {
     expect(spy.calls.count()).toEqual(3);
   });
 
-  it(`should only call provided select function if state changed`, () => {
+  it('should only call provided select function if state changed', () => {
     const selectSpy = jasmine
       .createSpy('selectSpy')
-      .and.callFake((state: IAppState) => state.foo);
+      .and.callFake((state: AppState) => state.foo);
 
     ngRedux.select().subscribe(selectSpy);
 
@@ -193,18 +193,19 @@ describe('NgRedux Observable Store', () => {
   });
 
   it('should wait until store is configured before emitting values', () => {
+    // tslint:disable-next-line:max-classes-per-file
     class SomeService {
       foo: string;
       bar: string;
       baz: number;
 
-      constructor(_ngRedux: NgRedux<any>) {
-        _ngRedux.select(n => n.foo).subscribe(foo => (this.foo = foo));
-        _ngRedux.select(n => n.bar).subscribe(bar => (this.bar = bar));
-        _ngRedux.select(n => n.baz).subscribe(baz => (this.baz = baz));
+      constructor(stateStore: NgRedux<any>) {
+        stateStore.select(n => n.foo).subscribe(foo => (this.foo = foo));
+        stateStore.select(n => n.bar).subscribe(bar => (this.bar = bar));
+        stateStore.select(n => n.baz).subscribe(baz => (this.baz = baz));
       }
     }
-    ngRedux = new RootStore<IAppState>(mockNgZone);
+    ngRedux = new RootStore<AppState>(mockNgZone);
 
     const someService = new SomeService(ngRedux);
     ngRedux.configureStore(rootReducer, defaultState);
@@ -214,13 +215,14 @@ describe('NgRedux Observable Store', () => {
   });
 
   it('should have select decorators work before store is configured', done => {
+    // tslint:disable-next-line:max-classes-per-file
     class SomeService {
       @select() foo$: Observable<string>;
       @select() bar$: Observable<string>;
       @select() baz$: Observable<number>;
     }
 
-    ngRedux = new RootStore<IAppState>(mockNgZone);
+    ngRedux = new RootStore<AppState>(mockNgZone);
 
     const someService = new SomeService();
     someService.foo$
@@ -237,14 +239,14 @@ describe('NgRedux Observable Store', () => {
 });
 
 describe('Chained actions in subscriptions', () => {
-  interface IAppState {
+  interface AppState {
     keyword: string;
     keywordLength: number;
   }
 
-  let defaultState: IAppState;
-  let rootReducer: Reducer<IAppState, AnyAction>;
-  let ngRedux: NgRedux<IAppState>;
+  let defaultState: AppState;
+  let rootReducer: Reducer<AppState, AnyAction>;
+  let ngRedux: NgRedux<AppState>;
   const mockNgZone = new MockNgZone({ enableLongStackTrace: false }) as NgZone;
 
   const doSearch = (word: string) =>
@@ -261,20 +263,20 @@ describe('Chained actions in subscriptions', () => {
     rootReducer = (state = defaultState, action: PayloadAction) => {
       switch (action.type) {
         case 'SEARCH':
-          return Object.assign({}, state, { keyword: action.payload });
+          return { ...state, keyword: action.payload };
         case 'SEARCH_RESULT':
-          return Object.assign({}, state, { keywordLength: action.payload });
+          return { ...state, keywordLength: action.payload };
         default:
           return state;
       }
     };
 
-    ngRedux = new RootStore<IAppState>(mockNgZone);
+    ngRedux = new RootStore<AppState>(mockNgZone);
     ngRedux.configureStore(rootReducer, defaultState);
   });
 
   describe('dispatching an action in a keyword$ before length$ happens', () => {
-    it(`length sub should be called twice`, () => {
+    it('length sub should be called twice', () => {
       const keyword$ = ngRedux.select(n => n.keyword);
       let keyword = '';
       let length = 0;
@@ -305,7 +307,7 @@ describe('Chained actions in subscriptions', () => {
       lenSub.unsubscribe();
     });
 
-    it(`second sub should get most current state value`, () => {
+    it('second sub should get most current state value', () => {
       const keyword$ = ngRedux.select(n => n.keyword);
       let keyword = '';
       let length = 0;
@@ -337,7 +339,7 @@ describe('Chained actions in subscriptions', () => {
   });
 
   describe('dispatching an action in a keyword$ after length$ happens', () => {
-    it(`length sub should be called twice`, () => {
+    it('length sub should be called twice', () => {
       const keyword$ = ngRedux.select(n => n.keyword);
       let keyword = '';
       let length = 0;
@@ -367,7 +369,7 @@ describe('Chained actions in subscriptions', () => {
       lenSub.unsubscribe();
     });
 
-    it(`first sub should get most current state value`, () => {
+    it('first sub should get most current state value', () => {
       const keyword$ = ngRedux.select(n => n.keyword);
       let keyword = '';
       let length = 0;
