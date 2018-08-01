@@ -54,10 +54,10 @@ export class NgReduxRouter {
    * example in the constructor of your root component.
    *
    *
-   * @param {(state: any) => string} selectLocationFromState Optional: If your
+   * @param selectLocationFromState Optional: If your
    * router state is in a custom location, supply this argument to tell the
    * bindings where to find the router location in the state.
-   * @param {Observable<string>} urlState$ Optional: If you have a custom setup
+   * @param urlState$ Optional: If you have a custom setup
    * when listening to router changes, or use a different router than @angular/router
    * you can supply this argument as an Observable of the current url state.
    */

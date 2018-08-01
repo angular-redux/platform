@@ -2,64 +2,34 @@
   "name": "@angular-redux/store",
   "version": "9.0.0",
   "description": "Angular bindings for Redux",
+  "author": "William Buchwalter <wbuchwalter@gmail.com> (http://github.com/wbuchwalter)",
   "license": "MIT",
-  "keywords": [
-    "redux",
-    "ng2",
-    "angular2",
-    "angular"
-  ],
-  "bugs": {
-    "url": "https://github.com/angular-redux/store/issues"
+  "homepage": "https://github.com/angular-redux/platform",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-redux/platform.git"
   },
-  "homepage": "https://github.com/angular-redux/store#readme",
-  "main": "./lib/src/index.js",
+  "bugs": {
+    "url": "https://github.com/angular-redux/platform/issues"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "redux",
+    "store",
+    "state management"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "typings": "./lib/src/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/angular-redux/store.git"
-  },
-  "author": "William Buchwalter <wbuchwalter@gmail.com> (http://github.com/wbuchwalter)",
-  "contributors": [
-    {
-      "name": "Evan Schultz",
-      "email": "evan@rangle.io",
-      "url": "https://github.com/e-schultz"
-    },
-    {
-      "name": "Michael Bennett",
-      "url": "https://github.com/bennett000"
-    },
-    {
-      "name": "Seth Davenport",
-      "url": "https://github.com/SethDavenport"
-    },
-    {
-      "name": "Cosmin Ronnin",
-      "url": "https://github.com/kosz"
-    },
-    {
-      "name": "Gabriel Schuster",
-      "url": "https://github.com/actra-development-oss"
-    }
-  ],
   "scripts": {
-    "precommit": "lint-staged",
-    "prebuild": "rimraf ./lib",
-    "build": "npm run build:src && npm run build:testing",
-    "build:src": "ngc -p tsconfig.build.json",
-    "build:testing": "ngc -p tsconfig.testing.json",
-    "prepublish": "npm run build && npm test",
-    "ci": "npm run build && npm test",
     "predoc": "rimraf docs",
     "doc": "typedoc --out docs --excludeExternals --excludePrivate --excludeNotExported -theme minimal --sourcefile-url-prefix \"https://github.com/angular-redux/store/blob/master/src/\" --name @angular-redux/store --mode file --module commonjs --tsconfig tsconfig.docs.json src"
   },
   "peerDependencies": {
     "@angular/core": "^6.0.0",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "rxjs": "^6.0.0"
   },
   "devDependencies": {
     "@angular/animations": "6.0.7",
@@ -71,16 +41,20 @@
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/platform-server": "6.0.7",
-    "@types/node": "10.5.2",
-    "core-js": "2.5.7",
     "redux": "4.0.0",
-    "reflect-metadata": "0.1.12",
-    "rimraf": "2.6.2",
     "rxjs": "6.2.1",
-    "symbol-observable": "1.2.0",
     "typedoc": "0.11.1",
     "typedoc-plugin-sourcefile-url": "1.0.3",
     "typescript": "2.7.2",
     "zone.js": "0.8.26"
-  }
+  },
+  "main": "dist/bundles/angular-redux-store.umd.js",
+  "module": "dist/fesm5/angular-redux-store.js",
+  "es2015": "dist/fesm2015/angular-redux-store.js",
+  "esm5": "dist/esm5/angular-redux-store.js",
+  "esm2015": "dist/esm2015/angular-redux-store.js",
+  "fesm5": "dist/fesm5/angular-redux-store.js",
+  "fesm2015": "dist/fesm2015/angular-redux-store.js",
+  "typings": "dist/angular-redux-store.d.ts",
+  "metadata": "dist/angular-redux-store.metadata.json"
 }

@@ -22,12 +22,12 @@ module.exports = {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/jest/file.mock.ts',
   },
+  modulePathIgnorePatterns: ['dist'],
   reporters: ['default', 'jest-junit'],
   collectCoverageFrom: [
     '**/packages/**/*.{ts,js}',
     '!**/node_modules/**',
     '!**/dist/**',
-    '!**/lib/**',
   ],
   coverageReporters: ['lcov', 'text-summary'],
 };
