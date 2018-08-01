@@ -21,7 +21,11 @@ export type TraverseCallback = (
 ) => any;
 
 export abstract class State {
-  static traverse<StateType>(state: StateType, path: string[], fn?: TraverseCallback) {
+  static traverse<StateType>(
+    state: StateType,
+    path: string[],
+    fn?: TraverseCallback,
+  ) {
     let deepValue = state;
 
     for (const k of path) {
@@ -280,7 +284,7 @@ export abstract class State {
               if (key != null) {
                 return { ...parent, [key]: value };
               }
-              return { ...parent, ...value as any };
+              return { ...parent, ...(value as any) };
             },
             (parent: any, _: any, value: K) => {
               for (const k of Object.keys(value)) {
@@ -288,7 +292,7 @@ export abstract class State {
               }
               return parent;
             },
-            () => ({ ...object as any }),
+            () => ({ ...(object as any) }),
           );
         default:
           break;

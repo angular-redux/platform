@@ -2,30 +2,30 @@
   "name": "@angular-redux/form",
   "version": "9.0.1",
   "description": "Build Angular 2+ forms with Redux",
-  "main": "dist/source/index.js",
-  "typings": "dist/source/index.d.ts",
-  "repository": "https://github.com/angular-redux/form",
+  "author": "Chris Bond",
   "license": "MIT",
+  "homepage": "https://github.com/angular-redux/platform",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular-redux/platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-redux/platform/issues"
+  },
+  "keywords": [
+    "angular",
+    "redux",
+    "form",
+    "forms"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "engines": {
-    "node": ">=6.0"
-  },
-  "scripts": {
-    "prebuild": "npm run clean",
-    "build": "ngc",
-    "clean": "rimraf dist",
-    "cover": "istanbul report --include=**/chrome/coverage-final.json text text-summary",
-    "prepublish": "npm run build"
-  },
   "peerDependencies": {
     "@angular-redux/store": "^9.0.0",
-    "@angular/common": "^6.0.0",
-    "@angular/compiler": "^6.0.0",
     "@angular/core": "^6.0.0",
     "@angular/forms": "^6.0.0",
-    "redux": "^4.0.0"
+    "rxjs": "^6.0.0"
   },
   "dependencies": {
     "immutable": "3.8.2"
@@ -39,19 +39,19 @@
     "@angular/forms": "6.0.7",
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
-    "@ngtools/webpack": "6.0.7",
-    "@types/node": "6.0.114",
-    "babel-core": "6.26.3",
-    "babel-loader": "6.4.1",
-    "babel-preset-es2015": "6.24.1",
-    "cross-env": "2.0.1",
     "redux": "4.0.0",
     "redux-logger": "2.10.2",
-    "reflect-metadata": "0.1.12",
-    "rimraf": "2.6.2",
     "rxjs": "6.2.1",
     "typescript": "2.7.2",
-    "webpack": "2.7.0",
     "zone.js": "0.8.26"
-  }
+  },
+  "main": "dist/bundles/angular-redux-form.umd.js",
+  "module": "dist/fesm5/angular-redux-form.js",
+  "es2015": "dist/fesm2015/angular-redux-form.js",
+  "esm5": "dist/esm5/angular-redux-form.js",
+  "esm2015": "dist/esm2015/angular-redux-form.js",
+  "fesm5": "dist/fesm5/angular-redux-form.js",
+  "fesm2015": "dist/fesm2015/angular-redux-form.js",
+  "typings": "dist/angular-redux-form.d.ts",
+  "metadata": "dist/angular-redux-form.metadata.json"
 }
