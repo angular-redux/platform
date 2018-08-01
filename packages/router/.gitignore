@@ -1,8 +1,0 @@
-node_modules/
-typings/
-lib/
-examples/counter/node_modules/
-examples/counter/dist/*
-npm-debug.log
-**/*.ngsummary.json
-*.tgz

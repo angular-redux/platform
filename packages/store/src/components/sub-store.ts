@@ -28,7 +28,7 @@ export class SubStore<State> implements ObservableStore<State> {
 
   dispatch: Dispatch<AnyAction> = action =>
     this.rootStore.dispatch({
-      ...action as any,
+      ...(action as any),
       '@angular-redux::fractalkey': JSON.stringify(this.basePath),
     });
 

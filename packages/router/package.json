@@ -4,28 +4,30 @@
   "description": "Keep your Angular 2+ router state in Redux.",
   "author": "Dag Stuan",
   "license": "MIT",
-  "main": "./lib/es5/src/index.js",
-  "module": "./lib/esm/src/index.js",
-  "typings": "./lib/es5/src/index.d.ts",
+  "homepage": "https://github.com/angular-redux/platform",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/angular-redux/router.git"
+    "url": "git+https://github.com/angular-redux/platform.git"
   },
+  "bugs": {
+    "url": "https://github.com/angular-redux/platform/issues"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "redux",
+    "routing",
+    "router"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "prepublish": "npm run build",
-    "build": "rimraf ./lib && npm run build:es5 && npm run build:esm && npm run build:es6",
-    "postbuild": "rimraf \"src/**/*.ngfactory.ts\"",
-    "build:es6": "ngc -p tsconfig.es6.json && npm run postbuild",
-    "build:esm": "ngc -p tsconfig.esm.json  && npm run postbuild",
-    "build:es5": "ngc -p tsconfig.json && npm run postbuild"
-  },
   "peerDependencies": {
+    "@angular-redux/store": "^9.0.0",
+    "@angular/common": "^6.0.0",
     "@angular/core": "^6.0.0",
     "@angular/router": "^6.0.0",
-    "@angular-redux/store": "^9.0.0"
+    "rxjs": "^6.0.0"
   },
   "devDependencies": {
     "@angular-redux/store": "9.0.0",
@@ -36,11 +38,18 @@
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/router": "6.0.7",
-    "@types/core-js": "0.9.46",
     "redux": "4.0.0",
-    "rimraf": "2.6.2",
     "rxjs": "6.2.1",
     "typescript": "2.7.2",
     "zone.js": "0.8.26"
-  }
+  },
+  "main": "dist/bundles/angular-redux-router.umd.js",
+  "module": "dist/fesm5/angular-redux-router.js",
+  "es2015": "dist/fesm2015/angular-redux-router.js",
+  "esm5": "dist/esm5/angular-redux-router.js",
+  "esm2015": "dist/esm2015/angular-redux-router.js",
+  "fesm5": "dist/fesm5/angular-redux-router.js",
+  "fesm2015": "dist/fesm2015/angular-redux-router.js",
+  "typings": "dist/angular-redux-router.d.ts",
+  "metadata": "dist/angular-redux-router.metadata.json"
 }
