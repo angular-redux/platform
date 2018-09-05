@@ -1,5 +1,5 @@
 defaults: &defaults
-  docker: 
+  docker:
     - image: 'circleci/node:8-browsers'
   working_directory: ~/repo
 
@@ -20,9 +20,9 @@ jobs:
           paths:
             - ~/repo
 
-  install_dependencies: 
+  install_dependencies:
     <<: *defaults
-    steps: 
+    steps:
       - restore_cache: *repo_cache
       - restore_cache:
           keys:
@@ -41,7 +41,7 @@ jobs:
             - packages/store/node_modules
           <<: *deps_cache
 
-  lint: 
+  lint:
     <<: *defaults
     steps:
       - restore_cache: *repo_cache
