@@ -79,4 +79,4 @@ getting the URL from there.
 
 ### Examples
 
-- [Example-app: An example of using @angular-redux/router along with the other companion packages.](https://github.com/angular-redux/example-app)
+- [Example-app: An example of using @angular-redux/router along with the other companion packages.](https://github.com/angular-redux/platform/tree/master/packages/example-app)
