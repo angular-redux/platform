@@ -9,6 +9,9 @@ repo_cache: &repo_cache
 deps_cache: &deps_cache
   key: v1-dependencies-{{ checksum "yarn.lock" }}
 
+build_cache: &build_cache
+  key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
+
 version: 2
 jobs:
   checkout_code:
@@ -65,10 +68,35 @@ jobs:
       - restore_cache: *repo_cache
       - restore_cache: *deps_cache
       - run: yarn build
+      - save_cache:
+          paths:
+            - packages/example-app/dist
+            - packages/form/dist
+            - packages/router/dist
+            - packages/store/dist
+          <<: *build_cache
+
+  release_canary:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - restore_cache: *build_cache
+      # Add --yes flag once verified
+      - run: yarn release:canary
+
+  release_stable:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - restore_cache: *build_cache
+      # Add --yes flag once verified
+      - run: yarn release:stable:ci
 
 workflows:
   version: 2
-  build:
+  build_and_deploy:
     jobs:
       - checkout_code
       - install_dependencies:
@@ -83,3 +111,21 @@ workflows:
       - build:
           requires:
             - install_dependencies
+      - release_canary:
+          requires:
+            - lint
+            - test
+            - build
+          filters:
+            branches:
+              only: master
+      - release_stable:
+          requires:
+            - lint
+            - test
+            - build
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*/

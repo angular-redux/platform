@@ -1,4 +1,5 @@
 {
+  "name": "platform",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -8,12 +9,15 @@
     "build:store": "ng-packagr -p packages/store",
     "build:form": "ng-packagr -p packages/form",
     "build:router": "ng-packagr -p packages/router",
+    "release:canary": "lerna publish --canary --npm-tag next",
+    "release:stable": "lerna version",
+    "release:stable:ci": "lerna publish from-git",
     "clean": "npm-run-all -p clean:*",
     "clean:deps": "npm-run-all -p clean:deps:*",
     "clean:deps:workspace": "rimraf node_modules",
     "clean:deps:packages": "rimraf packages/*/node_modules",
     "clean:coverage": "rimraf coverage",
-    "clean:package-dist": "rimraf packages/*/dist",
+    "clean:dist": "rimraf packages/*/dist",
     "lint": "npm-run-all -p lint:*",
     "lint:packages": "tslint -p tsconfig.json",
     "lint:prettier": "prettier -l \"**/*.*(ts|js|css|scss|json|md)\"",
@@ -53,7 +57,7 @@
     "jest-junit": "5.1.0",
     "jest-preset-angular": "6.0.0",
     "jest-zone-patch": "0.0.8",
-    "lerna": "2.11.0",
+    "lerna": "3.4.3",
     "lint-staged": "7.2.0",
     "ng-packagr": "3.0.6",
     "npm-run-all": "4.1.3",
