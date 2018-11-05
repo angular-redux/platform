@@ -1,13 +1,23 @@
 {
-  "lerna": "2.11.0",
   "packages": ["packages/*"],
-  "version": "0.0.0",
+  "version": "9.0.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "ignore": "example-app",
+  "ignoreChanges": ["**/*.spec.ts", "**/*.md"],
   "command": {
     "init": {
       "exact": true
+    },
+    "publish": {
+      "npmClient": "yarn",
+      "allowBranch": "master",
+      "message": "chore(release): publish %s"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "signGitCommit": true,
+      "signGitTag": true
     }
   }
 }
