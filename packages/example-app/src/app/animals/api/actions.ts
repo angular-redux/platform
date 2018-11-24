@@ -21,13 +21,13 @@ export class AnimalAPIActions {
   loadAnimals = (animalType: AnimalType): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_ANIMALS,
     meta: { animalType },
-    payload: null,
+    payload: undefined,
   });
 
   loadStarted = (animalType: AnimalType): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_STARTED,
     meta: { animalType },
-    payload: null,
+    payload: undefined,
   });
 
   loadSucceeded = (
@@ -39,10 +39,10 @@ export class AnimalAPIActions {
     payload,
   });
 
-  loadFailed = (animalType: AnimalType, error): AnimalAPIAction => ({
+  loadFailed = (animalType: AnimalType, error: any): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_FAILED,
     meta: { animalType },
-    payload: null,
-    error,
+    payload: undefined,
+    error: !!error,
   });
 }

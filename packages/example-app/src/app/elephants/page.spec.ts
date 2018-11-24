@@ -6,27 +6,25 @@ import { TestBed } from '@angular/core/testing';
 
 import { Component, Input } from '@angular/core';
 
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/toArray';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { AnimalAPIActions } from '../animals/api/actions';
 import { ANIMAL_TYPES } from '../animals/model';
 import { ElephantPageComponent } from './page';
+import { toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'zoo-animal-list',
   template: 'Mock Animal List',
 })
 class MockAnimalListComponent {
-  @Input() animalsName: string;
-  @Input() animals: Observable<any>;
-  @Input() loading: Observable<boolean>;
-  @Input() error: Observable<any>;
+  @Input() animalsName!: string;
+  @Input() animals!: Observable<any>;
+  @Input() loading!: Observable<boolean>;
+  @Input() error!: Observable<any>;
 }
 
-xdescribe('Elephant Page Container', () => {
+describe('Elephant Page Container', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ElephantPageComponent, MockAnimalListComponent],
@@ -37,9 +35,9 @@ xdescribe('Elephant Page Container', () => {
     MockNgRedux.reset();
   });
 
-  it('should select some elephants from the Redux store', done => {
+  it('should select some elephants from the Redux store', () => {
     const fixture = TestBed.createComponent(ElephantPageComponent);
-    const elephantPage = fixture.debugElement.componentInstance;
+    const elephantPage: ElephantPageComponent = fixture.componentInstance;
     const mockStoreSequence = [
       { elephant1: { name: 'I am an Elephant!', id: 'elephant1' } },
       {
@@ -61,59 +59,51 @@ xdescribe('Elephant Page Container', () => {
     mockStoreSequence.forEach(value => elephantItemStub.next(value));
     elephantItemStub.complete();
 
-    elephantPage.animals$
-      .toArray()
+    elephantPage.animals$.pipe(toArray())
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual(expectedSequence),
-        null,
-        done,
+        actualSequence => 
+          expect(actualSequence).toEqual(expectedSequence)
       );
   });
 
-  it('should know when the animals are loading', done => {
+  it('should know when the animals are loading', () => {
     const fixture = TestBed.createComponent(ElephantPageComponent);
-    const elephantPage = fixture.debugElement.componentInstance;
+    const elephantPage: ElephantPageComponent = fixture.componentInstance;
 
     const stub = MockNgRedux.getSelectorStub(['elephant', 'loading']);
     stub.next(false);
     stub.next(true);
     stub.complete();
 
-    elephantPage.loading$
-      .toArray()
+    elephantPage.loading$.pipe(toArray())
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual([false, true]),
-        null,
-        done,
+        actualSequence => expect(actualSequence).toEqual([false, true])
       );
   });
 
-  it("should know when there's an error", done => {
+  it("should know when there's an error", () => {
     const fixture = TestBed.createComponent(ElephantPageComponent);
-    const elephantPage = fixture.debugElement.componentInstance;
+    const elephantPage: ElephantPageComponent = fixture.componentInstance;
 
     const stub = MockNgRedux.getSelectorStub(['elephant', 'error']);
     stub.next(false);
     stub.next(true);
     stub.complete();
 
-    elephantPage.error$
-      .toArray()
+    elephantPage.error$.pipe(toArray())
       .subscribe(
-        actualSequence => expect(actualSequence).toEqual([false, true]),
-        null,
-        done,
+        actualSequence => expect(actualSequence).toEqual([false, true])
       );
   });
 
   it('should load elephants on creation', () => {
-    const spy = spyOn(MockNgRedux.mockInstance, 'dispatch');
-    const fixture = TestBed.createComponent(ElephantPageComponent);
+    const spy = spyOn(MockNgRedux.mockInstance!, 'dispatch');
+    TestBed.createComponent(ElephantPageComponent);
 
     expect(spy).toHaveBeenCalledWith({
       type: AnimalAPIActions.LOAD_ANIMALS,
       meta: { animalType: ANIMAL_TYPES.ELEPHANT },
-      payload: null,
+      payload: undefined,
     });
   });
 });

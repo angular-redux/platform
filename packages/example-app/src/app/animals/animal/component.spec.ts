@@ -1,20 +1,24 @@
 import {
   MockNgRedux,
   NgReduxTestingModule,
+  MockObservableStore,
 } from '@angular-redux/store/testing';
 import { async, TestBed } from '@angular/core/testing';
-import 'rxjs/add/operator/toArray';
 import { CoreModule } from '../../core/module';
 import { AnimalComponent } from './component';
+import { toArray } from 'rxjs/operators';
+import { Reducer, AnyAction } from 'redux';
 
-xdescribe('AnimalComponent', () => {
+type ConfigureSubStoreFn = (basePath: (string | number)[], _: Reducer<any, AnyAction>) => MockObservableStore<any>
+
+describe('AnimalComponent', () => {
   let fixture;
-  let animalComponent;
-  let spyConfigureSubStore;
+  let animalComponent: AnimalComponent;
+  let spyConfigureSubStore: ConfigureSubStoreFn;
 
   beforeEach(async(() => {
     spyConfigureSubStore = spyOn(
-      MockNgRedux.mockInstance,
+      MockNgRedux.mockInstance!,
       'configureSubStore',
     ).and.callThrough();
 
@@ -25,7 +29,7 @@ xdescribe('AnimalComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(AnimalComponent);
-    animalComponent = fixture.debugElement.componentInstance;
+    animalComponent = fixture.componentInstance;
 
     animalComponent.key = 'id1';
     animalComponent.animalType = 'WALLABIES';
@@ -36,7 +40,7 @@ xdescribe('AnimalComponent', () => {
   it('should use the key to create a subStore', () =>
     expect(spyConfigureSubStore).toHaveBeenCalledWith(
       ['WALLABIES', 'items', 'id1'],
-      jasmine.any(Function),
+      expect.any(Function)
     ));
 
   it('select name data from the substore', async(() => {
@@ -98,8 +102,7 @@ xdescribe('AnimalComponent', () => {
     quantityStub.next(5);
     quantityStub.complete();
 
-    animalComponent.subTotal$
-      .toArray()
+    animalComponent.subTotal$.pipe(toArray())
       .subscribe(subTotals => expect(subTotals).toEqual([5, 10, 15]));
   }));
 });

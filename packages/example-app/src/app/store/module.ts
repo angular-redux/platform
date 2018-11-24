@@ -19,6 +19,8 @@ import { createLogger } from 'redux-logger';
 import { RootEpics } from './epics';
 import { AppState } from './model';
 import { rootReducer } from './reducers';
+import { createEpicMiddleware, combineEpics } from 'redux-observable';
+import { AnyAction } from 'redux';
 
 @NgModule({
   imports: [NgReduxModule, NgReduxRouterModule],
@@ -31,15 +33,19 @@ export class StoreModule {
     ngReduxRouter: NgReduxRouter,
     rootEpics: RootEpics,
   ) {
+
+    const epicMiddleware = createEpicMiddleware<AnyAction, AnyAction, AppState>();
     // Tell Redux about our reducers and epics. If the Redux DevTools
     // chrome extension is available in the browser, tell Redux about
     // it too.
     store.configureStore(
       rootReducer,
       {},
-      [createLogger(), ...rootEpics.createEpics()],
+      [createLogger(), epicMiddleware],
       devTools.isEnabled() ? [devTools.enhancer()] : [],
     );
+
+    epicMiddleware.run(combineEpics(...rootEpics.createEpics()));
 
     // Enable syncing of Angular router state with our Redux store.
     if (ngReduxRouter) {

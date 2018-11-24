@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'zoo-error-well',
@@ -8,5 +8,5 @@ import { Observable } from 'rxjs/Observable';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ErrorWellComponent {
-  @Input() statusCode$: Observable<number>;
+  @Input() statusCode$!: Observable<number>;
 }

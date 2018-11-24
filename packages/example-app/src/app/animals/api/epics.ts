@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { createEpicMiddleware, Epic } from 'redux-observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/startWith';
-import { of } from 'rxjs/observable/of';
+import { Epic, ofType } from 'redux-observable';
+import { catchError, map, startWith, switchMap, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { AppState } from '../../store/model';
 import { AnimalType } from '../model';
@@ -23,7 +20,7 @@ const animalsNotAlreadyFetched = (
 
 const actionIsForCorrectAnimalType = (animalType: AnimalType) => (
   action: AnimalAPIAction,
-): boolean => action.meta.animalType === animalType;
+): boolean => !!action.meta && action.meta.animalType === animalType;
 
 @Injectable()
 export class AnimalAPIEpics {
@@ -33,29 +30,31 @@ export class AnimalAPIEpics {
   ) {}
 
   createEpic(animalType: AnimalType) {
-    return createEpicMiddleware(this.createLoadAnimalEpic(animalType));
+    return this.createLoadAnimalEpic(animalType);
   }
 
   private createLoadAnimalEpic(
     animalType: AnimalType,
-  ): Epic<AnimalAPIAction, AppState> {
-    return (action$, store) =>
-      action$
-        .ofType(AnimalAPIActions.LOAD_ANIMALS)
-        .filter(action => actionIsForCorrectAnimalType(animalType)(action))
-        .filter(() => animalsNotAlreadyFetched(animalType, store.getState()))
-        .switchMap(() =>
+  ): Epic<AnimalAPIAction, AnimalAPIAction, AppState> {
+    return (action$, store$) =>
+      action$.pipe(
+        ofType(AnimalAPIActions.LOAD_ANIMALS),
+        filter(action => actionIsForCorrectAnimalType(animalType)(action)),
+        filter(() => animalsNotAlreadyFetched(animalType, store$.value)),
+        switchMap(() =>
           this.service
-            .getAll(animalType)
-            .map(data => this.actions.loadSucceeded(animalType, data))
-            .catch(response =>
-              of(
-                this.actions.loadFailed(animalType, {
-                  status: '' + response.status,
-                }),
+            .getAll(animalType).pipe(
+              map(data => this.actions.loadSucceeded(animalType, data)),
+              catchError(response =>
+                of(
+                  this.actions.loadFailed(animalType, {
+                    status: '' + response.status,
+                  }),
+                ),
               ),
+              startWith(this.actions.loadStarted(animalType)),
             )
-            .startWith(this.actions.loadStarted(animalType)),
-        );
+        )
+      );
   }
 }

@@ -6,7 +6,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build"
+    "build": "ng build",
+    "test": "jest",
+    "test:watch": "node --inspect=9229 node_modules/jest/bin/jest.js --watch --no-cache",
+    "test:ci": "jest --runInBand"
   },
   "engines": {
     "node": ">=6.9.5"
@@ -15,30 +18,35 @@
     "@angular-redux/form": "latest",
     "@angular-redux/router": "latest",
     "@angular-redux/store": "latest",
-    "@angular/common": "^4.1.0",
-    "@angular/compiler": "^4.1.0",
-    "@angular/core": "^4.1.0",
-    "@angular/forms": "^4.1.0",
-    "@angular/http": "^4.1.0",
-    "@angular/platform-browser": "^4.1.0",
-    "@angular/platform-browser-dynamic": "^4.1.0",
-    "@angular/router": "^4.1.0",
+    "@angular/common": "^7.1.0",
+    "@angular/compiler": "^7.1.0",
+    "@angular/core": "^7.1.0",
+    "@angular/forms": "^7.1.0",
+    "@angular/http": "^7.1.0",
+    "@angular/platform-browser": "^7.1.0",
+    "@angular/platform-browser-dynamic": "^7.1.0",
+    "@angular/router": "^7.1.0",
     "core-js": "^2.4.1",
-    "flux-standard-action": "^1.2.0",
-    "ramda": "^0.23.0",
-    "redux": "^3.6.0",
+    "flux-standard-action": "^2.0.3",
+    "ramda": "^0.26.0",
+    "redux": "^4.0.1",
     "redux-logger": "^3.0.1",
-    "redux-observable": "^0.14.1",
-    "rxjs": "^5.3.0",
+    "redux-observable": "^1.0.0",
+    "rxjs": "^6.3.3",
     "zone.js": "^0.8.9"
   },
   "devDependencies": {
-    "@angular/cli": "1.7.3",
-    "@angular/compiler-cli": "^4.1.0",
-    "@types/node": "~6.0.71",
+    "@angular-devkit/build-angular": "^0.10.6",
+    "@angular/cli": "^7.0.6",
+    "@angular/compiler-cli": "^7.1.0",
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.10",
+    "@types/ramda": "^0.25.42",
     "@types/redux-logger": "^3.0.0",
-    "protractor": "~5.1.1",
-    "ts-node": "~3.0.2",
-    "typescript": "^2.4.1"
+    "jest": "^23.6.0",
+    "jest-preset-angular": "^6.0.1",
+    "protractor": "^5.4.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
   }
 }

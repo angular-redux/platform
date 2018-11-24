@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es2016"],
+    "baseUrl": "src",
     "paths": {
       "@angular/*": ["../node_modules/@angular/*"]
     },
@@ -19,5 +20,8 @@
 
     "forceConsistentCasingInFileNames": true,
     "pretty": true
-  }
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }
