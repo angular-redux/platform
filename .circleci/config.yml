@@ -82,6 +82,9 @@ jobs:
       - restore_cache: *repo_cache
       - restore_cache: *deps_cache
       - restore_cache: *build_cache
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run: yarn release:canary --yes
 
   release_stable:
@@ -90,6 +93,9 @@ jobs:
       - restore_cache: *repo_cache
       - restore_cache: *deps_cache
       - restore_cache: *build_cache
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run: yarn release:stable:ci --yes
 
 workflows:
