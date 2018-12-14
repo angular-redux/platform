@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Epic, ofType } from 'redux-observable';
-import { catchError, map, startWith, switchMap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { catchError, filter, map, startWith, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../../store/model';
 import { AnimalType } from '../model';
@@ -42,19 +42,18 @@ export class AnimalAPIEpics {
         filter(action => actionIsForCorrectAnimalType(animalType)(action)),
         filter(() => animalsNotAlreadyFetched(animalType, store$.value)),
         switchMap(() =>
-          this.service
-            .getAll(animalType).pipe(
-              map(data => this.actions.loadSucceeded(animalType, data)),
-              catchError(response =>
-                of(
-                  this.actions.loadFailed(animalType, {
-                    status: '' + response.status,
-                  }),
-                ),
+          this.service.getAll(animalType).pipe(
+            map(data => this.actions.loadSucceeded(animalType, data)),
+            catchError(response =>
+              of(
+                this.actions.loadFailed(animalType, {
+                  status: '' + response.status,
+                }),
               ),
-              startWith(this.actions.loadStarted(animalType)),
-            )
-        )
+            ),
+            startWith(this.actions.loadStarted(animalType)),
+          ),
+        ),
       );
   }
 }

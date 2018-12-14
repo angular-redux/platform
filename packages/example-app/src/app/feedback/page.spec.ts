@@ -4,8 +4,8 @@ import {
 } from '@angular-redux/store/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { FeedbackFormComponent } from './page';
 import { toArray } from 'rxjs/operators';
+import { FeedbackFormComponent } from './page';
 
 describe('Feedback Form Component', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('Feedback Form Component', () => {
     MockNgRedux.reset();
   });
 
-  it('should keep track of the number of remaining characters left', () => {
+  it('should keep track of the number of remaining characters left', async () => {
     const fixture = TestBed.createComponent(FeedbackFormComponent);
     const form = fixture.componentInstance;
 
@@ -40,10 +40,10 @@ describe('Feedback Form Component', () => {
     feedbackCommentsStub.next('hello');
     feedbackCommentsStub.complete();
 
-    form.charsLeft$.pipe(toArray())
-      .subscribe(
-        actualSequence =>
-          expect(actualSequence).toEqual(expectedCharsLeftSequence)
-      );
+    const actualSequence = await new Promise(resolve =>
+      form.charsLeft$.pipe(toArray()).subscribe(resolve),
+    );
+
+    expect(actualSequence).toEqual(expectedCharsLeftSequence);
   });
 });

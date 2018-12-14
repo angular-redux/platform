@@ -8,5 +8,5 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ErrorWellComponent {
-  @Input() statusCode$!: Observable<number>;
+  @Input() statusCode$: Observable<number>;
 }

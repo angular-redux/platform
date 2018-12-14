@@ -8,20 +8,20 @@ import { Component, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { toArray } from 'rxjs/operators';
 import { AnimalAPIActions } from '../animals/api/actions';
 import { ANIMAL_TYPES } from '../animals/model';
 import { LionPageComponent } from './page';
-import { toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'zoo-animal-list',
   template: 'Mock Animal List',
 })
 class MockAnimalListComponent {
-  @Input() animalsName!: string;
-  @Input() animals!: Observable<any>;
-  @Input() loading!: Observable<boolean>;
-  @Input() error!: Observable<any>;
+  @Input() animalsName: string;
+  @Input() animals: Observable<any>;
+  @Input() loading: Observable<boolean>;
+  @Input() error: Observable<any>;
 }
 
 describe('Lion Page Container', () => {
@@ -35,7 +35,7 @@ describe('Lion Page Container', () => {
     MockNgRedux.reset();
   });
 
-  it('should select some lions from the Redux store', () => {
+  it('should select some lions from the Redux store', async () => {
     const fixture = TestBed.createComponent(LionPageComponent);
     const lionPage: LionPageComponent = fixture.componentInstance;
     const mockStoreSequence = [
@@ -59,13 +59,13 @@ describe('Lion Page Container', () => {
     mockStoreSequence.forEach(value => itemStub.next(value));
     itemStub.complete();
 
-    lionPage.animals$.pipe(toArray())
-      .subscribe(
-        actualSequence => expect(actualSequence).toEqual(expectedSequence)
-      );
+    const actualSequence = await new Promise(resolve =>
+      lionPage.animals$.pipe(toArray()).subscribe(resolve),
+    );
+    expect(actualSequence).toEqual(expectedSequence);
   });
 
-  it('should know when the animals are loading', () => {
+  it('should know when the animals are loading', async () => {
     const fixture = TestBed.createComponent(LionPageComponent);
     const lionPage: LionPageComponent = fixture.componentInstance;
 
@@ -74,30 +74,30 @@ describe('Lion Page Container', () => {
     lionsLoadingStub.next(true);
     lionsLoadingStub.complete();
 
-    lionPage.loading$.pipe(toArray())
-      .subscribe(
-        actualSequence => expect(actualSequence).toEqual([false, true])
-      );
+    const actualSequence = await new Promise(resolve =>
+      lionPage.loading$.pipe(toArray()).subscribe(resolve),
+    );
+    expect(actualSequence).toEqual([false, true]);
   });
 
-  it(`should know when ther's an error`, () => {
+  it("should know when there's an error", async () => {
     const fixture = TestBed.createComponent(LionPageComponent);
     const lionPage: LionPageComponent = fixture.componentInstance;
-    const expectedSequence = [true];
+    const expectedSequence = [false, true];
 
     const lionsErrorStub = MockNgRedux.getSelectorStub(['lion', 'error']);
     lionsErrorStub.next(false);
     lionsErrorStub.next(true);
     lionsErrorStub.complete();
 
-    lionPage.error$.pipe(toArray())
-      .subscribe(
-        actualSequence => expect(actualSequence).toEqual([false, true])
-      );
+    const actualSequence = await new Promise(resolve =>
+      lionPage.error$.pipe(toArray()).subscribe(resolve),
+    );
+    expect(actualSequence).toEqual(expectedSequence);
   });
 
   it('should load lions on creation', () => {
-    const spy = spyOn(MockNgRedux.mockInstance!, 'dispatch');
+    const spy = spyOn(MockNgRedux.mockInstance, 'dispatch');
     TestBed.createComponent(LionPageComponent);
 
     expect(spy).toHaveBeenCalledWith({

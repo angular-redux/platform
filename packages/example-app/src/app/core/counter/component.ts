@@ -12,7 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CounterComponent {
-  @Input() count!: number;
+  @Input() count: number;
   @Output() increment = new EventEmitter<void>();
   @Output() decrement = new EventEmitter<void>();
 }

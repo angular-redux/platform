@@ -7,8 +7,8 @@ import { AnimalListComponent } from './component';
 
 @Component({ selector: 'zoo-animal', template: '' })
 class MockAnimalComponent {
-  @Input() key!: string;
-  @Input() animalType!: AnimalType;
+  @Input() key: string;
+  @Input() animalType: AnimalType;
 }
 
 describe('AnimalListComponent', () => {

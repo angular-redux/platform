@@ -61,6 +61,7 @@
       "core-js",
       "zone.js",
       "rxjs",
+      "@angular/common/http",
       "@angular/core/testing",
       "@angular/router/testing",
       "@angular/platform-browser-dynamic/testing",

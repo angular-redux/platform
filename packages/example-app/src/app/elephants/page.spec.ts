@@ -8,20 +8,20 @@ import { Component, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { toArray } from 'rxjs/operators';
 import { AnimalAPIActions } from '../animals/api/actions';
 import { ANIMAL_TYPES } from '../animals/model';
 import { ElephantPageComponent } from './page';
-import { toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'zoo-animal-list',
   template: 'Mock Animal List',
 })
 class MockAnimalListComponent {
-  @Input() animalsName!: string;
-  @Input() animals!: Observable<any>;
-  @Input() loading!: Observable<boolean>;
-  @Input() error!: Observable<any>;
+  @Input() animalsName: string;
+  @Input() animals: Observable<any>;
+  @Input() loading: Observable<boolean>;
+  @Input() error: Observable<any>;
 }
 
 describe('Elephant Page Container', () => {
@@ -35,7 +35,7 @@ describe('Elephant Page Container', () => {
     MockNgRedux.reset();
   });
 
-  it('should select some elephants from the Redux store', () => {
+  it('should select some elephants from the Redux store', async () => {
     const fixture = TestBed.createComponent(ElephantPageComponent);
     const elephantPage: ElephantPageComponent = fixture.componentInstance;
     const mockStoreSequence = [
@@ -59,14 +59,13 @@ describe('Elephant Page Container', () => {
     mockStoreSequence.forEach(value => elephantItemStub.next(value));
     elephantItemStub.complete();
 
-    elephantPage.animals$.pipe(toArray())
-      .subscribe(
-        actualSequence => 
-          expect(actualSequence).toEqual(expectedSequence)
-      );
+    const actualSequence = await new Promise(resolve =>
+      elephantPage.animals$.pipe(toArray()).subscribe(resolve),
+    );
+    expect(actualSequence).toEqual(expectedSequence);
   });
 
-  it('should know when the animals are loading', () => {
+  it('should know when the animals are loading', async () => {
     const fixture = TestBed.createComponent(ElephantPageComponent);
     const elephantPage: ElephantPageComponent = fixture.componentInstance;
 
@@ -75,13 +74,13 @@ describe('Elephant Page Container', () => {
     stub.next(true);
     stub.complete();
 
-    elephantPage.loading$.pipe(toArray())
-      .subscribe(
-        actualSequence => expect(actualSequence).toEqual([false, true])
-      );
+    const actualSequence = await new Promise(resolve =>
+      elephantPage.loading$.pipe(toArray()).subscribe(resolve),
+    );
+    expect(actualSequence).toEqual([false, true]);
   });
 
-  it("should know when there's an error", () => {
+  it("should know when there's an error", async () => {
     const fixture = TestBed.createComponent(ElephantPageComponent);
     const elephantPage: ElephantPageComponent = fixture.componentInstance;
 
@@ -90,10 +89,10 @@ describe('Elephant Page Container', () => {
     stub.next(true);
     stub.complete();
 
-    elephantPage.error$.pipe(toArray())
-      .subscribe(
-        actualSequence => expect(actualSequence).toEqual([false, true])
-      );
+    const actualSequence = await new Promise(resolve =>
+      elephantPage.error$.pipe(toArray()).subscribe(resolve),
+    );
+    expect(actualSequence).toEqual([false, true]);
   });
 
   it('should load elephants on creation', () => {

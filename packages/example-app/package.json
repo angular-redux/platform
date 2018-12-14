@@ -7,9 +7,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "jest",
-    "test:watch": "node --inspect=9229 node_modules/jest/bin/jest.js --watch --no-cache",
-    "test:ci": "jest --runInBand"
+    "test": "ng test",
+    "test:watch": "node --inspect node_modules/jest/bin/jest.js --watch --no-cache",
+    "test:ci": "ng test --runInBand"
   },
   "engines": {
     "node": ">=6.9.5"
@@ -36,6 +36,7 @@
     "zone.js": "^0.8.9"
   },
   "devDependencies": {
+    "@angular-builders/jest": "^7.1.1",
     "@angular-devkit/build-angular": "^0.10.6",
     "@angular/cli": "^7.0.6",
     "@angular/compiler-cli": "^7.1.0",
@@ -44,9 +45,9 @@
     "@types/ramda": "^0.25.42",
     "@types/redux-logger": "^3.0.0",
     "jest": "^23.6.0",
-    "jest-preset-angular": "^6.0.1",
+    "jest-preset-angular": "^6.0.2",
     "protractor": "^5.4.1",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.6"
+    "typescript": ">=3.1.1 < 3.2"
   }
 }

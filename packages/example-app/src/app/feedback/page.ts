@@ -8,8 +8,8 @@ const MAX_COMMENT_CHARS = 300;
 export const charsLeft = (obs$: Observable<string>): Observable<number> =>
   obs$.pipe(
     map(comments => comments || ''),
-    map(comments => MAX_COMMENT_CHARS - comments.length)
-  )
+    map(comments => MAX_COMMENT_CHARS - comments.length),
+  );
 
 @Component({
   selector: 'zoo-feedback-form',
@@ -19,7 +19,7 @@ export const charsLeft = (obs$: Observable<string>): Observable<number> =>
 })
 export class FeedbackFormComponent {
   @select$(['feedback', 'comments'], charsLeft)
-  readonly charsLeft$!: Observable<number>;
+  readonly charsLeft$: Observable<number>;
 
   getMaxCommentChars = () => MAX_COMMENT_CHARS;
 }

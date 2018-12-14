@@ -1,6 +1,6 @@
 import { indexBy, prop } from 'ramda';
 import { Action } from 'redux';
-import { AnimalList, AnimalType, Animal } from '../model';
+import { Animal, AnimalList, AnimalType } from '../model';
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
 
 const INITIAL_STATE: AnimalList = {

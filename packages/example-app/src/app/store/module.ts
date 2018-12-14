@@ -16,11 +16,11 @@ import {
 import { createLogger } from 'redux-logger';
 
 // The top-level reducers and epics that make up our app's logic.
+import { AnyAction } from 'redux';
+import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import { RootEpics } from './epics';
 import { AppState } from './model';
 import { rootReducer } from './reducers';
-import { createEpicMiddleware, combineEpics } from 'redux-observable';
-import { AnyAction } from 'redux';
 
 @NgModule({
   imports: [NgReduxModule, NgReduxRouterModule],
@@ -33,8 +33,11 @@ export class StoreModule {
     ngReduxRouter: NgReduxRouter,
     rootEpics: RootEpics,
   ) {
-
-    const epicMiddleware = createEpicMiddleware<AnyAction, AnyAction, AppState>();
+    const epicMiddleware = createEpicMiddleware<
+      AnyAction,
+      AnyAction,
+      AppState
+    >();
     // Tell Redux about our reducers and epics. If the Redux DevTools
     // chrome extension is available in the browser, tell Redux about
     // it too.

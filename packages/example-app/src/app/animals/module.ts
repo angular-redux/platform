@@ -15,6 +15,11 @@ import { TicketActions } from './animal/ticket-actions';
   declarations: [AnimalListComponent, AnimalComponent],
   exports: [AnimalListComponent],
   imports: [CoreModule, StoreModule, CommonModule],
-  providers: [AnimalAPIActions, AnimalAPIEpics, AnimalAPIService, TicketActions],
+  providers: [
+    AnimalAPIActions,
+    AnimalAPIEpics,
+    AnimalAPIService,
+    TicketActions,
+  ],
 })
 export class AnimalModule {}
