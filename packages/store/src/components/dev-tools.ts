@@ -3,14 +3,17 @@ import { AnyAction, StoreEnhancer, Unsubscribe } from 'redux';
 import { EnhancerOptions } from 'redux-devtools-extension';
 import { NgRedux } from './ng-redux';
 
+interface ReduxDevTools {
+  (options: EnhancerOptions): StoreEnhancer<any>;
+  listen: (
+    onMessage: (message: AnyAction) => void,
+    instanceId?: string,
+  ) => void;
+}
+
 interface WindowWithReduxDevTools extends Window {
-  __REDUX_DEVTOOLS_EXTENSION__?: {
-    (options: EnhancerOptions): StoreEnhancer<any>;
-    listen: (
-      onMessage: (message: AnyAction) => void,
-      instanceId?: string,
-    ) => void;
-  };
+  __REDUX_DEVTOOLS_EXTENSION__?: ReduxDevTools;
+  devToolsExtension?: ReduxDevTools;
 }
 
 const environment: WindowWithReduxDevTools = (typeof window !== 'undefined'
@@ -41,7 +44,7 @@ export class DevToolsExtension {
     }
 
     // Make sure changes from dev tools update angular's view.
-    environment.__REDUX_DEVTOOLS_EXTENSION__!.listen(({ type }) => {
+    this.getDevTools()!.listen(({ type }) => {
       if (type === 'START') {
         subscription = this.ngRedux.subscribe(() => {
           if (!NgZone.isInAngularZone()) {
@@ -53,11 +56,16 @@ export class DevToolsExtension {
       }
     });
 
-    return environment.__REDUX_DEVTOOLS_EXTENSION__!(options || {});
+    return this.getDevTools()!(options || {});
   };
 
   /**
    * Returns true if the extension is installed and enabled.
    */
-  isEnabled = () => environment && environment.__REDUX_DEVTOOLS_EXTENSION__;
+  isEnabled = () => !!this.getDevTools();
+
+  /**
+   * Returns the redux devtools enhancer.
+   */
+  getDevTools = () => environment && (environment.__REDUX_DEVTOOLS_EXTENSION__ || environment.devToolsExtension);
 }
