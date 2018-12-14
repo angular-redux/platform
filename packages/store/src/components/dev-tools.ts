@@ -3,7 +3,7 @@ import { AnyAction, StoreEnhancer, Unsubscribe } from 'redux';
 import { EnhancerOptions } from 'redux-devtools-extension';
 import { NgRedux } from './ng-redux';
 
-interface ReduxDevTools {
+export interface ReduxDevTools {
   (options: EnhancerOptions): StoreEnhancer<any>;
   listen: (
     onMessage: (message: AnyAction) => void,
@@ -67,5 +67,7 @@ export class DevToolsExtension {
   /**
    * Returns the redux devtools enhancer.
    */
-  getDevTools = () => environment && (environment.__REDUX_DEVTOOLS_EXTENSION__ || environment.devToolsExtension);
+  getDevTools = () =>
+    environment &&
+    (environment.__REDUX_DEVTOOLS_EXTENSION__ || environment.devToolsExtension);
 }
