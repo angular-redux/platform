@@ -1,4 +1,3 @@
-// tslint:disable:no-implicit-dependencies
 import { ApplicationRef, Injectable, NgZone } from '@angular/core';
 import { AnyAction, StoreEnhancer, Unsubscribe } from 'redux';
 import { EnhancerOptions } from 'redux-devtools-extension';
