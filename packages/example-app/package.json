@@ -42,7 +42,7 @@
     "@angular/compiler-cli": "^7.1.0",
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.10",
-    "@types/ramda": "^0.25.42",
+    "@types/ramda": "^0.24.18",
     "@types/redux-logger": "^3.0.0",
     "jest": "^23.6.0",
     "jest-preset-angular": "^6.0.2",
