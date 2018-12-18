@@ -1,5 +1,3 @@
-declare const window: any;
-
 const mock = () => {
   let storage: { [key: string]: any } = {};
   return {
