@@ -32,7 +32,10 @@ export function createAnimalAPIReducer(animalType: AnimalType) {
       case AnimalAPIActions.LOAD_SUCCEEDED:
         return {
           ...state,
-          items: indexBy<Animal>(prop('id'), action.payload!),
+          items: indexBy<Animal, { [key: string]: Animal }>(
+            prop('id'),
+            action.payload!,
+          ),
           loading: false,
           error: null,
         };
