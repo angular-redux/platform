@@ -32,7 +32,7 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.1",
     "redux-observable": "^1.0.0",
-    "rxjs": "^6.3.3",
+    "rxjs": "6.2.1",
     "zone.js": "^0.8.9"
   },
   "devDependencies": {
