@@ -6,9 +6,16 @@ import { TestBed } from '@angular/core/testing';
 
 import { toArray } from 'rxjs/operators';
 import { FeedbackFormComponent } from './page';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 describe('Feedback Form Component', () => {
   beforeEach(() => {
+    TestBed.resetTestEnvironment();
+    TestBed.initTestEnvironment(
+      BrowserDynamicTestingModule,
+      platformBrowserDynamicTesting(),
+    );
+
     TestBed.configureTestingModule({
       declarations: [FeedbackFormComponent],
       imports: [NgReduxTestingModule],

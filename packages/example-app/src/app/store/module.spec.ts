@@ -6,6 +6,7 @@ import {
 import { async, getTestBed, TestBed } from '@angular/core/testing';
 import { RootEpics } from './epics';
 import { StoreModule } from './module';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 describe('Store Module', () => {
   let mockNgRedux: NgRedux<any>;
@@ -13,6 +14,12 @@ describe('Store Module', () => {
   let mockEpics: Partial<RootEpics>;
 
   beforeEach(async(() => {
+    TestBed.resetTestEnvironment();
+    TestBed.initTestEnvironment(
+      BrowserDynamicTestingModule,
+      platformBrowserDynamicTesting(),
+    );
+
     TestBed.configureTestingModule({
       imports: [NgReduxTestingModule],
     })
