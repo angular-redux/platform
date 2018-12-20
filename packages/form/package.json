@@ -23,8 +23,8 @@
   },
   "peerDependencies": {
     "@angular-redux/store": "^9.0.0",
-    "@angular/core": "^6.0.0",
-    "@angular/forms": "^6.0.0",
+    "@angular/core": "^7.0.0",
+    "@angular/forms": "^7.0.0",
     "redux": "^4.0.0",
     "rxjs": "^6.0.0"
   },

@@ -7,7 +7,6 @@ import { TestBed } from '@angular/core/testing';
 import { toArray } from 'rxjs/operators';
 import { FeedbackFormComponent } from './page';
 
-
 describe('Feedback Form Component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({

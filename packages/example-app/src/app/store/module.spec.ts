@@ -3,7 +3,7 @@ import {
   MockNgRedux,
   NgReduxTestingModule,
 } from '@angular-redux/store/testing';
-import { async, getTestBed, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { RootEpics } from './epics';
 import { StoreModule } from './module';
 
@@ -15,10 +15,8 @@ describe('Store Module', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NgReduxTestingModule],
-    })
-  }));
+    });
 
-  it('should configure the store when the module is loaded', async(() => {
     mockEpics = {
       createEpics() {
         return [];
@@ -26,7 +24,9 @@ describe('Store Module', () => {
     };
     devTools = TestBed.get(DevToolsExtension);
     mockNgRedux = MockNgRedux.getInstance();
+  }));
 
+  it('should configure the store when the module is loaded', async(() => {
     const configureSpy = spyOn(MockNgRedux.getInstance(), 'configureStore');
     const module = new StoreModule(
       mockNgRedux,
