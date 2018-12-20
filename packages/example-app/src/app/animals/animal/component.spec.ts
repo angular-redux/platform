@@ -7,7 +7,6 @@ import { async, TestBed } from '@angular/core/testing';
 import { AnyAction, Reducer } from 'redux';
 import { CoreModule } from '../../core/module';
 import { AnimalComponent } from './component';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 type ConfigureSubStoreFn = (
   basePath: (string | number)[],
@@ -20,12 +19,6 @@ describe('AnimalComponent', () => {
   let spyConfigureSubStore: ConfigureSubStoreFn;
 
   beforeEach(async(() => {
-    TestBed.resetTestEnvironment();
-    TestBed.initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
-
     spyConfigureSubStore = spyOn(
       MockNgRedux.mockInstance!,
       'configureSubStore',

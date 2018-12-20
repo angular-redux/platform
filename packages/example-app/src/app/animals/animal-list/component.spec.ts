@@ -4,10 +4,6 @@ import { By } from '@angular/platform-browser';
 import { CoreModule } from '../../core/module';
 import { AnimalType } from '../model';
 import { AnimalListComponent } from './component';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
 
 @Component({ selector: 'zoo-animal', template: '' })
 class MockAnimalComponent {
@@ -17,12 +13,6 @@ class MockAnimalComponent {
 
 describe('AnimalListComponent', () => {
   beforeEach(async(() => {
-    TestBed.resetTestEnvironment();
-    TestBed.initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
-
     TestBed.configureTestingModule({
       declarations: [AnimalListComponent, MockAnimalComponent],
       imports: [CoreModule],

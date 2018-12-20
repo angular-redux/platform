@@ -6,7 +6,6 @@ import {
 import { async, getTestBed, TestBed } from '@angular/core/testing';
 import { RootEpics } from './epics';
 import { StoreModule } from './module';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 describe('Store Module', () => {
   let mockNgRedux: NgRedux<any>;
@@ -14,31 +13,20 @@ describe('Store Module', () => {
   let mockEpics: Partial<RootEpics>;
 
   beforeEach(async(() => {
-    TestBed.resetTestEnvironment();
-    TestBed.initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
-
     TestBed.configureTestingModule({
       imports: [NgReduxTestingModule],
     })
-      .compileComponents()
-      .then(() => {
-        const testbed = getTestBed();
-
-        mockEpics = {
-          createEpics() {
-            return [];
-          },
-        };
-
-        devTools = testbed.get(DevToolsExtension);
-        mockNgRedux = MockNgRedux.getInstance();
-      });
   }));
 
   it('should configure the store when the module is loaded', async(() => {
+    mockEpics = {
+      createEpics() {
+        return [];
+      },
+    };
+    devTools = TestBed.get(DevToolsExtension);
+    mockNgRedux = MockNgRedux.getInstance();
+
     const configureSpy = spyOn(MockNgRedux.getInstance(), 'configureStore');
     const module = new StoreModule(
       mockNgRedux,

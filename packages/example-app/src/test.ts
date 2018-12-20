@@ -1,4 +1,3 @@
-// TODO: Should be able to remove this once dev dependencies are hoisted to the workspace
 // tslint:disable:no-implicit-dependencies
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';

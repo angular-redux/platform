@@ -12,7 +12,6 @@ import { toArray } from 'rxjs/operators';
 import { AnimalAPIActions } from '../animals/api/actions';
 import { ANIMAL_TYPES } from '../animals/model';
 import { ElephantPageComponent } from './page';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 @Component({
   selector: 'zoo-animal-list',
@@ -27,12 +26,6 @@ class MockAnimalListComponent {
 
 describe('Elephant Page Container', () => {
   beforeEach(() => {
-    TestBed.resetTestEnvironment();
-    TestBed.initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
-
     TestBed.configureTestingModule({
       declarations: [ElephantPageComponent, MockAnimalListComponent],
       imports: [NgReduxTestingModule],

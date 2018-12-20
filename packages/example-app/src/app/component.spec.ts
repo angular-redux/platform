@@ -8,12 +8,6 @@ import {
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
-    TestBed.resetTestEnvironment();
-    TestBed.initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
-
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       imports: [RouterTestingModule],
