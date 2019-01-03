@@ -1,9 +1,24 @@
 import { ApplicationRef, Injectable, NgZone } from '@angular/core';
-import { Unsubscribe } from 'redux';
+import { AnyAction, StoreEnhancer, Unsubscribe } from 'redux';
+import { EnhancerOptions } from 'redux-devtools-extension';
 import { NgRedux } from './ng-redux';
 
-declare const window: any;
-const environment: any = typeof window !== 'undefined' ? window : {};
+export interface ReduxDevTools {
+  (options: EnhancerOptions): StoreEnhancer<any>;
+  listen: (
+    onMessage: (message: AnyAction) => void,
+    instanceId?: string,
+  ) => void;
+}
+
+interface WindowWithReduxDevTools extends Window {
+  __REDUX_DEVTOOLS_EXTENSION__?: ReduxDevTools;
+  devToolsExtension?: ReduxDevTools;
+}
+
+const environment: WindowWithReduxDevTools = (typeof window !== 'undefined'
+  ? window
+  : {}) as WindowWithReduxDevTools;
 
 /**
  * An angular-2-ified version of the Redux DevTools chrome extension.
@@ -22,14 +37,14 @@ export class DevToolsExtension {
    * format as described here:
    * [zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md]
    */
-  enhancer = (options?: object) => {
+  enhancer = (options?: EnhancerOptions) => {
     let subscription: Unsubscribe;
     if (!this.isEnabled()) {
       return null;
     }
 
     // Make sure changes from dev tools update angular's view.
-    environment.devToolsExtension.listen(({ type }: any) => {
+    this.getDevTools()!.listen(({ type }) => {
       if (type === 'START') {
         subscription = this.ngRedux.subscribe(() => {
           if (!NgZone.isInAngularZone()) {
@@ -41,11 +56,18 @@ export class DevToolsExtension {
       }
     });
 
-    return environment.devToolsExtension(options);
+    return this.getDevTools()!(options || {});
   };
 
   /**
    * Returns true if the extension is installed and enabled.
    */
-  isEnabled = () => environment && environment.devToolsExtension;
+  isEnabled = () => !!this.getDevTools();
+
+  /**
+   * Returns the redux devtools enhancer.
+   */
+  getDevTools = () =>
+    environment &&
+    (environment.__REDUX_DEVTOOLS_EXTENSION__ || environment.devToolsExtension);
 }
