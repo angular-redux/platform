@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { ConnectDirective } from './connect';
 import { ReactiveConnectDirective } from './connect-reactive';
+import { ConnectDirective } from './connect.directive';
 
 const declarations = [ConnectDirective, ReactiveConnectDirective];
 

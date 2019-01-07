@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { ConnectArrayDirective } from './connect-array';
+import { ConnectArrayDirective } from './connect-array.directive';
 
 const declarations = [ConnectArrayDirective];
 
