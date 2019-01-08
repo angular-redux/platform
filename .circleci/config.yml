@@ -85,7 +85,7 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
-      - run: yarn release:canary --yes
+      - run: npm run release:canary --yes
 
   release_stable:
     <<: *defaults
