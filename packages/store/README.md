@@ -62,6 +62,7 @@ Here are some examples of the `angular-redux` family of packages in action:
 
 - [Zoo Animals Combined Example App](https://github.com/angular-redux/example-app)
 - [Simple SystemJS Example (Angular Quickstart)](https://github.com/angular-redux/system-js-example)
+- [Todo app example](https://github.com/IsraelZablianov/angular-redux-example)
 
 ## Companion Packages
 
