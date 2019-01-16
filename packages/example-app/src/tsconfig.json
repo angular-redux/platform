@@ -12,7 +12,6 @@
     "sourceMap": true,
     "target": "es5",
     "typeRoots": ["../node_modules/@types"],
-    "strict": true,
 
     // Causes problems for @Outputs with AoT.
     // See https://github.com/angular/angular/issues/17131.

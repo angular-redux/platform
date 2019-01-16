@@ -1,4 +1,4 @@
-// import { NgReduxRouterModule } from '@angular-redux/router';
+import { NgReduxRouterModule } from '@angular-redux/router';
 import { NgReduxModule } from '@angular-redux/store';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { appRoutes } from './routes';
     FormsModule,
     HttpModule,
     NgReduxModule,
-    // NgReduxRouterModule,
+    NgReduxRouterModule.forRoot(),
     AnimalModule,
     ElephantModule,
     LionModule,

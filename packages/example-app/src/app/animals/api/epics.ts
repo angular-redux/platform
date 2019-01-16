@@ -41,10 +41,8 @@ export class AnimalAPIEpics {
     AnimalAPIAction<Animal[] | LoadError>,
     AppState
   > {
-    return (action$, state$) => {
-      // let a: Observable<AnimalAPIAction<Animal[] | LoadError>;
-      // let b: Observable<FluxStandardAction<Animal[], MetaData>
-      return action$.ofType(AnimalAPIActions.LOAD_ANIMALS).pipe(
+    return (action$, state$) =>
+      action$.ofType(AnimalAPIActions.LOAD_ANIMALS).pipe(
         filter(action =>
           actionIsForCorrectAnimalType(animalType)(action as AnimalAPIAction),
         ),
@@ -63,7 +61,5 @@ export class AnimalAPIEpics {
           ),
         ),
       );
-      // return {} as any;
-    };
   }
 }

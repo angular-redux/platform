@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 // extensions that sync form and route location state between
 // our store and Angular.
 import { provideReduxForms } from '@angular-redux/form';
-// import { NgReduxRouter, NgReduxRouterModule } from '@angular-redux/router';
+import { NgReduxRouter, NgReduxRouterModule } from '@angular-redux/router';
 import {
   DevToolsExtension,
   NgRedux,
@@ -23,14 +23,14 @@ import { AppState, initialAppState } from './model';
 import { rootReducer } from './reducers';
 
 @NgModule({
-  imports: [NgReduxModule /*NgReduxRouterModule*/],
+  imports: [NgReduxModule, NgReduxRouterModule.forRoot()],
   providers: [RootEpics],
 })
 export class StoreModule {
   constructor(
     public store: NgRedux<AppState>,
     devTools: DevToolsExtension,
-    // ngReduxRouter: NgReduxRouter,
+    ngReduxRouter: NgReduxRouter,
     rootEpics: RootEpics,
   ) {
     // Tell Redux about our reducers and epics. If the Redux DevTools
@@ -53,9 +53,9 @@ export class StoreModule {
     epicMiddleware.run(rootEpics.createEpics());
 
     // Enable syncing of Angular router state with our Redux store.
-    // if (ngReduxRouter) {
-    //   ngReduxRouter.initialize();
-    // }
+    if (ngReduxRouter) {
+      ngReduxRouter.initialize();
+    }
 
     // Enable syncing of Angular form state with our Redux store.
     provideReduxForms(store);
