@@ -11,6 +11,7 @@
       "@angular-redux/router": ["packages/router/src/index.ts"]
     },
     "sourceMap": true,
+    "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,

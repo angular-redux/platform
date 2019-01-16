@@ -1,11 +1,10 @@
-export const ANIMAL_TYPES = {
+export const ANIMAL_TYPES: { [key: string]: AnimalType } = {
   LION: 'lion',
   ELEPHANT: 'elephant',
 };
 
 // TODO: is there a way to improve this?
-export type AnimalType = string;
-
+export type AnimalType = 'lion' | 'elephant';
 export interface Animal {
   id: string;
   animalType: AnimalType;
@@ -22,6 +21,14 @@ export interface AnimalList {
 
 export interface LoadError {
   status: string;
+}
+
+export function initialAnimalList(): AnimalList {
+  return {
+    items: {},
+    loading: false,
+    error: undefined,
+  };
 }
 
 export const fromServer = (record: any): Animal => ({

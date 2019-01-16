@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { createEpicMiddleware, Epic } from 'redux-observable';
+import { Epic } from 'redux-observable';
 
-import { of, Observable, empty } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, filter, map, startWith, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../../store/model';
@@ -21,7 +21,7 @@ const animalsNotAlreadyFetched = (
 
 const actionIsForCorrectAnimalType = (animalType: AnimalType) => (
   action: AnimalAPIAction,
-): boolean => action.meta.animalType === animalType;
+): boolean => action.meta!.animalType === animalType;
 
 @Injectable()
 export class AnimalAPIEpics {

@@ -1,10 +1,9 @@
 import { composeReducers, defaultFormReducer } from '@angular-redux/form';
-import { routerReducer } from '@angular-redux/router';
+// import { routerReducer } from '@angular-redux/router';
 import { combineReducers } from 'redux';
 
 import { createAnimalAPIReducer } from '../animals/api/reducer';
 import { ANIMAL_TYPES } from '../animals/model';
-import { AppState } from './model';
 
 const elephant = createAnimalAPIReducer(ANIMAL_TYPES.ELEPHANT);
 // Define the global store shape by combining our application's
@@ -14,6 +13,6 @@ export const rootReducer = composeReducers(
   combineReducers({
     elephant,
     lion: createAnimalAPIReducer(ANIMAL_TYPES.LION),
-    router: routerReducer,
+    // router: routerReducer,
   }),
 );

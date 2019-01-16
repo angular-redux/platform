@@ -57,10 +57,7 @@ describe('Lion Page Container', () => {
     ];
 
     const itemStub = MockNgRedux.getSelectorStub(['lion', 'items']);
-    mockStoreSequence.forEach(value => {
-      console.log('val being stubbed', value);
-      return itemStub.next(value);
-    });
+    mockStoreSequence.forEach(value => itemStub.next(value));
     itemStub.complete();
 
     lionPage.animals
@@ -94,7 +91,6 @@ describe('Lion Page Container', () => {
   it("should know when there's an error", done => {
     const fixture = TestBed.createComponent(LionPageComponent);
     const lionPage = fixture.componentInstance;
-    const expectedSequence = [true];
 
     const lionsErrorStub = MockNgRedux.getSelectorStub(['lion', 'error']);
     lionsErrorStub.next(false);
@@ -112,7 +108,7 @@ describe('Lion Page Container', () => {
 
   it('should load lions on creation', () => {
     const spy = spyOn(MockNgRedux.getInstance(), 'dispatch');
-    const fixture = TestBed.createComponent(LionPageComponent);
+    TestBed.createComponent(LionPageComponent);
 
     expect(spy).toHaveBeenCalledWith({
       type: AnimalAPIActions.LOAD_ANIMALS,

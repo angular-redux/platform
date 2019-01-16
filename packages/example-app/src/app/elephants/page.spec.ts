@@ -107,7 +107,7 @@ describe('Elephant Page Container', () => {
 
   it('should load elephants on creation', () => {
     const spy = spyOn(MockNgRedux.getInstance(), 'dispatch');
-    const fixture = TestBed.createComponent(ElephantPageComponent);
+    TestBed.createComponent(ElephantPageComponent);
 
     expect(spy).toHaveBeenCalledWith({
       type: AnimalAPIActions.LOAD_ANIMALS,

@@ -6,8 +6,9 @@ import { map } from 'rxjs/operators';
 import { Animal } from '../model';
 import { animalComponentReducer } from './reducers';
 
-export const toSubTotal = (obs$: Observable<Animal>): Observable<number> =>
-  obs$.pipe(map(s => s.ticketPrice * s.tickets));
+export function toSubTotal(obs: Observable<Animal>): Observable<number> {
+  return obs.pipe(map(s => s.ticketPrice * s.tickets));
+}
 
 /**
  * Fractal component example.

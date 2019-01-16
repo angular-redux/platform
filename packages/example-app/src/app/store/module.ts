@@ -19,7 +19,7 @@ import { createEpicMiddleware } from 'redux-observable';
 
 // The top-level reducers and epics that make up our app's logic.
 import { RootEpics } from './epics';
-import { AppState } from './model';
+import { AppState, initialAppState } from './model';
 import { rootReducer } from './reducers';
 
 @NgModule({
@@ -44,9 +44,10 @@ export class StoreModule {
 
     store.configureStore(
       rootReducer,
-      {},
+      initialAppState(),
       [createLogger(), epicMiddleware],
-      devTools.isEnabled() ? [devTools.enhancer()] : [],
+      // configure store typings conflict with devTools typings
+      (devTools.isEnabled() ? [devTools.enhancer()] : []) as any,
     );
 
     epicMiddleware.run(rootEpics.createEpics());

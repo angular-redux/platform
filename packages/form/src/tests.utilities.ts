@@ -5,11 +5,12 @@ import { Iterable } from 'immutable';
 // redux-logger is a dev dependency in the workspace
 // tslint:disable-next-line:no-implicit-dependencies
 import { createLogger } from 'redux-logger';
+import { Middleware } from 'redux';
 
-export const logger = createLogger({
+export const logger: Middleware = createLogger({
   level: 'debug',
   collapsed: true,
-  predicate: (getState, action) => true,
+  predicate: () => true,
   stateTransformer: state => {
     const newState: any = new Object();
 
@@ -21,7 +22,10 @@ export const logger = createLogger({
   },
 });
 
-export const simulateUserTyping = (control, text: string): Promise<void> => {
+export const simulateUserTyping = (
+  control: any,
+  text: string,
+): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     try {
       dispatchKeyEvents(control, text);
@@ -35,7 +39,7 @@ export const simulateUserTyping = (control, text: string): Promise<void> => {
   });
 };
 
-export const dispatchKeyEvents = (control, text: string) => {
+export const dispatchKeyEvents = (control: any, text: string) => {
   if (!text) {
     return;
   }
@@ -45,7 +49,7 @@ export const dispatchKeyEvents = (control, text: string) => {
   for (const character of text) {
     const c = character.charCodeAt(0);
 
-    const keyboardEventFactory = (eventType: string, value) => {
+    const keyboardEventFactory = (eventType: string, value: any) => {
       return new KeyboardEvent(eventType, {
         altKey: false,
         cancelable: false,
