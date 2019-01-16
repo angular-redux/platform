@@ -1,10 +1,7 @@
 import { NgRedux } from '@angular-redux/store';
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import {
-  NavigationEnd,
-  Router,
-} from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { UPDATE_LOCATION } from './actions';

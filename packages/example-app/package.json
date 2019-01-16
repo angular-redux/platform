@@ -15,9 +15,9 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@angular-redux/form": "9.0.0",
-    "@angular-redux/router": "9.0.0",
-    "@angular-redux/store": "9.0.0",
+    "@angular-redux/form": "latest",
+    "@angular-redux/router": "latest",
+    "@angular-redux/store": "latest",
     "@angular/common": "^7.2.0",
     "@angular/compiler": "^7.2.0",
     "@angular/core": "^7.2.0",

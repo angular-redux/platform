@@ -47,7 +47,7 @@ describe('NgRedux Observable Store', () => {
         default:
           return state;
       }
-    } ;
+    };
 
     store = createStore(rootReducer);
     ngRedux = new RootStore<AppState>(mockNgZone);

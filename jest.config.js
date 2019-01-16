@@ -5,8 +5,8 @@ process.env.JEST_JUNIT_OUTPUT = './coverage/junit.xml';
 
 module.exports = {
   globals: {
-    "ts-jest": {
-      stringifyContentPathRegex: "\\.html$",
+    'ts-jest': {
+      stringifyContentPathRegex: '\\.html$',
     },
   },
   transform: {
