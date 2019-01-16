@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError, filter, map, startWith, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../../store/model';
-import { AnimalType, Animal, LoadError } from '../model';
+import { Animal, AnimalType, LoadError } from '../model';
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
 import { AnimalAPIService } from './service';
 

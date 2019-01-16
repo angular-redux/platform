@@ -1,11 +1,10 @@
 import { flushMicrotasks } from '@angular/core/testing';
 
 import { Iterable } from 'immutable';
-
+import { Middleware } from 'redux';
 // redux-logger is a dev dependency in the workspace
 // tslint:disable-next-line:no-implicit-dependencies
 import { createLogger } from 'redux-logger';
-import { Middleware } from 'redux';
 
 export const logger: Middleware = createLogger({
   level: 'debug',
