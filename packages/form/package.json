@@ -35,7 +35,7 @@
     "immutable": "3.8.2"
   },
   "devDependencies": {
-    "@angular-redux/store": "latest"
+    "@angular-redux/store": "10.0.0"
   },
   "main": "dist/bundles/angular-redux-form.umd.js",
   "module": "dist/fesm5/angular-redux-form.js",

@@ -1,3 +1,7 @@
+# 10.0.0
+
+- Supports Angular 7
+
 # 9.0.0
 
 ## Breaking Changes

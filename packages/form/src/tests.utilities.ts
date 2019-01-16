@@ -11,7 +11,7 @@ export const logger = createLogger({
   collapsed: true,
   predicate: (getState, action) => true,
   stateTransformer: state => {
-    const newState = new Object();
+    const newState: any = new Object();
 
     for (const i of Object.keys(state)) {
       newState[i] = Iterable.isIterable(state[i]) ? state[i].toJS() : state[i];
