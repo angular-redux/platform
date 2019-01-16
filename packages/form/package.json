@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/form",
-  "version": "10.0.0",
+  "version": "9.0.0",
   "description": "Build Angular 2+ forms with Redux",
   "author": "Chris Bond",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "node": ">=8"
   },
   "peerDependencies": {
-    "@angular-redux/store": "^10.0.0",
+    "@angular-redux/store": "^9.0.0",
     "@angular/core": "^7.0.0",
     "@angular/forms": "^7.0.0",
     "redux": "^4.0.0",
@@ -35,7 +35,7 @@
     "immutable": "3.8.2"
   },
   "devDependencies": {
-    "@angular-redux/store": "10.0.0"
+    "@angular-redux/store": "9.0.0"
   },
   "main": "dist/bundles/angular-redux-form.umd.js",
   "module": "dist/fesm5/angular-redux-form.js",

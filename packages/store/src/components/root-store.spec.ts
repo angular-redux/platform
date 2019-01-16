@@ -36,7 +36,7 @@ describe('NgRedux Observable Store', () => {
       baz: -1,
     };
 
-    rootReducer = (state = defaultState, action: PayloadAction) => {
+    rootReducer = (state = defaultState, action: PayloadAction): any => {
       switch (action.type) {
         case 'UPDATE_FOO':
           return { ...state, foo: action.payload };
@@ -47,7 +47,7 @@ describe('NgRedux Observable Store', () => {
         default:
           return state;
       }
-    };
+    } ;
 
     store = createStore(rootReducer);
     ngRedux = new RootStore<AppState>(mockNgZone);
@@ -260,7 +260,7 @@ describe('Chained actions in subscriptions', () => {
       keywordLength: -1,
     };
 
-    rootReducer = (state = defaultState, action: PayloadAction) => {
+    rootReducer = (state = defaultState, action: PayloadAction): any => {
       switch (action.type) {
         case 'SEARCH':
           return { ...state, keyword: action.payload };
