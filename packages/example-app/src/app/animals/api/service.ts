@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Animal, ANIMAL_TYPES, AnimalType, fromServer } from '../model';
 
@@ -17,8 +17,8 @@ export class AnimalAPIService {
   constructor(private http: Http) {}
 
   getAll = (animalType: AnimalType): Observable<Animal[]> =>
-    this.http
-      .get(URLS[animalType])
-      .map(resp => resp.json())
-      .map(records => records.map(fromServer));
+    this.http.get(URLS[animalType]).pipe(
+      map(resp => resp.json()),
+      map(records => records.map(fromServer)),
+    );
 }

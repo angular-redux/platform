@@ -20,6 +20,10 @@ export interface AnimalList {
   error: any;
 }
 
+export interface LoadError {
+  status: string;
+}
+
 export const fromServer = (record: any): Animal => ({
   id: record.name.toLowerCase(),
   animalType: record.animalType,
