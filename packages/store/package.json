@@ -26,8 +26,11 @@
     "predoc": "rimraf docs",
     "doc": "typedoc --out docs --excludeExternals --excludePrivate --excludeNotExported -theme minimal --sourcefile-url-prefix \"https://github.com/angular-redux/store/blob/master/src/\" --name @angular-redux/store --mode file --module commonjs --tsconfig tsconfig.docs.json src"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "peerDependencies": {
-    "@angular/core": "^6.0.0",
+    "@angular/core": "^7.0.0",
     "redux": "^4.0.0",
     "rxjs": "^6.0.0"
   },

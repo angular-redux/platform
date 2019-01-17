@@ -17,6 +17,7 @@
     "no-output-on-prefix": true,
     "no-output-rename": true,
     "no-unused-css": false,
+    "no-unused-expression": [true, "allow-new"],
     "use-life-cycle-interface": true,
     "use-pipe-decorator": true,
     "use-pipe-transform-interface": true,

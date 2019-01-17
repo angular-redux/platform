@@ -1,6 +1,7 @@
 import { indexBy, prop } from 'ramda';
 import { Action } from 'redux';
-import { AnimalList, AnimalType } from '../model';
+
+import { Animal, AnimalList, AnimalType } from '../model';
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
 
 const INITIAL_STATE: AnimalList = {
@@ -32,7 +33,7 @@ export function createAnimalAPIReducer(animalType: AnimalType) {
       case AnimalAPIActions.LOAD_SUCCEEDED:
         return {
           ...state,
-          items: indexBy(prop('id'), action.payload),
+          items: indexBy(prop('id'), action.payload as Animal[]),
           loading: false,
           error: null,
         };

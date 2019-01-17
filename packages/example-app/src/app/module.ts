@@ -25,7 +25,7 @@ import { appRoutes } from './routes';
     FormsModule,
     HttpModule,
     NgReduxModule,
-    NgReduxRouterModule,
+    NgReduxRouterModule.forRoot(),
     AnimalModule,
     ElephantModule,
     LionModule,
