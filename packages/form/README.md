@@ -56,7 +56,7 @@ the class that is responsible for connecting your forms to your Redux state.
 There are two ways of doing this: either using an `Redux.Store<T>` object or
 an `NgRedux<T>` object. There are no substantial differences between these
 approaches, but if you are already using
-[@angular-redux/store](https://github.com/angular-redux/store) or you wish to integrate
+[@angular-redux/store](/packages/store) or you wish to integrate
 it into your project, then you would do something like this:
 
 ```typescript
