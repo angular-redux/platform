@@ -102,6 +102,23 @@
     "@angular-devkit/core" "7.2.1"
     rxjs "6.3.3"
 
+"@angular-redux/form@latest":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@angular-redux/form/-/form-9.0.1.tgz#d5af15cf0ada24bd92c623e877cfdd8fd8f9d674"
+  integrity sha512-qcrpwW05vG3UrjMNZTHICkgA4oeUbfImqeGLwjUAGca1xsnS11eYecGIZ+BrbaaveUWsUJPL9lYaJOn90eesRQ==
+  dependencies:
+    immutable "^3.8.1"
+
+"@angular-redux/router@latest":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-redux/router/-/router-9.0.0.tgz#f7c096c79cefe247724e6bbb52b16731f4d496a4"
+  integrity sha512-8cfgoNMKZuTjLuEclzKpUURpSetQxo9tiuMWz8KnIFCFP6btvQHzYyDhfR2ROq+bwDpIXlUI6C4bWAORYD1DGw==
+
+"@angular-redux/store@latest":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-9.0.0.tgz#7de913fe8d9b28941a1aa798397f3a51f16e20a6"
+  integrity sha512-0aWUktzTK88xDoDlGUDmDBnGW1ZB21W3H9dq0E52fuaN87cwtdca83ioi20/YT+M6EOecYPY7il9fSpy/Ewd1A==
+
 "@angular/animations@7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.0.tgz#5b774ced10aeee0a7d4a0bfd9efe94963f7735c9"
@@ -5257,7 +5274,12 @@ immediate@~3.0.5:
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
 
-immutable@3.8.2:
+immutable@3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
+  integrity sha1-IAgH8Rqw9ycQ6khVQt4IgHX2jNI=
+
+immutable@^3.8.1:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
   integrity sha1-wkOZUUVbs5kT2vKBN28VMOEErfM=
