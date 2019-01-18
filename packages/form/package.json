@@ -32,7 +32,7 @@
     "rxjs": "^6.0.0"
   },
   "dependencies": {
-    "immutable": "3.8.2"
+    "immutable": "3.8.1"
   },
   "devDependencies": {
     "@angular-redux/store": "9.0.0"
