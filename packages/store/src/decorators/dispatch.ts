@@ -1,3 +1,5 @@
+import { Action } from 'redux';
+
 import { NgRedux } from '../components/ng-redux';
 import { getBaseStore } from './helpers';
 
@@ -13,11 +15,14 @@ export function dispatch(): PropertyDecorator {
     key: string | symbol | number,
     descriptor?: PropertyDescriptor,
   ): PropertyDescriptor {
-    let originalMethod: () => void;
+    let originalMethod: () => Action;
 
-    const wrapped = function(this: any, ...args: any) {
-      const result = originalMethod.apply(this, args);
-      if (result !== false) {
+    const wrapped = function(this: unknown, ...args: unknown[]) {
+      const result = originalMethod.apply<unknown, unknown[], Action>(
+        this,
+        args,
+      );
+      if (result !== undefined) {
         const store = getBaseStore(this) || NgRedux.instance;
         if (store) {
           store.dispatch(result);
@@ -27,6 +32,7 @@ export function dispatch(): PropertyDecorator {
     };
 
     descriptor = descriptor || Object.getOwnPropertyDescriptor(target, key);
+
     if (descriptor === undefined) {
       const dispatchDescriptor: PropertyDescriptor = {
         get: () => wrapped,
@@ -41,3 +47,6 @@ export function dispatch(): PropertyDecorator {
     }
   };
 }
+// get descriptor
+// if no descriptor, create one with getter setter
+// if descriptor, set original method to descriptor, and then bind the wrapped function instead

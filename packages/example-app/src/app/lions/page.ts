@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
 import { AnimalAPIActions } from '../animals/api/actions';
 import { Animal, ANIMAL_TYPES } from '../animals/model';
 
-export const sortAnimals = (animalDictionary: Observable<{}>) =>
-  animalDictionary.pipe(
+export function sortAnimals(animalDictionary: Observable<{}>) {
+  return animalDictionary.pipe(
     map(() =>
       pipe(
         values,
@@ -16,6 +16,7 @@ export const sortAnimals = (animalDictionary: Observable<{}>) =>
       ),
     ),
   );
+}
 
 @Component({
   templateUrl: './page.html',
@@ -30,7 +31,7 @@ export class LionPageComponent {
   readonly loading!: Observable<boolean>;
 
   @select(['lion', 'error'])
-  readonly error!: Observable<any>;
+  readonly error!: Observable<boolean>;
 
   constructor(actions: AnimalAPIActions) {
     actions.loadAnimals(ANIMAL_TYPES.LION);

@@ -9,7 +9,7 @@ const elephant = createAnimalAPIReducer(ANIMAL_TYPES.ELEPHANT);
 // Define the global store shape by combining our application's
 // reducers together into a given structure.
 export const rootReducer = composeReducers(
-  defaultFormReducer<any>(),
+  defaultFormReducer<unknown>(),
   combineReducers({
     elephant,
     lion: createAnimalAPIReducer(ANIMAL_TYPES.LION),

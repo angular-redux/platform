@@ -51,11 +51,11 @@ export class RootStore<RootState> extends NgRedux<RootState> {
   ): void => {
     assert(!this.store, 'Store already configured!');
     // Variable-arity compose in typescript FTW.
-    this.setStore(compose<StoreCreator>(
-      applyMiddleware(...middleware),
+    this.setStore(
+      compose<StoreCreator>(
+        applyMiddleware(...middleware),
         ...enhancers,
-      )(createStore)
-      (enableFractalReducers(rootReducer), initState),
+      )(createStore)(enableFractalReducers(rootReducer), initState),
     );
   };
 

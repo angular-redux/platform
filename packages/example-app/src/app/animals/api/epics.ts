@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError, filter, map, startWith, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../../store/model';
-import { Animal, AnimalType, LoadError } from '../model';
+import { Animal, AnimalError, AnimalType } from '../model';
 import { AnimalAPIAction, AnimalAPIActions } from './actions';
 import { AnimalAPIService } from './service';
 
@@ -37,8 +37,8 @@ export class AnimalAPIEpics {
   private createLoadAnimalEpic(
     animalType: AnimalType,
   ): Epic<
-    AnimalAPIAction<Animal[] | LoadError>,
-    AnimalAPIAction<Animal[] | LoadError>,
+    AnimalAPIAction<Animal[] | AnimalError>,
+    AnimalAPIAction<Animal[] | AnimalError>,
     AppState
   > {
     return (action$, state$) =>
