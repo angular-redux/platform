@@ -17,11 +17,8 @@ export function dispatch(): PropertyDecorator {
   ): PropertyDescriptor {
     let originalMethod: () => Action;
 
-    const wrapped = function(this: unknown, ...args: unknown[]) {
-      const result = originalMethod.apply<unknown, unknown[], Action>(
-        this,
-        args,
-      );
+    const wrapped = function(this: unknown, ...args: any) {
+      const result = originalMethod.apply(this, args);
       if (result !== undefined) {
         const store = getBaseStore(this) || NgRedux.instance;
         if (store) {
