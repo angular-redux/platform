@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "lib": ["esnext", "dom", "dom.iterable"],
     "baseUrl": ".",
+    "strict": true,
     "paths": {
       "@angular-redux/store": ["packages/store/src/index.ts"],
       "@angular-redux/form": ["packages/form/source/index.ts"],

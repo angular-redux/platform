@@ -33,7 +33,7 @@ describe('Store Module', () => {
 
   it('should configure the store when the module is loaded', async(() => {
     const configureSpy = spyOn(MockNgRedux.getInstance(), 'configureStore');
-    new StoreModule(mockNgRedux, devTools, null, mockEpics as any);
+    new StoreModule(mockNgRedux, devTools, null as any, mockEpics as any);
 
     expect(configureSpy).toHaveBeenCalled();
   }));

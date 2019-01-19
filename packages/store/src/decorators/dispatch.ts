@@ -15,7 +15,7 @@ export function dispatch(): PropertyDecorator {
   ): PropertyDescriptor {
     let originalMethod: () => void;
 
-    const wrapped = function(this: any, ...args: any[]) {
+    const wrapped = function(this: any, ...args: any) {
       const result = originalMethod.apply(this, args);
       if (result !== false) {
         const store = getBaseStore(this) || NgRedux.instance;

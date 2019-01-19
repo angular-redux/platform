@@ -40,7 +40,7 @@ describe('Select decorators', () => {
     describe('when passed no arguments', () => {
       it('binds to a store property that matches the name of the class property', done => {
         class MockClass {
-          @select() baz: Observable<number>;
+          @select() baz!: Observable<number>;
         }
         const mockInstance = new MockClass();
 
@@ -59,7 +59,7 @@ describe('Select decorators', () => {
 
       it('binds by name ignoring any $ characters in the class property name', done => {
         class MockClass {
-          @select() baz$: Observable<number>;
+          @select() baz$!: Observable<number>;
         }
         const mockInstance = new MockClass();
 
@@ -80,7 +80,7 @@ describe('Select decorators', () => {
     describe('when passed a string', () => {
       it('binds to the store property whose name matches the string value', done => {
         class MockClass {
-          @select('baz') obs$: Observable<number>;
+          @select('baz') obs$!: Observable<number>;
         }
         const mockInstance = new MockClass();
 
@@ -102,7 +102,7 @@ describe('Select decorators', () => {
       it('attempts to use that function as the selector function', done => {
         const selector = (state: AppState) => state.baz * 2;
         class MockClass {
-          @select(selector) obs$: Observable<number>;
+          @select(selector) obs$!: Observable<number>;
         }
         const mockInstance = new MockClass();
 
@@ -124,7 +124,7 @@ describe('Select decorators', () => {
       const comparator = (_: any, y: any): boolean => y === 1;
       class MockClass {
         @select('baz', comparator)
-        baz$: Observable<number>;
+        baz$!: Observable<number>;
       }
 
       it('should only trigger next when comparator returns true', done => {
@@ -147,7 +147,7 @@ describe('Select decorators', () => {
         const spy = jasmine.createSpy('spy');
         class LocalMockClass {
           @select('baz', spy)
-          baz$: Observable<number>;
+          baz$!: Observable<number>;
         }
 
         const mockInstance = new LocalMockClass();
@@ -169,7 +169,7 @@ describe('Select decorators', () => {
     it('applies a transformer to the observable', done => {
       class MockClass {
         @select$('baz', transformer)
-        baz$: Observable<number>;
+        baz$!: Observable<number>;
       }
       const mockInstance = new MockClass();
 
@@ -186,7 +186,7 @@ describe('Select decorators', () => {
       const comparator = (_: any, y: any): boolean => y === 1;
       class MockClass {
         @select$('baz', transformer, comparator)
-        baz$: Observable<number>;
+        baz$!: Observable<number>;
       }
 
       it('should only trigger next when the comparator returns true', done => {
@@ -209,7 +209,7 @@ describe('Select decorators', () => {
         const spy = jasmine.createSpy('spy');
         class SpyClass {
           @select$('baz', transformer, spy)
-          baz$: Observable<number>;
+          baz$!: Observable<number>;
         }
 
         const mockInstance = new SpyClass();
