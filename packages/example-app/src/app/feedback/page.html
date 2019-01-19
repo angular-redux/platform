@@ -24,14 +24,14 @@
       ngControl
       ngModel />
   </label>
-  
+
   <label for="comments">Comments:
     <textarea
       name="comments"
       [maxLength]="getMaxCommentChars()"
       ngControl
       ngModel></textarea>
-    <p>{{ charsLeft$ | async }} characters remaining.
+    <p>{{ charsLeft | async }} characters remaining.
   </label>
 
   <button>Send!</button>

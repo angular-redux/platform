@@ -9,7 +9,7 @@ export interface RouterAction extends Action {
 }
 
 export function routerReducer(
-  state: string = DefaultRouterState,
+  state: string | undefined = DefaultRouterState,
   action: RouterAction,
 ): string {
   switch (action.type) {

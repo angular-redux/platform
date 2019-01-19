@@ -2,8 +2,8 @@ import { AnimalList, AnimalType, initialAnimalList } from '../animals/model';
 
 export type AppState = { [key in AnimalType]: AnimalList } &
   Partial<{
-    routes: any;
-    feedback: any;
+    routes: string;
+    feedback: unknown;
   }>;
 
 export function initialAppState() {

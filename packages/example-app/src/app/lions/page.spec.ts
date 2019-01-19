@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 
 import { AnimalAPIActions } from '../animals/api/actions';
-import { ANIMAL_TYPES } from '../animals/model';
+import { Animal, ANIMAL_TYPES } from '../animals/model';
 import { LionPageComponent } from './page';
 
 @Component({
@@ -19,9 +19,9 @@ import { LionPageComponent } from './page';
 })
 class MockAnimalListComponent {
   @Input() animalsName!: string;
-  @Input() animals!: Observable<any>;
+  @Input() animals!: Observable<Animal[]>;
   @Input() loading!: Observable<boolean>;
-  @Input() error!: Observable<any>;
+  @Input() error!: Observable<boolean>;
 }
 
 describe('Lion Page Container', () => {
