@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/router",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Keep your Angular 2+ router state in Redux.",
   "author": "Dag Stuan",
   "license": "MIT",
@@ -26,15 +26,12 @@
     "node": ">=8"
   },
   "peerDependencies": {
-    "@angular-redux/store": "^9.0.0",
+    "@angular-redux/store": "^10.0.0",
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
     "@angular/router": "^7.0.0",
     "redux": "^4.0.0",
     "rxjs": "^6.0.0"
-  },
-  "devDependencies": {
-    "@angular-redux/store": "9.0.0"
   },
   "main": "dist/bundles/angular-redux-router.umd.js",
   "module": "dist/fesm5/angular-redux-router.js",
