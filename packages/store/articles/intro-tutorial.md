@@ -75,8 +75,7 @@ Open up `src/app/app.component.html` and add the following code:
 
 ```html
 <div>
-  Count: {{ count }}
-  <button (click)="increment()">+</button>
+  Count: {{ count }} <button (click)="increment()">+</button>
   <button (click)="decrement()">-</button>
 </div>
 ```
@@ -420,7 +419,8 @@ unpacking its values as they come in:
 ```html
 <!-- As before -->
 
-  Count: {{ count$ | async }} <!-- New -->
+Count: {{ count$ | async }}
+<!-- New -->
 
 <!-- As before -->
 ```

@@ -19,9 +19,9 @@ For the simplest use-cases, the API is very straightforward. Your template
 would look something like this:
 
 ```html
-  <form connect="myForm">
-    <input type="text" name="address" ngControl ngModel />
-  </form>
+<form connect="myForm">
+  <input type="text" name="address" ngControl ngModel />
+</form>
 ```
 
 The important bit to note here is the `[connect]` directive. This is the only thing
@@ -42,9 +42,7 @@ Then I would supply `myForm` as the argument to `[connect]`. If myForm were nest
 deeper inside of the app state, you could do something like this:
 
 ```html
-<form [connect]="['personalInfo', 'myForm']">
-  ...
-</form>
+<form [connect]="['personalInfo', 'myForm']">...</form>
 ```
 
 Note that ImmutableJS integration is provided seamlessly. If `personalInfo` is an
@@ -207,9 +205,9 @@ that element from the Redux state.
 The value in "connect" attribute is the value that will show up in the Redux store. The formGroup value is the name of the object in your code that represents the form group.
 
 ```html
-  <form connect="myForm" [formGroup]="loginForm">
-    <input type="text" name="address" formControlName="firstName" />
-  </form>
+<form connect="myForm" [formGroup]="loginForm">
+  <input type="text" name="address" formControlName="firstName" />
+</form>
 ```
 
 #### Troubleshooting
