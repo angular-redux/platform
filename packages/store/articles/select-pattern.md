@@ -20,7 +20,7 @@ parameter at all.
   through the store (similar to `immutableJS`'s `getIn`).
 - If a `function` is passed the `@select` decorator will attempt to use that function
   as a selector on the RxJs observable.
-- If nothing is passed then the `@select` decorator will attempt to use the name of the class property to find a matching value in the Redux store. Note that a utility is in place here where any $ characters will be ignored from the class property's name.
+- If nothing is passed then the `@select` decorator will attempt to use the name of the class property to find a matching value in the Redux store. Note that a utility is in place here where any \$ characters will be ignored from the class property's name.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -30,12 +30,12 @@ import { select } from '@angular-redux/store';
 @Component({
   selector: 'counter-value-printed-many-times',
   template: `
-    <p>{{counter$ | async}}</p>
-    <p>{{counter | async}}</p>
-    <p>{{counterSelectedWithString | async}}</p>
-    <p>{{counterSelectedWithFunction | async}}</p>
-    <p>{{counterSelectedWithFunctionAndMultipliedByTwo | async}}</p>
-    `,
+    <p>{{ counter$ | async }}</p>
+    <p>{{ counter | async }}</p>
+    <p>{{ counterSelectedWithString | async }}</p>
+    <p>{{ counterSelectedWithFunction | async }}</p>
+    <p>{{ counterSelectedWithFunctionAndMultipliedByTwo | async }}</p>
+  `,
 })
 export class CounterValue {
   // this selects `counter` from the store and attaches it to this property
@@ -82,10 +82,12 @@ interface IAppState {
 @Component({
   selector: 'root',
   template: `
-  <counter [counter]="counter$| async"
-    [increment]="increment"
-    [decrement]="decrement">
-  </counter>
+    <counter
+      [counter]="counter$ | async"
+      [increment]="increment"
+      [decrement]="decrement"
+    >
+    </counter>
   `,
 })
 export class Counter {
@@ -110,7 +112,7 @@ export class Counter {
 Since it's an observable, you can also transform data using observable operators like
 `.map`, `.filter`, etc.
 
-## The @select$ decorator
+## The @select\$ decorator
 
 The `@select$` decorator works similar to `@select`, however you are able to specify observable chains to execute on the selected result.
 

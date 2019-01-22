@@ -1,6 +1,6 @@
 import { flushMicrotasks } from '@angular/core/testing';
 
-import { Iterable } from 'immutable';
+import { isCollection } from 'immutable';
 import { Middleware } from 'redux';
 // redux-logger is a dev dependency in the workspace
 // tslint:disable-next-line:no-implicit-dependencies
@@ -14,7 +14,7 @@ export const logger: Middleware = createLogger({
     const newState: any = new Object();
 
     for (const i of Object.keys(state)) {
-      newState[i] = Iterable.isIterable(state[i]) ? state[i].toJS() : state[i];
+      newState[i] = isCollection(state[i]) ? state[i].toJS() : state[i];
     }
 
     return newState;
