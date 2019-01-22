@@ -34,13 +34,5 @@
   "dependencies": {
     "immutable": "^4.0.0-rc.12"
   },
-  "main": "dist/bundles/angular-redux-form.umd.js",
-  "module": "dist/fesm5/angular-redux-form.js",
-  "es2015": "dist/fesm2015/angular-redux-form.js",
-  "esm5": "dist/esm5/angular-redux-form.js",
-  "esm2015": "dist/esm2015/angular-redux-form.js",
-  "fesm5": "dist/fesm5/angular-redux-form.js",
-  "fesm2015": "dist/fesm2015/angular-redux-form.js",
-  "typings": "dist/angular-redux-form.d.ts",
-  "metadata": "dist/angular-redux-form.metadata.json"
+  "main": "src/index.ts"
 }

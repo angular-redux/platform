@@ -33,13 +33,5 @@
     "redux": "^4.0.0",
     "rxjs": "^6.0.0"
   },
-  "main": "dist/bundles/angular-redux-router.umd.js",
-  "module": "dist/fesm5/angular-redux-router.js",
-  "es2015": "dist/fesm2015/angular-redux-router.js",
-  "esm5": "dist/esm5/angular-redux-router.js",
-  "esm2015": "dist/esm2015/angular-redux-router.js",
-  "fesm5": "dist/fesm5/angular-redux-router.js",
-  "fesm2015": "dist/fesm2015/angular-redux-router.js",
-  "typings": "dist/angular-redux-router.d.ts",
-  "metadata": "dist/angular-redux-router.metadata.json"
+  "main": "src/index.ts"
 }
