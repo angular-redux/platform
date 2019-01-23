@@ -1,6 +1,6 @@
 # Cookbooks
 
-# Using Angular Services in your Action Creators
+## Using Angular Services in your Action Creators
 
 In order to use services in action creators, we need to integrate
 them into Angular's dependency injector.
@@ -96,7 +96,7 @@ export class Counter {
 }
 ```
 
-# Using Angular 2 Services in your Middleware
+## Using Angular 2 Services in your Middleware
 
 Again, we just want to use Angular DI the way it was meant to be used.
 
@@ -159,7 +159,7 @@ export class AppModule {
 }
 ```
 
-# Side-Effect Management Using Epics
+## Side-Effect Management Using Epics
 
 `@angular-redux/store` also works well with the `Epic` feature of
 [redux-observable](https://github.com/redux-observable). For
@@ -277,7 +277,7 @@ HTTP request, and fire a corresponding success or failure action. This allows
 you to keep your action creators very simple, and to cleanly describe your
 side effects as a set of simple RxJS epics.
 
-# Using DevTools
+## Using DevTools
 
 `@angular-redux/store` is fully compatible with the Chrome extension version of the Redux dev
 tools:
@@ -324,9 +324,9 @@ export class AppModule {
 `ReduxDevTools.enhancer()` takes the same options parameter as
 documented here: https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md#windowdevtoolsextensionconfig
 
-# Using ImmutableJS
+## Using ImmutableJS
 
-## What is ImmutableJS
+### What is ImmutableJS
 
 [ImmutableJS](https://facebook.github.io/immutable-js/) is a library that
 provides efficient immutable data structures for JavaScript, and it's a great
@@ -341,7 +341,7 @@ without the performance problems of `Object.freeze` or the GC churn of
 It also provides helper methods for deeply querying (`getIn`) or modifying
 (`setIn`) nested objects.
 
-## Why do I care?
+### Why do I care?
 
 Many people who do Redux implement their stores in terms of ImmutableJS data
 structures. This provides a safety-net against accidental mutation of the store,
@@ -367,12 +367,12 @@ const immutableFoo: Map<string, any> = Immutable.fromJS({
 const foo: number = immutableFoo.get('foo');
 ```
 
-## Pre 3.3.0:
+### Pre 3.3.0:
 
 Previous to 3.3.0 we were forced to choose between the guarantees of ImmutableJS
 and the syntactic convenience of raw objects:
 
-### Raw Objects in the Store
+#### Raw Objects in the Store
 
 Imagine a store with the following shape:
 
@@ -406,7 +406,7 @@ constructor() {
 We get the syntactic convenience of raw objects, but no protection against
 accidental mutation.
 
-### Immutable Objects in the Store
+#### Immutable Objects in the Store
 
 Here's that same conceptual store, defined immutably:
 
@@ -447,7 +447,7 @@ constructor() {
 }
 ```
 
-## Post 3.3.0:
+### Post 3.3.0:
 
 In `@angular-redux/store` 3.3.0 we've allowed you to have your cake and eat it too: the
 `@select` decorator can now detect if the selected state is an ImmutableJS
@@ -473,7 +473,7 @@ constructor() {
 Note that ImmutableJS is still optional. We don't depend on it directly
 and you're not required to use it. But if you do, we've got you covered!
 
-# Strongly Typed Reducers
+## Strongly Typed Reducers
 
 It's good practice in typescript to be as specific about your types as possible.
 This helps you catch errors at compile-time instead of run-time.
@@ -481,9 +481,9 @@ This helps you catch errors at compile-time instead of run-time.
 Reducers are no exception to this rule. However it's not always obvious how to
 make this happen in practice.
 
-## Reducer Typing Best Practices
+### Reducer Typing Best Practices
 
-### Define an Interface for your State
+#### Define an Interface for your State
 
 It's important to strongly type the data in your store, and this is done by
 defining types for the `state` arguments to your reducers:
@@ -536,7 +536,7 @@ export class MyActionService {
 }
 ```
 
-### Consider Using Built-In Types from Redux
+#### Consider Using Built-In Types from Redux
 
 Redux ships with a good set of official typings; consider using them. In
 particular, consider importing and using the `Action` and `Reducer` types:
@@ -554,7 +554,7 @@ export const fooReducer: Reducer<TFoo> = (
 
 Note that we supply this reducer's state type as a generic type parameter to `Reducer<T>`.
 
-### Consider using 'Flux Standard Actions' (FSAs)
+#### Consider using 'Flux Standard Actions' (FSAs)
 
 [FSA](https://github.com/acdlite/flux-standard-action/blob/master/src/index.js)
 is a widely-used convention for defining the shape of actions. You can import
@@ -605,7 +605,7 @@ export const barReducer: Reducer<IBar> = (
 
 For more complex union-payload scenarios, Typescript's [type-guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) may also be helpful.
 
-### Use a Typed Wrapper around Object.assign
+#### Use a Typed Wrapper around Object.assign
 
 In the Babel world, reducers often use `Object.assign` or property spread to
 maintain immutability. This works in Typescript too, but it's not typesafe:

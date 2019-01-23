@@ -1,5 +1,5 @@
-- [Store](packages/store/)
-- [Form](packages/form/)
-- [Router](packages/router/)
+- [Store](store/)
+- [Form](form/)
+- [Router](router/)
 - [Changelog](changelog)
 - [Contributing](contributing)

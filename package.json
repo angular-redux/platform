@@ -18,6 +18,7 @@
     "clean:deps:packages": "rimraf packages/*/node_modules",
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf packages/*/dist",
+    "docs": "docsify serve ./docs",
     "lint": "npm-run-all -p lint:*",
     "lint:packages": "tslint -p tsconfig.json",
     "lint:prettier": "prettier -l \"**/*.*(ts|js|css|scss|json|md)\"",

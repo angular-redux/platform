@@ -4,9 +4,8 @@
 # Getting Started
 
 - I already know what Redux and RxJS are. [Give me the TL;DR](#quickstart).
-- I'm just learning about Redux. [Break it down for me](packages/store/articles/intro-tutorial)!
-- Talk is cheap. [Show me a complete code example](https://github.com/angular-redux/example-app).
-- Take me to the [API docs](https://angular-redux.github.io/platform).
+- I'm just learning about Redux. [Break it down for me](store/articles/intro-tutorial)!
+- Talk is cheap. [Show me a complete code example](https://github.com/angular-redux/platform/blob/master/packages/example-app)
 
 ## Quickstart
 
@@ -265,9 +264,9 @@ class Foo {
 
 # Cookbooks
 
-- [Using Angular's Dependency Injector with Action Creators](articles/action-creator-service.md)
-- [Using Angular's Dependency Injector with Middlewares](articles/di-middleware.md)
-- [Managing Side-Effects with redux-observable Epics](articles/epics.md)
-- [Using the Redux DevTools Chrome Extension](articles/redux-dev-tools.md)
-- [@angular-redux/store and ImmutableJS](articles/immutable-js.md)
-- [Strongly Typed Reducers](articles/strongly-typed-reducers.md)
+- [Using Angular's Dependency Injector with Action Creators](store/articles/cookbooks#using-angular-services-in-your-action-creators)
+- [Using Angular's Dependency Injector with Middlewares](store/articles/cookbooks#using-angular-2-services-in-your-middleware)
+- [Managing Side-Effects with redux-observable Epics](store/articles/cookbooks#side-effect-management-using-epics)
+- [Using the Redux DevTools Chrome Extension](store/articles/cookbooks#using-devtools)
+- [@angular-redux/store and ImmutableJS](store/articles/cookbooks#using-immutablejs)
+- [Strongly Typed Reducers](store/articles/cookbooks#strongly-typed-reducers)
