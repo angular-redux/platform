@@ -1,5 +1,3 @@
-# @angular-redux/form
-
 [![npm version](https://img.shields.io/npm/v/@angular-redux/form.svg)](https://www.npmjs.com/package/@angular-redux/form)
 [![downloads per month](https://img.shields.io/npm/dm/@angular-redux/form.svg)](https://www.npmjs.com/package/@angular-redux/form)
 
@@ -12,7 +10,7 @@ and
 
 This supports both [Template driven forms](https://angular.io/guide/forms) and [Reactive driven forms](https://angular.io/guide/reactive-forms).
 
-## Template Driven
+# Template Driven
 
 For the simplest use-cases, the API is very straightforward. Your template
 would look something like this:
@@ -53,7 +51,7 @@ the class that is responsible for connecting your forms to your Redux state.
 There are two ways of doing this: either using an `Redux.Store<T>` object or
 an `NgRedux<T>` object. There are no substantial differences between these
 approaches, but if you are already using
-[@angular-redux/store](/packages/store) or you wish to integrate
+[@angular-redux/store](https://github.com/angular-redux/platform/blob/master/packages/store) or you wish to integrate
 it into your project, then you would do something like this:
 
 ```typescript
@@ -112,7 +110,7 @@ Both `NgRedux<T>` and `Redux.Store<T>` conform to this shape. If you have a more
 complicated use-case that is not covered here, you could even create your own store
 shim as long as it conforms to the shape of `AbstractStore<RootState>`.
 
-### How the bindings work
+# How the bindings work
 
 The bindings work by inspecting the shape of your form and then binding to a Redux
 state object that has the same shape. The important element is `NgControl::path`.
@@ -199,7 +197,7 @@ the `path` property on our first `<select>` element, it would look like this:
 From there, `@angular-redux/form` is able to take that path and extract the value for
 that element from the Redux state.
 
-#### Reactive Forms
+# Reactive Forms
 
 The value in "connect" attribute is the value that will show up in the Redux store. The formGroup value is the name of the object in your code that represents the form group.
 
@@ -209,7 +207,7 @@ The value in "connect" attribute is the value that will show up in the Redux sto
 </form>
 ```
 
-## Troubleshooting
+# Troubleshooting
 
 If you are having trouble getting data-binding to work for an element of your form,
 it is almost certainly because the `path` property on your control does not match
@@ -217,7 +215,7 @@ the structure of your Redux state. Try pausing the debugger in `Connect::resetSt
 and check the value of `path` on the control that has failed to bind. Then make sure
 it is a valid path to the state in question.
 
-## Reducers
+# Reducers
 
 The library will automatically bind your state to value of your form inputs. This is
 the easy part and is unlikely to cause any problems for you. Slightly more difficult

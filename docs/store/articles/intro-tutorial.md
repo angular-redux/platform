@@ -1,7 +1,27 @@
-# Beginners' Tutorial
+# Beginner Tutorial
 
 In this tutorial, we'll start from scratch and build a simple counter UI with Angular,
 Redux, and @angular-redux/store. I'll try to explain the basic concepts as we go.
+
+## What is Redux?
+
+Redux is a popular approach to managing state in applications. It emphasises:
+
+- A single, immutable data store.
+- One-way data flow.
+- An approach to change based on pure functions and a stream of actions.
+
+You can find lots of excellent documentation here: [Redux](http://redux.js.org/).
+
+## What is @angular-redux?
+
+We provide a set of npm packages that help you integrate your redux store
+into your Angular applications. Our approach helps you by bridging the gap
+with some of Angular's advanced features, including:
+
+- Change processing with RxJS observables.
+- Compile time optimizations with `NgModule` and Ahead-of-Time compilation.
+- Integration with the Angular change detector.
 
 ## Installation
 
@@ -107,7 +127,7 @@ Right now, our counter UI does nothing; it's not hooked up to any state or
 logic. Let's step back a bit and think about what we need to make this simple
 counter work.
 
-### Application State
+## Application State
 
 In order to do its job, the counter component needs to maintain some state:
 the current value of the counter. In Redux, we try to avoid keeping application
@@ -127,7 +147,7 @@ Defining an interface for your store may be overkill for this simple example,
 but in larger apps you'll be using `combineReducers` to split your store state
 into manageable parts; strong typings will help you keep it all organized.
 
-### Actions
+## Actions
 
 There are two events to which we want our application to respond: clicking the
 increment and decrement buttons. We will model these as Redux `action`s.
@@ -625,7 +645,7 @@ displays your current state, and even allows you to rewind or play forward your 
 
 ## More to Explore
 
-Take a look at https://github.com/angular-redux/example-app for a more complex example, including
+Take a look at the [example app](https://github.com/angular-redux/platform/blob/master/packages/example-app) for a more complex example, including
 Redux integration with Angular's router and forms APIs.
 
 Also check out the [articles](articles) folder for deep-dives into specific subjects people have asked about.

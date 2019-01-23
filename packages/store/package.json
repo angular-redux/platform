@@ -22,10 +22,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "predoc": "rimraf docs",
-    "doc": "typedoc --out docs --excludeExternals --excludePrivate --excludeNotExported -theme minimal --sourcefile-url-prefix \"https://github.com/angular-redux/store/blob/master/src/\" --name @angular-redux/store --mode file --module commonjs --tsconfig tsconfig.docs.json src"
-  },
   "engines": {
     "node": ">=8"
   },
@@ -35,9 +31,7 @@
     "rxjs": "^6.0.0"
   },
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.7",
-    "typedoc": "0.11.1",
-    "typedoc-plugin-sourcefile-url": "1.0.3"
+    "redux-devtools-extension": "^2.13.7"
   },
   "main": "src/index.ts"
 }
