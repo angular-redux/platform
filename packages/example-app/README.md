@@ -1,7 +1,5 @@
 # Example App: Zoo Animals
 
-[![CircleCI](https://circleci.com/gh/angular-redux/example-app.svg?style=svg)](https://circleci.com/gh/angular-redux/example-app)
-
 This is a sample project showing how the following packages work together to make a simple
 application.
 

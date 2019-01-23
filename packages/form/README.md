@@ -1,6 +1,5 @@
-## @angular-redux/form
+# @angular-redux/form
 
-[![Join the chat at https://gitter.im/angular-redux/ng2-redux](https://badges.gitter.im/angular-redux/ng2-redux.svg)](https://gitter.im/angular-redux/ng2-redux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![npm version](https://img.shields.io/npm/v/@angular-redux/form.svg)](https://www.npmjs.com/package/@angular-redux/form)
 [![downloads per month](https://img.shields.io/npm/dm/@angular-redux/form.svg)](https://www.npmjs.com/package/@angular-redux/form)
 
@@ -13,7 +12,7 @@ and
 
 This supports both [Template driven forms](https://angular.io/guide/forms) and [Reactive driven forms](https://angular.io/guide/reactive-forms).
 
-#### Template Driven
+## Template Driven
 
 For the simplest use-cases, the API is very straightforward. Your template
 would look something like this:
@@ -210,7 +209,7 @@ The value in "connect" attribute is the value that will show up in the Redux sto
 </form>
 ```
 
-#### Troubleshooting
+## Troubleshooting
 
 If you are having trouble getting data-binding to work for an element of your form,
 it is almost certainly because the `path` property on your control does not match
@@ -218,7 +217,7 @@ the structure of your Redux state. Try pausing the debugger in `Connect::resetSt
 and check the value of `path` on the control that has failed to bind. Then make sure
 it is a valid path to the state in question.
 
-### Reducers
+## Reducers
 
 The library will automatically bind your state to value of your form inputs. This is
 the easy part and is unlikely to cause any problems for you. Slightly more difficult

@@ -77,7 +77,7 @@ export class RootStore<RootState> extends NgRedux<RootState> {
     assert(
       !!this.store,
       'Dispatch failed: did you forget to configure your store? ' +
-        'https://github.com/angular-redux/@angular-redux/core/blob/master/' +
+        'https://github.com/angular-redux/platform/blob/master/packages/store/' +
         'README.md#quick-start',
     );
 
