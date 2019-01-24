@@ -35,7 +35,7 @@
     "test:watch": "jest --watch",
     "commit": "commit",
     "prettier": "prettier --write \"**/*.*(ts|js|css|scss|json|md)\"",
-    "run:app": ""
+    "run:app": "yarn workspace example-app bootstrap && yarn workspace example-app start"
   },
   "lint-staged": {
     "*.{ts,js,css,scss,json,md}": [
