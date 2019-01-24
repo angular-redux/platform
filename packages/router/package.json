@@ -5,6 +5,10 @@
   "author": "Dag Stuan",
   "license": "MIT",
   "homepage": "https://github.com/angular-redux/platform",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "ng-packagr -p ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angular-redux/platform.git"
@@ -32,6 +36,5 @@
     "@angular/router": "^7.0.0",
     "redux": "^4.0.0",
     "rxjs": "^6.0.0"
-  },
-  "main": "src/index.ts"
+  }
 }

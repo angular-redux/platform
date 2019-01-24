@@ -1,17 +1,25 @@
 {
   "name": "platform",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "example-app/@angular-redux/store",
+      "example-app/@angular-redux/form",
+      "example-app/@angular-redux/router",
+      "example-app/ng-packagr"
+    ]
+  },
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:store": "ng-packagr -p packages/store",
-    "build:form": "ng-packagr -p packages/form",
-    "build:router": "ng-packagr -p packages/router",
-    "release:canary": "lerna publish --canary --npm-tag next --npm-client npm",
+    "build:store": "yarn workspace @angular-redux/store build",
+    "build:form": "yarn workspace @angular-redux/form build",
+    "build:router": "yarn workspace @angular-redux/router build",
+    "release:canary": "lerna publish --canary --contents dist --dist-tag next",
     "release:stable": "lerna version",
-    "release:stable:ci": "lerna publish from-git",
+    "release:stable:ci": "lerna publish from-git --contents dist",
     "clean": "npm-run-all -p clean:*",
     "clean:deps": "npm-run-all -p clean:deps:*",
     "clean:deps:workspace": "rimraf node_modules",
@@ -26,7 +34,8 @@
     "test:ci": "jest --coverage --ci --maxWorkers=2",
     "test:watch": "jest --watch",
     "commit": "commit",
-    "prettier": "prettier --write \"**/*.*(ts|js|css|scss|json|md)\""
+    "prettier": "prettier --write \"**/*.*(ts|js|css|scss|json|md)\"",
+    "run:app": "yarn workspace example-app bootstrap && yarn workspace example-app start"
   },
   "lint-staged": {
     "*.{ts,js,css,scss,json,md}": [

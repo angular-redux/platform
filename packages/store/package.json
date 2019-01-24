@@ -5,6 +5,10 @@
   "author": "William Buchwalter <wbuchwalter@gmail.com> (http://github.com/wbuchwalter)",
   "license": "MIT",
   "homepage": "https://github.com/angular-redux/platform",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "ng-packagr -p ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angular-redux/platform.git"
@@ -32,6 +36,5 @@
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.7"
-  },
-  "main": "src/index.ts"
+  }
 }
