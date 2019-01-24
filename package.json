@@ -14,9 +14,9 @@
   },
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:store": "yarn workspace store build",
-    "build:form": "yarn workspace form build",
-    "build:router": "yarn workspace router build",
+    "build:store": "yarn workspace @angular-redux/store build",
+    "build:form": "yarn workspace @angular-redux/form build",
+    "build:router": "yarn workspace @angular-redux/router build",
     "release:canary": "lerna publish --canary --contents dist --dist-tag next",
     "release:stable": "lerna version",
     "release:stable:ci": "lerna publish from-git --contents dist",
