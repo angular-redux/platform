@@ -19,7 +19,6 @@ export class NgReduxRouter {
   constructor(
     private router: Router,
     private ngRedux: NgRedux<any>,
-    // private applicationRef: ApplicationRef,
     private location: Location,
   ) {}
 

@@ -9,7 +9,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "bootstrap": "npm-run-all bootstrap:*",
+    "bootstrap:store": "npm explore @angular-redux/store -- npm run build",
+    "bootstrap:form": "npm explore @angular-redux/form -- npm run build",
+    "bootstrap:router": "npm explore @angular-redux/router -- npm run build"
   },
   "engines": {
     "node": ">=8"

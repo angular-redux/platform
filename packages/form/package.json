@@ -5,6 +5,10 @@
   "author": "Chris Bond",
   "license": "MIT",
   "homepage": "https://github.com/angular-redux/platform",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "ng-packagr -p ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angular-redux/platform.git"
@@ -33,6 +37,5 @@
   },
   "dependencies": {
     "immutable": "^4.0.0-rc.12"
-  },
-  "main": "src/index.ts"
+  }
 }
