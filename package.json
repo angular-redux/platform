@@ -44,7 +44,7 @@
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/router": "6.0.7",
     "@commitlint/cli": "7.0.0",
-    "@commitlint/config-conventional": "7.0.1",
+    "@commitlint/config-conventional": "7.5.0",
     "@commitlint/prompt-cli": "7.0.0",
     "@types/jest": "23.1.6",
     "babel-core": "6.26.3",
