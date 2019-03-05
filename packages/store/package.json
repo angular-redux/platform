@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.7",
-    "typedoc": "0.11.1",
+    "typedoc": "0.14.2",
     "typedoc-plugin-sourcefile-url": "1.0.3"
   },
   "main": "dist/bundles/angular-redux-store.umd.js",
