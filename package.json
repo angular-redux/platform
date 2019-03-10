@@ -43,7 +43,7 @@
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/router": "6.0.7",
-    "@commitlint/cli": "7.0.0",
+    "@commitlint/cli": "7.5.2",
     "@commitlint/config-conventional": "7.5.0",
     "@commitlint/prompt-cli": "7.0.0",
     "@types/jest": "23.1.6",
