@@ -62,7 +62,7 @@
     "prettier": "1.13.7",
     "redux": "4.0.1",
     "redux-logger": "2.10.2",
-    "rimraf": "2.6.2",
+    "rimraf": "2.6.3",
     "rxjs": "6.2.1",
     "tsickle": "0.32.1",
     "tslib": "1.9.3",
