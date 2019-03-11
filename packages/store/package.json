@@ -34,7 +34,7 @@
   "devDependencies": {
     "redux-devtools-extension": "^2.13.7",
     "typedoc": "0.14.2",
-    "typedoc-plugin-sourcefile-url": "1.0.3"
+    "typedoc-plugin-sourcefile-url": "1.0.4"
   },
   "main": "dist/bundles/angular-redux-store.umd.js",
   "module": "dist/fesm5/angular-redux-store.js",
