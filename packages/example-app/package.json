@@ -33,7 +33,7 @@
     "zone.js": "^0.8.9"
   },
   "devDependencies": {
-    "@angular/cli": "1.7.3",
+    "@angular/cli": "7.3.5",
     "@angular/compiler-cli": "^4.1.0",
     "@types/node": "~6.0.71",
     "@types/redux-logger": "^3.0.0",
