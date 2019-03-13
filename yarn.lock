@@ -105,19 +105,12 @@
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
 
-"@angular/compiler@6.0.7":
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-6.0.7.tgz#8313251be50a4446653a52279d806de6582012a3"
-  integrity sha512-J9I2U4NiWIBXl0ZOJkBW5G7xXhphggSirTwFLD4yKCTeJXgyldZytJZRkDUx1uouZtI2/PycvaOZoRr85N67AA==
+"@angular/compiler@7.2.9", "@angular/compiler@^7.2.9":
+  version "7.2.9"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.2.9.tgz#92dd0d9fd26fa7cfdbc8c75d0be0d96bd6432fbb"
+  integrity sha512-jAKV4C5BW2pnke10fiDZNbLCQOs2QK37mUJWe5jnZqCAM4Y3edXlfifOkbi0hvA4WJMDXKmUdydY6Xo/Z+cWbA==
   dependencies:
     tslib "^1.9.0"
-
-"@angular/compiler@^4.1.0":
-  version "4.4.7"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-4.4.7.tgz#c90b0a8d450e1ea19a5a60309ca03b0925a2f269"
-  integrity sha512-aiRh86RqHMTgJ7xckQWzG2UTnq23+WuDVhYh/QL19R43areZLglqgtKSkfezg9aatO5CGzxDA3qL5WGhccQ5EQ==
-  dependencies:
-    tslib "^1.7.1"
 
 "@angular/core@6.0.7":
   version "6.0.7"
