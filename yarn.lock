@@ -4989,7 +4989,12 @@ jest-worker@^23.2.0:
   dependencies:
     merge-stream "^1.0.1"
 
-jest-zone-patch@0.0.8, jest-zone-patch@^0.0.8:
+jest-zone-patch@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/jest-zone-patch/-/jest-zone-patch-0.0.10.tgz#58252f44ab4aad45aaed62a705819577b9709b82"
+  integrity sha512-K5uHLHgMgi2Eyj74gbY+xSeGGekb5U48bXsgDwgipRbFdaekyZK+TAcp8auamqU4UjrAt5S4sIUZz/2bBNyTTA==
+
+jest-zone-patch@^0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/jest-zone-patch/-/jest-zone-patch-0.0.8.tgz#90fa3b5b60e95ad3e624dd2c3eb59bb1dcabd371"
   integrity sha1-kPo7W2DpWtPmJN0sPrWbsdyr03E=
