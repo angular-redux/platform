@@ -16,7 +16,7 @@
     "@angular-redux/router": "latest",
     "@angular-redux/store": "latest",
     "@angular/common": "^4.1.0",
-    "@angular/compiler": "^4.1.0",
+    "@angular/compiler": "^7.2.9",
     "@angular/core": "^4.1.0",
     "@angular/forms": "^4.1.0",
     "@angular/http": "^7.2.8",
@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^4.1.0",
     "@angular/router": "^4.1.0",
     "core-js": "^2.4.1",
-    "flux-standard-action": "^1.2.0",
+    "flux-standard-action": "^2.0.3",
     "ramda": "^0.23.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.1",
@@ -37,7 +37,7 @@
     "@angular/compiler-cli": "^4.1.0",
     "@types/node": "~11.11.1",
     "@types/redux-logger": "^3.0.0",
-    "protractor": "~5.1.1",
+    "protractor": "~5.4.2",
     "ts-node": "~8.0.3",
     "typescript": "^3.3.3333"
   }
