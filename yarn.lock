@@ -141,9 +141,9 @@
     tslib "^1.7.1"
 
 "@angular/http@^7.2.8":
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-7.2.8.tgz#bba2ca9c80d3475c4e3fb47427fdfd25f6969241"
-  integrity sha512-bCLgXKbYeSiZPXQ58YbxVKg50PwecDm9SqiXh1QOQOSJsAG7oXXWesN/IOnfP38XeRg9C2NBbJ6mKOyfD/4jdw==
+  version "7.2.9"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-7.2.9.tgz#074c6ed2860e5f56f3ea15ce7819807f36ee158c"
+  integrity sha512-86brgdKpeEJHiI45cVwEzQJIJb/c+Edlr32hH5rymj2QqpKC5RyMmLajnLhkzV3LdBvEK8P+uRyA+bZyb/X3HQ==
   dependencies:
     tslib "^1.9.0"
 
