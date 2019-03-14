@@ -4579,13 +4579,6 @@ jasmine-core@~2.8.0:
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.8.0.tgz#bcc979ae1f9fd05701e45e52e65d3a5d63f1a24e"
   integrity sha1-vMl5rh+f0FcB5F5S5l06XWPxok4=
 
-jasmine-diff@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/jasmine-diff/-/jasmine-diff-0.1.3.tgz#93ccc2dcc41028c5ddd4606558074839f2deeaa8"
-  integrity sha1-k8zC3MQQKMXd1GBlWAdIOfLe6qg=
-  dependencies:
-    diff "^3.2.0"
-
 jasmine@2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-2.8.0.tgz#6b089c0a11576b1f16df11b80146d91d4e8b8a3e"
@@ -7861,7 +7854,7 @@ source-map@0.5.x, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
 
-source-map@0.7.3:
+source-map@0.7.3, source-map@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
   integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
@@ -8398,16 +8391,14 @@ ts-node@~8.0.3:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
-tsickle@0.32.1:
-  version "0.32.1"
-  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.32.1.tgz#f16e94ba80b32fc9ebe320dc94fbc2ca7f3521a5"
-  integrity sha512-JW9j+W0SaMSZGejIFZBk0AiPfnhljK3oLx5SaqxrJhjlvzFyPml5zqG1/PuScUj6yTe1muEqwk5CnDK0cOZmKw==
+tsickle@0.34.3:
+  version "0.34.3"
+  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.34.3.tgz#8085067a26d7bff466ddadb2eba18849b49159b8"
+  integrity sha512-mb1v3nsr6rYaZky22xj0d6qv4ogAR40Bc6r37jwWOg3bEIO/ZppEFZiEADs/NNVLcWTPgmNmPZgaX5CfAH6oXA==
   dependencies:
-    jasmine-diff "^0.1.3"
     minimist "^1.2.0"
     mkdirp "^0.5.1"
-    source-map "^0.6.0"
-    source-map-support "^0.5.0"
+    source-map "^0.7.3"
 
 tsickle@^0.21.0:
   version "0.21.6"
