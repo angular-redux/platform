@@ -29,7 +29,7 @@ import {
 } from '@angular/forms';
 import { Unsubscribe } from 'redux';
 
-import { ConnectBase } from '../connect';
+import { ConnectBase } from '../connect/connect-base';
 import { FormStore } from '../form-store';
 import { controlPath } from '../shims';
 import { State } from '../state';
