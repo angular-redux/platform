@@ -3298,11 +3298,11 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.0.4"
 
 flux-standard-action@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/flux-standard-action/-/flux-standard-action-2.0.3.tgz#a73a6c4b25ea19d7051afe093ec108ff33dd8935"
-  integrity sha512-HR2IjMkqJreoFm1Hx7hmMAtUFeo+ad8hPMYPo8o3YSWjbSq0sMwuXMbv4giB3TXngYB7+svkAJewQwwvwsE6xw==
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/flux-standard-action/-/flux-standard-action-2.0.4.tgz#258569a87f6412aa75222253ccb3da95542c62ff"
+  integrity sha512-K2z1GW9xMbv66k3G/wBndb5OD+eDpynHj4tXsPNtEbHxJFG4JXaam6STx212iGSsOcMuK5NnTEWHoHiD/Wi2oA==
   dependencies:
-    lodash "^4.0.0"
+    lodash "^4.17.11"
 
 fn-name@~2.0.1:
   version "2.0.1"
