@@ -7143,10 +7143,10 @@ redux-logger@3.0.6, redux-logger@^3.0.1:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-observable@^0.14.1:
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-0.14.1.tgz#9f3d870c69388fdc427ded6770a3e326f3b69693"
-  integrity sha1-nz2HDGk4j9xCfe1ncKPjJvO2lpM=
+redux-observable@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-1.0.0.tgz#780ff2455493eedcef806616fe286b454fd15d91"
+  integrity sha512-6bXnpqWTBeLaLQjXHyN1giXq4nLxCmv+SUkdmiwBgvmVxvDbdmydvL1Z7DGo0WItyzI/kqXQKiucUuTxnrPRkA==
 
 redux@4.0.1, redux@^4.0.1:
   version "4.0.1"
