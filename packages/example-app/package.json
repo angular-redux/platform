@@ -23,7 +23,7 @@
     "@angular/platform-browser": "^4.1.0",
     "@angular/platform-browser-dynamic": "^7.2.9",
     "@angular/router": "^4.1.0",
-    "core-js": "^2.4.1",
+    "core-js": "^3.0.0",
     "flux-standard-action": "^2.0.3",
     "ramda": "^0.26.1",
     "redux": "^4.0.1",
