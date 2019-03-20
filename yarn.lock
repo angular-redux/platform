@@ -141,9 +141,9 @@
     tslib "^1.7.1"
 
 "@angular/http@^7.2.8":
-  version "7.2.9"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-7.2.9.tgz#074c6ed2860e5f56f3ea15ce7819807f36ee158c"
-  integrity sha512-86brgdKpeEJHiI45cVwEzQJIJb/c+Edlr32hH5rymj2QqpKC5RyMmLajnLhkzV3LdBvEK8P+uRyA+bZyb/X3HQ==
+  version "7.2.10"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-7.2.10.tgz#f8906c13e1eaa440ee3401a519ec9579f707220e"
+  integrity sha512-Uaq9Ep21ZZIG+yzYHhyH+RA/AEyKGTtWT5y12UXXFsCdXSwJ2p+czw2EdP42Oj1g1QptkP6lAl2W/RUlxwXQcw==
   dependencies:
     tslib "^1.9.0"
 
@@ -7503,14 +7503,7 @@ rxjs@6.3.3:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@6.4.0, rxjs@^6.0.0, rxjs@^6.1.0, rxjs@^6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.4.0.tgz#f3bb0fe7bda7fb69deac0c16f17b50b0b8790504"
-  integrity sha512-Z9Yfa11F6B9Sg/BK9MnqnQ+aQYicPLtilXBp2yUtDt2JRCE0h26d33EnfO3ZxoNxG0T92OUucP3Ct7cpfkdFfw==
-  dependencies:
-    tslib "^1.9.0"
-
-rxjs@^6.3.3:
+rxjs@6.4.0, rxjs@^6.0.0, rxjs@^6.1.0, rxjs@^6.3.3, rxjs@^6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.4.0.tgz#f3bb0fe7bda7fb69deac0c16f17b50b0b8790504"
   integrity sha512-Z9Yfa11F6B9Sg/BK9MnqnQ+aQYicPLtilXBp2yUtDt2JRCE0h26d33EnfO3ZxoNxG0T92OUucP3Ct7cpfkdFfw==
