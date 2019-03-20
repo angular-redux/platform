@@ -41,7 +41,7 @@
     "@angular/core": "6.0.7",
     "@angular/forms": "6.0.7",
     "@angular/platform-browser": "6.0.7",
-    "@angular/platform-browser-dynamic": "7.2.9",
+    "@angular/platform-browser-dynamic": "7.2.10",
     "@angular/router": "6.0.7",
     "@commitlint/cli": "7.5.2",
     "@commitlint/config-conventional": "7.5.0",
