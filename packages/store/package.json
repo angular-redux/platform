@@ -35,6 +35,6 @@
     "rxjs": "^6.0.0"
   },
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.7"
+    "redux-devtools-extension": "2.13.7"
   }
 }
