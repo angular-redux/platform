@@ -2,7 +2,11 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "lib": {
     "entryFile": "src/index.ts",
-    "languageLevel": ["esnext", "dom", "dom.iterable"]
+    "languageLevel": ["esnext", "dom", "dom.iterable"],
+    "umdModuleIds": {
+      "immutable": "immutable",
+      "@angular-redux/store": "angularReduxStore"
+    }
   },
   "whitelistedNonPeerDependencies": ["tslib", "immutable"]
 }

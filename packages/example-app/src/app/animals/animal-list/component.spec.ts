@@ -7,11 +7,11 @@ import { AnimalListComponent } from './component';
 
 @Component({ selector: 'zoo-animal', template: '' })
 class MockAnimalComponent {
-  @Input() key: string;
-  @Input() animalType: AnimalType;
+  @Input() key!: string;
+  @Input() animalType!: AnimalType;
 }
 
-xdescribe('AnimalListComponent', () => {
+describe('AnimalListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AnimalListComponent, MockAnimalComponent],
@@ -21,7 +21,7 @@ xdescribe('AnimalListComponent', () => {
 
   it("should have as title 'Welcome to the Zoo'", async(() => {
     const fixture = TestBed.createComponent(AnimalListComponent);
-    const animalList = fixture.debugElement.componentInstance;
+    const animalList = fixture.componentInstance;
 
     animalList.animalsName = 'Wallabies';
     animalList.animalType = 'WALLABIES';

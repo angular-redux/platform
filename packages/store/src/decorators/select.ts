@@ -28,8 +28,8 @@ export function select<T>(
     const adjustedSelector = selector
       ? selector
       : String(key).lastIndexOf('$') === String(key).length - 1
-        ? String(key).substring(0, String(key).length - 1)
-        : key;
+      ? String(key).substring(0, String(key).length - 1)
+      : key;
     decorate(adjustedSelector, undefined, comparator)(target, key);
   };
 }

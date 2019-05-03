@@ -31,7 +31,7 @@ describe('@dispatch', () => {
       instanceProperty: 'init-instanceProperty',
     };
 
-    rootReducer = (state = defaultState, action: PayloadAction) => {
+    rootReducer = (state = defaultState, action: PayloadAction): any => {
       switch (action.type) {
         case 'TEST':
           const { value = null, instanceProperty = null } =
@@ -54,7 +54,7 @@ describe('@dispatch', () => {
     class TestClass {
       instanceProperty = 'test';
 
-      @dispatch() externalFunction: (value: string) => PayloadAction;
+      @dispatch() externalFunction!: (value: string) => PayloadAction;
 
       @dispatch()
       classMethod(value: string): PayloadAction {

@@ -7,6 +7,7 @@ import {
   Middleware,
   Reducer,
   Store,
+  StoreCreator,
   StoreEnhancer,
   Unsubscribe,
 } from 'redux';
@@ -49,12 +50,12 @@ export class RootStore<RootState> extends NgRedux<RootState> {
     enhancers: StoreEnhancer<RootState>[] = [],
   ): void => {
     assert(!this.store, 'Store already configured!');
-
     // Variable-arity compose in typescript FTW.
     this.setStore(
-      compose.apply(null, [applyMiddleware(...middleware), ...enhancers])(
-        createStore,
-      )(enableFractalReducers(rootReducer), initState),
+      compose<StoreCreator>(
+        applyMiddleware(...middleware),
+        ...enhancers,
+      )(createStore)(enableFractalReducers(rootReducer), initState),
     );
   };
 
@@ -76,7 +77,7 @@ export class RootStore<RootState> extends NgRedux<RootState> {
     assert(
       !!this.store,
       'Dispatch failed: did you forget to configure your store? ' +
-        'https://github.com/angular-redux/@angular-redux/core/blob/master/' +
+        'https://github.com/angular-redux/platform/blob/master/packages/store/' +
         'README.md#quick-start',
     );
 

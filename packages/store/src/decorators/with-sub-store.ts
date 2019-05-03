@@ -5,7 +5,7 @@ import { FractalStoreOptions, setClassOptions } from './helpers';
  * decorators to operate on a substore defined by the IFractalStoreOptions.
  *
  * See:
- * https://github.com/angular-redux/store/blob/master/articles/fractal-store.md
+ * https://github.com/angular-redux/platform/blob/master/packages/store/articles/fractal-store.md
  * for more information about SubStores.
  */
 export function WithSubStore({

@@ -3,14 +3,11 @@ import {
   NgReduxTestingModule,
 } from '@angular-redux/store/testing';
 import { TestBed } from '@angular/core/testing';
-
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/toArray';
+import { toArray } from 'rxjs/operators';
 
 import { FeedbackFormComponent } from './page';
 
-xdescribe('Feedback Form Component', () => {
+describe('Feedback Form Component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FeedbackFormComponent],
@@ -22,7 +19,7 @@ xdescribe('Feedback Form Component', () => {
 
   it('should keep track of the number of remaining characters left', done => {
     const fixture = TestBed.createComponent(FeedbackFormComponent);
-    const form = fixture.debugElement.componentInstance;
+    const form = fixture.componentInstance;
 
     const expectedCharsLeftSequence = [
       form.getMaxCommentChars() - 1,
@@ -43,12 +40,12 @@ xdescribe('Feedback Form Component', () => {
     feedbackCommentsStub.next('hello');
     feedbackCommentsStub.complete();
 
-    form.charsLeft$
-      .toArray()
+    form.charsLeft
+      .pipe(toArray())
       .subscribe(
         actualSequence =>
           expect(actualSequence).toEqual(expectedCharsLeftSequence),
-        null,
+        undefined,
         done,
       );
   });

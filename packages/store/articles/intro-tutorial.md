@@ -75,8 +75,7 @@ Open up `src/app/app.component.html` and add the following code:
 
 ```html
 <div>
-  Count: {{ count }}
-  <button (click)="increment()">+</button>
+  Count: {{ count }} <button (click)="increment()">+</button>
   <button (click)="decrement()">-</button>
 </div>
 ```
@@ -420,7 +419,8 @@ unpacking its values as they come in:
 ```html
 <!-- As before -->
 
-  Count: {{ count$ | async }} <!-- New -->
+Count: {{ count$ | async }}
+<!-- New -->
 
 <!-- As before -->
 ```
@@ -628,4 +628,4 @@ displays your current state, and even allows you to rewind or play forward your 
 Take a look at https://github.com/angular-redux/example-app for a more complex example, including
 Redux integration with Angular's router and forms APIs.
 
-Also check out the [articles](https://github.com/angular-redux/store/blob/master/articles) folder for deep-dives into specific subjects people have asked about.
+Also check out the [articles](articles) folder for deep-dives into specific subjects people have asked about.

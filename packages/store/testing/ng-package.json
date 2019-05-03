@@ -2,6 +2,9 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "lib": {
     "entryFile": "index.ts",
-    "languageLevel": ["esnext", "dom", "dom.iterable"]
+    "languageLevel": ["esnext", "dom", "dom.iterable"],
+    "umdModuleIds": {
+      "@angular-redux/store": "angularReduxStore"
+    }
   }
 }
