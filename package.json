@@ -17,6 +17,7 @@
     "build:store": "yarn workspace @angular-redux/store build",
     "build:form": "yarn workspace @angular-redux/form build",
     "build:router": "yarn workspace @angular-redux/router build",
+    "build:example-app": "yarn workspace example-app build",
     "release:canary": "lerna publish --canary --contents dist --dist-tag next --npm-client npm",
     "release:stable": "lerna version",
     "release:stable:ci": "lerna publish from-git --contents dist",

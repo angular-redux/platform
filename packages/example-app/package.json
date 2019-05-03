@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "e2e": "ng e2e",
     "bootstrap": "npm-run-all bootstrap:*",
     "bootstrap:store": "npm explore @angular-redux/store -- npm run build",
