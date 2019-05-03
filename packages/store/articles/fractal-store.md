@@ -46,10 +46,10 @@ export const userComponentReducer = (state, action) =>
 @Component({
   selector: 'user',
   template: `
-    <p>name: {{ name$ |async }}</p>
+    <p>name: {{ name$ | async }}</p>
     <p>occupation: {{ occupation$ | async }}</p>
     <p>lines of code: {{ loc$ | async }}</p>
-    <button (click)=addCode(100)>Add 100 lines of code</button>
+    <button (click)="addCode(100)">Add 100 lines of code</button>
   `,
 })
 export class UserComponent implements NgOnInit {
@@ -87,8 +87,7 @@ export class UserComponent implements NgOnInit {
 ```
 
 ```html
-<user [userId]='alice'></user>
-<user [userId]='bob'></user>
+<user [userId]="alice"></user> <user [userId]="bob"></user>
 ```
 
 This way, we use the same type of component for both Alice and Bob, but
@@ -98,7 +97,7 @@ store state.
 You can even nest fractal stores by calling `configureSubStore` on an
 existing subStore.
 
-## What about @select, @select$, @dispatch?
+## What about @select, @select\$, @dispatch?
 
 As of 6.5.0, the decorator interface has been expanded to support fractal
 stores as well.
@@ -125,10 +124,10 @@ export const defaultToZero = (obs$: Observable<number>) =>
 @Component({
   selector: 'user',
   template: `
-    <p>name: {{ name$ |async }}</p>
+    <p>name: {{ name$ | async }}</p>
     <p>occupation: {{ occupation$ | async }}</p>
     <p>lines of code: {{ loc$ | async }}</p>
-    <button (click)=addCode(100)>Add 100 lines of code</button>
+    <button (click)="addCode(100)">Add 100 lines of code</button>
   `,
 })
 @WithSubStore({

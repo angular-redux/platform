@@ -3,18 +3,18 @@ import {
   NgReduxTestingModule,
 } from '@angular-redux/store/testing';
 import { async, TestBed } from '@angular/core/testing';
-import 'rxjs/add/operator/toArray';
+import { toArray } from 'rxjs/operators';
 import { CoreModule } from '../../core/module';
 import { AnimalComponent } from './component';
 
-xdescribe('AnimalComponent', () => {
+describe('AnimalComponent', () => {
   let fixture;
-  let animalComponent;
-  let spyConfigureSubStore;
+  let animalComponent: AnimalComponent;
+  let spyConfigureSubStore: jasmine.Spy;
 
   beforeEach(async(() => {
     spyConfigureSubStore = spyOn(
-      MockNgRedux.mockInstance,
+      MockNgRedux.getInstance(),
       'configureSubStore',
     ).and.callThrough();
 
@@ -25,7 +25,7 @@ xdescribe('AnimalComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(AnimalComponent);
-    animalComponent = fixture.debugElement.componentInstance;
+    animalComponent = fixture.componentInstance;
 
     animalComponent.key = 'id1';
     animalComponent.animalType = 'WALLABIES';
@@ -46,7 +46,7 @@ xdescribe('AnimalComponent', () => {
     selectorStub.next('Wilbert');
     selectorStub.complete();
 
-    animalComponent.name$.subscribe(name => expect(name).toEqual('Wilbert'));
+    animalComponent.name.subscribe(name => expect(name).toEqual('Wilbert'));
   }));
 
   it('select ticket price data from the substore', async(() => {
@@ -56,7 +56,7 @@ xdescribe('AnimalComponent', () => {
     selectorStub.next(2);
     selectorStub.complete();
 
-    animalComponent.ticketPrice$.subscribe(ticketPrice =>
+    animalComponent.ticketPrice.subscribe(ticketPrice =>
       expect(ticketPrice).toEqual(2),
     );
   }));
@@ -68,19 +68,19 @@ xdescribe('AnimalComponent', () => {
     selectorStub.next(4);
     selectorStub.complete();
 
-    animalComponent.numTickets$.subscribe(numTickets =>
+    animalComponent.numTickets.subscribe(numTickets =>
       expect(numTickets).toEqual(4),
     );
   }));
 
   it('should use reasonable defaults if ticket price is missing', async(() => {
-    animalComponent.ticketPrice$.subscribe(ticketPrice =>
+    animalComponent.ticketPrice.subscribe(ticketPrice =>
       expect(ticketPrice).toEqual(0),
     );
   }));
 
   it('should use reasonable defaults if ticket quantity is missing', async(() => {
-    animalComponent.numTickets$.subscribe(numTickets =>
+    animalComponent.numTickets.subscribe(numTickets =>
       expect(numTickets).toEqual(0),
     );
   }));
@@ -98,8 +98,8 @@ xdescribe('AnimalComponent', () => {
     quantityStub.next(5);
     quantityStub.complete();
 
-    animalComponent.subTotal$
-      .toArray()
+    animalComponent.subTotal
+      .pipe(toArray())
       .subscribe(subTotals => expect(subTotals).toEqual([5, 10, 15]));
   }));
 });

@@ -1,4 +1,4 @@
-# @angular-redux
+# Angular Redux
 
 [![CircleCI](https://circleci.com/gh/angular-redux/platform/tree/master.svg?style=svg)](https://circleci.com/gh/angular-redux/platform/tree/master)
 
@@ -12,4 +12,4 @@
 
 ## Examples
 
-- [Example Application](packages/example-app)
+- [Example Application](https://github.com/angular-redux/platform/blob/master/packages/example-app)

@@ -1,7 +1,14 @@
-import { AnimalList } from '../animals/model';
+import { AnimalList, AnimalType, initialAnimalList } from '../animals/model';
 
-export interface AppState {
-  [animalType: string]: AnimalList;
-  routes?: any;
-  feedback?: any;
+export type AppState = { [key in AnimalType]: AnimalList } &
+  Partial<{
+    routes: string;
+    feedback: unknown;
+  }>;
+
+export function initialAppState() {
+  return {
+    lion: initialAnimalList(),
+    elephant: initialAnimalList(),
+  };
 }
