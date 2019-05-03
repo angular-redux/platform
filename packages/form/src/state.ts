@@ -1,4 +1,4 @@
-import { Iterable, Map as ImmutableMap } from 'immutable';
+import { isCollection, Map as ImmutableMap } from 'immutable';
 
 import { FormException } from './form-exception';
 
@@ -31,7 +31,7 @@ export abstract class State {
     for (const k of path) {
       const parent = deepValue;
 
-      if (Iterable.isIterable(deepValue)) {
+      if (isCollection(deepValue)) {
         const m = (deepValue as any) as ImmutableMap<string, any>;
         if (typeof m.get === 'function') {
           deepValue = m.get(k);
@@ -116,8 +116,8 @@ export abstract class State {
             return typeof stateKey === 'number'
               ? new Array()
               : Array.isArray(stateKey)
-                ? ImmutableMap()
-                : new Object();
+              ? ImmutableMap()
+              : new Object();
           };
 
           return parentOperations.update(
@@ -161,7 +161,7 @@ export abstract class State {
       return operations;
     };
 
-    if (Iterable.isIterable(object)) {
+    if (isCollection(object)) {
       return metaOperations(
         // Replace
         (parent: any, key: number | string, value: K) => {

@@ -36,7 +36,7 @@ describe('NgRedux Observable Store', () => {
       baz: -1,
     };
 
-    rootReducer = (state = defaultState, action: PayloadAction) => {
+    rootReducer = (state = defaultState, action: PayloadAction): any => {
       switch (action.type) {
         case 'UPDATE_FOO':
           return { ...state, foo: action.payload };
@@ -195,9 +195,9 @@ describe('NgRedux Observable Store', () => {
   it('should wait until store is configured before emitting values', () => {
     // tslint:disable-next-line:max-classes-per-file
     class SomeService {
-      foo: string;
-      bar: string;
-      baz: number;
+      foo!: string;
+      bar!: string;
+      baz!: number;
 
       constructor(stateStore: NgRedux<any>) {
         stateStore.select(n => n.foo).subscribe(foo => (this.foo = foo));
@@ -217,9 +217,9 @@ describe('NgRedux Observable Store', () => {
   it('should have select decorators work before store is configured', done => {
     // tslint:disable-next-line:max-classes-per-file
     class SomeService {
-      @select() foo$: Observable<string>;
-      @select() bar$: Observable<string>;
-      @select() baz$: Observable<number>;
+      @select() foo$!: Observable<string>;
+      @select() bar$!: Observable<string>;
+      @select() baz$!: Observable<number>;
     }
 
     ngRedux = new RootStore<AppState>(mockNgZone);
@@ -260,7 +260,7 @@ describe('Chained actions in subscriptions', () => {
       keywordLength: -1,
     };
 
-    rootReducer = (state = defaultState, action: PayloadAction) => {
+    rootReducer = (state = defaultState, action: PayloadAction): any => {
       switch (action.type) {
         case 'SEARCH':
           return { ...state, keyword: action.payload };

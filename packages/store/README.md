@@ -51,22 +51,128 @@ with some of Angular's advanced features, including:
 
 ## Getting Started
 
-- I already know what Redux and RxJS are. [Give me the TL;DR](https://github.com/angular-redux/store/blob/master/articles/quickstart.md).
-- I'm just learning about Redux. [Break it down for me](https://github.com/angular-redux/store/blob/master/articles/intro-tutorial.md)!
+- I already know what Redux and RxJS are. [Give me the TL;DR](articles/quickstart.md).
+- I'm just learning about Redux. [Break it down for me](articles/intro-tutorial.md)!
 - Talk is cheap. [Show me a complete code example](https://github.com/angular-redux/example-app).
 - Take me to the [API docs](https://angular-redux.github.io/store).
+
+## Installation
+
+`@angular-redux/store` has a peer dependency on redux, so we need to install it as well.
+
+```sh
+npm install --save redux @angular-redux/store
+```
+
+## Quick Start
+
+```typescript
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './containers/app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+```
+
+Import the `NgReduxModule` class and add it to your application module as an
+`import`. Once you've done this, you'll be able to inject `NgRedux` into your
+Angular components. In your top-level app module, you
+can configure your Redux store with reducers, initial state,
+and optionally middlewares and enhancers as you would in Redux directly.
+
+```typescript
+import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { createLogger } from 'redux-logger';
+import { rootReducer } from './reducers';
+
+interface IAppState {
+  /* ... */
+}
+
+@NgModule({
+  /* ... */
+  imports: [, /* ... */ NgReduxModule],
+})
+export class AppModule {
+  constructor(ngRedux: NgRedux<IAppState>) {
+    ngRedux.configureStore(rootReducer, {}, [createLogger()]);
+  }
+}
+```
+
+Or if you prefer to create the Redux store yourself you can do that and use the
+`provideStore()` function instead:
+
+```typescript
+import {
+  applyMiddleware,
+  Store,
+  combineReducers,
+  compose,
+  createStore,
+} from 'redux';
+import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { createLogger } from 'redux-logger';
+import { rootReducer } from './reducers';
+
+interface IAppState {
+  /* ... */
+}
+
+export const store: Store<IAppState> = createStore(
+  rootReducer,
+  applyMiddleware(createLogger()),
+);
+
+@NgModule({
+  /* ... */
+  imports: [, /* ... */ NgReduxModule],
+})
+class AppModule {
+  constructor(ngRedux: NgRedux<IAppState>) {
+    ngRedux.provideStore(store);
+  }
+}
+```
+
+> Note that we're also using a Redux middleware from the community here:
+> [redux-logger](https://www.npmjs.com/package/redux-logger). This is just to show
+> off that `@angular-redux/store` is indeed compatible with Redux middlewares as you
+> might expect.
+>
+> Note that to use it, you'll need to install it with `npm install --save redux-logger`
+> and type definitions for it with `npm install --save-dev @types/redux-logger`.
+
+Now your Angular app has been reduxified! Use the `@select` decorator to
+access your store state, and `.dispatch()` to dispatch actions:
+
+```typescript
+import { select } from '@angular-redux/store';
+
+@Component({
+  template:
+    '<button (click)="onClick()">Clicked {{ count | async }} times</button>',
+})
+class App {
+  @select() count$: Observable<number>;
+
+  constructor(private ngRedux: NgRedux<IAppState>) {}
+
+  onClick() {
+    this.ngRedux.dispatch({ type: INCREMENT });
+  }
+}
+```
 
 ## Examples
 
 Here are some examples of the `angular-redux` family of packages in action:
 
-- [Zoo Animals Combined Example App](https://github.com/angular-redux/example-app)
-- [Simple SystemJS Example (Angular Quickstart)](https://github.com/angular-redux/system-js-example)
+- [Zoo Animals Combined Example App](https://github.com/angular-redux/platform/blob/master/packages/example-app)
 
 ## Companion Packages
 
-- [Reduxify your Routing with @angular-redux/router](https://github.com/angular-redux/router)
-- [Reduxify your Forms with @angular-redux/form](https://github.com/angular-redux/form)
+- [Reduxify your Routing with @angular-redux/router](https://github.com/angular-redux/platform/blob/master/packages/router)
+- [Reduxify your Forms with @angular-redux/form](https://github.com/angular-redux/platform/blob/master/packages/form)
 
 ## Resources
 
@@ -80,16 +186,16 @@ Here are some examples of the `angular-redux` family of packages in action:
 data on its way out of the store and into your UI or side-effect handlers. Observables
 are an efficient analogue to `reselect` for the RxJS-heavy Angular world.
 
-Read more here: [Select Pattern](https://github.com/angular-redux/store/blob/master/articles/select-pattern.md)
+Read more here: [Select Pattern](articles/select-pattern.md)
 
 We also have a number of 'cookbooks' for specific Angular topics:
 
-- [Using Angular's Dependency Injector with Action Creators](https://github.com/angular-redux/store/blob/master/articles/action-creator-service.md)
-- [Using Angular's Dependency Injector with Middlewares](https://github.com/angular-redux/store/blob/master/articles/di-middleware.md)
-- [Managing Side-Effects with redux-observable Epics](https://github.com/angular-redux/store/blob/master/articles/epics.md)
-- [Using the Redux DevTools Chrome Extension](https://github.com/angular-redux/store/blob/master/articles/redux-dev-tools.md)
-- [@angular-redux/store and ImmutableJS](https://github.com/angular-redux/store/blob/master/articles/immutable-js.md)
-- [Strongly Typed Reducers](https://github.com/angular-redux/store/blob/master/articles/strongly-typed-reducers.md)
+- [Using Angular's Dependency Injector with Action Creators](articles/action-creator-service.md)
+- [Using Angular's Dependency Injector with Middlewares](articles/di-middleware.md)
+- [Managing Side-Effects with redux-observable Epics](articles/epics.md)
+- [Using the Redux DevTools Chrome Extension](articles/redux-dev-tools.md)
+- [@angular-redux/store and ImmutableJS](articles/immutable-js.md)
+- [Strongly Typed Reducers](articles/strongly-typed-reducers.md)
 
 ## Hacking on angular-redux/store
 

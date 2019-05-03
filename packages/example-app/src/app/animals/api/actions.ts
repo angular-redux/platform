@@ -1,14 +1,20 @@
 import { dispatch } from '@angular-redux/store';
 import { Injectable } from '@angular/core';
 import { FluxStandardAction } from 'flux-standard-action';
-import { Animal, AnimalType } from '../model';
+
+import { Animal, AnimalError, AnimalType } from '../model';
 
 // Flux-standard-action gives us stronger typing of our actions.
-type Payload = Animal[];
-interface MetaData {
+export type Payload = Animal[] | AnimalError;
+
+export interface MetaData {
   animalType: AnimalType;
 }
-export type AnimalAPIAction = FluxStandardAction<Payload, MetaData>;
+
+export type AnimalAPIAction<T extends Payload = Animal[]> = FluxStandardAction<
+  T,
+  MetaData
+>;
 
 @Injectable()
 export class AnimalAPIActions {
@@ -21,28 +27,29 @@ export class AnimalAPIActions {
   loadAnimals = (animalType: AnimalType): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_ANIMALS,
     meta: { animalType },
-    payload: null,
   });
 
   loadStarted = (animalType: AnimalType): AnimalAPIAction => ({
     type: AnimalAPIActions.LOAD_STARTED,
     meta: { animalType },
-    payload: null,
   });
 
   loadSucceeded = (
     animalType: AnimalType,
-    payload: Payload,
-  ): AnimalAPIAction => ({
+    payload: Animal[],
+  ): AnimalAPIAction<Animal[]> => ({
     type: AnimalAPIActions.LOAD_SUCCEEDED,
     meta: { animalType },
     payload,
   });
 
-  loadFailed = (animalType: AnimalType, error): AnimalAPIAction => ({
+  loadFailed = (
+    animalType: AnimalType,
+    error: AnimalError,
+  ): AnimalAPIAction<AnimalError> => ({
     type: AnimalAPIActions.LOAD_FAILED,
     meta: { animalType },
-    payload: null,
-    error,
+    payload: error,
+    error: true,
   });
 }
