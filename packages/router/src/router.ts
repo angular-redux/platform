@@ -1,16 +1,10 @@
 import { NgRedux } from '@angular-redux/store';
 import { Location } from '@angular/common';
-import { ApplicationRef, Injectable } from '@angular/core';
-import {
-  DefaultUrlSerializer,
-  NavigationCancel,
-  NavigationEnd,
-  Router,
-} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { UPDATE_LOCATION } from './actions';
-import { DefaultRouterState, RouterAction } from './reducer';
 
 @Injectable()
 export class NgReduxRouter {
@@ -25,7 +19,6 @@ export class NgReduxRouter {
   constructor(
     private router: Router,
     private ngRedux: NgRedux<any>,
-    private applicationRef: ApplicationRef,
     private location: Location,
   ) {}
 
@@ -86,7 +79,7 @@ export class NgReduxRouter {
   private getDefaultUrlStateObservable() {
     return this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
-      map(event => this.location.path()),
+      map(() => this.location.path()),
       distinctUntilChanged(),
     );
   }

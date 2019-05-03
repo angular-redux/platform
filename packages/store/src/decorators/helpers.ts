@@ -14,7 +14,7 @@ import {
  * fractal store).
  *
  * For more info on substores, see
- * https://github.com/angular-redux/store/blob/master/articles/fractal-store.md
+ * https://github.com/angular-redux/platform/blob/master/packages/store/articles/fractal-store.md
  */
 export interface FractalStoreOptions {
   /**

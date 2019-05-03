@@ -18,7 +18,7 @@ export type Transformer<RootState, V> = (
 ) => Observable<V>;
 export type PropertySelector = string | number | symbol;
 export type PathSelector = (string | number)[];
-export type FunctionSelector<RootState, S> = ((s: RootState) => S);
+export type FunctionSelector<RootState, S> = (s: RootState) => S;
 export type Selector<RootState, S> =
   | PropertySelector
   | PathSelector
@@ -31,10 +31,10 @@ export const sniffSelectorType = <RootState, S>(
   !selector
     ? 'nil'
     : Array.isArray(selector)
-      ? 'path'
-      : 'function' === typeof selector
-        ? 'function'
-        : 'property';
+    ? 'path'
+    : 'function' === typeof selector
+    ? 'function'
+    : 'property';
 
 /** @hidden */
 export const resolver = <RootState, S>(selector?: Selector<RootState, S>) => ({

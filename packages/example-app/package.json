@@ -6,39 +6,32 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build"
+    "build": "ng build --prod",
+    "e2e": "ng e2e",
+    "bootstrap": "npm-run-all bootstrap:*",
+    "bootstrap:store": "npm explore @angular-redux/store -- npm run build",
+    "bootstrap:form": "npm explore @angular-redux/form -- npm run build",
+    "bootstrap:router": "npm explore @angular-redux/router -- npm run build"
   },
   "engines": {
-    "node": ">=6.9.5"
+    "node": ">=8"
   },
   "dependencies": {
-    "@angular-redux/form": "latest",
-    "@angular-redux/router": "latest",
-    "@angular-redux/store": "latest",
-    "@angular/common": "^4.1.0",
-    "@angular/compiler": "^4.1.0",
-    "@angular/core": "^4.1.0",
-    "@angular/forms": "^4.1.0",
-    "@angular/http": "^4.1.0",
-    "@angular/platform-browser": "^4.1.0",
-    "@angular/platform-browser-dynamic": "^4.1.0",
-    "@angular/router": "^4.1.0",
-    "core-js": "^2.4.1",
-    "flux-standard-action": "^1.2.0",
-    "ramda": "^0.23.0",
-    "redux": "^3.6.0",
-    "redux-logger": "^3.0.1",
-    "redux-observable": "^0.14.1",
-    "rxjs": "^5.3.0",
-    "zone.js": "^0.8.9"
+    "@angular-redux/form": "9.0.1",
+    "@angular-redux/router": "9.0.0",
+    "@angular-redux/store": "9.0.0",
+    "core-js": "2.6.2",
+    "flux-standard-action": "2.0.3",
+    "ramda": "0.23.0",
+    "redux-logger": "3.0.6",
+    "redux-observable": "1.0.0"
   },
   "devDependencies": {
-    "@angular/cli": "1.7.3",
-    "@angular/compiler-cli": "^4.1.0",
-    "@types/node": "~6.0.71",
-    "@types/redux-logger": "^3.0.0",
-    "protractor": "~5.1.1",
-    "ts-node": "~3.0.2",
-    "typescript": "^2.4.1"
+    "@angular-devkit/build-angular": "0.12.1",
+    "@angular/cli": "7.2.2",
+    "@angular/language-service": "7.2.0",
+    "@types/ramda": "0.24.18",
+    "@types/redux-logger": "3.0.6",
+    "ts-node": "7.0.1"
   }
 }
