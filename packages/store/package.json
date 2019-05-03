@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/store",
-  "version": "10.0.0",
+  "version": "9.0.0",
   "description": "Angular bindings for Redux",
   "author": "William Buchwalter <wbuchwalter@gmail.com> (http://github.com/wbuchwalter)",
   "license": "MIT",
@@ -35,6 +35,6 @@
     "rxjs": "^6.0.0"
   },
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.7"
+    "redux-devtools-extension": "2.13.7"
   }
 }

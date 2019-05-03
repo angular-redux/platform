@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/form",
-  "version": "10.0.0",
+  "version": "9.0.1",
   "description": "Build Angular 2+ forms with Redux",
   "author": "Chris Bond",
   "license": "MIT",

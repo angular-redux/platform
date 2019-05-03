@@ -1,10 +1,3 @@
-# 10.0.0
-
-- Supports Angular 7
-- Requires Node >= 8
-- Move to latest versions of major dependencies: typescript, immutable
-- Moved documentation to docsify
-
 # 9.0.0
 
 ## Breaking Changes

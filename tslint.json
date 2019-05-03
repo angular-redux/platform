@@ -68,6 +68,6 @@
       "@angular/platform-browser/animations",
       "@angular-redux/store/testing"
     ],
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": false // disabled due to monorepo hoisting
   }
 }
