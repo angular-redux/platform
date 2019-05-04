@@ -12,10 +12,13 @@
     "publish": {
       "npmClient": "yarn",
       "allowBranch": "master",
-      "message": "chore(release): publish %s"
+      "contents": "dist"
     },
     "version": {
+      "allowBranch": "master",
       "conventionalCommits": true,
+      "exact": true,
+      "message": "chore(release): publish %s",
       "signGitCommit": true,
       "signGitTag": true
     }

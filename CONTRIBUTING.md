@@ -12,7 +12,7 @@ We follow the [Conventional Commits](https://conventionalcommits.org/) guideline
 
 ## Canary Releases
 
-This repo is setup to automatically release canary builds for every commit that is pushed to master. In order to access those builds, run `npm install @angular-redux/store@next` (or whichever package you are looking to use)
+This repo is setup to automatically release canary builds for every commit that is pushed to master. In order to access those builds, run `npm install @angular-redux/store@canary` (or whichever package you are looking to use)
 
 ## Stable Releases
 
