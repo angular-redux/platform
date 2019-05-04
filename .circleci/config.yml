@@ -144,7 +144,7 @@ workflows:
             - test
             - build
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^v.*/
+            branches:
+              ignore: /.*/
