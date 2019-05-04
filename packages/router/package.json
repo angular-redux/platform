@@ -1,6 +1,6 @@
 {
   "name": "@angular-redux/router",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Keep your Angular 2+ router state in Redux.",
   "author": "Dag Stuan",
   "license": "MIT",

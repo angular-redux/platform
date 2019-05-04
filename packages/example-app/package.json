@@ -1,6 +1,6 @@
 {
   "name": "example-app",
-  "version": "0.0.0",
+  "version": "10.0.0",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -17,9 +17,9 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@angular-redux/form": "9.0.1",
-    "@angular-redux/router": "9.0.0",
-    "@angular-redux/store": "9.0.0",
+    "@angular-redux/form": "10.0.0",
+    "@angular-redux/router": "10.0.0",
+    "@angular-redux/store": "10.0.0",
     "core-js": "2.6.2",
     "flux-standard-action": "2.0.3",
     "ramda": "0.23.0",

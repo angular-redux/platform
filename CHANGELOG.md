@@ -1,3 +1,38 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [10.0.0](https://github.com/angular-redux/platform/compare/v9.0.1...v10.0.0) (2019-05-04)
+
+### Bug Fixes
+
+- **ci:** fix canary release not working with yarn ([#62](https://github.com/angular-redux/platform/issues/62)) ([90564d3](https://github.com/angular-redux/platform/commit/90564d3))
+- canary release auto approve ([#80](https://github.com/angular-redux/platform/issues/80)) ([e888aa5](https://github.com/angular-redux/platform/commit/e888aa5))
+
+### chore
+
+- **build:** use ng-packagr ([#37](https://github.com/angular-redux/platform/issues/37)) ([dffe23a](https://github.com/angular-redux/platform/commit/dffe23a)), closes [#9](https://github.com/angular-redux/platform/issues/9)
+- **linting:** add global tslint rules ([#35](https://github.com/angular-redux/platform/issues/35)) ([336cc60](https://github.com/angular-redux/platform/commit/336cc60)), closes [#4](https://github.com/angular-redux/platform/issues/4)
+
+### Features
+
+- add new devtools window prop name ([#58](https://github.com/angular-redux/platform/issues/58)) ([55b15a6](https://github.com/angular-redux/platform/commit/55b15a6))
+- upgrade to angular 7 ([#72](https://github.com/angular-redux/platform/issues/72)) ([18d9245](https://github.com/angular-redux/platform/commit/18d9245)), closes [#65](https://github.com/angular-redux/platform/issues/65) [#66](https://github.com/angular-redux/platform/issues/66) [#67](https://github.com/angular-redux/platform/issues/67) [#68](https://github.com/angular-redux/platform/issues/68) [#69](https://github.com/angular-redux/platform/issues/69) [#70](https://github.com/angular-redux/platform/issues/70) [#71](https://github.com/angular-redux/platform/issues/71) [#74](https://github.com/angular-redux/platform/issues/74) [#79](https://github.com/angular-redux/platform/issues/79)
+
+### BREAKING CHANGES
+
+- Upgrades Angular dependencies to v7
+- **build:** - changes the output to conform to the Angular Package Format. This may cause subtle differences in consumption behaviour
+
+* peer dependencies have been corrected to actual dependencies
+
+- **linting:** - ConnectArray has been renamed to ConnectArrayDirective
+
+* ReactiveConnect has been renamed to ReactiveConnectDirective
+* Connect has been renamed to ConnectDirective
+* interfaces with an "I" prefix have had that prefix removed (e.g "IAppStore" -> "AppStore")
+
 # 9.0.0
 
 ## Breaking Changes
