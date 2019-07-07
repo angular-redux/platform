@@ -29,7 +29,7 @@
     "node": ">=8"
   },
   "peerDependencies": {
-    "@angular-redux/store": "^9.0.0",
+    "@angular-redux/store": "^10.0.0",
     "@angular/core": "^7.0.0",
     "@angular/forms": "^7.0.0",
     "redux": "^4.0.0",
