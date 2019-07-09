@@ -46,7 +46,7 @@ export class ConnectBase implements OnDestroy, AfterContentInit {
   }
   @Input() connect?: () => (string | number) | (string | number)[];
   protected store?: FormStore;
-  protected form: any;
+  protected formGroup: any;
   private stateSubscription?: Unsubscribe;
 
   private formSubscription?: Subscription;
@@ -70,7 +70,7 @@ export class ConnectBase implements OnDestroy, AfterContentInit {
       }
 
       Promise.resolve().then(() => {
-        this.formSubscription = (this.form.valueChanges as any)
+        this.formSubscription = (this.formGroup.valueChanges as any)
           .pipe(debounceTime(0))
           .subscribe((values: any) => this.publish(values));
       });
@@ -106,13 +106,15 @@ export class ConnectBase implements OnDestroy, AfterContentInit {
 
     return pairs.filter(p => {
       const parent = (p.control as any)._parent;
-      return parent === this.form.control || parent === this.form;
+      return parent === this.formGroup.control || parent === this.formGroup;
     });
   }
 
   private resetState() {
     const formElement =
-      this.form.control === undefined ? this.form : this.form.control;
+      this.formGroup.control === undefined
+        ? this.formGroup
+        : this.formGroup.control;
 
     const children = this.descendants([], formElement);
 
@@ -129,7 +131,7 @@ export class ConnectBase implements OnDestroy, AfterContentInit {
 
   private publish(value: any) {
     if (this.store) {
-      this.store.valueChanged(this.path, this.form, value);
+      this.store.valueChanged(this.path, this.formGroup, value);
     }
   }
 
