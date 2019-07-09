@@ -1,16 +1,16 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
 import { UPDATE_LOCATION } from './actions';
+import { NgReduxRouterModule } from './module';
 import { RouterAction, routerReducer } from './reducer';
 import { NgReduxRouter } from './router';
 
-@NgModule()
-export class NgReduxRouterModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: NgReduxRouterModule,
-      providers: [NgReduxRouter],
-    };
-  }
-}
-
-export { NgReduxRouter, RouterAction, routerReducer, UPDATE_LOCATION };
+// Warning: don't do this:
+//  export * from './foo'
+// ... because it breaks rollup. See
+// https://github.com/rollup/rollup/wiki/Troubleshooting#name-is-not-exported-by-module
+export {
+  NgReduxRouter,
+  NgReduxRouterModule,
+  RouterAction,
+  routerReducer,
+  UPDATE_LOCATION,
+};
