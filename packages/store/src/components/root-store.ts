@@ -73,7 +73,10 @@ export class RootStore<RootState> extends NgRedux<RootState> {
     this.store!.replaceReducer(nextReducer);
   };
 
-  dispatch: Dispatch<AnyAction> = <A extends AnyAction>(action: A): A => {
+  dispatch: Dispatch<AnyAction> = <A extends AnyAction>(
+    action: A,
+    outsideZone: boolean = false,
+  ): A => {
     assert(
       !!this.store,
       'Dispatch failed: did you forget to configure your store? ' +
@@ -81,7 +84,7 @@ export class RootStore<RootState> extends NgRedux<RootState> {
         'README.md#quick-start',
     );
 
-    if (!NgZone.isInAngularZone()) {
+    if (!NgZone.isInAngularZone() && !outsideZone) {
       return this.ngZone.run(() => this.store!.dispatch(action));
     } else {
       return this.store!.dispatch(action);

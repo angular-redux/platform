@@ -52,7 +52,10 @@ export abstract class NgRedux<RootState> implements ObservableStore<RootState> {
   abstract provideStore: (store: Store<RootState>) => void;
 
   // Redux Store methods
-  abstract dispatch: Dispatch<AnyAction>;
+  abstract dispatch: <A extends AnyAction>(
+    action: A,
+    outsideZone?: boolean,
+  ) => A;
   abstract getState: () => RootState;
   abstract subscribe: (listener: () => void) => Unsubscribe;
   abstract replaceReducer: (nextReducer: Reducer<RootState, AnyAction>) => void;
