@@ -1,3 +1,5 @@
+:warning: **This project is currently unmaintained**
+
 # Angular Redux
 
 [![CircleCI](https://circleci.com/gh/angular-redux/platform/tree/master.svg?style=svg)](https://circleci.com/gh/angular-redux/platform/tree/master)
