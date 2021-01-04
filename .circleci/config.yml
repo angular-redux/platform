@@ -1,13 +1,150 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-# Use a package of configuration called an orb.
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
+defaults: &defaults
+  docker:
+    - image: 'circleci/node:8-browsers'
+  working_directory: ~/repo
+
+repo_cache: &repo_cache
+  key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+
+deps_cache: &deps_cache
+  key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+build_cache: &build_cache
+  key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
+
+version: 2
+jobs:
+  checkout_code:
+    <<: *defaults
+    steps:
+      - checkout
+      - save_cache:
+          <<: *repo_cache
+          paths:
+            - ~/repo
+
+  install_dependencies:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install --frozen-lockfile
+
+      - save_cache:
+          paths:
+            - node_modules
+            - packages/example-app/node_modules
+            - packages/form/node_modules
+            - packages/router/node_modules
+            - packages/store/node_modules
+          <<: *deps_cache
+
+  lint:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - run: yarn lint
+
+  test:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - run: yarn test:ci
+      - store_test_results:
+          path: ./coverage
+      - store_artifacts:
+          path: ./coverage
+
+  build:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - run: yarn build
+      - save_cache:
+          paths:
+            - packages/example-app/dist
+            - packages/form/dist
+            - packages/router/dist
+            - packages/store/dist
+          <<: *build_cache
+
+  release_canary:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - restore_cache: *build_cache
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run: npm run release:canary -- --yes
+
+  release_stable:
+    <<: *defaults
+    steps:
+      - restore_cache: *repo_cache
+      - restore_cache: *deps_cache
+      - restore_cache: *build_cache
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run: yarn release:stable:ci --yes
+
 workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
+  version: 2
+  build_and_deploy:
     jobs:
-      - welcome/run
+      - checkout_code:
+          filters:
+            tags:
+              only: /^v.*/
+      - install_dependencies:
+          requires:
+            - checkout_code
+          filters:
+            tags:
+              only: /^v.*/
+      - lint:
+          requires:
+            - install_dependencies
+          filters:
+            tags:
+              only: /^v.*/
+      - test:
+          requires:
+            - install_dependencies
+          filters:
+            tags:
+              only: /^v.*/
+      - build:
+          requires:
+            - install_dependencies
+          filters:
+            tags:
+              only: /^v.*/
+      - release_canary:
+          requires:
+            - lint
+            - test
+            - build
+          filters:
+            branches:
+              only: master
+      - release_stable:
+          requires:
+            - lint
+            - test
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
