@@ -74,7 +74,7 @@
     "jest-zone-patch": "0.0.10",
     "lerna": "3.13.4",
     "lint-staged": "8.1.0",
-    "ng-packagr": "4.6.0",
+    "ng-packagr": "10.1.1",
     "npm-run-all": "4.1.5",
     "prettier": "1.15.3",
     "redux": "4.0.1",
