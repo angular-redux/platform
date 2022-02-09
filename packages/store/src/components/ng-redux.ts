@@ -2,12 +2,13 @@ import {
   AnyAction,
   Dispatch,
   Middleware,
+  Observable,
   Reducer,
   Store,
   StoreEnhancer,
   Unsubscribe,
 } from 'redux';
-import { Observable } from 'rxjs';
+import { Observable as rxjsObservable } from 'rxjs';
 import { ObservableStore } from './observable-store';
 import { Comparator, PathSelector, Selector } from './selectors';
 
@@ -61,9 +62,11 @@ export abstract class NgRedux<RootState> implements ObservableStore<RootState> {
   abstract select: <SelectedType>(
     selector?: Selector<RootState, SelectedType>,
     comparator?: Comparator,
-  ) => Observable<SelectedType>;
+  ) => rxjsObservable<SelectedType>;
   abstract configureSubStore: <SubState>(
     basePath: PathSelector,
     localReducer: Reducer<SubState, AnyAction>,
   ) => ObservableStore<SubState>;
+
+  [Symbol.observable](): Observable<RootState>;
 }
